@@ -11,7 +11,8 @@
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "Xamarin.Essentials": "1.5.3.2",
-          "Xamarin.Forms": "4.6.0.1141"
+          "Xamarin.Forms": "4.8.0.1451",
+          "Xamarin.Forms.Visual.Material": "4.8.0.1451"
         },
         "runtime": {
           "PoolGuy.Mobile.dll": {}
@@ -42,20 +43,25 @@
           }
         }
       },
-      "Xamarin.Forms/4.6.0.1141": {
+      "Xamarin.Forms/4.8.0.1451": {
         "runtime": {
           "lib/netstandard2.0/Xamarin.Forms.Core.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "4.6.0.555"
+            "fileVersion": "4.8.0.372"
           },
           "lib/netstandard2.0/Xamarin.Forms.Platform.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "4.6.0.555"
+            "fileVersion": "4.8.0.372"
           },
           "lib/netstandard2.0/Xamarin.Forms.Xaml.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "4.6.0.555"
+            "fileVersion": "4.8.0.372"
           }
+        }
+      },
+      "Xamarin.Forms.Visual.Material/4.8.0.1451": {
+        "dependencies": {
+          "Xamarin.Forms": "4.8.0.1451"
         }
       }
     }
@@ -94,12 +100,19 @@
       "path": "xamarin.essentials/1.5.3.2",
       "hashPath": "xamarin.essentials.1.5.3.2.nupkg.sha512"
     },
-    "Xamarin.Forms/4.6.0.1141": {
+    "Xamarin.Forms/4.8.0.1451": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SltuAt48A9qfC7pEo9zdQ5/IExdLkGttVAtv9bZw4IWA1SBbRpR2xbeduvowW9DQ/PjJD9HM7aSzxt0Spkwrkw==",
-      "path": "xamarin.forms/4.6.0.1141",
-      "hashPath": "xamarin.forms.4.6.0.1141.nupkg.sha512"
+      "sha512": "sha512-3RUzBpcaBxOjufLLqJnuZRGLhzAbVyfe/Pyp0AFY/H1MkCHYxXIRzgB8h6yC9NTs39NLK2SgGiaMbvC4TJ/zFA==",
+      "path": "xamarin.forms/4.8.0.1451",
+      "hashPath": "xamarin.forms.4.8.0.1451.nupkg.sha512"
+    },
+    "Xamarin.Forms.Visual.Material/4.8.0.1451": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QLei1etT+z8jpYOnkSlt4JiCyjSoXImVEc7sE0X33lYTOScaiECbNk2EyZ5fP7EkiB2IFYvVHRVR1rNnBL+e1g==",
+      "path": "xamarin.forms.visual.material/4.8.0.1451",
+      "hashPath": "xamarin.forms.visual.material.4.8.0.1451.nupkg.sha512"
     }
   }
 }

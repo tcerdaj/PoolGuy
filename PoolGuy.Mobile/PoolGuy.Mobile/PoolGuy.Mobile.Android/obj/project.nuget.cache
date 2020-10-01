@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Aftvohp9vNWjJwN0EkBbx23AMYQ7HutTB5Yu/Z5VfqC8UzdHZ16YXx23dRmek/zfX6oZA4Qrjny5sfROl8ayoA==",
+  "dgSpecHash": "0pw1jBDgEyAkEIvAsfpIchLSPPSAf5TIKLLlJJrFdhb1Bel+MYIslQXE0OINJuIQ7k980L9HCMqna2WBuJJviQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\tcerda.CCCDOMAIN\\source\\repos\\PoolGuy\\PoolGuy.Mobile\\PoolGuy.Mobile\\PoolGuy.Mobile.Android\\PoolGuy.Mobile.Android.csproj",
   "expectedPackageFiles": [
@@ -42,7 +42,8 @@
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.android.support.versionedparcelable\\28.0.0.3\\xamarin.android.support.versionedparcelable.28.0.0.3.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.android.support.viewpager\\28.0.0.3\\xamarin.android.support.viewpager.28.0.0.3.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
-    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\4.6.0.1141\\xamarin.forms.4.6.0.1141.nupkg.sha512"
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.forms\\4.8.0.1451\\xamarin.forms.4.8.0.1451.nupkg.sha512",
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.forms.visual.material\\4.8.0.1451\\xamarin.forms.visual.material.4.8.0.1451.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "t4WXNAwz3mG9hBnj6/7/UPyi4dpjamMQ2Ewc697efhPqb6C8mg4rGQy+JnPtHmDa6v6xuihJAZdbPY/jcw8c5w==",
+  "dgSpecHash": "LSp1BHPN4yFvOuzKcLkYRYpuCVOXV3vTZRqP+fv1lIMH2WIG++dJZlE3LKew94Ys8ZenMf/GZrJLOledm7bTPg==",
   "success": true,
   "projectFilePath": "C:\\Users\\tcerda.CCCDOMAIN\\source\\repos\\PoolGuy\\PoolGuy.Mobile\\PoolGuy.Mobile\\PoolGuy.Mobile\\PoolGuy.Mobile.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,8 @@
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
-    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\4.6.0.1141\\xamarin.forms.4.6.0.1141.nupkg.sha512"
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.forms\\4.8.0.1451\\xamarin.forms.4.8.0.1451.nupkg.sha512",
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.forms.visual.material\\4.8.0.1451\\xamarin.forms.visual.material.4.8.0.1451.nupkg.sha512"
   ],
   "logs": []
 }

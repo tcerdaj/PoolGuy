@@ -49,7 +49,11 @@
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[4.6.0.1141, )"
+              "version": "[4.8.0.1451, )"
+            },
+            "Xamarin.Forms.Visual.Material": {
+              "target": "Package",
+              "version": "[4.8.0.1451, )"
             }
           }
         }
@@ -117,7 +121,11 @@
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[4.6.0.1141, )"
+              "version": "[4.8.0.1451, )"
+            },
+            "Xamarin.Forms.Visual.Material": {
+              "target": "Package",
+              "version": "[4.8.0.1451, )"
             }
           },
           "imports": [
