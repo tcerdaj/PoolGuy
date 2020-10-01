@@ -22,7 +22,13 @@
                 <On Platform="Android"
                     Value="materialdesignicons.ttf#Material Design Icons" />
             </OnPlatform>
-
+            <OnPlatform x:Key="FontAwesonFamily"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS"
+                    Value="Font Awesome 5 Free" />
+                <On Platform="Android"
+                    Value="fa-regular-400.ttf#Font Awesome 5 Free Regular" />
+            </OnPlatform>
             <Style TargetType="Label" x:Key="field-header-regular">
                 <Setter Property="TextColor" Value="#B6B6B6"/>
                 <Setter Property="FontSize" Value="12"/>
@@ -83,7 +89,6 @@
                     </Image.Source>
                 </Image>
             </StackLayout>
-           
         </Frame>
         <!--Progress Bar-->
         <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand"
@@ -105,76 +110,69 @@
             </Label>
         </StackLayout>
          <ScrollView Grid.Row="2">
-            <StackLayout Orientation="Vertical" Padding="10" Spacing="10">
+            <StackLayout Orientation="Vertical" Padding="20,10" Spacing="10">
                 <StackLayout Orientation="Horizontal">
-                    <Image Aspect="AspectFit" Margin="0,0,0,0">
-                    <Image.Source>
-                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                             Glyph="{x:Static icons:MaterialDesignIcons.Wrench}"
+                    <Image Aspect="AspectFit" Margin="0,0,0,0" VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                             Glyph="{x:Static icons:MaterialDesignIcons.Truck}"
                                              Size="20"
                                              Color="#7B7575" />
-                    </Image.Source>
-                </Image>
-                    <Label TextColor="#4A4A4A" HorizontalOptions="StartAndExpand">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="15 " FontSize="22"/>
-                            <Span Text="Pools for today"/>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                    <Image Aspect="AspectFit" Margin="0,0,0,0" HorizontalOptions="End">
+                       </Image.Source>
+                     </Image>
+                    <Label TextColor="#4A4A4A" 
+                           HorizontalOptions="StartAndExpand" 
+                           VerticalOptions="Center">
+                       <Label.FormattedText>
+                           <FormattedString>
+                               <Span Text="15 " FontSize="30"/>
+                               <Span Text="Pools"/>
+                           </FormattedString>
+                       </Label.FormattedText>
+                    </Label>
+                    <Image Aspect="AspectFit" 
+                           Margin="0,0,0,0" 
+                           HorizontalOptions="End" 
+                           VerticalOptions="Center">
                         <Image.Source>
                             <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:MaterialDesignIcons.Plus}"
-                                             Size="15"
-                                             Color="#7B7575" />
-                        </Image.Source>
-                    </Image>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Image Aspect="AspectFit" Margin="0,0,0,0">
-                        <Image.Source>
-                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                             Glyph="{x:Static icons:MaterialDesignIcons.WeatherLightningRainy}"
-                                             Size="22"
-                                             Color="#7B7575" />
-                        </Image.Source>
-                    </Image>
-                    <Label TextColor="#4A4A4A" HorizontalOptions="StartAndExpand">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="72 °'F" FontSize="22"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label TextColor="#4A4A4A" HorizontalOptions="StartAndExpand">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="83% " FontSize="22"/>
-                                <Span Text="precipitation"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Image Aspect="AspectFit" Margin="0,0,0,0">
-                        <Image.Source>
-                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                             Glyph="{x:Static icons:MaterialDesignIcons.Water}"
-                                             Size="22"
+                                             Size="30"
                                              Color="{StaticResource Primary}" />
                         </Image.Source>
                     </Image>
-                    <Label TextColor="#4A4A4A" HorizontalOptions="StartAndExpand">
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label TextColor="#7B7575" HorizontalOptions="StartAndExpand">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="2.5 " FontSize="22"/>
-                                <Span Text="inc rain last week" FontSize="22"/>
+                                <Span Text="72" FontSize="30" />
+                                <Span Text="{x:Static icons:MaterialDesignIcons.TemperatureFahrenheit}" FontSize="22"
+                                      FontFamily="{StaticResource MaterialFontFamily}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                   
+                    <Label TextColor="#7B7575" HorizontalOptions="StartAndExpand" CharacterSpacing="10">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{x:Static icons:MaterialDesignIcons.WeatherLightningRainy}" FontSize="22"
+                                      FontFamily="{StaticResource MaterialFontFamily}"/>
+                                <Span Text=" 83% " FontSize="30"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <StackLayout Orientation="Horizontal">
+                        <Label TextColor="#7B7575" HorizontalOptions="StartAndExpand" 
+                           VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{x:Static icons:MaterialDesignIcons.Water}" FontSize="22"
+                                      FontFamily="{StaticResource MaterialFontFamily}"/>
+                                    <Span Text="2.5 " FontSize="30"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
                 </StackLayout>
             </StackLayout>
         </ScrollView>
