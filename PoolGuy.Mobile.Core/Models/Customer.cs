@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using PoolGuy.Mobile.Data.Controllers;
+using SQLite;
 using System;
 using static PoolGuy.Mobile.Data.Models.Enums;
 
@@ -8,20 +9,7 @@ namespace PoolGuy.Mobile.Data.Models
     {
         public Customer()
         {
-
-        }
-
-        public Customer(ModifyType modifyType)
-        {
-            if (modifyType == ModifyType.Adding)
-            {
-                Id = Guid.NewGuid();
-                Created = DateTime.Now;
-            }
-            else if (modifyType == ModifyType.Editing)
-            {
-                Modified = DateTime.Now;
-            }
+           
         }
 
         [NotNull]

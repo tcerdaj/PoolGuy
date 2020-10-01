@@ -7,7 +7,7 @@ namespace PoolGuy.Mobile.Data.Controllers
     {
         static ILocalDataStore<T> _localDataStore => DependencyService.Get<ILocalDataStore<T>>();
 
-        public static ILocalDataStore<T> LocalData
+        public ILocalDataStore<T> LocalData
         {
             get { return _localDataStore; }
         }

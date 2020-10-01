@@ -27,5 +27,12 @@ namespace PoolGuy.Mobile.Data.Models
             Sweetwater,
             Saltwater
         }
+
+        public enum eResultStatus
+        {
+            None,
+            Ok,
+            Error
+        }
     }
 }
