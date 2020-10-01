@@ -9,7 +9,7 @@
     ".NETStandard,Version=v2.0/": {
       "PoolGuy.Mobile/1.0.0": {
         "dependencies": {
-          "Acr.UserDialogs": "7.1.0.454",
+          "Acr.UserDialogs": "7.1.0.450",
           "NETStandard.Library": "2.0.3",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.8.0.1451",
@@ -19,11 +19,11 @@
           "PoolGuy.Mobile.dll": {}
         }
       },
-      "Acr.UserDialogs/7.1.0.454": {
+      "Acr.UserDialogs/7.1.0.450": {
         "runtime": {
           "lib/netstandard2.0/Acr.UserDialogs.dll": {
-            "assemblyVersion": "7.1.0.454",
-            "fileVersion": "7.1.0.454"
+            "assemblyVersion": "7.1.0.450",
+            "fileVersion": "7.1.0.450"
           }
         }
       },
@@ -81,12 +81,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Acr.UserDialogs/7.1.0.454": {
+    "Acr.UserDialogs/7.1.0.450": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-A7NdvgpX1tE5tDj4gNQgrQOZ2xZF2PidNhuy5ydfM5rJdvN9CqjVxjoKEu3rDiMUs7ek/m+EiVkYVC5DVwfI0A==",
-      "path": "acr.userdialogs/7.1.0.454",
-      "hashPath": "acr.userdialogs.7.1.0.454.nupkg.sha512"
+      "sha512": "sha512-SIA1jFs5VAYD71+VXY6peTMTxNYRXyzXu2BCUzMX+P2VYB6BLTvyYiuhFgLU5FMlEx0bCTJH91AsTWC9vSvMrA==",
+      "path": "acr.userdialogs/7.1.0.450",
+      "hashPath": "acr.userdialogs.7.1.0.450.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",

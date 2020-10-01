@@ -1,1 +1,4 @@
-<resources><declare-styleable name="ProgressWheel"><attr name="ahText" format="string" /><attr name="ahTextColor" format="color" /><attr name="ahTextSize" format="dimension" /><attr name="ahBarColor" format="color" /><attr name="ahRimColor" format="color" /><attr name="ahRimWidth" format="dimension" /><attr name="ahSpinSpeed" format="dimension" /><attr name="ahDelayMillis" format="integer" /><attr name="ahCircleColor" format="color" /><attr name="ahRadius" format="dimension" /><attr name="ahBarWidth" format="dimension" /><attr name="ahBarLength" format="dimension" /></declare-styleable></resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"><!-- 
+    This defines the collectionViewStyle attribute so that we can use it 
+    to add the scrollbars style to the CollectionView/CarouselView renderers.
+  --><declare-styleable name="ItemsViewRendererTheme"><attr name="collectionViewStyle" format="reference" /></declare-styleable><declare-styleable name="ScrollViewRendererTheme"><attr name="scrollViewStyle" format="reference" /></declare-styleable></resources>

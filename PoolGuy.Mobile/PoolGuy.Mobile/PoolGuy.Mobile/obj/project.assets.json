@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
-      "Acr.UserDialogs/7.0.0": {
+      "Acr.UserDialogs/7.1.0.450": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Acr.UserDialogs.dll": {}
@@ -88,27 +88,39 @@
     }
   },
   "libraries": {
-    "Acr.UserDialogs/7.0.0": {
-      "sha512": "Nd/4LQz6ha/KmM/wcnP1/OizWPnrNc+ilHLmFzF6IR5epfKJ9Qqc2L0L4tLkF7X76/Lo4czhpcgU6RJu4PbG+Q==",
+    "Acr.UserDialogs/7.1.0.450": {
+      "sha512": "SIA1jFs5VAYD71+VXY6peTMTxNYRXyzXu2BCUzMX+P2VYB6BLTvyYiuhFgLU5FMlEx0bCTJH91AsTWC9vSvMrA==",
       "type": "package",
-      "path": "acr.userdialogs/7.0.0",
+      "path": "acr.userdialogs/7.1.0.450",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "acr.userdialogs.7.0.0.nupkg.sha512",
+        "acr.userdialogs.7.1.0.450.nupkg.sha512",
         "acr.userdialogs.nuspec",
-        "lib/monoandroid70/Acr.UserDialogs.dll",
-        "lib/monoandroid80/Acr.UserDialogs.dll",
+        "lib/monoandroid10.0/Acr.UserDialogs.dll",
+        "lib/monoandroid10.0/Acr.UserDialogs.pdb",
+        "lib/monoandroid10.0/Acr.UserDialogs.xml",
+        "lib/monoandroid90/Acr.UserDialogs.dll",
+        "lib/monoandroid90/Acr.UserDialogs.pdb",
+        "lib/monoandroid90/Acr.UserDialogs.xml",
         "lib/netstandard2.0/Acr.UserDialogs.dll",
+        "lib/netstandard2.0/Acr.UserDialogs.pdb",
+        "lib/netstandard2.0/Acr.UserDialogs.xml",
         "lib/uap10.0.16299/Acr.UserDialogs.dll",
+        "lib/uap10.0.16299/Acr.UserDialogs.pdb",
         "lib/uap10.0.16299/Acr.UserDialogs.pri",
+        "lib/uap10.0.16299/Acr.UserDialogs.xml",
         "lib/uap10.0.16299/Acr.UserDialogs/Acr.UserDialogs.xr.xml",
-        "lib/uap10.0.16299/Acr.UserDialogs/Platforms/Uwp/ActionSheetContentDialog.xaml",
-        "lib/uap10.0.16299/Acr.UserDialogs/Platforms/Uwp/DatePickerControl.xaml",
-        "lib/uap10.0.16299/Acr.UserDialogs/Platforms/Uwp/LoginContentDialog.xaml",
-        "lib/uap10.0.16299/Acr.UserDialogs/Platforms/Uwp/ProgressContentDialog.xaml",
-        "lib/uap10.0.16299/Acr.UserDialogs/Platforms/Uwp/TimePickerControl.xaml",
-        "lib/xamarinios10/Acr.UserDialogs.dll"
+        "lib/xamarinios10/Acr.UserDialogs.dll",
+        "lib/xamarinios10/Acr.UserDialogs.pdb",
+        "lib/xamarinios10/Acr.UserDialogs.xml",
+        "lib/xamarinmac20/Acr.UserDialogs.dll",
+        "lib/xamarinmac20/Acr.UserDialogs.pdb",
+        "lib/xamarinmac20/Acr.UserDialogs.xml",
+        "lib/xamarintvos10/Acr.UserDialogs.dll",
+        "lib/xamarintvos10/Acr.UserDialogs.pdb",
+        "lib/xamarintvos10/Acr.UserDialogs.xml",
+        "readme.txt"
       ]
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
@@ -692,7 +704,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
-      "Acr.UserDialogs >= 7.0.0",
+      "Acr.UserDialogs >= 7.1.0.450",
       "NETStandard.Library >= 2.0.3",
       "Xamarin.Essentials >= 1.5.3.2",
       "Xamarin.Forms >= 4.8.0.1451",
@@ -744,7 +756,7 @@
         "dependencies": {
           "Acr.UserDialogs": {
             "target": "Package",
-            "version": "[7.0.0, )"
+            "version": "[7.1.0.450, )"
           },
           "NETStandard.Library": {
             "suppressParent": "All",

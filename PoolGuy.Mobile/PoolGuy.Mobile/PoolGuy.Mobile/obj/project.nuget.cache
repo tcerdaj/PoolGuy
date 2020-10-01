@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Wvd6v2WpN+qENU7PqaV8nWFqz6eiY5mSeRmxr3fJZ5c46HcvE/KRAix0nF4iknaMuVSuIrKJjRY9SWgh7NjLoQ==",
+  "dgSpecHash": "n7vUuWf9ZORNlaeQ7VLvXJMvX1f8/9KNDxLwdVYkD7d02RFp8uwVhW+3vNUf7caE0CoxSg8FRUwZWGK/vuxxgA==",
   "success": true,
   "projectFilePath": "C:\\Users\\tcerda.CCCDOMAIN\\source\\repos\\PoolGuy\\PoolGuy.Mobile\\PoolGuy.Mobile\\PoolGuy.Mobile\\PoolGuy.Mobile.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\acr.userdialogs\\7.0.0\\acr.userdialogs.7.0.0.nupkg.sha512",
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\acr.userdialogs\\7.1.0.450\\acr.userdialogs.7.1.0.450.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",

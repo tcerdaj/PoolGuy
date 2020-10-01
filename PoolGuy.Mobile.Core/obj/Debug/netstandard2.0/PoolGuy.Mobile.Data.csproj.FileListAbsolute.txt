@@ -6,4 +6,3 @@ C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\net
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Data.AssemblyInfo.cs
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Data.dll
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Data.pdb
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Data.csproj.CoreCompileInputs.cache

@@ -1,6 +1,12 @@
-﻿namespace PoolGuy.Mobile.Data.Controllers
+﻿using PoolGuy.Mobile.Data.Models;
+
+namespace PoolGuy.Mobile.Data.Controllers
 {
-    class CustomerController
+    public class CustomerController : BaseController<Customer>
     {
+        public CustomerController()
+            :base()
+        {
+        }
     }
 }

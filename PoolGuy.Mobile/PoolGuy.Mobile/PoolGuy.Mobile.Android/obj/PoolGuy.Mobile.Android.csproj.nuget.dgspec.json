@@ -45,7 +45,11 @@
           "dependencies": {
             "Acr.UserDialogs": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.1.0.450, )"
+            },
+            "Plugin.CurrentActivity": {
+              "target": "Package",
+              "version": "[2.1.0.4, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",
@@ -104,7 +108,7 @@
           "dependencies": {
             "Acr.UserDialogs": {
               "target": "Package",
-              "version": "[7.0.0, )"
+              "version": "[7.1.0.450, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",
