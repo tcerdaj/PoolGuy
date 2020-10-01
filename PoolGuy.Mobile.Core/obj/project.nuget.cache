@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "kpLU/gzbgZL/8l+kxlIFq2AYVKRcyoW9r4LZMdbj1AWeTpCHd/yp1kHeunou3PQjEHzM5FuKH4WFrKSEbS/81A==",
+  "dgSpecHash": "bzrqHli8S20uaWTWuQJsWmw4G2Cvx0EH+caFOYiC+hfLEK2lUS3Tg+DXeqvvyodGMKloNF4ILHxI97pEqOoTsg==",
   "success": true,
   "projectFilePath": "C:\\Users\\tcerda.CCCDOMAIN\\source\\repos\\PoolGuy\\PoolGuy.Mobile.Core\\PoolGuy.Mobile.Data.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\acr.userdialogs\\7.0.0\\acr.userdialogs.7.0.0.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\sqlite-net-pcl\\1.7.335\\sqlite-net-pcl.1.7.335.nupkg.sha512",
