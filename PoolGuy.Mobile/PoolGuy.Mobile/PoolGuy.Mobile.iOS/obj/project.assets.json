@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "Xamarin.iOS,Version=v1.0": {
-      "Acr.UserDialogs/7.1.0.450": {
+      "Acr.UserDialogs/7.1.0.454": {
         "type": "package",
         "dependencies": {
           "BTProgressHUD": "1.3.1"
@@ -24,6 +24,67 @@
         },
         "runtime": {
           "lib/xamarinios10/BTProgressHUD.dll": {}
+        }
+      },
+      "CommonServiceLocator/2.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/CommonServiceLocator.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/CommonServiceLocator.dll": {}
+        }
+      },
+      "MvvmLightLibs/5.4.1.1": {
+        "type": "package",
+        "dependencies": {
+          "CommonServiceLocator": "2.0.2"
+        },
+        "compile": {
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Platform.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.dll": {}
+        },
+        "runtime": {
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Platform.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Plugin.Permissions/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Essentials": "1.5.2"
+        },
+        "frameworkAssemblies": [
+          "System.Drawing.Common.dll"
+        ],
+        "compile": {
+          "lib/xamarinios10/Plugin.Permissions.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Plugin.Permissions.dll": {}
+        }
+      },
+      "Rg.Plugins.Popup/2.0.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "4.5.0.617"
+        },
+        "compile": {
+          "lib/xamarinios10/Rg.Plugins.Popup.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Rg.Plugins.Popup.dll": {}
         }
       },
       "sqlite-net-pcl/1.7.335": {
@@ -106,6 +167,17 @@
         },
         "runtime": {
           "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
+      "Xam.Plugins.Settings/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.dll": {},
+          "lib/Xamarin.iOS10/Plugin.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.dll": {},
+          "lib/Xamarin.iOS10/Plugin.Settings.dll": {}
         }
       },
       "Xamarin.Build.Download/0.4.11": {
@@ -319,7 +391,13 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Acr.UserDialogs": "7.1.0.450",
+          "Acr.UserDialogs": "7.1.0.454",
+          "CommonServiceLocator": "2.0.5",
+          "MvvmLightLibs": "5.4.1.1",
+          "Newtonsoft.Json": "12.0.3",
+          "Plugin.Permissions": "6.0.1",
+          "Rg.Plugins.Popup": "2.0.0.5",
+          "Xam.Plugins.Settings": "3.1.1",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.8.0.1451",
           "Xamarin.Forms.GoogleMaps": "3.3.0",
@@ -337,7 +415,9 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Acr.UserDialogs": "7.1.0.450",
+          "Acr.UserDialogs": "7.1.0.454",
+          "MvvmLightLibs": "5.4.1.1",
+          "Plugin.Permissions": "6.0.1",
           "Xamarin.Forms": "4.8.0.1451",
           "sqlite-net-pcl": "1.7.335"
         },
@@ -350,7 +430,7 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win": {
-      "Acr.UserDialogs/7.1.0.450": {
+      "Acr.UserDialogs/7.1.0.454": {
         "type": "package",
         "dependencies": {
           "BTProgressHUD": "1.3.1"
@@ -372,6 +452,67 @@
         },
         "runtime": {
           "lib/xamarinios10/BTProgressHUD.dll": {}
+        }
+      },
+      "CommonServiceLocator/2.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/CommonServiceLocator.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/CommonServiceLocator.dll": {}
+        }
+      },
+      "MvvmLightLibs/5.4.1.1": {
+        "type": "package",
+        "dependencies": {
+          "CommonServiceLocator": "2.0.2"
+        },
+        "compile": {
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Platform.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.dll": {}
+        },
+        "runtime": {
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Platform.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Plugin.Permissions/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Essentials": "1.5.2"
+        },
+        "frameworkAssemblies": [
+          "System.Drawing.Common.dll"
+        ],
+        "compile": {
+          "lib/xamarinios10/Plugin.Permissions.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Plugin.Permissions.dll": {}
+        }
+      },
+      "Rg.Plugins.Popup/2.0.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "4.5.0.617"
+        },
+        "compile": {
+          "lib/xamarinios10/Rg.Plugins.Popup.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Rg.Plugins.Popup.dll": {}
         }
       },
       "sqlite-net-pcl/1.7.335": {
@@ -454,6 +595,17 @@
         },
         "runtime": {
           "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
+      "Xam.Plugins.Settings/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.dll": {},
+          "lib/Xamarin.iOS10/Plugin.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.dll": {},
+          "lib/Xamarin.iOS10/Plugin.Settings.dll": {}
         }
       },
       "Xamarin.Build.Download/0.4.11": {
@@ -667,7 +819,13 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Acr.UserDialogs": "7.1.0.450",
+          "Acr.UserDialogs": "7.1.0.454",
+          "CommonServiceLocator": "2.0.5",
+          "MvvmLightLibs": "5.4.1.1",
+          "Newtonsoft.Json": "12.0.3",
+          "Plugin.Permissions": "6.0.1",
+          "Rg.Plugins.Popup": "2.0.0.5",
+          "Xam.Plugins.Settings": "3.1.1",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.8.0.1451",
           "Xamarin.Forms.GoogleMaps": "3.3.0",
@@ -685,7 +843,9 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Acr.UserDialogs": "7.1.0.450",
+          "Acr.UserDialogs": "7.1.0.454",
+          "MvvmLightLibs": "5.4.1.1",
+          "Plugin.Permissions": "6.0.1",
           "Xamarin.Forms": "4.8.0.1451",
           "sqlite-net-pcl": "1.7.335"
         },
@@ -698,7 +858,7 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win-x64": {
-      "Acr.UserDialogs/7.1.0.450": {
+      "Acr.UserDialogs/7.1.0.454": {
         "type": "package",
         "dependencies": {
           "BTProgressHUD": "1.3.1"
@@ -720,6 +880,67 @@
         },
         "runtime": {
           "lib/xamarinios10/BTProgressHUD.dll": {}
+        }
+      },
+      "CommonServiceLocator/2.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/CommonServiceLocator.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/CommonServiceLocator.dll": {}
+        }
+      },
+      "MvvmLightLibs/5.4.1.1": {
+        "type": "package",
+        "dependencies": {
+          "CommonServiceLocator": "2.0.2"
+        },
+        "compile": {
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Platform.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.dll": {}
+        },
+        "runtime": {
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Platform.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Plugin.Permissions/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Essentials": "1.5.2"
+        },
+        "frameworkAssemblies": [
+          "System.Drawing.Common.dll"
+        ],
+        "compile": {
+          "lib/xamarinios10/Plugin.Permissions.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Plugin.Permissions.dll": {}
+        }
+      },
+      "Rg.Plugins.Popup/2.0.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "4.5.0.617"
+        },
+        "compile": {
+          "lib/xamarinios10/Rg.Plugins.Popup.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Rg.Plugins.Popup.dll": {}
         }
       },
       "sqlite-net-pcl/1.7.335": {
@@ -802,6 +1023,17 @@
         },
         "runtime": {
           "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
+      "Xam.Plugins.Settings/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.dll": {},
+          "lib/Xamarin.iOS10/Plugin.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.dll": {},
+          "lib/Xamarin.iOS10/Plugin.Settings.dll": {}
         }
       },
       "Xamarin.Build.Download/0.4.11": {
@@ -1015,7 +1247,13 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Acr.UserDialogs": "7.1.0.450",
+          "Acr.UserDialogs": "7.1.0.454",
+          "CommonServiceLocator": "2.0.5",
+          "MvvmLightLibs": "5.4.1.1",
+          "Newtonsoft.Json": "12.0.3",
+          "Plugin.Permissions": "6.0.1",
+          "Rg.Plugins.Popup": "2.0.0.5",
+          "Xam.Plugins.Settings": "3.1.1",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.8.0.1451",
           "Xamarin.Forms.GoogleMaps": "3.3.0",
@@ -1033,7 +1271,9 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Acr.UserDialogs": "7.1.0.450",
+          "Acr.UserDialogs": "7.1.0.454",
+          "MvvmLightLibs": "5.4.1.1",
+          "Plugin.Permissions": "6.0.1",
           "Xamarin.Forms": "4.8.0.1451",
           "sqlite-net-pcl": "1.7.335"
         },
@@ -1046,7 +1286,7 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win-x86": {
-      "Acr.UserDialogs/7.1.0.450": {
+      "Acr.UserDialogs/7.1.0.454": {
         "type": "package",
         "dependencies": {
           "BTProgressHUD": "1.3.1"
@@ -1068,6 +1308,67 @@
         },
         "runtime": {
           "lib/xamarinios10/BTProgressHUD.dll": {}
+        }
+      },
+      "CommonServiceLocator/2.0.5": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/CommonServiceLocator.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/CommonServiceLocator.dll": {}
+        }
+      },
+      "MvvmLightLibs/5.4.1.1": {
+        "type": "package",
+        "dependencies": {
+          "CommonServiceLocator": "2.0.2"
+        },
+        "compile": {
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Platform.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.dll": {}
+        },
+        "runtime": {
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.Platform.dll": {},
+          "lib/xamarin.ios10/GalaSoft.MvvmLight.dll": {}
+        }
+      },
+      "Newtonsoft.Json/12.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "Plugin.Permissions/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Essentials": "1.5.2"
+        },
+        "frameworkAssemblies": [
+          "System.Drawing.Common.dll"
+        ],
+        "compile": {
+          "lib/xamarinios10/Plugin.Permissions.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Plugin.Permissions.dll": {}
+        }
+      },
+      "Rg.Plugins.Popup/2.0.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "4.5.0.617"
+        },
+        "compile": {
+          "lib/xamarinios10/Rg.Plugins.Popup.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/Rg.Plugins.Popup.dll": {}
         }
       },
       "sqlite-net-pcl/1.7.335": {
@@ -1150,6 +1451,17 @@
         },
         "runtime": {
           "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
+      "Xam.Plugins.Settings/3.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.dll": {},
+          "lib/Xamarin.iOS10/Plugin.Settings.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.dll": {},
+          "lib/Xamarin.iOS10/Plugin.Settings.dll": {}
         }
       },
       "Xamarin.Build.Download/0.4.11": {
@@ -1363,7 +1675,13 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Acr.UserDialogs": "7.1.0.450",
+          "Acr.UserDialogs": "7.1.0.454",
+          "CommonServiceLocator": "2.0.5",
+          "MvvmLightLibs": "5.4.1.1",
+          "Newtonsoft.Json": "12.0.3",
+          "Plugin.Permissions": "6.0.1",
+          "Rg.Plugins.Popup": "2.0.0.5",
+          "Xam.Plugins.Settings": "3.1.1",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.8.0.1451",
           "Xamarin.Forms.GoogleMaps": "3.3.0",
@@ -1381,7 +1699,9 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "Acr.UserDialogs": "7.1.0.450",
+          "Acr.UserDialogs": "7.1.0.454",
+          "MvvmLightLibs": "5.4.1.1",
+          "Plugin.Permissions": "6.0.1",
           "Xamarin.Forms": "4.8.0.1451",
           "sqlite-net-pcl": "1.7.335"
         },
@@ -1395,14 +1715,14 @@
     }
   },
   "libraries": {
-    "Acr.UserDialogs/7.1.0.450": {
-      "sha512": "SIA1jFs5VAYD71+VXY6peTMTxNYRXyzXu2BCUzMX+P2VYB6BLTvyYiuhFgLU5FMlEx0bCTJH91AsTWC9vSvMrA==",
+    "Acr.UserDialogs/7.1.0.454": {
+      "sha512": "A7NdvgpX1tE5tDj4gNQgrQOZ2xZF2PidNhuy5ydfM5rJdvN9CqjVxjoKEu3rDiMUs7ek/m+EiVkYVC5DVwfI0A==",
       "type": "package",
-      "path": "acr.userdialogs/7.1.0.450",
+      "path": "acr.userdialogs/7.1.0.454",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "acr.userdialogs.7.1.0.450.nupkg.sha512",
+        "acr.userdialogs.7.1.0.454.nupkg.sha512",
         "acr.userdialogs.nuspec",
         "lib/monoandroid10.0/Acr.UserDialogs.dll",
         "lib/monoandroid10.0/Acr.UserDialogs.pdb",
@@ -1444,6 +1764,260 @@
         "lib/xamarinios10/BTProgressHUD.dll",
         "lib/xamarinios10/BTProgressHUD.pdb",
         "lib/xamarinios10/BTProgressHUD.xml"
+      ]
+    },
+    "CommonServiceLocator/2.0.5": {
+      "sha512": "Md2q9f6hAuUAm6IWTybQbYvxhDAs2dqmsudVDghpg0Q+C0M2KkmiTDjeGx1PsYhnZPvp+hy1Cx99v0VPW9W6/g==",
+      "type": "package",
+      "path": "commonservicelocator/2.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "commonservicelocator.2.0.5.nupkg.sha512",
+        "commonservicelocator.nuspec",
+        "lib/net40/CommonServiceLocator.dll",
+        "lib/net45/CommonServiceLocator.dll",
+        "lib/net46/CommonServiceLocator.dll",
+        "lib/net47/CommonServiceLocator.dll",
+        "lib/net48/CommonServiceLocator.dll",
+        "lib/netcoreapp1.0/CommonServiceLocator.dll",
+        "lib/netcoreapp2.0/CommonServiceLocator.dll",
+        "lib/netcoreapp3.0/CommonServiceLocator.dll",
+        "lib/netstandard1.0/CommonServiceLocator.dll",
+        "lib/netstandard2.0/CommonServiceLocator.dll",
+        "lib/netstandard2.1/CommonServiceLocator.dll"
+      ]
+    },
+    "MvvmLightLibs/5.4.1.1": {
+      "sha512": "xYpVzOYnIz/M6T0pdc3w5t0vrt2ZKspSS+CZjQ+pZE+5yHv9qXSWkncHJXb6D7Egstalso4ivnIUkA1xEClViw==",
+      "type": "package",
+      "path": "mvvmlightlibs/5.4.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/SL5/GalaSoft.MvvmLight.Extras.dll",
+        "lib/SL5/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/SL5/GalaSoft.MvvmLight.Extras.xml",
+        "lib/SL5/GalaSoft.MvvmLight.dll",
+        "lib/SL5/GalaSoft.MvvmLight.pdb",
+        "lib/SL5/GalaSoft.MvvmLight.xml",
+        "lib/SL5/System.Windows.Interactivity.dll",
+        "lib/monoandroid1/GalaSoft.MvvmLight.Extras.XML",
+        "lib/monoandroid1/GalaSoft.MvvmLight.Extras.dll",
+        "lib/monoandroid1/GalaSoft.MvvmLight.Extras.dll.mdb",
+        "lib/monoandroid1/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/monoandroid1/GalaSoft.MvvmLight.Platform.XML",
+        "lib/monoandroid1/GalaSoft.MvvmLight.Platform.dll",
+        "lib/monoandroid1/GalaSoft.MvvmLight.Platform.dll.mdb",
+        "lib/monoandroid1/GalaSoft.MvvmLight.Platform.pdb",
+        "lib/monoandroid1/GalaSoft.MvvmLight.XML",
+        "lib/monoandroid1/GalaSoft.MvvmLight.dll",
+        "lib/monoandroid1/GalaSoft.MvvmLight.dll.mdb",
+        "lib/monoandroid1/GalaSoft.MvvmLight.pdb",
+        "lib/net35/GalaSoft.MvvmLight.Extras.dll",
+        "lib/net35/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/net35/GalaSoft.MvvmLight.Extras.xml",
+        "lib/net35/GalaSoft.MvvmLight.dll",
+        "lib/net35/GalaSoft.MvvmLight.pdb",
+        "lib/net35/GalaSoft.MvvmLight.xml",
+        "lib/net35/System.Windows.Interactivity.dll",
+        "lib/net35/System.Windows.Interactivity.xml",
+        "lib/net40/GalaSoft.MvvmLight.Extras.dll",
+        "lib/net40/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/net40/GalaSoft.MvvmLight.Extras.xml",
+        "lib/net40/GalaSoft.MvvmLight.dll",
+        "lib/net40/GalaSoft.MvvmLight.pdb",
+        "lib/net40/GalaSoft.MvvmLight.xml",
+        "lib/net40/System.Windows.Interactivity.dll",
+        "lib/net40/System.Windows.Interactivity.xml",
+        "lib/net45/GalaSoft.MvvmLight.Extras.dll",
+        "lib/net45/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/net45/GalaSoft.MvvmLight.Extras.xml",
+        "lib/net45/GalaSoft.MvvmLight.Platform.dll",
+        "lib/net45/GalaSoft.MvvmLight.Platform.pdb",
+        "lib/net45/GalaSoft.MvvmLight.Platform.xml",
+        "lib/net45/GalaSoft.MvvmLight.dll",
+        "lib/net45/GalaSoft.MvvmLight.pdb",
+        "lib/net45/GalaSoft.MvvmLight.xml",
+        "lib/net45/System.Windows.Interactivity.dll",
+        "lib/portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10/GalaSoft.MvvmLight.Extras.XML",
+        "lib/portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10/GalaSoft.MvvmLight.Extras.dll",
+        "lib/portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10/GalaSoft.MvvmLight.XML",
+        "lib/portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10/GalaSoft.MvvmLight.dll",
+        "lib/portable-net45+wp8+wpa81+netcore45+monoandroid1+xamarin.ios10/GalaSoft.MvvmLight.pdb",
+        "lib/uap10.0/GalaSoft.MvvmLight.Extras.dll",
+        "lib/uap10.0/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/uap10.0/GalaSoft.MvvmLight.Extras.xml",
+        "lib/uap10.0/GalaSoft.MvvmLight.Platform.dll",
+        "lib/uap10.0/GalaSoft.MvvmLight.Platform.pdb",
+        "lib/uap10.0/GalaSoft.MvvmLight.Platform.pri",
+        "lib/uap10.0/GalaSoft.MvvmLight.Platform.xml",
+        "lib/uap10.0/GalaSoft.MvvmLight.dll",
+        "lib/uap10.0/GalaSoft.MvvmLight.pdb",
+        "lib/uap10.0/GalaSoft.MvvmLight.xml",
+        "lib/windows81/GalaSoft.MvvmLight.Extras.dll",
+        "lib/windows81/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/windows81/GalaSoft.MvvmLight.Extras.xml",
+        "lib/windows81/GalaSoft.MvvmLight.Platform.dll",
+        "lib/windows81/GalaSoft.MvvmLight.Platform.pdb",
+        "lib/windows81/GalaSoft.MvvmLight.Platform.pri",
+        "lib/windows81/GalaSoft.MvvmLight.Platform.xml",
+        "lib/windows81/GalaSoft.MvvmLight.dll",
+        "lib/windows81/GalaSoft.MvvmLight.pdb",
+        "lib/windows81/GalaSoft.MvvmLight.xml",
+        "lib/wp8/GalaSoft.MvvmLight.Extras.dll",
+        "lib/wp8/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/wp8/GalaSoft.MvvmLight.Extras.xml",
+        "lib/wp8/GalaSoft.MvvmLight.Platform.dll",
+        "lib/wp8/GalaSoft.MvvmLight.Platform.pdb",
+        "lib/wp8/GalaSoft.MvvmLight.Platform.xml",
+        "lib/wp8/GalaSoft.MvvmLight.dll",
+        "lib/wp8/GalaSoft.MvvmLight.pdb",
+        "lib/wp8/GalaSoft.MvvmLight.xml",
+        "lib/wp8/System.Windows.Interactivity.dll",
+        "lib/wp81/GalaSoft.MvvmLight.Extras.dll",
+        "lib/wp81/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/wp81/GalaSoft.MvvmLight.Extras.xml",
+        "lib/wp81/GalaSoft.MvvmLight.Platform.dll",
+        "lib/wp81/GalaSoft.MvvmLight.Platform.pdb",
+        "lib/wp81/GalaSoft.MvvmLight.Platform.xml",
+        "lib/wp81/GalaSoft.MvvmLight.dll",
+        "lib/wp81/GalaSoft.MvvmLight.pdb",
+        "lib/wp81/GalaSoft.MvvmLight.xml",
+        "lib/wp81/System.Windows.Interactivity.dll",
+        "lib/wpa81/GalaSoft.MvvmLight.Extras.XML",
+        "lib/wpa81/GalaSoft.MvvmLight.Extras.dll",
+        "lib/wpa81/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/wpa81/GalaSoft.MvvmLight.Platform.XML",
+        "lib/wpa81/GalaSoft.MvvmLight.Platform.dll",
+        "lib/wpa81/GalaSoft.MvvmLight.Platform.pdb",
+        "lib/wpa81/GalaSoft.MvvmLight.Platform.pri",
+        "lib/wpa81/GalaSoft.MvvmLight.XML",
+        "lib/wpa81/GalaSoft.MvvmLight.dll",
+        "lib/wpa81/GalaSoft.MvvmLight.pdb",
+        "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.XML",
+        "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.dll",
+        "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.dll.mdb",
+        "lib/xamarin.ios10/GalaSoft.MvvmLight.Extras.pdb",
+        "lib/xamarin.ios10/GalaSoft.MvvmLight.Platform.XML",
+        "lib/xamarin.ios10/GalaSoft.MvvmLight.Platform.dll",
+        "lib/xamarin.ios10/GalaSoft.MvvmLight.XML",
+        "lib/xamarin.ios10/GalaSoft.MvvmLight.dll",
+        "lib/xamarin.ios10/GalaSoft.MvvmLight.dll.mdb",
+        "lib/xamarin.ios10/GalaSoft.MvvmLight.pdb",
+        "mvvmlightlibs.5.4.1.1.nupkg.sha512",
+        "mvvmlightlibs.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/12.0.3": {
+      "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "type": "package",
+      "path": "newtonsoft.json/12.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
+        "newtonsoft.json.12.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
+    "Plugin.Permissions/6.0.1": {
+      "sha512": "na/0FNhyKmSicANWZMLSM0y/FW2AvLoawX3lsvBpELwP15sdJRyuBhRKk1OQjRoNrmTIewcON1tJFyydjMGWcA==",
+      "type": "package",
+      "path": "plugin.permissions/6.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid10.0/Plugin.Permissions.dll",
+        "lib/monoandroid10.0/Plugin.Permissions.pdb",
+        "lib/monoandroid80/Plugin.Permissions.dll",
+        "lib/monoandroid80/Plugin.Permissions.pdb",
+        "lib/monoandroid81/Plugin.Permissions.dll",
+        "lib/monoandroid81/Plugin.Permissions.pdb",
+        "lib/monoandroid90/Plugin.Permissions.dll",
+        "lib/monoandroid90/Plugin.Permissions.pdb",
+        "lib/netstandard1.0/Plugin.Permissions.dll",
+        "lib/netstandard1.0/Plugin.Permissions.pdb",
+        "lib/netstandard2.0/Plugin.Permissions.dll",
+        "lib/netstandard2.0/Plugin.Permissions.pdb",
+        "lib/uap10.0.16299/Plugin.Permissions.dll",
+        "lib/uap10.0.16299/Plugin.Permissions.pdb",
+        "lib/uap10.0.16299/Plugin.Permissions.pri",
+        "lib/xamarinios10/Plugin.Permissions.dll",
+        "lib/xamarinios10/Plugin.Permissions.pdb",
+        "lib/xamarintvos10/Plugin.Permissions.dll",
+        "lib/xamarintvos10/Plugin.Permissions.pdb",
+        "plugin.permissions.6.0.1.nupkg.sha512",
+        "plugin.permissions.nuspec",
+        "readme.txt"
+      ]
+    },
+    "Rg.Plugins.Popup/2.0.0.5": {
+      "sha512": "uUfLWqKU6B7Uf5LVgZCNNK2R5y7iR7vxio6hoixZcr4IeCyx6zSDYZwAkwCy6cDeV11RDbDSHF5gTV0EUTlnow==",
+      "type": "package",
+      "path": "rg.plugins.popup/2.0.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "icon.png",
+        "lib/monoandroid10.0/Rg.Plugins.Popup.dll",
+        "lib/monoandroid10.0/Rg.Plugins.Popup.pdb",
+        "lib/monoandroid10.0/Rg.Plugins.Popup.xml",
+        "lib/monoandroid90/Rg.Plugins.Popup.dll",
+        "lib/monoandroid90/Rg.Plugins.Popup.pdb",
+        "lib/monoandroid90/Rg.Plugins.Popup.xml",
+        "lib/net472/Rg.Plugins.Popup.dll",
+        "lib/net472/Rg.Plugins.Popup.pdb",
+        "lib/net472/Rg.Plugins.Popup.xml",
+        "lib/netcoreapp3.1/Rg.Plugins.Popup.dll",
+        "lib/netcoreapp3.1/Rg.Plugins.Popup.pdb",
+        "lib/netcoreapp3.1/Rg.Plugins.Popup.xml",
+        "lib/netstandard2.0/Rg.Plugins.Popup.dll",
+        "lib/netstandard2.0/Rg.Plugins.Popup.pdb",
+        "lib/netstandard2.0/Rg.Plugins.Popup.xml",
+        "lib/tizen40/Rg.Plugins.Popup.dll",
+        "lib/tizen40/Rg.Plugins.Popup.pdb",
+        "lib/tizen40/Rg.Plugins.Popup.xml",
+        "lib/uap10.0.17763/Rg.Plugins.Popup.dll",
+        "lib/uap10.0.17763/Rg.Plugins.Popup.pdb",
+        "lib/uap10.0.17763/Rg.Plugins.Popup.pri",
+        "lib/uap10.0.17763/Rg.Plugins.Popup.xml",
+        "lib/xamarinios10/Rg.Plugins.Popup.dll",
+        "lib/xamarinios10/Rg.Plugins.Popup.pdb",
+        "lib/xamarinios10/Rg.Plugins.Popup.xml",
+        "lib/xamarinmac20/Rg.Plugins.Popup.dll",
+        "lib/xamarinmac20/Rg.Plugins.Popup.pdb",
+        "lib/xamarinmac20/Rg.Plugins.Popup.xml",
+        "lib/xamarintvos10/Rg.Plugins.Popup.dll",
+        "lib/xamarintvos10/Rg.Plugins.Popup.pdb",
+        "lib/xamarintvos10/Rg.Plugins.Popup.xml",
+        "lib/xamarinwatchos10/Rg.Plugins.Popup.dll",
+        "lib/xamarinwatchos10/Rg.Plugins.Popup.pdb",
+        "lib/xamarinwatchos10/Rg.Plugins.Popup.xml",
+        "readme.txt",
+        "rg.plugins.popup.2.0.0.5.nupkg.sha512",
+        "rg.plugins.popup.nuspec"
       ]
     },
     "sqlite-net-pcl/1.7.335": {
@@ -1571,6 +2145,77 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "Xam.Plugins.Settings/3.1.1": {
+      "sha512": "EQEYQJ64ZLqui5GWkLMavgqitHxwUHZHryTzUD1021UBuz1XwDSjPL45W0K4pPXjz9oKbg7YpRXKPR1luPr/5Q==",
+      "type": "package",
+      "path": "xam.plugins.settings/3.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/MonoAndroid10/Helpers/Settings.cs.pp",
+        "content/UAP10/Helpers/Settings.cs.pp",
+        "content/Xamarin.Mac20/Helpers/Settings.cs.pp",
+        "content/Xamarin.iOS10/Helpers/Settings.cs.pp",
+        "content/net45/Helpers/Settings.cs.pp",
+        "content/netstandard1.0/Helpers/Settings.cs.pp",
+        "content/xamarintvOS/Helpers/Settings.cs.pp",
+        "content/xamarinwatchOS/Helpers/Settings.cs.pp",
+        "lib/MonoAndroid10/Plugin.Settings.Abstractions.dll",
+        "lib/MonoAndroid10/Plugin.Settings.Abstractions.dll.mdb",
+        "lib/MonoAndroid10/Plugin.Settings.Abstractions.pdb",
+        "lib/MonoAndroid10/Plugin.Settings.Abstractions.xml",
+        "lib/MonoAndroid10/Plugin.Settings.dll",
+        "lib/MonoAndroid10/Plugin.Settings.dll.mdb",
+        "lib/MonoAndroid10/Plugin.Settings.pdb",
+        "lib/MonoAndroid10/Plugin.Settings.xml",
+        "lib/UAP10/Plugin.Settings.Abstractions.dll",
+        "lib/UAP10/Plugin.Settings.Abstractions.pdb",
+        "lib/UAP10/Plugin.Settings.Abstractions.xml",
+        "lib/UAP10/Plugin.Settings.XML",
+        "lib/UAP10/Plugin.Settings.dll",
+        "lib/UAP10/Plugin.Settings.pdb",
+        "lib/UAP10/Plugin.Settings.pri",
+        "lib/Xamarin.Mac20/Plugin.Settings.Abstractions.dll",
+        "lib/Xamarin.Mac20/Plugin.Settings.Abstractions.pdb",
+        "lib/Xamarin.Mac20/Plugin.Settings.Abstractions.xml",
+        "lib/Xamarin.Mac20/Plugin.Settings.XML",
+        "lib/Xamarin.Mac20/Plugin.Settings.dll",
+        "lib/Xamarin.Mac20/Plugin.Settings.pdb",
+        "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.dll",
+        "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.dll.mdb",
+        "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.pdb",
+        "lib/Xamarin.iOS10/Plugin.Settings.Abstractions.xml",
+        "lib/Xamarin.iOS10/Plugin.Settings.dll",
+        "lib/Xamarin.iOS10/Plugin.Settings.xml",
+        "lib/net45/Plugin.Settings.Abstractions.dll",
+        "lib/net45/Plugin.Settings.Abstractions.pdb",
+        "lib/net45/Plugin.Settings.Abstractions.xml",
+        "lib/net45/Plugin.Settings.XML",
+        "lib/net45/Plugin.Settings.dll",
+        "lib/net45/Plugin.Settings.pdb",
+        "lib/netstandard1.0/Plugin.Settings.Abstractions.dll",
+        "lib/netstandard1.0/Plugin.Settings.Abstractions.pdb",
+        "lib/netstandard1.0/Plugin.Settings.Abstractions.xml",
+        "lib/netstandard1.0/Plugin.Settings.deps.json",
+        "lib/netstandard1.0/Plugin.Settings.dll",
+        "lib/netstandard1.0/Plugin.Settings.xml",
+        "lib/xamarintvOS/Plugin.Settings.Abstractions.dll",
+        "lib/xamarintvOS/Plugin.Settings.Abstractions.pdb",
+        "lib/xamarintvOS/Plugin.Settings.Abstractions.xml",
+        "lib/xamarintvOS/Plugin.Settings.dll",
+        "lib/xamarintvOS/Plugin.Settings.pdb",
+        "lib/xamarintvOS/Plugin.Settings.xml",
+        "lib/xamarinwatchOS/Plugin.Settings.Abstractions.dll",
+        "lib/xamarinwatchOS/Plugin.Settings.Abstractions.pdb",
+        "lib/xamarinwatchOS/Plugin.Settings.Abstractions.xml",
+        "lib/xamarinwatchOS/Plugin.Settings.dll",
+        "lib/xamarinwatchOS/Plugin.Settings.pdb",
+        "lib/xamarinwatchOS/Plugin.Settings.xml",
+        "readme.txt",
+        "xam.plugins.settings.3.1.1.nupkg.sha512",
+        "xam.plugins.settings.nuspec"
       ]
     },
     "Xamarin.Build.Download/0.4.11": {
@@ -2075,7 +2720,9 @@
   },
   "projectFileDependencyGroups": {
     "Xamarin.iOS,Version=v1.0": [
-      "Acr.UserDialogs >= 7.1.0.450",
+      "Acr.UserDialogs >= 7.1.0.454",
+      "MvvmLightLibs >= 5.4.1.1",
+      "Plugin.Permissions >= 6.0.1",
       "PoolGuy.Mobile >= 1.0.0",
       "PoolGuy.Mobile.Data >= 1.0.0",
       "Xamarin.Essentials >= 1.5.3.2",
@@ -2134,7 +2781,15 @@
         "dependencies": {
           "Acr.UserDialogs": {
             "target": "Package",
-            "version": "[7.1.0.450, )"
+            "version": "[7.1.0.454, )"
+          },
+          "MvvmLightLibs": {
+            "target": "Package",
+            "version": "[5.4.1.1, )"
+          },
+          "Plugin.Permissions": {
+            "target": "Package",
+            "version": "[6.0.1, )"
           },
           "Xamarin.Essentials": {
             "target": "Package",

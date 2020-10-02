@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 using Xamarin.Forms;
-
 using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services;
+using GalaSoft.MvvmLight.Ioc;
+using PoolGuy.Mobile.Services.Interface;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -39,6 +39,11 @@ namespace PoolGuy.Mobile.ViewModels
             onChanged?.Invoke();
             OnPropertyChanged(propertyName);
             return true;
+        }
+
+        public INavigationService NavigationService
+        {
+            get { return SimpleIoc.Default.GetInstance<INavigationService>(); }
         }
 
         #region INotifyPropertyChanged

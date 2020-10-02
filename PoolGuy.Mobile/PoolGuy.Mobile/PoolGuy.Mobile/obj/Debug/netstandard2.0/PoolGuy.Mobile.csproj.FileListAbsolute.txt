@@ -2,9 +2,9 @@ C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\Poo
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\bin\Debug\netstandard2.0\PoolGuy.Mobile.dll
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\bin\Debug\netstandard2.0\ref\PoolGuy.Mobile.dll
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\bin\Debug\netstandard2.0\PoolGuy.Mobile.pdb
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\PoolGuy.Mobile.csprojAssemblyReference.cache
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\App.xaml.g.cs
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\AppShell.xaml.g.cs
+C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\Views\ActionSheetPopupPage.xaml.g.cs
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\Views\CustomerPage.xaml.g.cs
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\Views\HomePage.xaml.g.cs
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\Views\ItemDetailPage.xaml.g.cs

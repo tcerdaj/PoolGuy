@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 x:Class="PoolGuy.Mobile.Views.ActionSheetPopupPage"
+                 xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
+                 xmlns:vm="clr-namespace:PoolGuy.Mobile.ViewModels"
+                 Title="{Binding Title}">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--  *****************************  -->
+            <!--  Material Design Icon FontFamily  -->
+            <!--  *****************************  -->
+            <OnPlatform x:Key="MaterialFontFamily"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS"
+                    Value="Material Design Icons" />
+                <On Platform="Android"
+                    Value="materialdesignicons.ttf#Material Design Icons" />
+            </OnPlatform>
+            <OnPlatform x:Key="FontAwesonFamily"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS"
+                    Value="Font Awesome 5 Free" />
+                <On Platform="Android"
+                    Value="fa-regular-400.ttf#Font Awesome 5 Free Regular" />
+            </OnPlatform>
+            <Style TargetType="Label" x:Key="field-header-regular">
+                <Setter Property="TextColor" Value="#B6B6B6"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style TargetType="Label" x:Key="field-details-regular">
+                <Setter Property="TextColor" Value="#7B7575"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style TargetType="Label" x:Key="field-details-large">
+                <Setter Property="TextColor" Value="#7B7575"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Frame  Grid.Row="0" HasShadow="False" BorderColor="#D2C9C9" Margin="10" CornerRadius="6"  Padding="5">
+            <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" >
+                <Image HorizontalOptions="Start" Margin="-5,0,0,0">
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                         Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
+                                         Size="40"
+                                         Color="#7B7575" />
+                    </Image.Source>
+                </Image>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                       
+                        <Label Grid.Row="0" HorizontalOptions="Start" Text="Name"  Style="{StaticResource field-header-regular}"/>
+                        <Label Grid.Row="0" HorizontalOptions="End" Text="Last Visit" Style="{StaticResource field-header-regular}"/>
+                        <Label Grid.Row="1" HorizontalOptions="StartAndExpand" Text="Customer Name"  Style="{StaticResource field-details-large}" LineBreakMode="TailTruncation"/>
+                        <Label Grid.Row="1" HorizontalOptions="End" Text="08/12/2020"  Style="{StaticResource field-details-regular}" LineBreakMode="TailTruncation"/>
+                        <Label Grid.Row="2" HorizontalOptions="Start" Text="Address"  Style="{StaticResource field-header-regular}" LineBreakMode="TailTruncation"/>
+                        <Label Grid.Row="3" HorizontalOptions="FillAndExpand" Text="1222 SW 14Th Terrace, Cape Coral, FL 33991"  Style="{StaticResource field-details-regular}" LineBreakMode="TailTruncation"/>
+                        <Label Grid.Row="4" HorizontalOptions="Start" Text="Notes"  Style="{StaticResource field-header-regular}" />
+                        <Label Grid.Row="5" HorizontalOptions="FillAndExpand" Text="Verify if the pump was fixed"  Style="{StaticResource field-details-regular}" LineBreakMode="TailTruncation"/>
+                    </Grid>
+                </StackLayout>
+                <Image Aspect="AspectFit" Margin="0,0,-5,0">
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                             Glyph="{x:Static icons:MaterialDesignIcons.ChevronRight}"
+                                             Size="40"
+                                             Color="#7B7575" />
+                    </Image.Source>
+                </Image>
+            </StackLayout>
+        </Frame>
+        <!--Progress Bar-->
+        <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand"
+                     VerticalOptions="Center"
+                     Padding="10,0"
+                     Spacing="10"
+                     Orientation="Horizontal">
+            <ProgressBar IsVisible="True" 
+                         HorizontalOptions="FillAndExpand" 
+                         ProgressColor="{StaticResource Primary}" 
+                         Progress="0.5" />
+            <Label  HorizontalOptions="Fill" TextColor="{StaticResource Primary}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="50%" FontSize="20" FontAttributes="Bold"/>
+                        <Span Text=" Completed" FontSize="12" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+         <ScrollView Grid.Row="2">
+            <StackLayout Orientation="Vertical" Padding="20,10" Spacing="10">
+                <StackLayout Orientation="Horizontal">
+                    <Image Aspect="AspectFit" Margin="0,0,0,0" VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                             Glyph="{x:Static icons:MaterialDesignIcons.Truck}"
+                                             Size="20"
+                                             Color="#7B7575" />
+                       </Image.Source>
+                     </Image>
+                    <Label TextColor="#4A4A4A" 
+                           HorizontalOptions="StartAndExpand" 
+                           VerticalOptions="Center">
+                       <Label.FormattedText>
+                           <FormattedString>
+                               <Span Text="15 " FontSize="30"/>
+                               <Span Text="Pools"/>
+                           </FormattedString>
+                       </Label.FormattedText>
+                    </Label>
+                    <Image Aspect="AspectFit" 
+                           Margin="0,0,0,0" 
+                           HorizontalOptions="End" 
+                           VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                             Glyph="{x:Static icons:MaterialDesignIcons.Plus}"
+                                             Size="30"
+                                             Color="{StaticResource Primary}" />
+                        </Image.Source>
+                    </Image>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label TextColor="#7B7575" HorizontalOptions="StartAndExpand">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="72" FontSize="30" />
+                                <Span Text="{x:Static icons:MaterialDesignIcons.TemperatureFahrenheit}" FontSize="22"
+                                      FontFamily="{StaticResource MaterialFontFamily}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label TextColor="#7B7575" HorizontalOptions="StartAndExpand" CharacterSpacing="10">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{x:Static icons:MaterialDesignIcons.WeatherLightningRainy}" FontSize="22"
+                                      FontFamily="{StaticResource MaterialFontFamily}"/>
+                                <Span Text=" 83% " FontSize="30"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <StackLayout Orientation="Horizontal">
+                        <Label TextColor="#7B7575" HorizontalOptions="StartAndExpand" 
+                           VerticalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{x:Static icons:MaterialDesignIcons.Water}" FontSize="22"
+                                      FontFamily="{StaticResource MaterialFontFamily}"/>
+                                    <Span Text="2.5 " FontSize="30"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+
+</pages:PopupPage>
