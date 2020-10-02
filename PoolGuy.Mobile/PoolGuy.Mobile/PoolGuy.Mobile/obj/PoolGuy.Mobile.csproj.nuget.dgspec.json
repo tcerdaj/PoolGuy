@@ -61,6 +61,14 @@
               "target": "Package",
               "version": "[4.8.0.1451, )"
             },
+            "Xamarin.Forms.GoogleMaps": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
+            "Xamarin.Forms.Maps": {
+              "target": "Package",
+              "version": "[4.8.0.1451, )"
+            },
             "Xamarin.Forms.Visual.Material": {
               "target": "Package",
               "version": "[4.8.0.1451, )"

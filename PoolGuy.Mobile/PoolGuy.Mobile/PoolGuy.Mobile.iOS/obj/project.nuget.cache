@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "mAB4rqemDJSElFoGF49kJjgxNX6Q5Lzd4w06fbGEHM6UyNJMHoqqHXkezMRmkW+xcXZ+IJPFJNc1+ayFztYFWg==",
+  "dgSpecHash": "dcOZsg5HzOXn47DK99Ixd3azA3NJaWsurBRHr2gCSwlFVapcS/PMEjBShcVcCqKiGBzs3NUNAbMlxiq+UQ/39Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\tcerda.CCCDOMAIN\\source\\repos\\PoolGuy\\PoolGuy.Mobile\\PoolGuy.Mobile\\PoolGuy.Mobile.iOS\\PoolGuy.Mobile.iOS.csproj",
   "expectedPackageFiles": [
@@ -13,9 +13,13 @@
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\system.buffers\\4.4.0\\system.buffers.4.4.0.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.build.download\\0.4.11\\xamarin.build.download.0.4.11.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.forms\\4.8.0.1451\\xamarin.forms.4.8.0.1451.nupkg.sha512",
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.forms.googlemaps\\3.3.0\\xamarin.forms.googlemaps.3.3.0.nupkg.sha512",
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.forms.maps\\4.8.0.1451\\xamarin.forms.maps.4.8.0.1451.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.forms.visual.material\\4.8.0.1451\\xamarin.forms.visual.material.4.8.0.1451.nupkg.sha512",
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.google.ios.maps\\3.5.0\\xamarin.google.ios.maps.3.5.0.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\xamarin.ios.materialcomponents\\92.0.0\\xamarin.ios.materialcomponents.92.0.0.nupkg.sha512"
   ],
   "logs": []

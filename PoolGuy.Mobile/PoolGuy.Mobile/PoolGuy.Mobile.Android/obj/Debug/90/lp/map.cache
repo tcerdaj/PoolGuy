@@ -44,3 +44,9 @@ Xamarin.Forms.Material
 Xamarin.Forms.Platform.Android
 Xamarin.Forms.Platform
 SQLitePCLRaw.lib.e_sqlite3.android
+Xamarin.Forms.GoogleMaps.Android
+Xamarin.GooglePlayServices.Base
+Xamarin.GooglePlayServices.Basement
+Xamarin.GooglePlayServices.Maps
+Xamarin.GooglePlayServices.Tasks
+Xamarin.Forms.Maps.Android
