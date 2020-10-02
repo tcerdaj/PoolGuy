@@ -60,6 +60,9 @@
     <PackageReference Include="Plugin.CurrentActivity">
       <Version>2.1.0.4</Version>
     </PackageReference>
+    <PackageReference Include="sqlite-net-pcl">
+      <Version>1.7.335</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Xamarin.Forms.Visual.Material">
@@ -68,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomRenderer\CustomEntryRenderer.cs" />
+    <Compile Include="ISQLite\SQLite_Android.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,6 +104,10 @@
     <AndroidResource Include="Resources\drawable\tab_feed.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\PoolGuy.Mobile.Core\PoolGuy.Mobile.Data.csproj">
+      <Project>{2acb1803-ee8d-4d6a-9713-e8ea85b097d8}</Project>
+      <Name>PoolGuy.Mobile.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PoolGuy.Mobile\PoolGuy.Mobile.csproj">
       <Project>{AFF9E5FE-7D2C-43AA-AB4F-19F45552B1E3}</Project>
       <Name>PoolGuy.Mobile</Name>

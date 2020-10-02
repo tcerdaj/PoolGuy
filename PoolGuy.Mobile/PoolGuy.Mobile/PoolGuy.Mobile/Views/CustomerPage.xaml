@@ -5,8 +5,7 @@
              xmlns:vm="clr-namespace:PoolGuy.Mobile.ViewModels"
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
-             Title="{Binding Title}"
-             Visual="Material">
+             Title="{Binding Title}">
     <ContentPage.BindingContext>
         <vm:CustomerViewModel />
     </ContentPage.BindingContext>
@@ -43,6 +42,9 @@
             </Style>
             <Style TargetType="mycc:CustomEntry" >
                 <Setter Property="TextColor" Value="White"/>
+            </Style>
+            <Style TargetType="Frame" >
+                <Setter Property="Visual" Value="Material"/>
             </Style>
             <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using SQLite;
+using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.Data.SQLite
 {
@@ -7,7 +8,8 @@ namespace PoolGuy.Mobile.Data.SQLite
     {
         static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() =>
         {
-            return new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
+            var conn = DependencyService.Get<ISQLite>().GetConnection();
+            return conn;
         });
 
         static readonly Lazy<SQLiteConnection> _lazyInitializer = new Lazy<SQLiteConnection>(() =>
