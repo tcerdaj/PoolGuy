@@ -13,6 +13,8 @@ C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\Poo
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\Views\NewItemPage.xaml.g.cs
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\PoolGuy.Mobile.AssemblyInfoInputs.cache
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\PoolGuy.Mobile.AssemblyInfo.cs
+C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\PoolGuy.Mobile.csproj.CoreCompileInputs.cache
+C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\XamlC.stamp
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\PoolGuy.Mobile.dll
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\ref\PoolGuy.Mobile.dll
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile\obj\Debug\netstandard2.0\PoolGuy.Mobile.pdb
