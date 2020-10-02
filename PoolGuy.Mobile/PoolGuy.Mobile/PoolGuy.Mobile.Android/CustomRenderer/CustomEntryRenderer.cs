@@ -1,4 +1,5 @@
-﻿using Android.Content.Res;
+﻿using Android.Content;
+using Android.Content.Res;
 using Android.Graphics.Drawables;
 using Android.Text;
 using PoolGuy.Mobile.CustomControls;
@@ -11,6 +12,12 @@ namespace PoolGuy.Mobile.Droid.CustomRenderer
 {
     public class CustomEntryRenderer : EntryRenderer
     {
+        public CustomEntryRenderer(Context context)
+            :base(context)
+        {
+
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
         {
             base.OnElementChanged(e);
@@ -19,7 +26,7 @@ namespace PoolGuy.Mobile.Droid.CustomRenderer
             {
                 GradientDrawable gd = new GradientDrawable();
                 gd.SetColor(global::Android.Graphics.Color.Transparent);
-                this.Control.SetBackgroundDrawable(gd);
+                this.Control.SetBackground(gd);
                 this.Control.SetRawInputType(InputTypes.TextFlagNoSuggestions);
                 Control.SetHintTextColor(ColorStateList.ValueOf(global::Android.Graphics.Color.White));
             }
