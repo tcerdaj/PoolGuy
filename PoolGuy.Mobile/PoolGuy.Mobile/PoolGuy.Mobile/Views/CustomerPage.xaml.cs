@@ -2,9 +2,9 @@
 
 namespace PoolGuy.Mobile.Views
 {
-    public partial class HomePage : ContentPage
+    public partial class CustomerPage : ContentPage
     {
-        public HomePage()
+        public CustomerPage()
         {
             InitializeComponent();
         }

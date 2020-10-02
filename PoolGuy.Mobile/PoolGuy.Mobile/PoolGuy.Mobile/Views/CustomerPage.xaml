@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PoolGuy.Mobile.Views.CustomerPage"
+             xmlns:vm="clr-namespace:PoolGuy.Mobile.ViewModels"
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
+             Title="{Binding Title}"
+             Visual="Material">
+    <ContentPage.BindingContext>
+        <vm:CustomerViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--  *****************************  -->
+            <!--  Material Design Icon FontFamily  -->
+            <!--  *****************************  -->
+            <OnPlatform x:Key="MaterialFontFamily"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS"
+                    Value="Material Design Icons" />
+                <On Platform="Android"
+                    Value="materialdesignicons.ttf#Material Design Icons" />
+            </OnPlatform>
+            <OnPlatform x:Key="FontAwesonFamily"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS"
+                    Value="Font Awesome 5 Free" />
+                <On Platform="Android"
+                    Value="fa-regular-400.ttf#Font Awesome 5 Free Regular" />
+            </OnPlatform>
+            <Style TargetType="Label" x:Key="field-header-regular">
+                <Setter Property="TextColor" Value="#B6B6B6"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style TargetType="Label" x:Key="field-details-regular">
+                <Setter Property="TextColor" Value="#7B7575"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style TargetType="Label" x:Key="field-details-large">
+                <Setter Property="TextColor" Value="#7B7575"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Padding="20,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row ="0" Text="Customer"/>
+        <Frame  Grid.Row="1" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+            <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" >
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="80"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Frame Grid.Row="0" Padding="10" BorderColor="Gray" Margin="10"
+                               BackgroundColor="Yellow" >
+                        </Frame>
+                         <mycc:CustomEntry Grid.Row="1"  Text="testing" Placeholder="First name" Margin="10" BackgroundColor="Blue"/>
+                        
+                        <Label Grid.Row="2" HorizontalOptions="Start" Text="Address"  Style="{StaticResource field-header-regular}" LineBreakMode="TailTruncation"/>
+                        <Label Grid.Row="3" HorizontalOptions="FillAndExpand" Text="1222 SW 14Th Terrace, Cape Coral, FL 33991"  Style="{StaticResource field-details-regular}" LineBreakMode="TailTruncation"/>
+                        <Label Grid.Row="4" HorizontalOptions="Start" Text="Notes"  Style="{StaticResource field-header-regular}" />
+                        <Label Grid.Row="5" HorizontalOptions="FillAndExpand" Text="Verify if the pump was fixed"  Style="{StaticResource field-details-regular}" LineBreakMode="TailTruncation"/>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>
