@@ -64,7 +64,7 @@
            <!--Customer-->
            <Label Grid.Row ="0" Text="Customer"/>
            <Frame  Grid.Row="1" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -92,12 +92,12 @@
                         </Frame>
                     </Grid>
                 </StackLayout>
-            </StackLayout>
-        </Frame>
+             </StackLayout>
+           </Frame>
            <!--Address--> 
            <Label Grid.Row ="2" Text="Address"/>
            <Frame  Grid.Row="3" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -153,7 +153,7 @@
                     </Grid>
                 </StackLayout>
             </StackLayout>
-        </Frame>
+           </Frame>
            <!--Contact Information-->
            <Label Grid.Row ="4" Text="Contact Information"/>
            <Frame  Grid.Row="5" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
