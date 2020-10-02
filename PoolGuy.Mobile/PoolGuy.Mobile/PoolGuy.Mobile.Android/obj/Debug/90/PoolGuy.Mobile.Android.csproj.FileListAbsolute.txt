@@ -521,3 +521,4 @@ C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\Poo
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile.Android\obj\Debug\90\android\src\crc64b76f6e8b2d8c8db1\LoginAppCompatDialogFragment.java
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile.Android\obj\Debug\90\android\src\crc64b76f6e8b2d8c8db1\PromptAppCompatDialogFragment.java
 C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile.Android\obj\Debug\90\android\src\crc64b76f6e8b2d8c8db1\TimeAppCompatDialogFragment.java
+C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile\PoolGuy.Mobile\PoolGuy.Mobile.Android\obj\Debug\90\android\src\crc64f8b836249344ad98\CustomEntryRenderer.java

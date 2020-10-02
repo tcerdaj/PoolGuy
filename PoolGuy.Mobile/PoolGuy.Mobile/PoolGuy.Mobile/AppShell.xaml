@@ -81,6 +81,7 @@
     -->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Home" Icon="tab_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:HomePage}" />
+        <ShellContent Title="Customer" Icon="tab_account.png" Route="CustomerPage" ContentTemplate="{DataTemplate local:CustomerPage}" />
         <ShellContent Title="Browse" Icon="tab_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
 

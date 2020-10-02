@@ -41,39 +41,223 @@
                 <Setter Property="TextColor" Value="#7B7575"/>
                 <Setter Property="FontSize" Value="18"/>
             </Style>
+            <Style TargetType="mycc:CustomEntry" >
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
             <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid Padding="20,10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Label Grid.Row ="0" Text="Customer"/>
-        <Frame  Grid.Row="1" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
-            <StackLayout Orientation="Horizontal" VerticalOptions="FillAndExpand" HorizontalOptions="Fill" >
+    <ScrollView>
+       <Grid Padding="20,10">
+           <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+           </Grid.RowDefinitions>
+           <!--Customer-->
+           <Label Grid.Row ="0" Text="Customer"/>
+           <Frame  Grid.Row="1" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="80"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Frame Grid.Row="0" Padding="10" BorderColor="Gray" Margin="10"
-                               BackgroundColor="Yellow" >
+                        <Frame Grid.Row="0" Grid.Column="0" 
+                               Padding="10,0" 
+                               BorderColor="Gray" 
+                               Margin="10,0" 
+                               CornerRadius="6"
+                               BackgroundColor="{StaticResource Primary}" >
+                            <mycc:CustomEntry     Placeholder="First name"/>
                         </Frame>
-                         <mycc:CustomEntry Grid.Row="1"  Text="testing" Placeholder="First name" Margin="10" BackgroundColor="Blue"/>
-                        
-                        <Label Grid.Row="2" HorizontalOptions="Start" Text="Address"  Style="{StaticResource field-header-regular}" LineBreakMode="TailTruncation"/>
-                        <Label Grid.Row="3" HorizontalOptions="FillAndExpand" Text="1222 SW 14Th Terrace, Cape Coral, FL 33991"  Style="{StaticResource field-details-regular}" LineBreakMode="TailTruncation"/>
-                        <Label Grid.Row="4" HorizontalOptions="Start" Text="Notes"  Style="{StaticResource field-header-regular}" />
-                        <Label Grid.Row="5" HorizontalOptions="FillAndExpand" Text="Verify if the pump was fixed"  Style="{StaticResource field-details-regular}" LineBreakMode="TailTruncation"/>
+                        <Frame Grid.Row="1" Grid.Column="0" 
+                               Padding="10,0" 
+                               BorderColor="Gray" 
+                               Margin="10,0" 
+                               CornerRadius="6"
+                               BackgroundColor="{StaticResource Primary}">
+                            <mycc:CustomEntry     Placeholder="Last name"/>
+                        </Frame>
                     </Grid>
                 </StackLayout>
             </StackLayout>
         </Frame>
-    </Grid>
+           <!--Address--> 
+           <Label Grid.Row ="2" Text="Address"/>
+           <Frame  Grid.Row="3" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Frame Grid.Row="0" Grid.Column="0" 
+                               Padding="10,0" 
+                               BorderColor="Gray" 
+                               Margin="10,0" 
+                               CornerRadius="6"
+                               BackgroundColor="{StaticResource Primary}">
+                            <mycc:CustomEntry Placeholder="Address1"/>
+                        </Frame>
+                        <Frame Grid.Row="1" 
+                               Grid.Column="0" 
+                               Padding="10,0" 
+                               BorderColor="Gray" 
+                               Margin="10,0" CornerRadius="6"
+                               BackgroundColor="{StaticResource Primary}">
+                            <mycc:CustomEntry Placeholder="Address2"/>
+                        </Frame>
+                        <Frame Grid.Row="2" Grid.Column="0" 
+                               Padding="10,0" 
+                               BorderColor="Gray" 
+                               Margin="10,0" 
+                               CornerRadius="6"
+                           BackgroundColor="{StaticResource Primary}" >
+                                <mycc:CustomEntry Placeholder="City" />
+                        </Frame>
+                        <StackLayout Grid.Row="3" Grid.Column="0" 
+                                     Margin="10,0"
+                                     Orientation="Horizontal"
+                                     HorizontalOptions="FillAndExpand">
+                           <Frame Padding="10,0" 
+                                  BorderColor="Gray" 
+                                  HorizontalOptions="FillAndExpand"
+                                  CornerRadius="6"
+                                  BackgroundColor="{StaticResource Primary}" >
+                                <mycc:CustomEntry Placeholder="State" />
+                            </Frame>
+                            <Frame Padding="10,0" 
+                                   BorderColor="Gray" 
+                                   WidthRequest="90"
+                                   CornerRadius="6"
+                                   BackgroundColor="{StaticResource Primary}">
+                                    <mycc:CustomEntry Placeholder="Zip"/>
+                            </Frame>
+                         </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+           <!--Contact Information-->
+           <Label Grid.Row ="4" Text="Contact Information"/>
+           <Frame  Grid.Row="5" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <StackLayout Grid.Row="0" Grid.Column="0" 
+                                         Margin="10,0"
+                                         Orientation="Horizontal"
+                                         HorizontalOptions="FillAndExpand">
+                                <Frame Padding="10,0" 
+                                       BorderColor="Gray" 
+                                       HorizontalOptions="FillAndExpand"
+                                       CornerRadius="6"
+                                       BackgroundColor="{StaticResource Primary}">
+                                    <mycc:CustomEntry Placeholder="Phone"/>
+                                </Frame>
+                                <Frame Padding="10,0" 
+                                       BorderColor="Gray" 
+                                       HorizontalOptions="FillAndExpand"
+                                       CornerRadius="6"
+                                       BackgroundColor="{StaticResource Primary}" >
+                                    <mycc:CustomEntry Placeholder="Cell phone"/>
+                                </Frame>
+                            </StackLayout>
+                            <Frame Grid.Row="1" Grid.Column="0" 
+                                   Padding="10,0" 
+                                   BorderColor="Gray" 
+                                   Margin="10,0" 
+                                   CornerRadius="6"
+                                   BackgroundColor="{StaticResource Primary}">
+                                <mycc:CustomEntry Placeholder="Email"/>
+                            </Frame>
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <!--Aditional Information-->
+            <Label Grid.Row ="6" Text="Aditional Information"/>
+            <Frame  Grid.Row="7" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Frame Grid.Row="1" Grid.Column="0" Padding="10,0" BorderColor="Gray" Margin="10,0" CornerRadius="6"
+                                   BackgroundColor="{StaticResource Primary}" >
+                                <mycc:CustomEntry Placeholder="Aditional information"/>
+                            </Frame>
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <!--Pool Information-->
+            <Label Grid.Row ="8" Text="Pool Information"/>
+            <Frame  Grid.Row="9" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="10,10">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                                <Frame Grid.Row="0" Grid.Column="0" Padding="10,0" 
+                                       BorderColor="Gray" 
+                                       BackgroundColor="{StaticResource Primary}"
+                                       HorizontalOptions="FillAndExpand"
+                                       CornerRadius="6">
+                                    <mycc:CustomEntry Placeholder="Type" />
+                                </Frame>
+                                <Frame Grid.Row="0" Grid.Column="1"
+                                       Padding="10,0" 
+                                       BorderColor="Gray" 
+                                       BackgroundColor="{StaticResource Primary}"
+                                       HorizontalOptions="FillAndExpand"
+                                       CornerRadius="6">
+                                    <mycc:CustomEntry Placeholder="Surface" />
+                                </Frame>
+                                <Frame Grid.Row="1" Grid.Column="0" 
+                                       Padding="10,0" BorderColor="Gray" 
+                                       BackgroundColor="{StaticResource Primary}"
+                                       CornerRadius="6">
+                                    <mycc:CustomEntry Placeholder="Capacity" PlaceholderColor="Black" TextColor="Black"  />
+                                </Frame>
+                                <Label Grid.Row="1" Grid.Column="1" 
+                                       Text="Equipments" 
+                                       FontAttributes="Bold"
+                                       FontSize="16"
+                                       TextColor="{StaticResource Primary}"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ScrollView>
 </ContentPage>
