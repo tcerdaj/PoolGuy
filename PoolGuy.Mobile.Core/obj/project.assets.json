@@ -1189,7 +1189,8 @@
   },
   "packageFolders": {
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -1201,7 +1202,8 @@
       "outputPath": "C:\\Users\\tcerda.CCCDOMAIN\\source\\repos\\PoolGuy\\PoolGuy.Mobile.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Microsoft\\Xamarin\\NuGet\\",
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
         "C:\\Users\\tcerda.CCCDOMAIN\\AppData\\Roaming\\NuGet\\NuGet.Config",

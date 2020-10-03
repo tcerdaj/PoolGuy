@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<resources>
-    <!-- https://go.microsoft.com/fwlink/?linkid=2124038
-    <issue id="HardcodedText" severity="error">
-        <ignore path="Resources\layout\content_main.xml" />
-    </issue>
-    -->
-  <string name="google_maps_api_key">AIzaSyC5arQ3aoeRkOjQ7dk1sjY0B78Rbwp0zyI</string>
-</resources>
