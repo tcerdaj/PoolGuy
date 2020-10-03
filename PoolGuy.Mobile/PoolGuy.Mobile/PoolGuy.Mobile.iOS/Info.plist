@@ -34,5 +34,7 @@
     <string>PoolGuy.Mobile</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+    <key>GoogleApiKey</key>
+    <string>AIzaSyC5arQ3aoeRkOjQ7dk1sjY0B78Rbwp0zyI</string>
 </dict>
 </plist>

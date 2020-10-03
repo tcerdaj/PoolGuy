@@ -10,6 +10,7 @@
       "PoolGuy.Mobile.Data/1.0.0": {
         "dependencies": {
           "Acr.UserDialogs": "7.1.0.454",
+          "CommonServiceLocator": "2.0.5",
           "MvvmLightLibs": "5.4.1.1",
           "NETStandard.Library": "2.0.3",
           "Plugin.Permissions": "6.0.1",
@@ -25,6 +26,14 @@
           "lib/netstandard2.0/Acr.UserDialogs.dll": {
             "assemblyVersion": "7.1.0.454",
             "fileVersion": "7.1.0.454"
+          }
+        }
+      },
+      "CommonServiceLocator/2.0.5": {
+        "runtime": {
+          "lib/netstandard2.0/CommonServiceLocator.dll": {
+            "assemblyVersion": "2.0.5.0",
+            "fileVersion": "2.0.5.0"
           }
         }
       },
@@ -190,6 +199,13 @@
       "sha512": "sha512-A7NdvgpX1tE5tDj4gNQgrQOZ2xZF2PidNhuy5ydfM5rJdvN9CqjVxjoKEu3rDiMUs7ek/m+EiVkYVC5DVwfI0A==",
       "path": "acr.userdialogs/7.1.0.454",
       "hashPath": "acr.userdialogs.7.1.0.454.nupkg.sha512"
+    },
+    "CommonServiceLocator/2.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Md2q9f6hAuUAm6IWTybQbYvxhDAs2dqmsudVDghpg0Q+C0M2KkmiTDjeGx1PsYhnZPvp+hy1Cx99v0VPW9W6/g==",
+      "path": "commonservicelocator/2.0.5",
+      "hashPath": "commonservicelocator.2.0.5.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",

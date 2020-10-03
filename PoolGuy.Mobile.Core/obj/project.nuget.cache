@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "v00xXMwE1htQphLHvzg5efIKBUCEIDcMIKqxkZFat7J4JgL/upPXFUWr3+02C083cMqg7NimgVXqgTvsfTF6iw==",
+  "dgSpecHash": "0dtCer7fgXOyZTz3+q9ptkOE42GuLZqItZ2bXOh7noAlnB4enrQVq3bCjdnBXmeFgb/g+NjrZ7B3EFoOG+hF6g==",
   "success": true,
   "projectFilePath": "C:\\Users\\tcerda.CCCDOMAIN\\source\\repos\\PoolGuy\\PoolGuy.Mobile.Core\\PoolGuy.Mobile.Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\acr.userdialogs\\7.1.0.454\\acr.userdialogs.7.1.0.454.nupkg.sha512",
+    "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\commonservicelocator\\2.0.5\\commonservicelocator.2.0.5.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\mvvmlightlibs\\5.4.1.1\\mvvmlightlibs.5.4.1.1.nupkg.sha512",
     "C:\\Users\\tcerda.CCCDOMAIN\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",

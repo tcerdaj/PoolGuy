@@ -7,6 +7,7 @@ using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services;
 using GalaSoft.MvvmLight.Ioc;
 using PoolGuy.Mobile.Services.Interface;
+using System.Threading.Tasks;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -45,7 +46,15 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get { return SimpleIoc.Default.GetInstance<INavigationService>(); }
         }
-
+        #region UserDialogs
+        public IUserDialogs Message
+        {
+            get
+            {
+                return SimpleIoc.Default.GetInstance<IUserDialogs>();
+            }
+        }
+        #endregion UserDialogs
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")

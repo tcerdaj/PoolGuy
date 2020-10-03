@@ -260,6 +260,7 @@
                     </StackLayout>
                 </StackLayout>
             </Frame>
+            <Button Grid.Row="10" Text="Display Message" Command="{Binding DisplayMessageCommand}"/>
         </Grid>
     </ScrollView>
 </ContentPage>

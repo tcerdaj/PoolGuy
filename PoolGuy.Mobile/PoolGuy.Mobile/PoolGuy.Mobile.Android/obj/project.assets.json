@@ -1151,6 +1151,7 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Acr.UserDialogs": "7.1.0.454",
+          "CommonServiceLocator": "2.0.5",
           "MvvmLightLibs": "5.4.1.1",
           "Plugin.Permissions": "6.0.1",
           "Xamarin.Forms": "4.8.0.1451",
@@ -2978,6 +2979,7 @@
   "projectFileDependencyGroups": {
     "MonoAndroid,Version=v9.0": [
       "Acr.UserDialogs >= 7.1.0.454",
+      "CommonServiceLocator >= 2.0.5",
       "MvvmLightLibs >= 5.4.1.1",
       "Plugin.CurrentActivity >= 2.1.0.4",
       "Plugin.Permissions >= 6.0.1",
@@ -3040,6 +3042,10 @@
           "Acr.UserDialogs": {
             "target": "Package",
             "version": "[7.1.0.454, )"
+          },
+          "CommonServiceLocator": {
+            "target": "Package",
+            "version": "[2.0.5, )"
           },
           "MvvmLightLibs": {
             "target": "Package",

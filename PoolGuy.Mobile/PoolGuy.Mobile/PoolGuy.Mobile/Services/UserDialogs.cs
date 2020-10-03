@@ -69,29 +69,95 @@ namespace PoolGuy.Mobile.Services
             return _action;
         }
 
-        public Task DisplayAlertAsync(string message, string title, string cancel = "Ok")
+        public async Task DisplayAlertAsync(string message, string title, string cancel = "Ok")
         {
-            throw new NotImplementedException();
+            try
+            {
+                _cancellationToken?.Cancel();
+                _cancellationToken = new CancellationTokenSource();
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    await Task.Delay(500);
+                }
+
+                await Device.InvokeOnMainThreadAsync(async () => await Acr.UserDialogs.UserDialogs.Instance.AlertAsync(message, title, cancel, _cancellationToken.Token));
+            }
+            catch (TaskCanceledException e)
+            {
+                Debug.WriteLine(e);
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
-        public Task<bool> DisplayConfirmationAsync(string message, string title, string accept = "Ok", string cancel = "Cancel")
+        public async Task<bool> DisplayConfirmationAsync(string message, string title, string accept = "Ok", string cancel = "Cancel")
         {
-            throw new NotImplementedException();
+            try
+            {
+                _cancellationToken?.Cancel();
+                _cancellationToken = new CancellationTokenSource();
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    await Task.Delay(500);
+                }
+
+                return await Device.InvokeOnMainThreadAsync(async () =>
+                     await Acr.UserDialogs.UserDialogs.Instance.ConfirmAsync(message, title, accept, cancel,
+                         _cancellationToken.Token));
+            }
+            catch (TaskCanceledException e)
+            {
+                Debug.WriteLine(e);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return false;
+            }
         }
 
-        public Task<PromptResult> DisplayPromptAsync(string message, string title, string accept = "Ok", string cancel = "Cancel", string placeholder = null, InputType keyboard = InputType.Default)
+        public async Task<PromptResult> DisplayPromptAsync(string message, string title, string accept = "Ok", string cancel = "Cancel", string placeholder = null, InputType keyboard = InputType.Default)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _cancellationToken?.Cancel();
+                _cancellationToken = new CancellationTokenSource();
+                if (Device.RuntimePlatform == Device.iOS)
+                {
+                    await Task.Delay(500);
+                }
+
+                PromptResult result = await Device.InvokeOnMainThreadAsync(async () => await Acr.UserDialogs.UserDialogs.Instance.PromptAsync(message, title, accept, cancel, placeholder, keyboard, _cancellationToken.Token));
+                return result;
+            }
+            catch (TaskCanceledException e)
+            {
+                Debug.WriteLine(e);
+                return new PromptResult(false, "");
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return new PromptResult(false, "");
+            }
         }
 
         public void Toast(string message, TimeSpan? duration = null)
         {
-            throw new NotImplementedException();
+            Device.BeginInvokeOnMainThread(() => Acr.UserDialogs.UserDialogs.Instance.Toast(new ToastConfig(message)
+            {
+                Duration = duration ?? TimeSpan.FromSeconds(5),
+                Position = ToastPosition.Bottom
+            }));
         }
 
         public void Toast(ToastConfig toastConfig)
         {
-            throw new NotImplementedException();
+            Device.BeginInvokeOnMainThread(() => Acr.UserDialogs.UserDialogs.Instance.Toast(toastConfig));
         }
     }
 }

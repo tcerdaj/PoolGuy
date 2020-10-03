@@ -25,7 +25,8 @@ namespace PoolGuy.Mobile.iOS
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             global::Xamarin.FormsMaps.Init();
-            global::Xamarin.FormsGoogleMaps.Init("AIzaSyC5arQ3aoeRkOjQ7dk1sjY0B78Rbwp0zyI");
+            var apikey = NSBundle.MainBundle.PathForResource("GoogleApiKey", "plist");
+            global::Xamarin.FormsGoogleMaps.Init(apikey);
             global::Xamarin.Forms.FormsMaterial.Init();
             LoadApplication(new App());
 
