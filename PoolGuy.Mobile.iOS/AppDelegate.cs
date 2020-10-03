@@ -23,6 +23,7 @@ namespace PoolGuy.Mobile.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
+            Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
             global::Xamarin.FormsMaps.Init();
             var apikey = NSBundle.MainBundle.ObjectForInfoDictionary("CFGoogleApiKey");
