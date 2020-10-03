@@ -3,7 +3,7 @@ using System;
 
 namespace PoolGuy.Mobile.Data.Controllers
 {
-    public class CustomerController : BaseController<Customer>
+    public class CustomerController : BaseController<CustomerModel>
     {
         public CustomerController()
             :base()
@@ -11,9 +11,9 @@ namespace PoolGuy.Mobile.Data.Controllers
             
         }
 
-        public async System.Threading.Tasks.Task<ResultStatus<Customer>> ModifyAsync(Customer customer)
+        public async System.Threading.Tasks.Task<ResultStatus<CustomerModel>> ModifyAsync(CustomerModel customer)
         {
-            ResultStatus<Customer> result = null;
+            ResultStatus<CustomerModel> result = null;
 
             try
             {
@@ -43,20 +43,20 @@ namespace PoolGuy.Mobile.Data.Controllers
                     customer.Modified = DateTime.Now;
                 }
 
-                result = new ResultStatus<Customer>(Enums.eResultStatus.Ok, 
+                result = new ResultStatus<CustomerModel>(Enums.eResultStatus.Ok, 
                     string.Empty, await LocalData.Modify(customer));
             }
             catch (System.Exception e)
             {
-                result = new ResultStatus<Customer>(Enums.eResultStatus.Error, e.Message, customer);
+                result = new ResultStatus<CustomerModel>(Enums.eResultStatus.Error, e.Message, customer);
             }
 
             return result;
         }
 
-        public async System.Threading.Tasks.Task<ResultStatus<Customer>> DeleteAsync(Customer customer)
+        public async System.Threading.Tasks.Task<ResultStatus<CustomerModel>> DeleteAsync(CustomerModel customer)
         {
-            ResultStatus<Customer> result = null;
+            ResultStatus<CustomerModel> result = null;
 
             try
             {
@@ -71,11 +71,11 @@ namespace PoolGuy.Mobile.Data.Controllers
 
                 await poolController.LocalData.Delete(customer.Pool);
                 await LocalData.Delete(customer);
-                result = new ResultStatus<Customer>(Enums.eResultStatus.Ok, string.Empty, customer);
+                result = new ResultStatus<CustomerModel>(Enums.eResultStatus.Ok, string.Empty, customer);
             }
             catch (System.Exception e)
             {
-                result = new ResultStatus<Customer>(Enums.eResultStatus.Error, e.Message, customer);
+                result = new ResultStatus<CustomerModel>(Enums.eResultStatus.Error, e.Message, customer);
             }
 
             return result;

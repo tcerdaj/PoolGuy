@@ -12,12 +12,17 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.5" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />  
     <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.2.0" />  
     <PackageReference Include="Xamarin.Forms.Maps" Version="4.8.0.1451" />  
     <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.8.0.1451" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PoolGuy.Mobile.Data\PoolGuy.Mobile.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

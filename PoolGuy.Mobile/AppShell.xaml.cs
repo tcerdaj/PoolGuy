@@ -13,7 +13,10 @@ namespace PoolGuy.Mobile
             InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
+            Routing.RegisterRoute(nameof(CustomerPage), typeof(CustomerPage));
         }
+
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {

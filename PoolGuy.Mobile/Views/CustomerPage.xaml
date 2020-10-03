@@ -2,15 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.CustomerPage"
-             xmlns:vm="clr-namespace:PoolGuy.Mobile.ViewModels"
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
              Title="{Binding Title}">
-    <ContentPage.BindingContext>
-        <vm:CustomerViewModel />
-    </ContentPage.BindingContext>
+   
     <ContentPage.Resources>
         <ResourceDictionary>
+            <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
             <!--  *****************************  -->
             <!--  Material Design Icon FontFamily  -->
             <!--  *****************************  -->
@@ -61,11 +60,15 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
            </Grid.RowDefinitions>
             <!--Customer-->
             <Label Grid.Row ="0" Text="Customer"/>
-            <Frame  Grid.Row="1" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+           <!--Error message-->
+            <Label Grid.Row="1" Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}" TextColor="Red" LineBreakMode="TailTruncation"/>
+            <Frame  Grid.Row="2" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
                     <Grid>
@@ -75,30 +78,37 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-
+                        <!--FirstName-->
                         <Frame Grid.Row="0" Grid.Column="0" 
                                Padding="10,0" 
                                BorderColor="Gray" 
                                Margin="10,0" 
                                CornerRadius="6"
                                BackgroundColor="{StaticResource Primary}" >
-                            <mycc:CustomEntry     Placeholder="First name"/>
-                        </Frame>
+                                <StackLayout>
+                                    <mycc:CustomEntry  Text="{Binding Customer.FirstName}" Placeholder="First name"/>
+                                    <Label x:Name="CustomerModel_FirstNameError" IsVisible="False" TextColor="Red" />
+                                </StackLayout>
+                         </Frame>
+                        <!--LastName-->
                         <Frame Grid.Row="1" Grid.Column="0" 
                                Padding="10,0" 
                                BorderColor="Gray" 
                                Margin="10,0" 
                                CornerRadius="6"
                                BackgroundColor="{StaticResource Primary}">
-                            <mycc:CustomEntry     Placeholder="Last name"/>
-                        </Frame>
+                                <StackLayout>
+                                    <mycc:CustomEntry  Text="{Binding Customer.LastName}"  Placeholder="Last name"/>
+                                    <Label x:Name="CustomerModel_LastNameError" IsVisible="False" TextColor="Red" />
+                                </StackLayout>
+                            </Frame>
                     </Grid>
                 </StackLayout>
              </StackLayout>
            </Frame>
             <!--Address--> 
-            <Label Grid.Row ="2" Text="Address"/>
-            <Frame  Grid.Row="3" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+            <Label Grid.Row ="3" Text="Address"/>
+            <Frame  Grid.Row="4" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
                     <Grid>
@@ -115,24 +125,33 @@
                                Margin="10,0" 
                                CornerRadius="6"
                                BackgroundColor="{StaticResource Primary}">
-                            <mycc:CustomEntry Placeholder="Address1"/>
-                        </Frame>
+                                <StackLayout>
+                                    <mycc:CustomEntry  Text="{Binding Customer.Address1}"  Placeholder="Address1"/>
+                                    <Label x:Name="CustomerModel_Address1Error" IsVisible="False" TextColor="Red" />
+                                </StackLayout>
+                            </Frame>
                         <Frame Grid.Row="1" 
                                Grid.Column="0" 
                                Padding="10,0" 
                                BorderColor="Gray" 
                                Margin="10,0" CornerRadius="6"
                                BackgroundColor="{StaticResource Primary}">
-                            <mycc:CustomEntry Placeholder="Address2"/>
-                        </Frame>
+                                <StackLayout>
+                                    <mycc:CustomEntry  Text="{Binding Customer.Address2}"  Placeholder="Address2"/>
+                                    <Label x:Name="CustomerModel_Address2Error" IsVisible="False" TextColor="Red" />
+                                </StackLayout>
+                            </Frame>
                         <Frame Grid.Row="2" Grid.Column="0" 
                                Padding="10,0" 
                                BorderColor="Gray" 
                                Margin="10,0" 
                                CornerRadius="6"
                            BackgroundColor="{StaticResource Primary}" >
-                                <mycc:CustomEntry Placeholder="City" />
-                        </Frame>
+                                <StackLayout>
+                                    <mycc:CustomEntry  Text="{Binding Customer.City}"  Placeholder="City"/>
+                                    <Label x:Name="CustomerModel_CityError" IsVisible="False" TextColor="Red" />
+                                </StackLayout>
+                            </Frame>
                         <StackLayout Grid.Row="3" Grid.Column="0" 
                                      Margin="10,0"
                                      Orientation="Horizontal"
@@ -142,23 +161,29 @@
                                   HorizontalOptions="FillAndExpand"
                                   CornerRadius="6"
                                   BackgroundColor="{StaticResource Primary}" >
-                                <mycc:CustomEntry Placeholder="State" />
-                            </Frame>
+                                    <StackLayout>
+                                        <mycc:CustomEntry  Text="{Binding Customer.State}"  Placeholder="State"/>
+                                        <Label x:Name="CustomerModel_StateError" IsVisible="False" TextColor="Red" />
+                                    </StackLayout>
+                                </Frame>
                             <Frame Padding="10,0" 
                                    BorderColor="Gray" 
                                    WidthRequest="90"
                                    CornerRadius="6"
                                    BackgroundColor="{StaticResource Primary}">
-                                    <mycc:CustomEntry Placeholder="Zip"/>
-                            </Frame>
+                                    <StackLayout>
+                                        <mycc:CustomEntry  Text="{Binding Customer.Zip}"  Placeholder="Zip"/>
+                                        <Label x:Name="CustomerModel_ZipError" IsVisible="False" TextColor="Red" />
+                                    </StackLayout>
+                                </Frame>
                          </StackLayout>
                     </Grid>
                 </StackLayout>
             </StackLayout>
            </Frame>
             <!--Contact Information-->
-            <Label Grid.Row ="4" Text="Contact Information"/>
-            <Frame  Grid.Row="5" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+            <Label Grid.Row ="5" Text="Contact Information"/>
+            <Frame  Grid.Row="6" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
                         <Grid>
@@ -176,14 +201,20 @@
                                        HorizontalOptions="FillAndExpand"
                                        CornerRadius="6"
                                        BackgroundColor="{StaticResource Primary}">
-                                    <mycc:CustomEntry Placeholder="Phone"/>
+                                    <StackLayout>
+                                        <mycc:CustomEntry  Text="{Binding Customer.Phone}"  Placeholder="Phone"/>
+                                        <Label x:Name="CustomerModel_PhoneError" IsVisible="False" TextColor="Red" />
+                                    </StackLayout>
                                 </Frame>
                                 <Frame Padding="10,0" 
                                        BorderColor="Gray" 
                                        HorizontalOptions="FillAndExpand"
                                        CornerRadius="6"
                                        BackgroundColor="{StaticResource Primary}" >
-                                    <mycc:CustomEntry Placeholder="Cell phone"/>
+                                    <StackLayout>
+                                        <mycc:CustomEntry  Text="{Binding Customer.CellPhone}"  Placeholder="Cell Phone"/>
+                                        <Label x:Name="CustomerModel_CellPhoneError" IsVisible="False" TextColor="Red" />
+                                    </StackLayout>
                                 </Frame>
                             </StackLayout>
                             <Frame Grid.Row="1" Grid.Column="0" 
@@ -192,15 +223,18 @@
                                    Margin="10,0" 
                                    CornerRadius="6"
                                    BackgroundColor="{StaticResource Primary}">
-                                <mycc:CustomEntry Placeholder="Email"/>
+                                <StackLayout>
+                                    <mycc:CustomEntry  Text="{Binding Customer.Email}"  Placeholder="Email"/>
+                                    <Label x:Name="CustomerModel_EmailError" IsVisible="False" TextColor="Red" />
+                                </StackLayout>
                             </Frame>
                         </Grid>
                     </StackLayout>
                 </StackLayout>
             </Frame>
             <!--Aditional Information-->
-            <Label Grid.Row ="6" Text="Aditional Information"/>
-            <Frame  Grid.Row="7" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+            <Label Grid.Row ="7" Text="Aditional Information"/>
+            <Frame  Grid.Row="8" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">
                         <Grid>
@@ -211,15 +245,18 @@
                             </Grid.RowDefinitions>
                             <Frame Grid.Row="1" Grid.Column="0" Padding="10,0" BorderColor="Gray" Margin="10,0" CornerRadius="6"
                                    BackgroundColor="{StaticResource Primary}" >
-                                <mycc:CustomEntry Placeholder="Aditional information"/>
+                                <StackLayout>
+                                    <mycc:CustomEntry  Text="{Binding Customer.AdditionalInformation}"  Placeholder="Aditional information"/>
+                                    <Label x:Name="CustomerModel_AdditionalInformationError" IsVisible="False" TextColor="Red" />
+                                </StackLayout>
                             </Frame>
                         </Grid>
                     </StackLayout>
                 </StackLayout>
             </Frame>
             <!--Pool Information-->
-            <Label Grid.Row ="8" Text="Pool Information"/>
-            <Frame  Grid.Row="9" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+            <Label Grid.Row ="9" Text="Pool Information"/>
+            <Frame  Grid.Row="10" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="10,10">
                         <Grid>
@@ -260,7 +297,7 @@
                     </StackLayout>
                 </StackLayout>
             </Frame>
-            <Button Grid.Row="10" Text="Display Message" Command="{Binding DisplayMessageCommand}"/>
+            <Button Grid.Row="11" Text="Save" Command="{Binding SaveCommand}" BackgroundColor="#F55725"/>
         </Grid>
     </ScrollView>
 </ContentPage>

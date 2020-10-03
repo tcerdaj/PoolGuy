@@ -1,29 +1,35 @@
-﻿using PoolGuy.Mobile.Data.Controllers;
-using SQLite;
-using System;
+﻿using System;
+using DataAnnotation = System.ComponentModel.DataAnnotations;
 using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.Data.Models
 {
-    public class Customer : EntityBase
+    public class CustomerModel : EntityBase
     {
-        public Customer()
+        public CustomerModel()
         {
            
         }
 
-        [NotNull]
         public string Name { get; set; }
+        [DataAnnotation.Required, DataAnnotation.MaxLength(20)]
         public string FirstName { get; set; }
+        [DataAnnotation.Required, DataAnnotation.MaxLength(20)]
         public string LastName { get; set; }
-        [NotNull]
+        [DataAnnotation.Required, DataAnnotation.MaxLength(80)]
         public string Address1 { get; set; }
+        [DataAnnotation.MaxLength(80)]
         public string Address2 { get; set; }
+        [DataAnnotation.Required, DataAnnotation.MaxLength(50)]
         public string City { get; set; }
+        [DataAnnotation.MaxLength(15)]
         public string Zip { get; set; }
+        [DataAnnotation.Required, DataAnnotation.MaxLength(50)]
         public string State { get; set; }
         public byte[] Photo { get; set; }
+        [DataAnnotation.Required, DataAnnotation.MaxLength(10)]
         public string Phone { get; set; }
+        [DataAnnotation.Required, DataAnnotation.MaxLength(200)]
         public string Email { get; set; }
         public bool Active { get; set; }
 
@@ -46,6 +52,8 @@ namespace PoolGuy.Mobile.Data.Models
         public double Balance { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        [DataAnnotation.Required, DataAnnotation.MaxLength(200)]
+        public string AdditionalInformation { get; set; }
         public Pool Pool { get; set; }
     }
 }
