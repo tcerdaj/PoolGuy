@@ -120,8 +120,8 @@
     <AndroidResource Include="Resources\drawable\tab_feed.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PoolGuy.Mobile.Core\PoolGuy.Mobile.Data.csproj">
-      <Project>{427c5bca-9345-4cff-b41c-8b7487ef40f1}</Project>
+    <ProjectReference Include="..\PoolGuy.Mobile.Data\PoolGuy.Mobile.Data.csproj">
+      <Project>{9bc660eb-2816-4deb-b792-897f0ff4497d}</Project>
       <Name>PoolGuy.Mobile.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\PoolGuy.Mobile\PoolGuy.Mobile.csproj">

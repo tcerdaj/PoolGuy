@@ -1,9 +1,0 @@
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\bin\Debug\netstandard2.0\PoolGuy.Mobile.Data.deps.json
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\bin\Debug\netstandard2.0\PoolGuy.Mobile.Data.dll
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\bin\Debug\netstandard2.0\PoolGuy.Mobile.Data.pdb
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Data.csprojAssemblyReference.cache
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Data.AssemblyInfoInputs.cache
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Data.AssemblyInfo.cs
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Data.csproj.CoreCompileInputs.cache
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Data.dll
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Data.pdb

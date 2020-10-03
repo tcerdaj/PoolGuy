@@ -1,5 +1,0 @@
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\bin\Debug\netstandard2.0\PoolGuy.Mobile.Core.deps.json
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\bin\Debug\netstandard2.0\PoolGuy.Mobile.Core.dll
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Core.csprojAssemblyReference.cache
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Core.AssemblyInfoInputs.cache
-C:\Users\tcerda.CCCDOMAIN\source\repos\PoolGuy\PoolGuy.Mobile.Core\obj\Debug\netstandard2.0\PoolGuy.Mobile.Core.AssemblyInfo.cs

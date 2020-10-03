@@ -11,6 +11,12 @@
 *.sln.docstates
 *.plist
 apikeys.xml
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
