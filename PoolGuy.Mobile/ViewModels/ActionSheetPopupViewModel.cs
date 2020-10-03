@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using PoolGuy.Mobile.Models;
 using System.Linq;
+using System.Diagnostics;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -64,6 +65,7 @@ namespace PoolGuy.Mobile.ViewModels
             }
             catch (Exception e)
             {
+                Debug.WriteLine(e);
             }
             finally
             {

@@ -15,13 +15,6 @@
             <!--  *****************************  -->
             <!--  Material Design Icon FontFamily  -->
             <!--  *****************************  -->
-            <OnPlatform x:Key="MaterialFontFamily"
-                        x:TypeArguments="x:String">
-                <On Platform="iOS"
-                    Value="Material Design Icons" />
-                <On Platform="Android"
-                    Value="materialdesignicons.ttf#Material Design Icons" />
-            </OnPlatform>
             <OnPlatform x:Key="FontAwesonFamily"
                         x:TypeArguments="x:String">
                 <On Platform="iOS"

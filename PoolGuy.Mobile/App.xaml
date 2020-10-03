@@ -8,6 +8,13 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="Primary">#2196F3</Color>
+            <OnPlatform x:Key="MaterialFontFamily"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS"
+                    Value="Material Design Icons" />
+                <On Platform="Android"
+                    Value="materialdesignicons.ttf#Material Design Icons" />
+            </OnPlatform>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
