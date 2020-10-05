@@ -67,7 +67,7 @@
             <!--Customer-->
             <Label Grid.Row ="0" Text="Customer"/>
            <!--Error message-->
-            <Label Grid.Row="1" Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}" TextColor="Red" LineBreakMode="TailTruncation"/>
+            <Label Grid.Row="1" Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}" TextColor="{Binding ErrorTextColor}" LineBreakMode="TailTruncation"/>
             <Frame  Grid.Row="2" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
              <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
                 <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="Center" Padding="0,10">

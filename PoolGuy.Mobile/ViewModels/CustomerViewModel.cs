@@ -1,8 +1,10 @@
 ﻿
 using GalaSoft.MvvmLight.Command;
+using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Helpers;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -31,7 +33,12 @@ namespace PoolGuy.Mobile.ViewModels
         public string ErrorMessage
         {
             get { return errorMessage; }
-            set { errorMessage = value; OnPropertyChanged("ErrorMessage");}
+            set { errorMessage = value; OnPropertyChanged("ErrorMessage"); OnPropertyChanged("ErrorTextColor"); }
+        }
+
+        public string ErrorTextColor
+        {
+            get { return ErrorMessage.Contains("Unable") ? "Red" : "#009d00"; }
         }
 
         public ICommand SaveCommand
@@ -53,13 +60,18 @@ namespace PoolGuy.Mobile.ViewModels
                 }
 
                 ErrorMessage = "";
+                
+                var customerController = new CustomerController();
 
-                await Message.DisplayAlertAsync("Save Customer Success", "Success");
+                var result = await customerController.ModifyAsync(Customer);
+
+                ErrorMessage = result?.Status == Enums.eResultStatus.Ok ? "Save Customer Success" :
+                               $"Unable to save customer: {result?.Message}";
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                Debug.WriteLine(e);
+                ErrorMessage = $"Error: {e.Message}";
             }
         }
     }
