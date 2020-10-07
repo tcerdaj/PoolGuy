@@ -7,6 +7,8 @@ using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Data.SQLite;
+using PoolGuy.Mobile.Data.Models;
 
 namespace PoolGuy.Mobile
 {
@@ -18,6 +20,10 @@ namespace PoolGuy.Mobile
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
+
+            DependencyService.Register<ILocalDataStore<CustomerModel>, LocalDataStore<CustomerModel>>();
+
+            DependencyService.Register<ILocalDataStore<PoolModel>, LocalDataStore<PoolModel>>();
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 

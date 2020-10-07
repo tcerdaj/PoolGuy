@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Data.Models.Query;
 using PoolGuy.Mobile.Data.Extentions;
+using System.Runtime.CompilerServices;
+using PoolGuy.Mobile.Data.SQLite;
 
 namespace PoolGuy.Mobile.Data.SQLite
 {

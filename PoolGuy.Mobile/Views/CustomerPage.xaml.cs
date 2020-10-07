@@ -36,9 +36,8 @@ namespace PoolGuy.Mobile.Views
             {
                 try
                 {
-                    var _enum = (PoolType)Enum.Parse(typeof(PoolType), picker.SelectedItem.ToString());
                     CustomerModel_Pool_TypeError.IsVisible = false;
-                    _viewModel.Customer.Pool.Type = _enum;
+                    _viewModel.Customer.Pool.Type = (PoolType)Enum.Parse(typeof(PoolType), picker.SelectedItem.ToString()); ;
                     _viewModel.OnPoolChanged();
                 }
                 catch (Exception ex)

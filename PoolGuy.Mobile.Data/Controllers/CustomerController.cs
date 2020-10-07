@@ -23,7 +23,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                 }
                 
                 var poolController = new PoolController();
-                await poolController.LocalData.ClearTableAsync();
+                await poolController.LocalData.CreateTableAsync();
                 await LocalData.CreateTableAsync();
                 
                 if (customer.Id == Guid.Empty)
@@ -35,7 +35,10 @@ namespace PoolGuy.Mobile.Data.Controllers
                     if (customer.Pool != null)
                     {
                         customer.Pool.Created = created;
+                        customer.Pool.Name = customer.Name;
+                        customer.Pool.Description = $"Customer {customer.Name}, localte in {customer.Address1}";
                         customer.Pool = await poolController.LocalData.Modify(customer.Pool);
+                        customer.PoolID = customer.Pool.Id;
                     }
                 }
                 else

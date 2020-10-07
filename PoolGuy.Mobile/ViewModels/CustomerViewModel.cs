@@ -4,11 +4,15 @@ using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Helpers;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.GoogleMaps;
 using static PoolGuy.Mobile.Data.Models.Enums;
+using PoolGuy.Mobile.Data.SQLite;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -21,12 +25,20 @@ namespace PoolGuy.Mobile.ViewModels
             _page = page;
         }
 
-        private CustomerModel _customer = new CustomerModel();
+        private CustomerModel _customer = new CustomerModel() {Pool = new PoolModel()};
 
         public CustomerModel Customer
         {
             get { return _customer; } 
             set { _customer = value; OnPropertyChanged("Customer"); }
+        }
+
+        private PoolModel _pool = new PoolModel();
+
+        public PoolModel Pool
+        {
+            get { return _pool; }
+            set { _pool = value; OnPropertyChanged("Pool"); }
         }
 
         public string[] PoolTypes
@@ -66,8 +78,29 @@ namespace PoolGuy.Mobile.ViewModels
                 }
 
                 ErrorMessage = "";
-                
+
+                Geocoder geoCoder = new Geocoder();
+                IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync($"{Customer.Address1}, {Customer.City}, {Customer.State} {Customer.Zip}");
+                Position position = approximateLocations.FirstOrDefault();
+                Customer.Latitude = position.Latitude;
+                Customer.Longitude = position.Longitude;
+
                 var customerController = new CustomerController();
+
+                var customers = await customerController.LocalData.List(new Data.Models.Query.SQLControllerListCriteriaModel()
+                {
+                    Filter = new List<Data.Models.Query.SQLControllerListFilterField>() { 
+                      new Data.Models.Query.SQLControllerListFilterField(){ FieldName = "FirstName", ValueLBound = Customer.FirstName},
+                      new Data.Models.Query.SQLControllerListFilterField(){ FieldName = "LastName", ValueLBound = Customer.LastName}
+                    }
+                }).ConfigureAwait(false);
+
+                var _customer = customers.FirstOrDefault();
+
+                if (_customer != null)
+                {
+                    Customer.Id = _customer.Id;
+                }
 
                 var result = await customerController.ModifyAsync(Customer);
 
@@ -84,7 +117,6 @@ namespace PoolGuy.Mobile.ViewModels
         public void OnPoolChanged()
         {
             OnPropertyChanged("Customer");
-            Customer?.Pool?.RaiseAllNotification();
         }
     }
 }
