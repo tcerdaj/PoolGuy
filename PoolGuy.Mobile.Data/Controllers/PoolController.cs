@@ -3,7 +3,7 @@ using PoolGuy.Mobile.Data.SQLite;
 
 namespace PoolGuy.Mobile.Data.Controllers
 {
-    public class PoolController : BaseController<Pool>
+    public class PoolController : BaseController<PoolModel>
     {
         public PoolController()
             :base()

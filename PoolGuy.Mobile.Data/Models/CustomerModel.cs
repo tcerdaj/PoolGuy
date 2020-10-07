@@ -1,6 +1,8 @@
 ﻿using System;
 using DataAnnotation = System.ComponentModel.DataAnnotations;
 using static PoolGuy.Mobile.Data.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using PoolGuy.Mobile.Data.Attributes;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -8,7 +10,10 @@ namespace PoolGuy.Mobile.Data.Models
     {
         public CustomerModel()
         {
-           
+           if(Id.Equals(Guid.Empty))
+           {
+                Pool = new PoolModel();
+           }
         }
 
         public string Name { get; set; }
@@ -22,7 +27,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string Address2 { get; set; }
         [DataAnnotation.Required, DataAnnotation.MaxLength(50)]
         public string City { get; set; }
-        [DataAnnotation.MaxLength(15)]
+        [DataAnnotation.Required, DataAnnotation.MaxLength(15)]
         public string Zip { get; set; }
         [DataAnnotation.Required, DataAnnotation.MaxLength(50)]
         public string State { get; set; }
@@ -54,6 +59,7 @@ namespace PoolGuy.Mobile.Data.Models
         public double Longitude { get; set; }
         [DataAnnotation.Required, DataAnnotation.MaxLength(200)]
         public string AdditionalInformation { get; set; }
-        public Pool Pool { get; set; }
+        [ValidateObject]
+        public PoolModel Pool { get; set; }
     }
 }

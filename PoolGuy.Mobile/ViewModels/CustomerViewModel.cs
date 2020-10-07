@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -28,6 +29,11 @@ namespace PoolGuy.Mobile.ViewModels
             set { _customer = value; OnPropertyChanged("Customer"); }
         }
 
+        public string[] PoolTypes
+        {
+            get { return Enum.GetNames(typeof(PoolType)); }
+        }
+
         private string errorMessage = string.Empty;
 
         public string ErrorMessage
@@ -38,7 +44,7 @@ namespace PoolGuy.Mobile.ViewModels
 
         public string ErrorTextColor
         {
-            get { return ErrorMessage.Contains("Unable") ? "Red" : "#009d00"; }
+            get { return ErrorMessage.Contains("Unable") || ErrorMessage.Contains("Error") ? "Red" : "#009d00"; }
         }
 
         public ICommand SaveCommand
@@ -65,7 +71,7 @@ namespace PoolGuy.Mobile.ViewModels
 
                 var result = await customerController.ModifyAsync(Customer);
 
-                ErrorMessage = result?.Status == Enums.eResultStatus.Ok ? "Save Customer Success" :
+                ErrorMessage = result?.Status == Enums.eResultStatus.Ok? "Save Customer Success" :
                                $"Unable to save customer: {result?.Message}";
             }
             catch (Exception e)
@@ -73,6 +79,12 @@ namespace PoolGuy.Mobile.ViewModels
                 Debug.WriteLine(e);
                 ErrorMessage = $"Error: {e.Message}";
             }
+        }
+
+        public void OnPoolChanged()
+        {
+            OnPropertyChanged("Customer");
+            Customer?.Pool?.RaiseAllNotification();
         }
     }
 }

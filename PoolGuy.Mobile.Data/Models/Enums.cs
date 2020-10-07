@@ -23,7 +23,6 @@ namespace PoolGuy.Mobile.Data.Models
 
         public enum PoolType
         {
-            None,
             Sweetwater,
             Saltwater
         }
