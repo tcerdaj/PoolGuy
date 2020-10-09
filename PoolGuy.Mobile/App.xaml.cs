@@ -9,6 +9,7 @@ using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Data.SQLite;
 using PoolGuy.Mobile.Data.Models;
+using PoolGuy.Mobile.ViewModels;
 
 namespace PoolGuy.Mobile
 {
@@ -32,16 +33,25 @@ namespace PoolGuy.Mobile
                 SimpleIoc.Default.Register<IUserDialogs>(() => new UserDialogs());
             }
 
+            if (!SimpleIoc.Default.IsRegistered<HomeViewModel>())
+            {
+                SimpleIoc.Default.Register<HomeViewModel>(true);
+            }
+
             var nav = new NavigationService();
             nav.Configure(Locator.Popup.ActionSheetPopup, typeof(ActionSheetPopupPage));
+            nav.Configure("LoginPage", typeof(LoginPage));
+            nav.Configure("HomePage", typeof(HomePage));
+            nav.Configure("CustomerPage", typeof(CustomerPage));
 
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {
                 SimpleIoc.Default.Register<INavigationService>(() => nav);
             }
             
-            MainPage = new AppShell();
+            MainPage = new MainPage();
         }
+
 
         protected override void OnStart()
         {
