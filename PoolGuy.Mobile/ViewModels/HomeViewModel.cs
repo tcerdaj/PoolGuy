@@ -15,8 +15,6 @@ namespace PoolGuy.Mobile.ViewModels
             Notify.RaiseNavigationAction(new Messages.RefreshMessage());
         }
 
-       
-
         public ICommand OpenWebCommand { get; }
         public ICommand GoToCustomerCommand { get; }
     }

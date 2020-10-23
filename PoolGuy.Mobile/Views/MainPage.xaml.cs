@@ -12,13 +12,13 @@ namespace PoolGuy.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : MasterDetailPage
     {
-        private static HomeViewModel viewModel;
+        private static CarouselViewModel viewModel;
         public MainPage()
         {
             InitializeComponent();
-           
-            viewModel = ServiceLocator.Current.GetInstance<HomeViewModel>();
-            
+
+            viewModel = ServiceLocator.Current.GetInstance<CarouselViewModel>();
+
             BindingContext = viewModel;
 
             this.IsPresented = false;
@@ -27,7 +27,7 @@ namespace PoolGuy.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var navPage = ((MasterDetailPage)App.Current.MainPage).Detail as Page;
+            //var navPage = ((MasterDetailPage)App.Current.MainPage).Detail as Page;
         }
     }
 }

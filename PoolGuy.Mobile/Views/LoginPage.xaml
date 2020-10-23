@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="PoolGuy.Mobile.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
             <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>

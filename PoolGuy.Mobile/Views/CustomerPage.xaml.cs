@@ -1,5 +1,6 @@
 ﻿using PoolGuy.Mobile.ViewModels;
 using System;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using static PoolGuy.Mobile.Data.Models.Enums;
 

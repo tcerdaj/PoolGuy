@@ -16,13 +16,11 @@ namespace PoolGuy.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.IsBusy = false;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            _viewModel.IsBusy = true;
         }
     }
 }

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PoolGuy.Mobile.Views.SearchCustomerPage"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+      <StackLayout>
+            <StackLayout Orientation="Horizontal">
+            <SearchBar HorizontalOptions="FillAndExpand"
+                     Placeholder="Search for a customer"
+                     />
+                <Label Text="{Static icons:MaterialDesignIcons.Plus}" 
+                       FontSize="Medium"
+                       FontFamily="{StaticResource MaterialFontFamily}"/>
+            </StackLayout>
+        </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

@@ -6,7 +6,8 @@
              xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             x:Name="Customer">
    
     <ContentPage.Resources>
         <ResourceDictionary>

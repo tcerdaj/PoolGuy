@@ -15,14 +15,14 @@
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.ForegroundColor" Value="White" />
-                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource Title}" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource Title}" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
                 <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource UnselectedColor}"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Title}"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
@@ -80,8 +80,8 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" NavigationPage.HasNavigationBar="True">
-        <ShellContent Title="Home" Icon="tab_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:HomePage}" />
-        <ShellContent Title="Customer" Icon="tab_account.png" Route="CustomerPage" ContentTemplate="{DataTemplate local:CustomerPage}" x:Name="customerPage" />
+        <ShellContent Title="Home" Icon="dashboard_black.png" Route="AboutPage" ContentTemplate="{DataTemplate local:HomePage}" />
+        <ShellContent Title="Customer" Icon="account_circle_black.png" Route="CustomerPage" ContentTemplate="{DataTemplate local:CustomerPage}" x:Name="customerPage" />
         <ShellContent Title="Browse" Icon="tab_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
 

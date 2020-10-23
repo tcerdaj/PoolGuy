@@ -16,7 +16,7 @@ namespace PoolGuy.Mobile.ViewModels
                 {
                     new MenuItemModel { Id = 0, Title = "Home", NavigateToCommand = NavigateToCommand },
                     new MenuItemModel { Id = 1, Title = "Customer", NavigateToCommand = NavigateToCommand },
-                    new MenuItemModel { Id = 2, Title = "Page 3", NavigateToCommand = NavigateToCommand},
+                    new MenuItemModel { Id = 2, Title = "Carousel", NavigateToCommand = NavigateToCommand},
                     new MenuItemModel { Id = 3, Title = "Page 4", NavigateToCommand = NavigateToCommand },
                     new MenuItemModel { Id = 4, Title = "Page 5", NavigateToCommand = NavigateToCommand },
                 });

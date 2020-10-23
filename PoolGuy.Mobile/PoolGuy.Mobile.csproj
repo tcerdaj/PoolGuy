@@ -14,6 +14,7 @@
     <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.5" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="ThriveGmbH.BottomNavigationBar.XF" Version="1.0.2" />
     <PackageReference Include="TypeSupport" Version="1.1.4" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />  
@@ -31,12 +32,27 @@
     <Compile Update="Views\ActionSheetPopupPage.xaml.cs">
       <DependentUpon>ActionSheetPopupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\BottomBarDemoPage.xaml.cs">
+      <DependentUpon>BottomBarDemoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CarouselPage.xaml.cs">
+      <DependentUpon>CarouselPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SearchCustomerPage.xaml.cs">
+      <DependentUpon>SearchCustomerPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\BottomBarDemoPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\CarouselPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\CustomerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -44,6 +60,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SearchCustomerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

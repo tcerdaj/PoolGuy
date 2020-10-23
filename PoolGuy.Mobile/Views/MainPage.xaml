@@ -9,7 +9,7 @@
   <MasterDetailPage.Detail>
     <NavigationPage>
       <x:Arguments>
-        <pages:HomePage />
+        <pages:CarouselPage />
       </x:Arguments>
     </NavigationPage>
   </MasterDetailPage.Detail>

@@ -14,6 +14,7 @@ namespace PoolGuy.Mobile.ViewModels
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
+            Title = this.GetType().Name.Replace("ViewModel", "");
         }
 
         private async void OnLoginClicked(object obj)

@@ -33,25 +33,26 @@ namespace PoolGuy.Mobile
                 SimpleIoc.Default.Register<IUserDialogs>(() => new UserDialogs());
             }
 
-            if (!SimpleIoc.Default.IsRegistered<HomeViewModel>())
+            if (!SimpleIoc.Default.IsRegistered<CarouselViewModel>())
             {
-                SimpleIoc.Default.Register<HomeViewModel>(true);
+                SimpleIoc.Default.Register<CarouselViewModel>(true);
             }
 
-            var nav = new NavigationService();
-            nav.Configure(Locator.Popup.ActionSheetPopup, typeof(ActionSheetPopupPage));
-            nav.Configure("LoginPage", typeof(LoginPage));
-            nav.Configure("HomePage", typeof(HomePage));
-            nav.Configure("CustomerPage", typeof(CustomerPage));
+            //var nav = new NavigationService();
+            //nav.Configure(Locator.Popup.ActionSheetPopup, typeof(ActionSheetPopupPage));
+            //nav.Configure("CarouselPage", typeof(Views.CarouselPage));
+            //nav.Configure("HomePage", typeof(HomePage));
+            //nav.Configure("CustomerPage", typeof(CustomerPage));
+            //nav.Configure("CarouselPage", typeof(Views.CarouselPage));
 
-            if (!SimpleIoc.Default.IsRegistered<INavigationService>())
-            {
-                SimpleIoc.Default.Register<INavigationService>(() => nav);
-            }
-            
-            MainPage = new MainPage();
+            //if (!SimpleIoc.Default.IsRegistered<INavigationService>())
+            //{
+            //    SimpleIoc.Default.Register<INavigationService>(() => nav);
+            //}
+
+            MainPage = new AppShell();
+           // MainPage.ToolbarItems.Add(new ToolbarItem { Text ="Test"});
         }
-
 
         protected override void OnStart()
         {
@@ -65,4 +66,6 @@ namespace PoolGuy.Mobile
         {
         }
     }
+
+    
 }
