@@ -79,7 +79,7 @@ namespace PoolGuy.Mobile.ViewModels
                 ErrorMessage = "";
 
                 Geocoder geoCoder = new Geocoder();
-                IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync($"{Customer.Address1}, {Customer.City}, {Customer.State} {Customer.Zip}");
+                IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync($"{Customer.Address.Address1}, {Customer.Address.City}, {Customer.Address.State} {Customer.Address.Zip}");
                 Position position = approximateLocations.FirstOrDefault();
                 Customer.Latitude = position.Latitude;
                 Customer.Longitude = position.Longitude;

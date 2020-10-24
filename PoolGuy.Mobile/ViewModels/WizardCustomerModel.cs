@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.ViewModels
 {
-    public class CarouselViewModel : BaseViewModel
+    public class WizardCustomerModel : BaseViewModel
     {
-        public CarouselViewModel()
+        public WizardCustomerModel()
         {
             Pages = new List<Page> { 
               new HomePage(),

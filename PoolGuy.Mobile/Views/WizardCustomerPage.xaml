@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:ts="clr-namespace:PoolGuy.Mobile.TemplateSelector"
-             x:Class="PoolGuy.Mobile.Views.CarouselPage"
+             x:Class="PoolGuy.Mobile.Views.WizardCustomerPage"
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>

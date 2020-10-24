@@ -81,7 +81,7 @@
     -->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" NavigationPage.HasNavigationBar="True">
         <ShellContent Title="Home" Icon="dashboard_black.png" Route="AboutPage" ContentTemplate="{DataTemplate local:HomePage}" />
-        <ShellContent Title="Customer" Icon="account_circle_black.png" Route="CustomerPage" ContentTemplate="{DataTemplate local:CustomerPage}" x:Name="customerPage" />
+        <ShellContent Title="Customer" Icon="account_circle_black.png" Route="SearchCustomerPage" ContentTemplate="{DataTemplate local:SearchCustomerPage}" x:Name="customerPage" />
         <ShellContent Title="Browse" Icon="tab_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
 

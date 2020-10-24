@@ -33,9 +33,9 @@ namespace PoolGuy.Mobile
                 SimpleIoc.Default.Register<IUserDialogs>(() => new UserDialogs());
             }
 
-            if (!SimpleIoc.Default.IsRegistered<CarouselViewModel>())
+            if (!SimpleIoc.Default.IsRegistered<WizardCustomerModel>())
             {
-                SimpleIoc.Default.Register<CarouselViewModel>(true);
+                SimpleIoc.Default.Register<WizardCustomerModel>(true);
             }
 
             //var nav = new NavigationService();

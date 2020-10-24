@@ -18,6 +18,9 @@
                 <On Platform="Android"
                     Value="materialdesignicons.ttf#Material Design Icons" />
             </OnPlatform>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+            </Style>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="Black"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">

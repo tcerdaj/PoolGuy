@@ -7,13 +7,13 @@ using Xamarin.Forms.Xaml;
 namespace PoolGuy.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CarouselPage : ContentPage
+    public partial class WizardCustomerPage : ContentPage
     {
-        CarouselViewModel viewModel;
-        public CarouselPage()
+        WizardCustomerModel viewModel;
+        public WizardCustomerPage()
         {
             InitializeComponent();
-            viewModel = new CarouselViewModel();
+            viewModel = new WizardCustomerModel();
             BindingContext = viewModel;
         }
 

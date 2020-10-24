@@ -4,15 +4,15 @@
              x:Class="PoolGuy.Mobile.Views.SearchCustomerPage"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
              Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
       <StackLayout>
             <StackLayout Orientation="Horizontal">
             <SearchBar HorizontalOptions="FillAndExpand"
                      Placeholder="Search for a customer"
-                     />
-                <Label Text="{Static icons:MaterialDesignIcons.Plus}" 
-                       FontSize="Medium"
-                       FontFamily="{StaticResource MaterialFontFamily}"/>
+                       BackgroundColor="#f7f7f7"/>
             </StackLayout>
         </StackLayout>
   </ContentPage.Content>

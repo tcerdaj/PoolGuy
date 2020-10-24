@@ -32,8 +32,8 @@
     <Compile Update="Views\ActionSheetPopupPage.xaml.cs">
       <DependentUpon>ActionSheetPopupPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\CarouselPage.xaml.cs">
-      <DependentUpon>CarouselPage.xaml</DependentUpon>
+    <Compile Update="Views\WizardCustomerPage.xaml.cs">
+      <DependentUpon>WizardCustomerPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -44,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\CarouselPage.xaml">
+    <EmbeddedResource Update="Views\WizardCustomerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\CustomerPage.xaml">
