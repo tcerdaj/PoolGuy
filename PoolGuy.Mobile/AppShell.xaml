@@ -17,10 +17,10 @@
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
                 <Setter Property="Shell.ForegroundColor" Value="{StaticResource Title}" />
                 <Setter Property="Shell.TitleColor" Value="{StaticResource Title}" />
-                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
-                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <Setter Property="Shell.DisabledColor" Value="Green" />
+                <Setter Property="Shell.UnselectedColor" Value="Red" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="Blue"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource UnselectedColor}"/>
                 <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource Title}"/>
             </Style>

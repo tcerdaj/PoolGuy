@@ -10,6 +10,7 @@
             <Color x:Key="Primary">#f8bd0a</Color>
             <Color x:Key="Title">#007cdc</Color>
             <Color x:Key="UnselectedColor">#858585</Color>
+            <Color x:Key="PlaceHolder">#b2b2b2</Color>
             <OnPlatform x:Key="MaterialFontFamily"
                         x:TypeArguments="x:String">
                 <On Platform="iOS"
