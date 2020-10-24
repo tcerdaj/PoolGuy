@@ -1,11 +1,15 @@
 ﻿using static PoolGuy.Mobile.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
+using System;
+using SQLite;
+using DataAnnotation = System.ComponentModel.DataAnnotations;
 
 namespace PoolGuy.Mobile.Data.Models
 {
     public class PoolModel: EntityBase
     {
+        public Guid CustomerId { get; set; }
+
         private PoolType? _type;
         [Required]
         [EnumDataType(typeof(PoolType))]
@@ -14,13 +18,13 @@ namespace PoolGuy.Mobile.Data.Models
             set { _type = value; NotifyPropertyChanged("Type"); } 
         }
         private string _name;
-        [MaxLength(40)]
+        [DataAnnotation.MaxLength(40)]
         public string Name { 
             get { return _name; } 
             set { _name = value; NotifyPropertyChanged("Name"); } 
         }
         private string _description;
-        [MaxLength(200)]
+        [DataAnnotation.MaxLength(200)]
         public string Description { 
             get { return _description; } 
             set { _description = value; NotifyPropertyChanged("Description"); } 

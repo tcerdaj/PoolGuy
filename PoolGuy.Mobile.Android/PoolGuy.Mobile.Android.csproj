@@ -92,12 +92,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomRenderer\BottomBar\BottomBarPageRenderer.cs" />
-    <Compile Include="CustomRenderer\BottomBar\Utils\IPageController.cs" />
-    <Compile Include="CustomRenderer\BottomBar\Utils\MeasureSpecFactory.cs" />
-    <Compile Include="CustomRenderer\BottomBar\Utils\PageController.cs" />
-    <Compile Include="CustomRenderer\BottomBar\Utils\ReflectedProxy.cs" />
-    <Compile Include="CustomRenderer\BottomBar\Utils\ResourceManagerEx.cs" />
     <Compile Include="CustomRenderer\CustomEntryRenderer.cs" />
     <Compile Include="ISQLite\SQLite_Android.cs" />
     <Compile Include="MainActivity.cs" />

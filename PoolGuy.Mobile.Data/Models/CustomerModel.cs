@@ -1,9 +1,6 @@
 ﻿using System;
 using DataAnnotation = System.ComponentModel.DataAnnotations;
 using static PoolGuy.Mobile.Data.Models.Enums;
-using System.ComponentModel.DataAnnotations;
-using PoolGuy.Mobile.Data.Attributes;
-using Xamarin.Forms.PlatformConfiguration.TizenSpecific;
 using SQLite;
 
 namespace PoolGuy.Mobile.Data.Models
@@ -15,13 +12,36 @@ namespace PoolGuy.Mobile.Data.Models
           
         }
 
-        public Guid PoolID { get; set; }
+        private AddressModel _address;
+        [Ignore]
+        public AddressModel Address
+        {
+            get => _address;
+            set { _address = value; NotifyPropertyChanged("Address"); }
+        }
+
+        private ContactInformationModel _contactInfomartion;
+        [Ignore]
+        public ContactInformationModel ContactInformation
+        {
+            get => _contactInfomartion;
+            set { _contactInfomartion = value; NotifyPropertyChanged("ContactInformation"); }
+        }
+
+        private PoolModel _pool;
+
+        [Ignore]
+        public PoolModel Pool
+        {
+            get { return _pool; }
+            set { _pool = value; NotifyPropertyChanged("Pool"); }
+        }
 
         public string Name { 
             get { return $"{FirstName} {LastName}"; } 
         }
         private string _firstName;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(20)]
+        [DataAnnotation.Required, DataAnnotation.MaxLength(20), Indexed(Name = "CustomerName", Order =2, Unique = true)]
         public string FirstName 
         {
             get { return _firstName; }
@@ -29,77 +49,21 @@ namespace PoolGuy.Mobile.Data.Models
         }
         
         private string _lastName;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(20)]
+        [DataAnnotation.Required, DataAnnotation.MaxLength(20), Indexed(Name = "CustomerName", Order = 1, Unique = true)]
         public string LastName 
         {
             get { return _lastName; }
             set { _lastName = value; NotifyPropertyChanged("LastName"); }
         }
-       
-        private string _address1;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(80)]
-        public string Address1 
+
+        private string _imageUrl;
+        public string ImageUrl
         {
-            get { return _address1; }
-            set { _address1 = value; NotifyPropertyChanged("Address1"); }
-        }
-        
-        private string _address2;
-        [DataAnnotation.MaxLength(80)]
-        public string Address2 
-        {
-            get { return _address2; }
-            set { _address2 = value; NotifyPropertyChanged("Address2"); }
+            get { return _imageUrl; }
+            set { _imageUrl = value; NotifyPropertyChanged("ImageUrl"); }
         }
 
-        private string _city;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(50)]
-        public string City 
-        {
-            get { return _city; }
-            set { _city = value; NotifyPropertyChanged("City"); }
-        }
-
-        private string _zip;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(15)]
-        public string Zip 
-        {
-            get { return _zip; }
-            set { _zip = value; NotifyPropertyChanged("Zip"); }
-        }
-
-        private string _state;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(50)]
-        public string State 
-        {
-            get { return _state; }
-            set { _state = value; NotifyPropertyChanged("State"); }
-        }
-
-        private byte[] _photo;
-        public byte[] Photo 
-        {
-            get { return _photo; }
-            set { _photo = value; NotifyPropertyChanged("Photo"); }
-        }
-
-        private string _phone;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(10)]
-        public string Phone 
-        {
-            get { return _phone; }
-            set { _phone = value; NotifyPropertyChanged("Phone"); }
-        }
-
-        private string _email;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(200)]
-        public string Email 
-        {
-            get { return _email; }
-            set { _email = value; NotifyPropertyChanged("Email"); }
-        }
-
-        private bool _active;
+        private bool _active = true;
         public bool Active 
         {
             get { return _active; }
@@ -162,16 +126,6 @@ namespace PoolGuy.Mobile.Data.Models
         {
             get { return _additionalInformation; }
             set { _additionalInformation = value; NotifyPropertyChanged("AdditionalInformation"); } 
-        }
-        
-        private PoolModel _pool;
-        
-        [Ignore]
-        [ValidateObject]
-        public PoolModel Pool 
-        {
-            get { return _pool; }
-            set { _pool = value; NotifyPropertyChanged("Pool"); } 
         }
     }
 }
