@@ -12,12 +12,12 @@ namespace PoolGuy.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : MasterDetailPage
     {
-        private static WizardCustomerModel viewModel;
+        private static CustomerViewModel viewModel;
         public MainPage()
         {
             InitializeComponent();
 
-            viewModel = ServiceLocator.Current.GetInstance<WizardCustomerModel>();
+            viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
 
             BindingContext = viewModel;
 

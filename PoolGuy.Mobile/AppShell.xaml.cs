@@ -16,6 +16,7 @@ namespace PoolGuy.Mobile
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
             Routing.RegisterRoute(nameof(CustomerPage), typeof(CustomerPage));
             Routing.RegisterRoute(nameof(SearchCustomerPage), typeof(SearchCustomerPage));
+            Routing.RegisterRoute(nameof(WizardCustomerPage), typeof(WizardCustomerPage));
         }
 
 

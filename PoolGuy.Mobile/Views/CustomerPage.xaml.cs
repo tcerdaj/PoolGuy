@@ -12,7 +12,7 @@ namespace PoolGuy.Mobile.Views
         public CustomerPage()
         {
             InitializeComponent();
-            _viewModel = new CustomerViewModel(this);
+            _viewModel = new CustomerViewModel();
             BindingContext = _viewModel;
         }
 

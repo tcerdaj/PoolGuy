@@ -2,30 +2,125 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:ts="clr-namespace:PoolGuy.Mobile.TemplateSelector"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              x:Class="PoolGuy.Mobile.Views.WizardCustomerPage"
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
             <DataTemplate x:Key="CarouselDefaultTemplate">
-                
             </DataTemplate>
-           
             <ts:CarouselTemplateSelector x:Key="CarouselSelector"
                                          DefaultTemplate="{StaticResource CarouselDefaultTemplate}"/>
         </ResourceDictionary>
     </ContentPage.Resources>
   <ContentPage.Content>
-      <StackLayout>
+      
+      <StackLayout Padding="15,10">
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="Fill">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <mr:Label Grid.Row="0" Grid.Column="0"
+                       Text="Customer"
+                       x:Name="headerCustomer"
+                       TappedCommand="{Binding GoToPageCommand}"
+                       TappedCommandParameter="Customer"/>
+                <mr:Label Grid.Row="0" Grid.Column="1"
+                       Text="Address"
+                       x:Name="headerAddress"
+                       TappedCommand="{Binding GoToPageCommand}"
+                       TappedCommandParameter="Address"/>
+                <mr:Label Grid.Row="0" Grid.Column="2"
+                       Text="Contact"
+                       x:Name="headerContact"
+                       TappedCommand="{Binding GoToPageCommand}"
+                       TappedCommandParameter="Contact"/>
+                <mr:Label Grid.Row="0" Grid.Column="3"
+                       Text="Pool"
+                       x:Name="headerPool"
+                       TappedCommand="{Binding GoToPageCommand}"
+                       TappedCommandParameter="Pool"/>
+                <!--Progress Bar-->
+                <StackLayout Grid.Row="1" Grid.ColumnSpan="4" 
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Center"
+                             Spacing="10"
+                             Orientation="Horizontal">
+                        <ProgressBar IsVisible="True" 
+                                     HorizontalOptions="FillAndExpand" 
+                                     ProgressColor="{StaticResource Primary}" 
+                                     Progress="{Binding Progress}"/>
+                        <Label  HorizontalOptions="Fill" TextColor="{StaticResource Primary}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                <Span Text="{Binding Percent, StringFormat='%{0:N0}'}" FontSize="20" FontAttributes="Bold"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                 </StackLayout>
+                <!--Error message-->
+                <Label Grid.Row="2" 
+                       Text="{Binding ErrorMessage}" 
+                       IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}" 
+                       TextColor="{Binding ErrorTextColor}" 
+                       LineBreakMode="TailTruncation"/>
+                <!--<Entry Grid.Row="2"
+                       VerticalOptions="Fill"
+                       Text="{Binding Customer.FirstName}" />-->
+
+            </Grid>
             <CarouselView x:Name="Carousel" ItemsSource="{Binding Pages}"
                           ItemTemplate="{x:StaticResource CarouselSelector}" 
-                          IndicatorView="indicatorView"
+                          Position="{Binding Position}"
+                          IsSwipeEnabled="False"
                           CurrentItemChanged="Carousel_CurrentItemChanged">
             </CarouselView>
-            <IndicatorView x:Name="indicatorView"
-                           IndicatorColor="LightGray"
-                           SelectedIndicatorColor="DarkGray"
-                           HorizontalOptions="Center" />
+          <!--Navigation Arrows-->
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="End">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" 
+                        HorizontalOptions="Start"
+                        x:Name="PreviusButton"
+                        Clicked="PreviusButton_Clicked"
+                        BackgroundColor="{StaticResource Title}">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                         Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
+                                         Size="40"
+                                         Color="{StaticResource Primary}" />
+                    </Button.ImageSource>
+                </Button>
+                <Button Grid.Column="1" 
+                        HorizontalOptions="End"
+                        x:Name="NextButton"
+                        Clicked="NextButton_Clicked"
+                        BackgroundColor="{StaticResource Title}">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                         Glyph="{x:Static icons:MaterialDesignIcons.ChevronRight}"
+                                         Size="40"
+                                         Color="{StaticResource Primary}" />
+                    </Button.ImageSource>
+                </Button>
+            </Grid>
 
+            <Label Text="{Binding Customer.FirstName}"/>
         </StackLayout>
   </ContentPage.Content>
 </ContentPage>

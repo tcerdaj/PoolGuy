@@ -32,6 +32,12 @@
     <Compile Update="Views\ActionSheetPopupPage.xaml.cs">
       <DependentUpon>ActionSheetPopupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\WCustomerPage.xaml.cs">
+      <DependentUpon>WCustomerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\WPoolPage.xaml.cs">
+      <DependentUpon>WPoolPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\WizardCustomerPage.xaml.cs">
       <DependentUpon>WizardCustomerPage.xaml</DependentUpon>
     </Compile>
@@ -41,9 +47,21 @@
     <Compile Update="Views\SearchCustomerPage.xaml.cs">
       <DependentUpon>SearchCustomerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\WAddressPage.xaml.cs">
+      <DependentUpon>WAddressPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\WContactPage.xaml.cs">
+      <DependentUpon>WContactPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\WCustomerPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\WPoolPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\WizardCustomerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -60,6 +78,12 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SearchEquipmentPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\WAddressPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\WContactPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

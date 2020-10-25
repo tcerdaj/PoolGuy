@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using PoolGuy.Mobile.Data.Models;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -24,12 +25,12 @@ namespace PoolGuy.Mobile.ViewModels
 
         public ICommand AddCommand
         {
-            get { return new RelayCommand(() => AddAsync()); }
+            get { return new RelayCommand(async() => await AddAsync()); }
         }
 
-        private void AddAsync()
+        private async Task AddAsync()
         {
-            
+            await Shell.Current.GoToAsync("WizardCustomerPage");
         }
     }
 }

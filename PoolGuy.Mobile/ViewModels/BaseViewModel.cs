@@ -29,6 +29,13 @@ namespace PoolGuy.Mobile.ViewModels
             set { SetProperty(ref title, value); }
         }
 
+        private ContentPage View;
+
+        public void SetView(ContentPage view)
+        {
+            this.View = view;
+        }
+
         protected bool SetProperty<T>(ref T backingStore, T value,
             [CallerMemberName] string propertyName = "",
             Action onChanged = null)

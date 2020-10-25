@@ -33,9 +33,9 @@ namespace PoolGuy.Mobile
                 SimpleIoc.Default.Register<IUserDialogs>(() => new UserDialogs());
             }
 
-            if (!SimpleIoc.Default.IsRegistered<WizardCustomerModel>())
+            if (!SimpleIoc.Default.IsRegistered<CustomerViewModel>())
             {
-                SimpleIoc.Default.Register<WizardCustomerModel>(true);
+                SimpleIoc.Default.Register<CustomerViewModel>(true);
             }
 
             //var nav = new NavigationService();

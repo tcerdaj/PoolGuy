@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommonServiceLocator;
+using PoolGuy.Mobile.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
@@ -12,22 +14,11 @@ namespace PoolGuy.Mobile.TemplateSelector
         {
             try
             {
-                if (item is ContentPage page)
+                if (item is CustomerPageViewModel page)
                 {
-                    var dt = new DataTemplate(() => {
-                        return page.Content ;
+                    return new DataTemplate(() => {
+                        return ((ContentPage)page.Page).Content;
                     });
-
-                    return dt;
-                    
-                    switch (page.Title)
-                    {
-                        case "Login":
-                            
-                            break;
-                        default:
-                            break;
-                    }
                 }
                 return DefaultTemplate;
             }

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
+             x:Class="PoolGuy.Mobile.Views.WCustomerPage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor" Value="#D8D8D8"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="10,0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Start">
+            <Grid VerticalOptions="Start">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ScrollView>
+                    <Frame  Grid.Row="2" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+                        <Grid x:Name="mainContent" Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <!--FirstName-->
+                            <Frame Grid.Row="0" 
+                                   Grid.Column="0">
+                                <mycc:CustomEntry  Text="{Binding Customer.FirstName}" 
+                                                   Placeholder="First name" 
+                                                   MaxLength="20"
+                                                   Unfocused="CustomEntry_Unfocused"/>
+                            </Frame>
+                            <Label Grid.Row="1" Grid.Column="0"  x:Name="CustomerModel_FirstNameError" IsVisible="False" TextColor="Red" />
+                            <!--LastName-->
+                            <Frame Grid.Row="2" 
+                                   Grid.Column="0">
+                                <mycc:CustomEntry  Text="{Binding Customer.LastName}"  
+                                                   Placeholder="Last name" 
+                                                   MaxLength="20"/>
+                            </Frame>
+                            <Label Grid.Row="3" Grid.Column="0" x:Name="CustomerModel_LastNameError" IsVisible="False" TextColor="Red" />
+                            <!--Additional info-->
+                            <Frame Grid.Row="4" 
+                                   Grid.Column="0">
+                                <mycc:CustomEntry  Text="{Binding Customer.AdditionalInformation}"  
+                                                   Placeholder="Additional Information" 
+                                                   MaxLength="20"/>
+                            </Frame>
+                            <Label Grid.Row="5" Grid.Column="0" x:Name="CustomerModel_AdditionalInformationError" IsVisible="False" TextColor="Red" />
+                        </Grid>
+                    </Frame>
+                </ScrollView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.HomePage"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
-             xmlns:vm="clr-namespace:PoolGuy.Mobile.ViewModels"
              Title="{Binding Title}">
     
     <ContentPage.Resources>

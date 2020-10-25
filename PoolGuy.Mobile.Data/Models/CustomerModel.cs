@@ -2,6 +2,7 @@
 using DataAnnotation = System.ComponentModel.DataAnnotations;
 using static PoolGuy.Mobile.Data.Models.Enums;
 using SQLite;
+using System.ComponentModel.DataAnnotations;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -9,7 +10,7 @@ namespace PoolGuy.Mobile.Data.Models
     {
         public CustomerModel()
         {
-          
+
         }
 
         private AddressModel _address;
@@ -37,10 +38,11 @@ namespace PoolGuy.Mobile.Data.Models
             set { _pool = value; NotifyPropertyChanged("Pool"); }
         }
 
-        public string Name { 
-            get { return $"{FirstName} {LastName}"; } 
+        public string Name {
+            get { return $"{FirstName} {LastName}"; }
         }
         private string _firstName;
+        [Display(Name ="First Name")]
         [DataAnnotation.Required, DataAnnotation.MaxLength(20), Indexed(Name = "CustomerName", Order =2, Unique = true)]
         public string FirstName 
         {
@@ -50,6 +52,7 @@ namespace PoolGuy.Mobile.Data.Models
         
         private string _lastName;
         [DataAnnotation.Required, DataAnnotation.MaxLength(20), Indexed(Name = "CustomerName", Order = 1, Unique = true)]
+        [Display(Name = "Last Name")]
         public string LastName 
         {
             get { return _lastName; }
@@ -122,6 +125,7 @@ namespace PoolGuy.Mobile.Data.Models
 
         private string _additionalInformation;
         [DataAnnotation.Required, DataAnnotation.MaxLength(200)]
+        [Display(Name = "Additional Information")]
         public string AdditionalInformation 
         {
             get { return _additionalInformation; }
