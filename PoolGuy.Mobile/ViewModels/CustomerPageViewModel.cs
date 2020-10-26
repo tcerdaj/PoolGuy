@@ -40,5 +40,10 @@ namespace PoolGuy.Mobile.ViewModels
             get { return Enum.GetNames(typeof(PoolType)); }
         }
         public Page Page { get; set; }
+
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            OnPropertyChanged(propertyName);
+        }
     }
 }

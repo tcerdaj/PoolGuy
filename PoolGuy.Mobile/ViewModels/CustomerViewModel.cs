@@ -42,12 +42,20 @@ namespace PoolGuy.Mobile.ViewModels
 
         public double Progress
         {
-            get => FieldsCompleted / Fields;
+            get 
+            {
+                double progress = (double)FieldsCompleted / (double)Fields;
+                return progress; 
+            }
         }
 
-        public int Percent
+        public double Percent
         {
-            get => (int)Progress * 100;
+            get 
+            {
+                var percent = (double)Progress * 100;
+                return percent; 
+            }
         }
 
         public int Fields
@@ -135,62 +143,78 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 int count = 0;
 
-                Type type = Customer.GetType();
-                IList<PropertyInfo> props = new List<PropertyInfo>(type.GetProperties());
-                foreach (PropertyInfo prop in props)
+                foreach (var page in Pages)
                 {
-                    if (Properties.ContainsValue(prop))
+                    Type type;
+                    IList<PropertyInfo> props;
+
+                    switch (page.Title)
                     {
-                        object propValue = prop.GetValue(Customer, null);
-                        if (propValue != null)
-                        {
-                            count++;
-                        }
+                        case "Customer":
+                            type = page.Customer.GetType();
+                            props = new List<PropertyInfo>(type.GetProperties());
+                            foreach (PropertyInfo prop in props)
+                            {
+                                if (Properties.ContainsValue(prop))
+                                {
+                                    object propValue = prop.GetValue(page.Customer, null);
+                                    if (propValue != null)
+                                    {
+                                        count++;
+                                    }
+                                }
+                            }
+                            break;
+                        case "Address":
+                            type = page.Address.GetType();
+                            props = new List<PropertyInfo>(type.GetProperties());
+                            foreach (PropertyInfo prop in props)
+                            {
+                                if (Properties.ContainsValue(prop))
+                                {
+                                    object propValue = prop.GetValue(page.Address, null);
+                                    if (propValue != null)
+                                    {
+                                        count++;
+                                    }
+                                }
+                            }
+                            break;
+                        case "Contact":
+                            type = page.Contact.GetType();
+                            props = new List<PropertyInfo>(type.GetProperties());
+                            foreach (PropertyInfo prop in props)
+                            {
+                                if (Properties.ContainsValue(prop))
+                                {
+                                    object propValue = prop.GetValue(page.Contact, null);
+                                    if (propValue != null)
+                                    {
+                                        count++;
+                                    }
+                                }
+                            }
+                            break;
+                        case "Pool":
+                            type = page.Pool.GetType();
+                            props = new List<PropertyInfo>(type.GetProperties());
+                            foreach (PropertyInfo prop in props)
+                            {
+                                if (Properties.ContainsValue(prop))
+                                {
+                                    object propValue = prop.GetValue(page.Pool, null);
+                                    if (propValue != null)
+                                    {
+                                        count++;
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            break;
                     }
                 }
-
-                type = Address.GetType();
-                props = new List<PropertyInfo>(type.GetProperties());
-                foreach (PropertyInfo prop in props)
-                {
-                    if (Properties.ContainsValue(prop))
-                    {
-                        object propValue = prop.GetValue(Address, null);
-                        if (propValue != null)
-                        {
-                            count++;
-                        }
-                    }
-                }
-
-                type = Contact.GetType();
-                props = new List<PropertyInfo>(type.GetProperties());
-                foreach (PropertyInfo prop in props)
-                {
-                    if (Properties.ContainsValue(prop))
-                    {
-                        object propValue = prop.GetValue(Contact, null);
-                        if (propValue != null)
-                        {
-                            count++;
-                        }
-                    }
-                }
-
-                type = Pool.GetType();
-                props = new List<PropertyInfo>(type.GetProperties());
-                foreach (PropertyInfo prop in props)
-                {
-                    if (Properties.ContainsValue(prop))
-                    {
-                        object propValue = prop.GetValue(Pool, null);
-                        if (propValue != null)
-                        {
-                            count++;
-                        }
-                    }
-                }
-
+                
                 return count;
             }
         }
@@ -254,7 +278,20 @@ namespace PoolGuy.Mobile.ViewModels
         public int Position
         {
             get { return _position; }
-            set { _position = value; OnPropertyChanged("Position"); }
+            set 
+            {
+                _position = value;
+                Customer = Pages.FirstOrDefault().Customer;
+                OnPropertyChanged("Position");
+                OnPropertyChanged("Progress");
+                OnPropertyChanged("Percent");
+                OnPropertyChanged("IsVisibleName");
+            }
+        }
+        
+        public bool IsVisibleName 
+        {
+            get { return Position > 0; }
         }
 
         public ICommand GoToPageCommand
@@ -308,7 +345,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                if (!FieldValidationHelper.IsFormValid(Customer, _page))
+                if (!IsValid())
                 {
                     ErrorMessage = "Unable to save customer";
                     return;
@@ -337,23 +374,52 @@ namespace PoolGuy.Mobile.ViewModels
 
         public bool IsValid()
         {
-            bool isValid = false;
-            switch (Title)
+            try
             {
-                case "Customer":
-                    var page = Pages.FirstOrDefault(x => x.Title == Title);
-                    if (page == null)
-                    {
-                        return false;
-                    }
+                bool isValid = false;
+                var page = Pages[Position];
 
-                    isValid = FieldValidationHelper.IsFormValid(page.Customer, page.Page);
-                    break;
-                default:
-                    break;
+                switch (page.Title)
+                {
+                    case "Customer":
+                        isValid = FieldValidationHelper.IsFormValid(page.Customer, page.Page);
+                        if (!isValid)
+                        {
+                            Position = 0;
+                        }
+                        break;
+                    case "Address":
+                        isValid = FieldValidationHelper.IsFormValid(page.Address, page.Page);
+                        if (!isValid)
+                        {
+                            Position = 1;
+                        }
+                        break;
+                    case "Contact":
+                        isValid = FieldValidationHelper.IsFormValid(page.Contact, page.Page);
+                        if (!isValid)
+                        {
+                            Position = 2;
+                        }
+                        break;
+                    case "Pool":
+                        isValid = FieldValidationHelper.IsFormValid(page.Pool, page.Page);
+                        if (!isValid)
+                        {
+                            Position = 3;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                return isValid;
             }
-
-            return isValid;
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return false;
+            }
         }
 
         public void OnCustomerChanged()

@@ -1,12 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              x:Class="PoolGuy.Mobile.Views.WContactPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor" Value="#D8D8D8"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="HasShadow" Value="False"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid VerticalOptions="Start">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Frame  Grid.Row="0" 
+                        BorderColor="#D2C9C9"  
+                        CornerRadius="6"  
+                        Padding="5,10">
+                <Grid x:Name="mainContent" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--Phone-->
+                    <Frame Grid.Row="0" 
+                                   Grid.Column="0">
+                        <mycc:CustomEntry  Text="{Binding Contact.Phone}" 
+                                           Placeholder="Phone" 
+                                           MaxLength="10"
+                                           Keyboard="Telephone"/>
+                    </Frame>
+                    <Label Grid.Row="1" Grid.Column="0"  x:Name="ContactInformationModel_PhoneError" IsVisible="False" TextColor="Red" />
+                    <!--CellPhone-->
+                    <Frame Grid.Row="2" 
+                                   Grid.Column="0">
+                        <mycc:CustomEntry  Text="{Binding Contact.CellPhone}"  
+                                           Placeholder="Cell Phone" 
+                                           MaxLength="10"
+                                           Keyboard="Telephone"/>
+                    </Frame>
+                    <Label Grid.Row="3" Grid.Column="0" x:Name="ContactInformationModel_CellPhoneError" IsVisible="False" TextColor="Red" />
+                    <Frame Grid.Row="4" 
+                           Grid.Column="0">
+                        <mycc:CustomEntry Text="{Binding Contact.Email}"  
+                                          Placeholder="Email" 
+                                          MaxLength="200"
+                                          Keyboard="Email"/>
+                    </Frame>
+                    <Label Grid.Row="5" Grid.Column="0" x:Name="ContactInformationModel_EmailError" IsVisible="False" TextColor="Red" />
+                </Grid>
+            </Frame>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

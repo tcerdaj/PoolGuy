@@ -1,12 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              x:Class="PoolGuy.Mobile.Views.WAddressPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor" Value="#D8D8D8"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="HasShadow" Value="False"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+           <Grid VerticalOptions="Start">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Frame  Grid.Row="0" 
+                        BorderColor="#D2C9C9"  
+                        CornerRadius="6"  
+                        Padding="5,10">
+                <Grid x:Name="mainContent" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--Address-->
+                    <Frame Grid.Row="0" 
+                                   Grid.Column="0">
+                        <mycc:CustomEntry  Text="{Binding Address.Address1}" 
+                                           Placeholder="Address1" 
+                                           MaxLength="100"/>
+                    </Frame>
+                    <Label Grid.Row="1" Grid.Column="0"  x:Name="AddressModel_Address1Error" IsVisible="False" TextColor="Red" />
+                    <!--Address2-->
+                    <Frame Grid.Row="2" 
+                                   Grid.Column="0">
+                        <mycc:CustomEntry  Text="{Binding Address.Address2}"  
+                                           Placeholder="Address2" 
+                                           MaxLength="100"/>
+                    </Frame>
+                    <Label Grid.Row="3" Grid.Column="0" x:Name="AddressModel_Address2Error" IsVisible="False" TextColor="Red" />
+                    <!--City-->
+                    <Frame Grid.Row="4" 
+                                           Grid.Column="0">
+                        <mycc:CustomEntry Text="{Binding Address.City}"  
+                                          Placeholder="City" 
+                                          MaxLength="80"/>
+                    </Frame>
+                    <Label Grid.Row="5" Grid.Column="0" x:Name="AddressModel_CityError" IsVisible="False" TextColor="Red" />
+                    <!--State-->
+                    <Frame Grid.Row="6" 
+                                           Grid.Column="0">
+                        <mycc:CustomEntry Text="{Binding Address.State}"  
+                                          Placeholder="State" 
+                                          MaxLength="50"/>
+                    </Frame>
+                    <Label Grid.Row="7" Grid.Column="0" x:Name="AddressModel_StateError" IsVisible="False" TextColor="Red" />
+                    <!--Zip-->
+                    <Frame Grid.Row="8" 
+                                           Grid.Column="0">
+                        <mycc:CustomEntry Text="{Binding Address.Zip}"  
+                                          Placeholder="Zip" 
+                                          MaxLength="10"/>
+                    </Frame>
+                    <Label Grid.Row="9" Grid.Column="0" x:Name="AddressModel_ZipError" IsVisible="False" TextColor="Red" />
+                </Grid>
+            </Frame>
+        </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

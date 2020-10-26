@@ -8,6 +8,10 @@
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="TextTransform" Value="None"/>
+                <Setter Property="Margin" Value="0"/>
+            </Style>
             <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
             <DataTemplate x:Key="CarouselDefaultTemplate">
             </DataTemplate>
@@ -19,39 +23,69 @@
       
       <StackLayout Padding="15,10">
             <Grid HorizontalOptions="FillAndExpand"
-                  VerticalOptions="Fill">
+                  VerticalOptions="Fill"
+                  ColumnSpacing="5">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <mr:Label Grid.Row="0" Grid.Column="0"
-                       Text="Customer"
-                       x:Name="headerCustomer"
-                       TappedCommand="{Binding GoToPageCommand}"
-                       TappedCommandParameter="Customer"/>
-                <mr:Label Grid.Row="0" Grid.Column="1"
-                       Text="Address"
-                       x:Name="headerAddress"
-                       TappedCommand="{Binding GoToPageCommand}"
-                       TappedCommandParameter="Address"/>
-                <mr:Label Grid.Row="0" Grid.Column="2"
-                       Text="Contact"
-                       x:Name="headerContact"
-                       TappedCommand="{Binding GoToPageCommand}"
-                       TappedCommandParameter="Contact"/>
-                <mr:Label Grid.Row="0" Grid.Column="3"
-                       Text="Pool"
-                       x:Name="headerPool"
-                       TappedCommand="{Binding GoToPageCommand}"
-                       TappedCommandParameter="Pool"/>
+                <Button Grid.Row="0" Grid.Column="0"
+                        Text="Customer"
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        HeightRequest="35"
+                        BorderWidth="0"
+                        Padding="0"
+                        Margin="0"
+                        x:Name="headerCustomer"
+                        Command="{Binding GoToPageCommand}"
+                        CommandParameter="Customer"/>
+                <Button Grid.Row="0" Grid.Column="1"
+                        Text="Address"
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        HeightRequest="35"
+                        BorderWidth="0"
+                        Padding="0"
+                        Margin="0"
+                        x:Name="headerAddress"
+                        Command="{Binding GoToPageCommand}"
+                        CommandParameter="Address"/>
+                <Button Grid.Row="0" Grid.Column="2"
+                        Text="Contact"
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        HeightRequest="35"
+                        BorderWidth="0"
+                        Padding="0"
+                        Margin="0"
+                        x:Name="headerContact"
+                        Command="{Binding GoToPageCommand}"
+                        CommandParameter="Contact"/>
+                <Button Grid.Row="0" Grid.Column="3"
+                        Text="Pool"
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        HeightRequest="35"
+                        BorderWidth="0"
+                        Padding="0"
+                        Margin="0"
+                        x:Name="headerPool"
+                        Command="{Binding GoToPageCommand}"
+                        CommandParameter="Pool"/>
                 <!--Progress Bar-->
                 <StackLayout Grid.Row="1" Grid.ColumnSpan="4" 
                              HorizontalOptions="FillAndExpand"
@@ -71,15 +105,17 @@
                         </Label>
                  </StackLayout>
                 <!--Error message-->
-                <Label Grid.Row="2" 
+                <Label Grid.Row="2"
+                       Grid.ColumnSpan="4"
                        Text="{Binding ErrorMessage}" 
                        IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}" 
                        TextColor="{Binding ErrorTextColor}" 
                        LineBreakMode="TailTruncation"/>
-                <!--<Entry Grid.Row="2"
-                       VerticalOptions="Fill"
-                       Text="{Binding Customer.FirstName}" />-->
-
+                <Label Grid.Row="3" Grid.ColumnSpan="4" Text="{Binding Customer.Name}" TextColor="{StaticResource Title}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Center"
+                        FontSize="Medium"
+                        IsVisible="{Binding IsVisibleName}"/>
             </Grid>
             <CarouselView x:Name="Carousel" ItemsSource="{Binding Pages}"
                           ItemTemplate="{x:StaticResource CarouselSelector}" 
@@ -119,8 +155,6 @@
                     </Button.ImageSource>
                 </Button>
             </Grid>
-
-            <Label Text="{Binding Customer.FirstName}"/>
         </StackLayout>
   </ContentPage.Content>
 </ContentPage>

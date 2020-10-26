@@ -12,8 +12,6 @@ namespace PoolGuy.Mobile.Views
         public WAddressPage()
         {
             InitializeComponent();
-            _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
-            BindingContext = _viewModel;
         }
     }
 }

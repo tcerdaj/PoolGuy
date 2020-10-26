@@ -1,12 +1,109 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              x:Class="PoolGuy.Mobile.Views.WPoolPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor" Value="#D8D8D8"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="HasShadow" Value="False"/>
+            </Style>
+            <Style TargetType="mr:Frame">
+                <Setter Property="BorderColor" Value="#D8D8D8"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="HasShadow" Value="False"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid VerticalOptions="Start">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Frame  Grid.Row="0" 
+                        BorderColor="#D2C9C9"  
+                        CornerRadius="6"  
+                        Padding="5,10">
+                <Grid x:Name="mainContent" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--Type-->
+                    <mr:Frame Grid.Row="0"
+                              BorderColor="#D8D8D8"
+                              Grid.Column="0"
+                              Tapped="PoolType_OnTapped">
+                        <StackLayout Orientation="Horizontal">
+                        <mycc:CustomEntry  Text="{Binding Pool.Type}"  
+                                           Placeholder="Type"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="FillAndExpand"
+                                           IsReadOnly="True"/>
+                            <Label Text="{x:Static icons:MaterialDesignIcons.ChevronDown}" FontFamily="{StaticResource MaterialFontFamily}"
+                                   FontSize="30"
+                                   HorizontalOptions="End"
+                                   VerticalOptions="Center"/>
+                        </StackLayout>
+                    </mr:Frame>
+                    
+                    <Label Grid.Row="1" Grid.Column="0"  x:Name="PoolModel_TypeError" IsVisible="False" TextColor="Red" />
+                    <!--Name-->
+                    <Frame Grid.Row="2" 
+                           Grid.Column="0">
+                        <mycc:CustomEntry  Text="{Binding Pool.Name}"  
+                                                   Placeholder="Name" 
+                                                   MaxLength="30"/>
+                    </Frame>
+                    <Label Grid.Row="3" Grid.Column="0" x:Name="PoolModel_NameError" IsVisible="False" TextColor="Red" />
+                    <!--Description-->
+                    <Frame Grid.Row="4" 
+                           Grid.Column="0">
+                        <Editor Text="{Binding Pool.Description}"  
+                                Placeholder="Description" 
+                                MaxLength="200"
+                                HeightRequest="80"/>
+                    </Frame>
+                    <Label Grid.Row="5" Grid.Column="0" x:Name="PoolModel_DescriptionError" IsVisible="False" TextColor="Red" />
+                    <!--Surface-->
+                    <Frame Grid.Row="6" 
+                           Grid.Column="0">
+                        <mycc:CustomEntry Text="{Binding Pool.Surface}"  
+                                          Placeholder="Surface" 
+                                          MaxLength="200"
+                                          Keyboard="Numeric"/>
+                    </Frame>
+                    <Label Grid.Row="7" Grid.Column="0" x:Name="PoolModel_SurfaceError" IsVisible="False" TextColor="Red" />
+                    <!--Capacity-->
+                    <Frame Grid.Row="8" 
+                           Grid.Column="0">
+                        <mycc:CustomEntry Text="{Binding Pool.Capacity}"  
+                                          Placeholder="Capacity" 
+                                          MaxLength="200"
+                                          Keyboard="Numeric"/>
+                    </Frame>
+                    <Label Grid.Row="9" Grid.Column="0" x:Name="PoolModel_CapacityError" IsVisible="False" TextColor="Red" />
+                </Grid>
+            </Frame>
+            <Picker x:Name="poolTypePicker"
+                    Title="Pool Type"
+                    ItemsSource="{Binding PoolTypes}"
+                    IsVisible="False"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

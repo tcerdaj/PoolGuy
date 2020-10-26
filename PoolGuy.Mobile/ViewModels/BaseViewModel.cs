@@ -8,6 +8,7 @@ using PoolGuy.Mobile.Services;
 using GalaSoft.MvvmLight.Ioc;
 using PoolGuy.Mobile.Services.Interface;
 using System.Threading.Tasks;
+using PoolGuy.Mobile.CustomControls;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -53,6 +54,80 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get { return SimpleIoc.Default.GetInstance<INavigationService>(); }
         }
+
+        
+        public void ToggleFocus(string controlName, ControlTypeEnum type, bool focus)
+        {
+            if (View == null)
+            {
+                return;
+            }
+
+            var control = GetControl(controlName, type);
+
+            if (control != null)
+            {
+                if (focus)
+                {
+                    if (control.IsFocused)
+                    {
+                        control.Unfocus();
+                    }
+
+                    control.Focus();
+                }
+                else
+                {
+                    control.Unfocus();
+                }
+            }
+        }
+
+        private View GetControl(string controlName, ControlTypeEnum controlType)
+        {
+            View control = null;
+
+            if (View == null)
+            {
+                return control;
+            }
+
+            switch (controlType)
+            {
+                case ControlTypeEnum.ListView:
+                    control = View.FindByName<ListView>(controlName);
+                    break;
+                case ControlTypeEnum.Picker:
+                    control = View.FindByName<Picker>(controlName);
+                    break;
+                case ControlTypeEnum.EnhancedEntry:
+                    control = View.FindByName<CustomEntry>(controlName);
+                    break;
+                case ControlTypeEnum.DatePicker:
+                    control = View.FindByName<DatePicker>(controlName);
+                    break;
+                case ControlTypeEnum.TimePicker:
+                    control = View.FindByName<TimePicker>(controlName);
+                    break;
+                case ControlTypeEnum.SearchBar:
+                    control = View.FindByName<SearchBar>(controlName);
+                    break;
+                case ControlTypeEnum.StackLayout:
+                    control = View.FindByName<StackLayout>(controlName);
+                    break;
+                case ControlTypeEnum.AbsoluteLayout:
+                    control = View.FindByName<AbsoluteLayout>(controlName);
+                    break;
+                case ControlTypeEnum.Grid:
+                    control = View.FindByName<Grid>(controlName);
+                    break;
+                default:
+                    break;
+            }
+
+            return control;
+        }
+
         #region UserDialogs
         public IUserDialogs Message
         {
@@ -72,6 +147,24 @@ namespace PoolGuy.Mobile.ViewModels
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
         #endregion
+    }
+
+    public enum ControlTypeEnum
+    {
+        Picker,
+        EnhancedEntry,
+        EnhancedStackLayout,
+        AnimatedButton,
+        DatePicker,
+        SearchBar,
+        AdjustableEditor,
+        StackLayout,
+        AbsoluteLayout,
+        Grid,
+        TimePicker,
+        ListView
     }
 }

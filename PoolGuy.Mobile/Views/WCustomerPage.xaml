@@ -12,32 +12,32 @@
                 <Setter Property="BorderColor" Value="#D8D8D8"/>
                 <Setter Property="CornerRadius" Value="6"/>
                 <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="HasShadow" Value="False"/>
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Start">
-            <Grid VerticalOptions="Start">
+         <Grid VerticalOptions="Start">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <ScrollView>
-                    <Frame  Grid.Row="2" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
+            </Grid.RowDefinitions>
+                <Frame  Grid.Row="0" 
+                        BorderColor="#D2C9C9"  
+                        CornerRadius="6"  
+                        Padding="5,10">
                         <Grid x:Name="mainContent" Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <!--FirstName-->
                             <Frame Grid.Row="0" 
                                    Grid.Column="0">
                                 <mycc:CustomEntry  Text="{Binding Customer.FirstName}" 
                                                    Placeholder="First name" 
-                                                   MaxLength="20"
-                                                   Unfocused="CustomEntry_Unfocused"/>
+                                                   MaxLength="20"/>
                             </Frame>
                             <Label Grid.Row="1" Grid.Column="0"  x:Name="CustomerModel_FirstNameError" IsVisible="False" TextColor="Red" />
                             <!--LastName-->
@@ -48,18 +48,15 @@
                                                    MaxLength="20"/>
                             </Frame>
                             <Label Grid.Row="3" Grid.Column="0" x:Name="CustomerModel_LastNameError" IsVisible="False" TextColor="Red" />
-                            <!--Additional info-->
                             <Frame Grid.Row="4" 
-                                   Grid.Column="0">
-                                <mycc:CustomEntry  Text="{Binding Customer.AdditionalInformation}"  
-                                                   Placeholder="Additional Information" 
-                                                   MaxLength="20"/>
-                            </Frame>
-                            <Label Grid.Row="5" Grid.Column="0" x:Name="CustomerModel_AdditionalInformationError" IsVisible="False" TextColor="Red" />
+                                           Grid.Column="0">
+                                <Editor Text="{Binding Customer.AdditionalInformation}"  
+                                                  Placeholder="Additional Information" 
+                                                  MaxLength="200"
+                                                  HeightRequest="200"/>
+                             </Frame>
                         </Grid>
                     </Frame>
-                </ScrollView>
-            </Grid>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

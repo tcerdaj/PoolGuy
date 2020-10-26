@@ -1,4 +1,5 @@
 ﻿using CommonServiceLocator;
+using PoolGuy.Mobile.Resources;
 using PoolGuy.Mobile.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,6 +15,7 @@ namespace PoolGuy.Mobile.Views
         {
             InitializeComponent();
             _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
+            _viewModel.InitPages();
             BindingContext = _viewModel;
             _primaryColor  =  (Color)Application.Current.Resources["Primary"];
             _unselectedColor = (Color)Application.Current.Resources["UnselectedColor"];
@@ -22,7 +24,6 @@ namespace PoolGuy.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.InitPages();
         }
 
         private void PreviusButton_Clicked(object sender, System.EventArgs e)
@@ -45,17 +46,32 @@ namespace PoolGuy.Mobile.Views
                     _viewModel.Position = Carousel.Position + 1;
                 }
             }
+            else // Save Customer bundle
+            {
+                _viewModel.SaveCommand.Execute(null);
+            }
         }
 
         private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
         {
             PreviusButton.Opacity = _viewModel.Position > 0? 1:.5;
-            NextButton.Opacity = (_viewModel.Position + 1) < _viewModel.Pages.Count? 1:.5;
+            NextButton.ImageSource = new FontImageSource
+            {
+                Glyph = (_viewModel.Position + 1) < _viewModel.Pages.Count ?
+                MaterialDesignIcons.ChevronRight :
+                MaterialDesignIcons.Plus,
+                FontFamily = Device.RuntimePlatform == Device.iOS? 
+                "Material Design Icons": 
+                "materialdesignicons.ttf#Material Design Icons",
+                Size = 40,
+                Color = _primaryColor
+            };
+            //NextButton.Opacity = (_viewModel.Position + 1) < _viewModel.Pages.Count? 1:.5;
 
-            if (e.CurrentItem is Page page)
+            if (e.CurrentItem is CustomerPageViewModel page)
             {
                 _viewModel.Title = page.Title;
-
+               
                 if (string.IsNullOrEmpty(_viewModel.Title))
                 {
                     return;
@@ -63,35 +79,24 @@ namespace PoolGuy.Mobile.Views
 
                 // Reset color
                 headerCustomer.TextColor = _unselectedColor;
-                headerCustomer.FontAttributes = FontAttributes.None;
-             
                 headerAddress.TextColor  = _unselectedColor;
-                headerAddress.FontAttributes = FontAttributes.None;
-
                 headerContact.TextColor  = _unselectedColor;
-                headerContact.FontAttributes = FontAttributes.None;
-
                 headerPool.TextColor     = _unselectedColor;
-                headerPool.FontAttributes = FontAttributes.None;
 
                 // Assing to active page
                 switch (_viewModel.Title)
                 {
                     case "Customer":
                         headerCustomer.TextColor = _primaryColor;
-                        headerCustomer.FontAttributes = FontAttributes.Bold;
                         break;
                     case "Address":
                         headerAddress.TextColor = _primaryColor;
-                        headerAddress.FontAttributes = FontAttributes.Bold;
                         break;
                     case "Contact":
                         headerContact.TextColor = _primaryColor;
-                        headerContact.FontAttributes = FontAttributes.Bold;
                         break;
                     case "Pool":
                         headerPool.TextColor = _primaryColor;
-                        headerPool.FontAttributes = FontAttributes.Bold;
                         break;
                     default:
                         break;

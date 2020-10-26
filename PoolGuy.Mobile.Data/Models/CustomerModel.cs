@@ -124,7 +124,7 @@ namespace PoolGuy.Mobile.Data.Models
         }
 
         private string _additionalInformation;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(200)]
+        [DataAnnotation.MaxLength(200)]
         [Display(Name = "Additional Information")]
         public string AdditionalInformation 
         {
