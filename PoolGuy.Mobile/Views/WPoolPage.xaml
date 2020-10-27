@@ -41,8 +41,6 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!--Type-->
                     <mr:Frame Grid.Row="0"
@@ -63,23 +61,6 @@
                     </mr:Frame>
                     
                     <Label Grid.Row="1" Grid.Column="0"  x:Name="PoolModel_TypeError" IsVisible="False" TextColor="Red" />
-                    <!--Name-->
-                    <Frame Grid.Row="2" 
-                           Grid.Column="0">
-                        <mycc:CustomEntry  Text="{Binding Pool.Name}"  
-                                                   Placeholder="Name" 
-                                                   MaxLength="30"/>
-                    </Frame>
-                    <Label Grid.Row="3" Grid.Column="0" x:Name="PoolModel_NameError" IsVisible="False" TextColor="Red" />
-                    <!--Description-->
-                    <Frame Grid.Row="4" 
-                           Grid.Column="0">
-                        <Editor Text="{Binding Pool.Description}"  
-                                Placeholder="Description" 
-                                MaxLength="200"
-                                HeightRequest="80"/>
-                    </Frame>
-                    <Label Grid.Row="5" Grid.Column="0" x:Name="PoolModel_DescriptionError" IsVisible="False" TextColor="Red" />
                     <!--Surface-->
                     <Frame Grid.Row="6" 
                            Grid.Column="0">

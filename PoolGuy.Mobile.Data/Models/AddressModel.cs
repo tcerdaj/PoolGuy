@@ -7,12 +7,20 @@ namespace PoolGuy.Mobile.Data.Models
     {
         public Guid CustomerId { get; set; }
 
+        public string FullAddress
+        {
+            get 
+            {
+                return $"{Address1} {Address2}, {City}, {State}, {Zip}".Trim();
+            }
+        }
+
         private string _address1;
         [DataAnnotation.Required, DataAnnotation.MaxLength(80)]
         public string Address1
         {
             get { return _address1; }
-            set { _address1 = value; NotifyPropertyChanged("Address1"); }
+            set { _address1 = value; NotifyPropertyChanged("Address1");WasModified = true; }
         }
 
         private string _address2;
@@ -20,7 +28,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string Address2
         {
             get { return _address2; }
-            set { _address2 = value; NotifyPropertyChanged("Address2"); }
+            set { _address2 = value; NotifyPropertyChanged("Address2"); WasModified = true; }
         }
 
         private string _city;
@@ -28,7 +36,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string City
         {
             get { return _city; }
-            set { _city = value; NotifyPropertyChanged("City"); }
+            set { _city = value; NotifyPropertyChanged("City"); WasModified = true; }
         }
 
         private string _zip;
@@ -36,7 +44,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string Zip
         {
             get { return _zip; }
-            set { _zip = value; NotifyPropertyChanged("Zip"); }
+            set { _zip = value; NotifyPropertyChanged("Zip"); WasModified = true; }
         }
 
         private string _state;
@@ -44,7 +52,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string State
         {
             get { return _state; }
-            set { _state = value; NotifyPropertyChanged("State"); }
+            set { _state = value; NotifyPropertyChanged("State"); WasModified = true; }
         }
     }
 }

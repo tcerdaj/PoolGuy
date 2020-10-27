@@ -3,6 +3,7 @@ using DataAnnotation = System.ComponentModel.DataAnnotations;
 using static PoolGuy.Mobile.Data.Models.Enums;
 using SQLite;
 using System.ComponentModel.DataAnnotations;
+using SQLiteNetExtensions.Attributes;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -13,25 +14,33 @@ namespace PoolGuy.Mobile.Data.Models
 
         }
 
+        [ForeignKey(typeof(AddressModel))]
+        public Guid AddressId { get; set; }
+
         private AddressModel _address;
-        [Ignore]
+        [OneToOne(CascadeOperations = CascadeOperation.All)]
         public AddressModel Address
         {
             get => _address;
             set { _address = value; NotifyPropertyChanged("Address"); }
         }
 
-        private ContactInformationModel _contactInfomartion;
-        [Ignore]
-        public ContactInformationModel ContactInformation
+        [ForeignKey(typeof(ContactModel))]
+        public Guid ContactId { get; set; }
+
+        private ContactModel _contactInfomartion;
+        [OneToOne(CascadeOperations = CascadeOperation.All)]
+        public ContactModel Contact
         {
             get => _contactInfomartion;
             set { _contactInfomartion = value; NotifyPropertyChanged("ContactInformation"); }
         }
 
-        private PoolModel _pool;
+        [ForeignKey(typeof(PoolModel))]
+        public Guid PoolId { get; set; }
 
-        [Ignore]
+        private PoolModel _pool;
+        [OneToOne(CascadeOperations = CascadeOperation.All)]
         public PoolModel Pool
         {
             get { return _pool; }
@@ -47,7 +56,11 @@ namespace PoolGuy.Mobile.Data.Models
         public string FirstName 
         {
             get { return _firstName; }
-            set { _firstName = value; NotifyPropertyChanged("FirstName"); }
+            set { 
+                _firstName = value; 
+                NotifyPropertyChanged("FirstName");
+                WasModified = true;
+            }
         }
         
         private string _lastName;
@@ -56,7 +69,11 @@ namespace PoolGuy.Mobile.Data.Models
         public string LastName 
         {
             get { return _lastName; }
-            set { _lastName = value; NotifyPropertyChanged("LastName"); }
+            set { 
+                _lastName = value; 
+                NotifyPropertyChanged("LastName");
+                WasModified = true;
+            }
         }
 
         private string _imageUrl;
@@ -129,7 +146,12 @@ namespace PoolGuy.Mobile.Data.Models
         public string AdditionalInformation 
         {
             get { return _additionalInformation; }
-            set { _additionalInformation = value; NotifyPropertyChanged("AdditionalInformation"); } 
+            set { 
+                _additionalInformation = value; 
+                NotifyPropertyChanged("AdditionalInformation");
+                WasModified = true;
+            } 
         }
+
     }
 }

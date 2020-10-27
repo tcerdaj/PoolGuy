@@ -21,8 +21,8 @@ namespace PoolGuy.Mobile.ViewModels
             set { _address = value; OnPropertyChanged("Address"); }
         }
 
-        private ContactInformationModel _contact = new ContactInformationModel();
-        public ContactInformationModel Contact
+        private ContactModel _contact = new ContactModel();
+        public ContactModel Contact
         {
             get { return _contact; }
             set { _contact = value; OnPropertyChanged("Contact"); }

@@ -26,22 +26,22 @@ namespace PoolGuy.Mobile.Views
             base.OnAppearing();
         }
 
-        private void PreviusButton_Clicked(object sender, System.EventArgs e)
+        private async void PreviusButton_Clicked(object sender, System.EventArgs e)
         {
             if (_viewModel.Position > 0)
             {
-                if (_viewModel.IsValid())
+                if (_viewModel.IsValid(_viewModel.Pages[_viewModel.Position]))
                 {
                     _viewModel.Position = Carousel.Position - 1;
                 }
             }
         }
 
-        private void NextButton_Clicked(object sender, System.EventArgs e)
+        private async void NextButton_Clicked(object sender, System.EventArgs e)
         {
             if ((_viewModel.Position + 1) < _viewModel.Pages.Count)
             {
-                if (_viewModel.IsValid())
+                if ( _viewModel.IsValid(_viewModel.Pages[_viewModel.Position]))
                 {
                     _viewModel.Position = Carousel.Position + 1;
                 }
@@ -103,5 +103,6 @@ namespace PoolGuy.Mobile.Views
                 }
             }
         }
+        
     }
 }

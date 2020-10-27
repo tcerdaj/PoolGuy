@@ -7,13 +7,68 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddCommand}" />
     </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor" Value="#D8D8D8"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="HasShadow" Value="False"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
       <StackLayout>
-            <StackLayout Orientation="Horizontal">
             <SearchBar HorizontalOptions="FillAndExpand"
-                     Placeholder="Search for a customer"
+                       Placeholder="Search for a customer"
+                       Text="{Binding SearchTerm}"
+                       SearchCommand="{Binding SearchCustomerCommand}"
                        BackgroundColor="#f7f7f7"/>
-            </StackLayout>
+                <CollectionView HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                ItemsSource="{Binding Customers}"
+                                ItemSizingStrategy="MeasureFirstItem"
+                                EmptyView="No Customers to display">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                        <StackLayout Padding="15,10">
+                            <Frame>
+                                <StackLayout Orientation="Horizontal"
+                                             Padding="20,20,0,20">
+                                <StackLayout HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding Name}"
+                                           HorizontalOptions="FillAndExpand"
+                                           VerticalOptions="Center"
+                                           FontSize="16"/>
+                                    <Label Text="{Binding Address.FullAddress}" 
+                                           HorizontalOptions="FillAndExpand"
+                                           VerticalOptions="Center"
+                                           FontSize="12"
+                                           FontAttributes="Bold"/>
+                                    <Label HorizontalOptions="FillAndExpand"
+                                           VerticalOptions="Center"
+                                           FontSize="12"
+                                           FontAttributes="Bold">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Contact.Phone}" TextColor="#2F80ED"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{Binding Contact.Email}" TextColor="#2F80ED"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                                    <Label Text="{x:Static icons:MaterialDesignIcons.ChevronRight}" 
+                                           FontFamily="{StaticResource MaterialFontFamily}"
+                                           FontSize="30"
+                                           HorizontalOptions="End"
+                                           VerticalOptions="Center"/>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
         </StackLayout>
   </ContentPage.Content>
 </ContentPage>

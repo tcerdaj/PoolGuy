@@ -6,6 +6,10 @@
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              x:Class="PoolGuy.Mobile.Views.WizardCustomerPage"
              Title="{Binding Title}">
+    <!--Go back command-->
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoBackCommand}"/>
+    </Shell.BackButtonBehavior>
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Button">

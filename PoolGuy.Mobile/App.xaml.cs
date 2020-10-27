@@ -10,6 +10,7 @@ using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Data.SQLite;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.ViewModels;
+using PoolGuy.Mobile.Data.Controllers;
 
 namespace PoolGuy.Mobile
 {
@@ -23,7 +24,8 @@ namespace PoolGuy.Mobile
             DependencyService.Register<MockDataStore>();
 
             DependencyService.Register<ILocalDataStore<CustomerModel>, LocalDataStore<CustomerModel>>();
-
+            DependencyService.Register<ILocalDataStore<AddressModel>, LocalDataStore<AddressModel>>();
+            DependencyService.Register<ILocalDataStore<ContactModel>, LocalDataStore<ContactModel>>();
             DependencyService.Register<ILocalDataStore<PoolModel>, LocalDataStore<PoolModel>>();
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -50,8 +52,20 @@ namespace PoolGuy.Mobile
             //    SimpleIoc.Default.Register<INavigationService>(() => nav);
             //}
 
+            CreateTables();
             MainPage = new AppShell();
            // MainPage.ToolbarItems.Add(new ToolbarItem { Text ="Test"});
+        }
+
+        private void CreateTables()
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await new CustomerController().LocalData.CreateTableAsync();
+                await new PoolController().LocalData.CreateTableAsync();
+                await new AddressController().LocalData.CreateTableAsync();
+                await new ContactInformationController().LocalData.CreateTableAsync();
+            });
         }
 
         protected override void OnStart()

@@ -15,10 +15,7 @@ using static PoolGuy.Mobile.Data.Models.Enums;
 using PoolGuy.Mobile.Views;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using System.Collections.Specialized;
 using Xamarin.Forms.Internals;
-using CommonServiceLocator;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -33,28 +30,21 @@ namespace PoolGuy.Mobile.ViewModels
         public void InitPages()
         {
             Pages = new List<CustomerPageViewModel> {
-              new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage()},
+              new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage() },
               new CustomerPageViewModel { Title = "Address", Page =  new WAddressPage()},
               new CustomerPageViewModel { Title = "Contact", Page =  new WContactPage()},
               new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage()},
             };
         }
 
-        public double Progress
-        {
-            get 
-            {
-                double progress = (double)FieldsCompleted / (double)Fields;
-                return progress; 
-            }
-        }
+        public double Progress => (double)FieldsCompleted / (double)Fields;
 
         public double Percent
         {
-            get 
+            get
             {
                 var percent = (double)Progress * 100;
-                return percent; 
+                return percent;
             }
         }
 
@@ -62,17 +52,18 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get
             {
-                var count = (from c in typeof(CustomerModel).GetProperties()
-                             where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                                   c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                                   c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                             select c).Count() +
+                var count =
+                    (from c in typeof(CustomerModel).GetProperties()
+                     where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
+                     c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
+                     c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
+                     select c).Count() +
                  (from c in typeof(AddressModel).GetProperties()
                   where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
                        c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
                        c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
                   select c).Count() +
-                 (from c in typeof(ContactInformationModel).GetProperties()
+                 (from c in typeof(ContactModel).GetProperties()
                   where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
                        c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
                        c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
@@ -113,7 +104,7 @@ namespace PoolGuy.Mobile.ViewModels
 
                  });
 
-                (from c in typeof(ContactInformationModel).GetProperties()
+                (from c in typeof(ContactModel).GetProperties()
                  where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
                       c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
                       c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
@@ -214,7 +205,7 @@ namespace PoolGuy.Mobile.ViewModels
                             break;
                     }
                 }
-                
+
                 return count;
             }
         }
@@ -233,8 +224,8 @@ namespace PoolGuy.Mobile.ViewModels
             set { _address = value; OnPropertyChanged("Address"); }
         }
 
-        private ContactInformationModel _contact = new ContactInformationModel();
-        public ContactInformationModel Contact
+        private ContactModel _contact = new ContactModel();
+        public ContactModel Contact
         {
             get { return _contact; }
             set { _contact = value; OnPropertyChanged("Contact"); }
@@ -278,7 +269,7 @@ namespace PoolGuy.Mobile.ViewModels
         public int Position
         {
             get { return _position; }
-            set 
+            set
             {
                 _position = value;
                 Customer = Pages.FirstOrDefault().Customer;
@@ -288,11 +279,26 @@ namespace PoolGuy.Mobile.ViewModels
                 OnPropertyChanged("IsVisibleName");
             }
         }
-        
-        public bool IsVisibleName 
+
+        public bool IsVisibleName
         {
             get { return Position > 0; }
         }
+
+        public bool WasModified { get; set; }
+
+        public ICommand GoBackCommand => new RelayCommand(async () =>
+        {
+            if (WasModified)
+            {
+                if (!await Shell.Current.DisplayAlert("Warning", "Are you sure to exit without saving the changes?", "Exit", "Cancel"))
+                {
+                    return;
+                }
+            }
+
+            Shell.Current.SendBackButtonPressed();
+        });
 
         public ICommand GoToPageCommand
         {
@@ -345,25 +351,32 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                if (!IsValid())
+                if (!WasModified)
+                {
+                    GoBackCommand.Execute(null);
+                    return;
+                }
+                
+                if (!Pages.Any(p => IsValid(p)))
                 {
                     ErrorMessage = "Unable to save customer";
                     return;
                 }
 
                 ErrorMessage = "";
+                Customer = Pages[0].Customer;
+                Customer.Address = Pages[1].Address;
+                Customer.Contact = Pages[2].Contact;
+                Customer.Pool = Pages[3].Pool;
 
-                Geocoder geoCoder = new Geocoder();
-                IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync($"{Customer.Address.Address1}, {Customer.Address.City}, {Customer.Address.State} {Customer.Address.Zip}");
-                Position position = approximateLocations.FirstOrDefault();
+                Position position = await GetPosition(Customer.Address.FullAddress);
                 Customer.Latitude = position.Latitude;
                 Customer.Longitude = position.Longitude;
 
                 var customerController = new CustomerController();
-                var result = await customerController.ModifyAsync(Customer);
-
-                ErrorMessage = result?.Status == Enums.eResultStatus.Ok ? "Save Customer Success" :
-                               $"Unable to save customer: {result?.Message}";
+                await customerController.ModifyWithChildrenAsync(Customer);
+                WasModified = false;
+                ErrorMessage = "Save Customer Success";
             }
             catch (Exception e)
             {
@@ -372,41 +385,49 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
-        public bool IsValid()
+        private async Task<Position> GetPosition(string fullAddress)
+        {
+            Geocoder geoCoder = new Geocoder();
+            IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync(fullAddress);
+            Position position = approximateLocations.FirstOrDefault();
+            return position;
+        }
+
+        public bool IsValid(CustomerPageViewModel page)
         {
             try
             {
                 bool isValid = false;
-                var page = Pages[Position];
+                var controller = new CustomerController();
 
                 switch (page.Title)
                 {
                     case "Customer":
                         isValid = FieldValidationHelper.IsFormValid(page.Customer, page.Page);
-                        if (!isValid)
+                        if (isValid && page.Customer.WasModified)
                         {
-                            Position = 0;
+                            WasModified = true;
                         }
                         break;
                     case "Address":
                         isValid = FieldValidationHelper.IsFormValid(page.Address, page.Page);
-                        if (!isValid)
+                        if (isValid && page.Address.WasModified)
                         {
-                            Position = 1;
+                            WasModified = true;
                         }
                         break;
                     case "Contact":
                         isValid = FieldValidationHelper.IsFormValid(page.Contact, page.Page);
-                        if (!isValid)
+                        if (isValid && page.Contact.WasModified)
                         {
-                            Position = 2;
+                            WasModified = true;
                         }
                         break;
                     case "Pool":
                         isValid = FieldValidationHelper.IsFormValid(page.Pool, page.Page);
-                        if (!isValid)
+                        if (isValid && page.Pool.WasModified)
                         {
-                            Position = 3;
+                            WasModified = true;
                         }
                         break;
                     default:

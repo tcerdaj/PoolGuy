@@ -1,7 +1,11 @@
-﻿using PoolGuy.Mobile.Data.Models;
+﻿using Newtonsoft.Json;
+using PoolGuy.Mobile.Data.Models;
+using PoolGuy.Mobile.Data.Models.Query;
+using PoolGuy.Mobile.Data.SQLite;
+using SQLiteNetExtensionsAsync.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace PoolGuy.Mobile.Data.Controllers
@@ -14,83 +18,139 @@ namespace PoolGuy.Mobile.Data.Controllers
             
         }
 
-        public async Task<ResultStatus<PoolModel>> ModifyPoolAsync(PoolModel model, string customerName)
+        public async Task<List<CustomerModel>> SearchCustomer(string criteria)
         {
-            ResultStatus<PoolModel> result = null;
+            try
+            {
+                var customers =  await SQLiteControllerBase
+                    .DatabaseAsync
+                    .QueryAsync<CustomerModel>("SELECT c.* FROM CustomerModel c " +
+                                                  "LEFT OUTER JOIN AddressModel am on c.Id = am.CustomerId " +
+                                                  "LEFT OUTER JOIN ContactModel cm on c.Id = cm.CustomerId " +
+                                                  "LEFT OUTER JOIN PoolModel pm    on c.Id = pm.CustomerId " +
+                                                  "WHERE c.FirstName like '%" + criteria + "%' " +
+                                                  "OR c.LastName like '%" + criteria + "%' " +
+                                                  "OR am.Address1 like '%" + criteria + "' " +
+                                                  "OR am.City like '" + criteria + "%' " +
+                                                  "OR am.State like '%" + criteria + "%' " +
+                                                  "OR am.Zip like '%" + criteria + "%' " +
+                                                  "OR cm.Phone like '%" + criteria + "%' " +
+                                                  "OR cm.CellPhone like '%" + criteria + "%' " +
+                                                  "OR cm.Email like '%" + criteria + "%' " +
+                                                  "ORDER BY C.FirstName");
+                
+                foreach (var customer in customers)
+                {
+                    await SQLiteControllerBase
+                    .DatabaseAsync
+                    .GetChildrenAsync<CustomerModel>(customer, true);
+                }
 
+                return customers;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<CustomerModel>> ListWithChildrenAsync(SQLControllerListCriteriaModel criteria)
+        {
+            try
+            {
+                List<CustomerModel> customers = await LocalData.List(criteria);
+
+                foreach (var customer in customers)
+                {
+                    await SQLiteControllerBase
+                    .DatabaseAsync
+                    .GetChildrenAsync<CustomerModel>(customer, true);
+                }
+                
+                return customers;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task ModifyWithChildrenAsync(CustomerModel customer)
+        {
+            try
+            {
+                await SQLiteControllerBase
+                     .DatabaseAsync
+                     .InsertOrReplaceWithChildrenAsync(customer, true)
+                     .ConfigureAwait(false);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<PoolModel> ModifyPoolAsync(PoolModel model)
+        {
             try
             {
                 if (model == null)
                 {
-                    return result;
+                    return null;
                 }
                 
                 var controller = new PoolController();
-                await controller.LocalData.CreateTableAsync();
 
                 if (model.Id == Guid.Empty)
                 {
                     model.Id = Guid.NewGuid();
                     model.Created = DateTime.Now;
-                    model.Name = customerName;
-                    model.Description = $"Customer {customerName}";
                 }
                 else
                 {
                     model.Modified = DateTime.Now;
                 }
 
-                result = new ResultStatus<PoolModel>(Enums.eResultStatus.Ok,
-                    string.Empty, await controller.LocalData.Modify(model));
+                return await controller.LocalData.Modify(model);
             }
             catch (System.Exception e)
             {
-                result = new ResultStatus<PoolModel>(Enums.eResultStatus.Error, e.Message, model);
+                throw e;
             }
 
-            return result;
         }
 
-        public async Task<ResultStatus<PoolModel>> DeletePoolAsync(PoolModel model)
+        public async Task<bool> DeletePoolAsync(PoolModel model)
         {
-            ResultStatus<PoolModel> result = null;
-
             try
             {
                 if (model == null)
                 {
-                    return result;
+                    return false;
                 }
 
                 var controller = new PoolController();
-                await controller.LocalData.CreateTableAsync();
                 await controller.LocalData.Delete(model);
 
-                result = new ResultStatus<PoolModel>(Enums.eResultStatus.Ok,
-                    string.Empty, null);
-
+                return true;
             }
             catch (Exception e)
             {
-                result = new ResultStatus<PoolModel>(Enums.eResultStatus.Error, e.Message, model);
+                throw e;
             }
-
-            return result;
         }
 
-        public async Task<ResultStatus<AddressModel>> ModifyAddressAsync(AddressModel model)
+        public async Task<AddressModel> ModifyAddressAsync(AddressModel model)
         {
-            ResultStatus<AddressModel> result = null;
-            
             try
             {
                 if (model == null)
                 {
-                    return result;
+                    return null;
                 }
 
                 var controller = new AddressController();
-                await controller.LocalData.CreateTableAsync();
 
                 if (model.Id == Guid.Empty)
                 {
@@ -102,57 +162,44 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.Modified = DateTime.Now;
                 }
 
-                result = new ResultStatus<AddressModel>(Enums.eResultStatus.Ok,
-                    string.Empty, await controller.LocalData.Modify(model));
+                return await controller.LocalData.Modify(model);
             }
             catch (Exception e)
             {
-                result = new ResultStatus<AddressModel>(Enums.eResultStatus.Error, e.Message, model);
+                throw e;
             }
-
-            return result;
         }
 
-        public async Task<ResultStatus<AddressModel>> DeleteAddressAsync(AddressModel model)
+        public async Task<bool> DeleteAddressAsync(AddressModel model)
         {
-            ResultStatus<AddressModel> result = null;
-
             try
             {
                 if (model == null)
                 {
-                    return result;
+                    return false;
                 }
 
                 var controller = new AddressController();
-                await controller.LocalData.CreateTableAsync();
                 await controller.LocalData.Delete(model);
-             
-                result = new ResultStatus<AddressModel>(Enums.eResultStatus.Ok,
-                    string.Empty, null);
 
+                return true;
             }
             catch (Exception e)
             {
-                result = new ResultStatus<AddressModel>(Enums.eResultStatus.Error, e.Message, model);
+                throw e;
             }
-
-            return result;
         }
 
-        public async Task<ResultStatus<ContactInformationModel>> ModifyContactInformationAsync(ContactInformationModel model)
+        public async Task<ContactModel> ModifyContactAsync(ContactModel model)
         {
-            ResultStatus<ContactInformationModel> result = null;
-
             try
             {
                 if (model == null)
                 {
-                    return result;
+                    return null;
                 }
 
                 var controller = new ContactInformationController();
-                await controller.LocalData.CreateTableAsync();
 
                 if (model.Id == Guid.Empty)
                 {
@@ -164,56 +211,43 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.Modified = DateTime.Now;
                 }
 
-                result = new ResultStatus<ContactInformationModel>(Enums.eResultStatus.Ok,
-                    string.Empty, await controller.LocalData.Modify(model));
+                return await controller.LocalData.Modify(model);
             }
             catch (Exception e)
             {
-                result = new ResultStatus<ContactInformationModel>(Enums.eResultStatus.Error, e.Message, model);
+                throw e;
             }
-
-            return result;
         }
 
-        public async Task<ResultStatus<ContactInformationModel>> DeleteContactInformationAsync(ContactInformationModel model)
+        public async Task<bool> DeleteContactInformationAsync(ContactModel model)
         {
-            ResultStatus<ContactInformationModel> result = null;
-
             try
             {
                 if (model == null)
                 {
-                    return result;
+                    return false;
                 }
 
                 var controller = new ContactInformationController();
-                await controller.LocalData.CreateTableAsync();
                 await controller.LocalData.Delete(model);
 
-                result = new ResultStatus<ContactInformationModel>(Enums.eResultStatus.Ok,
-                    string.Empty, null);
+                return true;
 
             }
             catch (Exception e)
             {
-                result = new ResultStatus<ContactInformationModel>(Enums.eResultStatus.Error, e.Message, model);
+                throw e;
             }
-
-            return result;
         }
 
-        public async Task<ResultStatus<CustomerModel>> ModifyAsync(CustomerModel customer)
+        public async Task<CustomerModel> ModifyAsync(CustomerModel customer)
         {
-            ResultStatus<CustomerModel> result = null;
-
             try
             {
                 if (customer == null)
                 {
-                    return result;
+                    return null;
                 }
-                
-                await LocalData.CreateTableAsync();
                 
                 if (customer.Id == Guid.Empty)
                 {
@@ -225,110 +259,64 @@ namespace PoolGuy.Mobile.Data.Controllers
                     customer.Modified = DateTime.Now;
                 }
 
-                result = new ResultStatus<CustomerModel>(Enums.eResultStatus.Ok, 
-                    string.Empty, await LocalData.Modify(customer));
+                return await LocalData.Modify(customer);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                result = new ResultStatus<CustomerModel>(Enums.eResultStatus.Error, e.Message, customer);
+                throw e;
             }
-
-            return result;
         }
 
-        public async Task<ResultStatus<CustomerModel>> DeleteAsync(CustomerModel customer)
+        public async Task<bool> DeleteAsync(CustomerModel customer)
         {
-            ResultStatus<CustomerModel> result = null;
-
             try
             {
                 if (customer == null)
                 {
-                    return result;
+                    return false;
                 }
 
                 // Remove address
                 await new AddressController().LocalData.Delete(customer.Address);
 
                 // Remove contact information
-                await new ContactInformationController().LocalData.Delete(customer.ContactInformation);
+                await new ContactInformationController().LocalData.Delete(customer.Contact);
 
                 // Remove pool
                 await new PoolController().LocalData.Delete(customer.Pool);
 
                 // Remove customer
                 await LocalData.Delete(customer);
-                
-                result = new ResultStatus<CustomerModel>(Enums.eResultStatus.Ok, string.Empty, customer);
-            }
-            catch (System.Exception e)
-            {
-                result = new ResultStatus<CustomerModel>(Enums.eResultStatus.Error, e.Message, customer);
-            }
 
-            return result;
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        public async Task<ResultStatus<CustomerModel>> LoadAsync(Guid id)
+        public async Task<CustomerModel> LoadAsync(Guid id)
         {
-            ResultStatus<CustomerModel> result = null;
-
             try
             {
                 if (id.Equals(Guid.Empty))
                 {
-                    return result;
+                    return null;
                 }
 
                 // load customer
                 var model = await LocalData.Load(id);
 
-                // load address
-                var address = await new AddressController()
-                    .LocalData
-                    .List(new Models.Query.SQLControllerListCriteriaModel {
-                        View = nameof(AddressModel),
-                        Filter = new System.Collections.Generic.List<Models.Query.SQLControllerListFilterField> { 
-                         new Models.Query.SQLControllerListFilterField { FieldName = "CustomerId", ValueLBound = model.Id.ToString()}
-                       }
-                    }).ConfigureAwait(false);
+                // load foreing key fields
+                await SQLiteControllerBase.DatabaseAsync.GetChildrenAsync<CustomerModel>(model, true);
 
-                model.Address = address.FirstOrDefault();
-
-                // load contact information
-                var contact = await new ContactInformationController()
-                    .LocalData
-                    .List(new Models.Query.SQLControllerListCriteriaModel
-                    {
-                        View = nameof(ContactInformationModel),
-                        Filter = new System.Collections.Generic.List<Models.Query.SQLControllerListFilterField> {
-                         new Models.Query.SQLControllerListFilterField { FieldName = "CustomerId", ValueLBound = model.Id.ToString()}
-                       }
-                    }).ConfigureAwait(false);
-
-                model.ContactInformation = contact.FirstOrDefault();
-
-                // load pool
-                var pool = await new PoolController()
-                    .LocalData
-                    .List(new Models.Query.SQLControllerListCriteriaModel
-                    {
-                        View = nameof(PoolModel),
-                        Filter = new System.Collections.Generic.List<Models.Query.SQLControllerListFilterField> {
-                         new Models.Query.SQLControllerListFilterField { FieldName = "CustomerId", ValueLBound = model.Id.ToString()}
-                       }
-                    }).ConfigureAwait(false);
-
-
-                result = new ResultStatus<CustomerModel>(Enums.eResultStatus.Ok, string.Empty, model);
+                return model;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                result = new ResultStatus<CustomerModel>(Enums.eResultStatus.Error, e.Message, null);
+                throw e;
             }
-
-            return result;
         }
-
     }
 }

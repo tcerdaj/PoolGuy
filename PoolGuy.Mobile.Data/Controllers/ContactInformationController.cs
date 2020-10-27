@@ -2,7 +2,7 @@
 
 namespace PoolGuy.Mobile.Data.Controllers
 {
-    public class ContactInformationController : BaseController<ContactInformationModel>
+    public class ContactInformationController : BaseController<ContactModel>
     {
         public ContactInformationController()
             :base()

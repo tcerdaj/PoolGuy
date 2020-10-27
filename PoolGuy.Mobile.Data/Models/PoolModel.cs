@@ -15,32 +15,21 @@ namespace PoolGuy.Mobile.Data.Models
         [EnumDataType(typeof(PoolType))]
         public PoolType? Type { 
             get { return _type; } 
-            set { _type = value; NotifyPropertyChanged("Type"); } 
+            set { _type = value; NotifyPropertyChanged("Type"); WasModified = true; } 
         }
-        private string _name;
-        [DataAnnotation.MaxLength(40)]
-        public string Name { 
-            get { return _name; } 
-            set { _name = value; NotifyPropertyChanged("Name"); } 
-        }
-        private string _description;
-        [DataAnnotation.MaxLength(200)]
-        public string Description { 
-            get { return _description; } 
-            set { _description = value; NotifyPropertyChanged("Description"); } 
-        }
+        
         private double? _surface;
         [Required]
         public double? Surface {
             get { return _surface; }
-            set { _surface = value; NotifyPropertyChanged("Surface"); } 
+            set { _surface = value; NotifyPropertyChanged("Surface"); WasModified = true; } 
         }
         
         private double? _capacity;
         [Required]
         public double? Capacity {
             get { return _capacity; }
-            set { _capacity = value; NotifyPropertyChanged("Capacity"); }
+            set { _capacity = value; NotifyPropertyChanged("Capacity"); WasModified = true; }
         }
 
         public void RaiseAllNotification()
