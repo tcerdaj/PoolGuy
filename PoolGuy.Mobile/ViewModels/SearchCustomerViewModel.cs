@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -86,7 +87,8 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await Shell.Current.Navigation.PushModalAsync(new WizardCustomerPage(customer));
+
+                await Shell.Current.Navigation.PushAsync(new WizardCustomerPage(customer) { Title = "Customer"});
             }
             catch (Exception e)
             {
@@ -134,6 +136,7 @@ namespace PoolGuy.Mobile.ViewModels
                 if (await Shell.Current.DisplayAlert("Confirmation", $"Are you sure want to delete {customer.Name} customer?", "Delete", "Cancel").ConfigureAwait(false))
                 {
                    await new CustomerController().DeleteAsync(customer);
+                   Customers = Customers.Where(x => x.Id != customer.Id).ToList();
                 }
             }
             catch (Exception e)

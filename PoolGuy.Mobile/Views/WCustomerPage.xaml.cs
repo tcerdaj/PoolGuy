@@ -15,7 +15,7 @@ namespace PoolGuy.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WCustomerPage : ContentPage
     {
-        
+        CustomerViewModel _viewModel;
         public WCustomerPage()
         {
             InitializeComponent();

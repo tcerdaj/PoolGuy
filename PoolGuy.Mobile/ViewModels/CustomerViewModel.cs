@@ -16,6 +16,7 @@ using PoolGuy.Mobile.Views;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using Xamarin.Forms.Internals;
+using Omu.ValueInjecter;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -28,6 +29,9 @@ namespace PoolGuy.Mobile.ViewModels
 
         public void InitPages(CustomerModel customer = null)
         {
+            ErrorMessage = "";
+            Position = 0;
+
             Pages = new List<CustomerPageViewModel> {
               new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage() },
               new CustomerPageViewModel { Title = "Address", Page =  new WAddressPage()},
@@ -37,6 +41,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             if(customer != null)
             {
+                Customer = (CustomerModel)new CustomerModel().InjectFrom(customer);
                 Pages[0].Customer = customer;
                 Pages[1].Address = customer.Address;
                 Pages[2].Contact = customer.Contact;
@@ -217,37 +222,15 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
-        private CustomerModel _customer = new CustomerModel() { };
+        private CustomerModel _customer = new CustomerModel() { 
+            Contact = new ContactModel(),
+            Address = new AddressModel(),
+            Pool = new PoolModel()
+        };
         public CustomerModel Customer
         {
             get { return _customer; }
             set { _customer = value; OnPropertyChanged("Customer"); }
-        }
-
-        private AddressModel _address = new AddressModel();
-        public AddressModel Address
-        {
-            get { return _address; }
-            set { _address = value; OnPropertyChanged("Address"); }
-        }
-
-        private ContactModel _contact = new ContactModel();
-        public ContactModel Contact
-        {
-            get { return _contact; }
-            set { _contact = value; OnPropertyChanged("Contact"); }
-        }
-
-        private PoolModel _pool = new PoolModel();
-        public PoolModel Pool
-        {
-            get { return _pool; }
-            set { _pool = value; OnPropertyChanged("Pool"); }
-        }
-
-        public string[] PoolTypes
-        {
-            get { return Enum.GetNames(typeof(PoolType)); }
         }
 
         private string errorMessage = string.Empty;
@@ -279,7 +262,6 @@ namespace PoolGuy.Mobile.ViewModels
             set
             {
                 _position = value;
-                Customer = Pages.FirstOrDefault().Customer;
                 OnPropertyChanged("Position");
                 OnPropertyChanged("Progress");
                 OnPropertyChanged("Percent");
@@ -292,7 +274,24 @@ namespace PoolGuy.Mobile.ViewModels
             get { return Position > 0; }
         }
 
-        public bool WasModified { get; set; }
+        public bool WasModified 
+        { 
+            get 
+            {
+
+                try
+                {
+                    return Customer.DetailedCompare(Pages[0].Customer).Any() ||
+                                  Customer.Address.DetailedCompare(Pages[1].Address).Any() ||
+                                  Customer.Contact.DetailedCompare(Pages[2].Contact).Any() ||
+                                  Customer.Pool.DetailedCompare(Pages[3].Pool).Any();
+                }
+                catch (Exception)
+                {
+                    return true;
+                }
+            } 
+        }
 
         public ICommand GoBackCommand => new RelayCommand(async () =>
         {
@@ -304,6 +303,7 @@ namespace PoolGuy.Mobile.ViewModels
                 }
             }
 
+            await NavigationService.PopPopupAsync(false);
             Shell.Current.SendBackButtonPressed();
         });
 
@@ -382,7 +382,8 @@ namespace PoolGuy.Mobile.ViewModels
 
                 var customerController = new CustomerController();
                 await customerController.ModifyWithChildrenAsync(Customer);
-                WasModified = false;
+                OnPropertyChanged("Progress");
+                OnPropertyChanged("Percent");
                 ErrorMessage = "Save Customer Success";
             }
             catch (Exception e)
@@ -411,31 +412,15 @@ namespace PoolGuy.Mobile.ViewModels
                 {
                     case "Customer":
                         isValid = FieldValidationHelper.IsFormValid(page.Customer, page.Page);
-                        if (isValid && page.Customer.WasModified)
-                        {
-                            WasModified = true;
-                        }
                         break;
                     case "Address":
                         isValid = FieldValidationHelper.IsFormValid(page.Address, page.Page);
-                        if (isValid && page.Address.WasModified)
-                        {
-                            WasModified = true;
-                        }
                         break;
                     case "Contact":
                         isValid = FieldValidationHelper.IsFormValid(page.Contact, page.Page);
-                        if (isValid && page.Contact.WasModified)
-                        {
-                            WasModified = true;
-                        }
                         break;
                     case "Pool":
                         isValid = FieldValidationHelper.IsFormValid(page.Pool, page.Page);
-                        if (isValid && page.Pool.WasModified)
-                        {
-                            WasModified = true;
-                        }
                         break;
                     default:
                         break;
@@ -459,5 +444,41 @@ namespace PoolGuy.Mobile.ViewModels
         {
             OnPropertyChanged("Customer");
         }
+    }
+    static class extentions
+    {
+        public static List<Variance> DetailedCompare<T>(this T val1, T val2)
+        {
+            List<Variance> variances = new List<Variance>();
+            PropertyInfo[] fi = val1.GetType().GetProperties();
+            foreach (PropertyInfo f in fi)
+            {
+                if (f.GetGetMethod().ReturnType == typeof(string) ||
+                    f.GetGetMethod().ReturnType == typeof(Guid) ||
+                    f.GetGetMethod().ReturnType == typeof(int) ||
+                    f.GetGetMethod().ReturnType == typeof(double) ||
+                    f.GetGetMethod().ReturnType == typeof(decimal) ||
+                    f.GetGetMethod().ReturnType == typeof(Enum) ||
+                    f.GetGetMethod().ReturnType == typeof(DateTime))
+                {
+                    Variance v = new Variance();
+                    v.Prop = f.Name;
+                    v.valA = f.GetValue(val1);
+                    v.valB = f.GetValue(val2);
+                    if (v.valA != null && !v.valA.Equals(v.valB))
+                        variances.Add(v);
+                }
+
+            }
+            return variances;
+        }
+
+
+    }
+    class Variance
+    {
+        public string Prop { get; set; }
+        public object valA { get; set; }
+        public object valB { get; set; }
     }
 }

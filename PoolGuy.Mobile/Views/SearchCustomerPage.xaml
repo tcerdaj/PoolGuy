@@ -19,13 +19,16 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-      <StackLayout>
+        <AbsoluteLayout VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand">
+           <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">
             <SearchBar HorizontalOptions="FillAndExpand"
                        Placeholder="Search for a customer"
                        Text="{Binding SearchTerm}"
                        SearchCommand="{Binding SearchCustomerCommand}"
                        BackgroundColor="#f7f7f7"/>
-                <CollectionView x:Name="SearchResults"
+            <CollectionView x:Name="SearchResults"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="StartAndExpand"
                                 ItemsSource="{Binding Customers}"
@@ -157,6 +160,19 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+               
         </StackLayout>
-  </ContentPage.Content>
+           <!-- Busy Status -->
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        BackgroundColor="White"
+                        Opacity="0.5"
+                        IsVisible="{Binding IsBusy}">
+                <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                                   IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}" />
+            </AbsoluteLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>

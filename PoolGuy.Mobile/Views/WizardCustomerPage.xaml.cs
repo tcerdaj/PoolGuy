@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 namespace PoolGuy.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    [QueryProperty("Id", "id")]
     public partial class WizardCustomerPage : ContentPage
     {
         CustomerViewModel _viewModel;
@@ -32,6 +33,15 @@ namespace PoolGuy.Mobile.Views
             _primaryColor = (Color)Application.Current.Resources["Primary"];
             _unselectedColor = (Color)Application.Current.Resources["UnselectedColor"];
         }
+
+        private string _id;
+        public string Id {
+            set 
+            {
+                _id = value; 
+            }
+        }
+
 
         protected override void OnAppearing()
         {

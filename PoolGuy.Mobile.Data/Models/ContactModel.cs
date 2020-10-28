@@ -13,7 +13,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string Phone
         {
             get { return _phone; }
-            set { _phone = value; NotifyPropertyChanged("Phone"); WasModified = true; }
+            set { _phone = value; NotifyPropertyChanged("Phone");  }
         }
 
         private string _cellPhone;
@@ -21,7 +21,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string CellPhone
         {
             get { return _cellPhone; }
-            set { _cellPhone = value; NotifyPropertyChanged("CellPhone"); WasModified = true; }
+            set { _cellPhone = value; NotifyPropertyChanged("CellPhone");  }
         }
 
         private string _email;
@@ -29,7 +29,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string Email
         {
             get { return _email; }
-            set { _email = value; NotifyPropertyChanged("Email"); WasModified = true; }
+            set { _email = value; NotifyPropertyChanged("Email");  }
         }
     }
 }

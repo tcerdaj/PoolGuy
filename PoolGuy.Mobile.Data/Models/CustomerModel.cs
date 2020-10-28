@@ -59,7 +59,6 @@ namespace PoolGuy.Mobile.Data.Models
             set { 
                 _firstName = value; 
                 NotifyPropertyChanged("FirstName");
-                WasModified = true;
             }
         }
         
@@ -72,7 +71,6 @@ namespace PoolGuy.Mobile.Data.Models
             set { 
                 _lastName = value; 
                 NotifyPropertyChanged("LastName");
-                WasModified = true;
             }
         }
 
@@ -149,7 +147,6 @@ namespace PoolGuy.Mobile.Data.Models
             set { 
                 _additionalInformation = value; 
                 NotifyPropertyChanged("AdditionalInformation");
-                WasModified = true;
             } 
         }
 

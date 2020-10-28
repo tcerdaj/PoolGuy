@@ -20,7 +20,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string Address1
         {
             get { return _address1; }
-            set { _address1 = value; NotifyPropertyChanged("Address1");WasModified = true; }
+            set { _address1 = value; NotifyPropertyChanged("Address1"); }
         }
 
         private string _address2;
@@ -28,7 +28,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string Address2
         {
             get { return _address2; }
-            set { _address2 = value; NotifyPropertyChanged("Address2"); WasModified = true; }
+            set { _address2 = value; NotifyPropertyChanged("Address2");  }
         }
 
         private string _city;
@@ -36,7 +36,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string City
         {
             get { return _city; }
-            set { _city = value; NotifyPropertyChanged("City"); WasModified = true; }
+            set { _city = value; NotifyPropertyChanged("City");  }
         }
 
         private string _zip;
@@ -44,7 +44,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string Zip
         {
             get { return _zip; }
-            set { _zip = value; NotifyPropertyChanged("Zip"); WasModified = true; }
+            set { _zip = value; NotifyPropertyChanged("Zip");  }
         }
 
         private string _state;
@@ -52,7 +52,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string State
         {
             get { return _state; }
-            set { _state = value; NotifyPropertyChanged("State"); WasModified = true; }
+            set { _state = value; NotifyPropertyChanged("State");  }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CommonServiceLocator;
+using PoolGuy.Mobile.CustomControls;
 using PoolGuy.Mobile.ViewModels;
 using System;
 using System.Linq;

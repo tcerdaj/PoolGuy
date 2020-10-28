@@ -80,6 +80,19 @@ namespace PoolGuy.Mobile.Data.Controllers
         {
             try
             {
+                if (customer == null)
+                {
+                    return;
+                }
+
+                if (customer.Id == Guid.Empty)
+                {
+                    customer.Id = Guid.NewGuid();
+                    customer.Address.Id = Guid.NewGuid();
+                    customer.Contact.Id = Guid.NewGuid();
+                    customer.Pool.Id = Guid.NewGuid();
+                }
+
                 await SQLiteControllerBase
                      .DatabaseAsync
                      .InsertOrReplaceWithChildrenAsync(customer, true)
