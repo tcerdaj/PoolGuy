@@ -77,6 +77,10 @@
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\FontIcons\materialdesignicons.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-Black.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-Light.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-Regular.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-Thin.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">

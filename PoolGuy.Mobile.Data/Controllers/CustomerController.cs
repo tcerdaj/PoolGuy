@@ -276,17 +276,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                     return false;
                 }
 
-                // Remove address
-                await new AddressController().LocalData.Delete(customer.Address);
-
-                // Remove contact information
-                await new ContactInformationController().LocalData.Delete(customer.Contact);
-
-                // Remove pool
-                await new PoolController().LocalData.Delete(customer.Pool);
-
-                // Remove customer
-                await LocalData.Delete(customer);
+                await SQLiteControllerBase.DatabaseAsync.DeleteAsync(customer, true);
 
                 return true;
             }

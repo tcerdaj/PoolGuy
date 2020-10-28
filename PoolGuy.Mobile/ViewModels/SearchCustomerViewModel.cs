@@ -2,7 +2,9 @@
 using GalaSoft.MvvmLight.Command;
 using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -30,6 +32,57 @@ namespace PoolGuy.Mobile.ViewModels
             set { _customers = value; OnPropertyChanged("Customers"); }
         }
 
+        public ICommand GoToCustomerDetailsCommand
+        {
+            get { return new RelayCommand<CustomerModel>(async (customer) => await GoToCustomerDetails(customer)); }
+        }
+
+        private Task GoToCustomerDetails(CustomerModel customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICommand AddWorkCommand
+        {
+            get { return new RelayCommand<CustomerModel>(async (customer) => await AddWork(customer)); }
+        }
+
+        private Task AddWork(CustomerModel customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICommand ScheduleCustomerCommand
+        {
+            get { return new RelayCommand<CustomerModel>(async (customer) => await ScheduleCustomer(customer)); }
+        }
+
+        private Task ScheduleCustomer(CustomerModel customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICommand DeleteCustomerCommand
+        {
+            get { return new RelayCommand<CustomerModel>(async(customer) => await DeleteCustomer(customer));}
+        }
+
+        private async Task DeleteCustomer(CustomerModel customer)
+        {
+            try
+            {
+                if (await Shell.Current.DisplayAlert("Confirmation", "Are you sure want to delete customer?", "Delete", "Cancel").ConfigureAwait(false))
+                {
+                   await new CustomerController().DeleteAsync(customer);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+        }
+
         public ICommand AddCommand
         {
             get { return new RelayCommand(async () => await AddAsync()); }
@@ -54,10 +107,10 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 Customers = await new CustomerController().SearchCustomer(SearchTerm);
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
-
-                throw;
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
             finally
             {

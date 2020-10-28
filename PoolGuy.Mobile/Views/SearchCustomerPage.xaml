@@ -24,27 +24,89 @@
                        Text="{Binding SearchTerm}"
                        SearchCommand="{Binding SearchCustomerCommand}"
                        BackgroundColor="#f7f7f7"/>
-                <CollectionView HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand"
+                <CollectionView x:Name="SearchResults"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="StartAndExpand"
                                 ItemsSource="{Binding Customers}"
                                 ItemSizingStrategy="MeasureFirstItem"
+                                SelectionMode="None"
                                 EmptyView="No Customers to display">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                        <StackLayout Padding="15,10">
-                            <Frame>
-                                <StackLayout Orientation="Horizontal"
-                                             Padding="20,20,0,20">
-                                <StackLayout HorizontalOptions="FillAndExpand">
+                            <StackLayout Padding="12,0">
+                                <SwipeView BackgroundColor="White"
+                                           Margin="0,10">
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                        <SwipeItemView Margin="10"
+                                                       BackgroundColor="{StaticResource Primary}"
+                                                       Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.ScheduleCustomerCommand}"
+                                                       CommandParameter="{Binding}">
+                                            <StackLayout Spacing="0">
+                                                <Label Text="{x:Static icons:MaterialDesignIcons.CalendarAccount}"
+                                                       FontFamily="{StaticResource MaterialFontFamily}"
+                                                       FontSize="35"
+                                                       Margin="0,5,0,0"
+                                                       TextColor="White"
+                                                       HorizontalOptions="Center"/>
+                                                <Label Text="Schedule" 
+                                                       FontSize="10" 
+                                                       HorizontalOptions="Center" 
+                                                       TextColor="White"/>
+                                            </StackLayout>
+                                        </SwipeItemView>
+                                        <SwipeItemView BackgroundColor="{StaticResource Title}"
+                                                       VerticalOptions="Center"
+                                                       Margin="10"
+                                                       Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.AddWorkCommand}"
+                                                       CommandParameter="{Binding}">
+                                            <StackLayout Spacing="0">
+                                                <Label Text="{x:Static icons:MaterialDesignIcons.Truck}"
+                                                       FontFamily="{StaticResource MaterialFontFamily}"
+                                                       FontSize="35"
+                                                       Margin="0,5,0,0"
+                                                       TextColor="White"
+                                                       VerticalOptions="Center"
+                                                       HorizontalOptions="Center"/>
+                                                <Label Text="Add Work"
+                                                       FontSize="10" 
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"
+                                                       TextColor="White"/>
+                                            </StackLayout>
+                                        </SwipeItemView>
+                                        <SwipeItemView BackgroundColor="Red"
+                                                       Margin="10"
+                                                       Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.DeleteCustomerCommand}"
+                                                       CommandParameter="{Binding}">
+                                                <StackLayout Spacing="0">
+                                                    <Label Text="{x:Static icons:MaterialDesignIcons.TrashCan}"
+                                                           FontFamily="{StaticResource MaterialFontFamily}"
+                                                           FontSize="35"
+                                                           Margin="0,5,0,0"
+                                                           TextColor="White"
+                                                           HorizontalOptions="Center"/>
+                                                    <Label Text="Delete" 
+                                                           FontSize="10" 
+                                                           HorizontalOptions="Center" 
+                                                           TextColor="White"/>
+                                                </StackLayout>
+                                            </SwipeItemView>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <StackLayout Orientation="Horizontal">
+                                <StackLayout HorizontalOptions="FillAndExpand"
+                                             Spacing="5">
                                     <Label Text="{Binding Name}"
                                            HorizontalOptions="FillAndExpand"
                                            VerticalOptions="Center"
-                                           FontSize="16"/>
+                                           FontSize="14"
+                                           FontAttributes="Bold"/>
                                     <Label Text="{Binding Address.FullAddress}" 
                                            HorizontalOptions="FillAndExpand"
                                            VerticalOptions="Center"
-                                           FontSize="12"
-                                           FontAttributes="Bold"/>
+                                           LineBreakMode="TailTruncation"
+                                           FontSize="12"/>
                                     <Label HorizontalOptions="FillAndExpand"
                                            VerticalOptions="Center"
                                            FontSize="12"
@@ -60,13 +122,14 @@
                                 </StackLayout>
                                     <Label Text="{x:Static icons:MaterialDesignIcons.ChevronRight}" 
                                            FontFamily="{StaticResource MaterialFontFamily}"
-                                           FontSize="30"
+                                           FontSize="25"
+                                           TextColor="{StaticResource ExtraLightGray}"
                                            HorizontalOptions="End"
-                                           VerticalOptions="Center"/>
+                                           VerticalOptions="Start"/>
                                 </StackLayout>
-                            </Frame>
-                        </StackLayout>
-                    </DataTemplate>
+                                </SwipeView>
+                            </StackLayout>
+                        </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
         </StackLayout>

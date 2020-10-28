@@ -10,7 +10,18 @@
             <Color x:Key="Primary">#f8bd0a</Color>
             <Color x:Key="Title">#007cdc</Color>
             <Color x:Key="UnselectedColor">#858585</Color>
+            <Color x:Key="ExtraLightGray">#D8D8D8</Color>
             <Color x:Key="PlaceHolder">#b2b2b2</Color>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Roboto-Regular</On>
+                            <On Platform="Android">Roboto-Regular.ttf#Roboto-Regular</On>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style> 
             <OnPlatform x:Key="MaterialFontFamily"
                         x:TypeArguments="x:String">
                 <On Platform="iOS"
