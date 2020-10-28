@@ -24,8 +24,11 @@
         </ResourceDictionary>
     </ContentPage.Resources>
   <ContentPage.Content>
-      
-      <StackLayout Padding="15,10">
+        <AbsoluteLayout VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand">
+            <StackLayout Padding="15,10"
+                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="All">
             <Grid HorizontalOptions="FillAndExpand"
                   VerticalOptions="Fill"
                   ColumnSpacing="5">
@@ -160,5 +163,17 @@
                 </Button>
             </Grid>
         </StackLayout>
-  </ContentPage.Content>
+        <!-- Busy Status -->
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        BackgroundColor="White"
+                        Opacity="0.5"
+                        IsVisible="{Binding IsBusy}">
+            <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                                   IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}" />
+        </AbsoluteLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>

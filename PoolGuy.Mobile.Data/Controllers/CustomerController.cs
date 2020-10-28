@@ -2,6 +2,7 @@
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Data.Models.Query;
 using PoolGuy.Mobile.Data.SQLite;
+using SQLite;
 using SQLiteNetExtensionsAsync.Extensions;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,20 @@ namespace PoolGuy.Mobile.Data.Controllers
                                                   "OR cm.CellPhone like '%" + criteria + "%' " +
                                                   "OR cm.Email like '%" + criteria + "%' " +
                                                   "ORDER BY C.FirstName");
-                
+
+                if (!customers.Any())
+                {
+                    customers = await SQLiteControllerBase
+                                        .DatabaseAsync
+                                        .QueryAsync<CustomerModel>("SELECT c.* FROM CustomerModel c " +
+                                                                      "LEFT OUTER JOIN AddressModel am on c.Id = am.CustomerId " +
+                                                                      "LEFT OUTER JOIN ContactModel cm on c.Id = cm.CustomerId " +
+                                                                      "LEFT OUTER JOIN PoolModel pm    on c.Id = pm.CustomerId " +
+                                                                      "ORDER BY C.FirstName " +
+                                                                      "LIMIT 10");
+
+                }
+
                 foreach (var customer in customers)
                 {
                     await SQLiteControllerBase
@@ -87,10 +101,23 @@ namespace PoolGuy.Mobile.Data.Controllers
 
                 if (customer.Id == Guid.Empty)
                 {
+                    var created = DateTime.Now;
                     customer.Id = Guid.NewGuid();
                     customer.Address.Id = Guid.NewGuid();
                     customer.Contact.Id = Guid.NewGuid();
                     customer.Pool.Id = Guid.NewGuid();
+                    customer.Created = created;
+                    customer.Pool.Created = created;
+                    customer.Address.Created = created;
+                    customer.Contact.Created = created;
+                }
+                else 
+                {
+                    var modified = DateTime.Now;
+                    customer.Modified = DateTime.Now;
+                    customer.Pool.Modified = modified;
+                    customer.Address.Modified = modified;
+                    customer.Contact.Modified = modified;
                 }
 
                 await SQLiteControllerBase

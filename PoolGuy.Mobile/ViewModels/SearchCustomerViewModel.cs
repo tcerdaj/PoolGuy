@@ -10,6 +10,7 @@ using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using System.Linq;
+using PoolGuy.Mobile.Helpers;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -18,6 +19,14 @@ namespace PoolGuy.Mobile.ViewModels
         public SearchCustomerViewModel()
         {
             Title = this.GetType().Name.Replace("ViewModel", "").Replace("Search", "");
+            SubscribeMessages();
+        }
+
+        private void SubscribeMessages()
+        {
+            Notify.SubscribeSearchCustomerAction((sender) => {
+                SearchCustomerCommand.Execute(null);
+            });
         }
 
         private string _searchTerm = "";

@@ -110,8 +110,8 @@ namespace PoolGuy.Mobile.Data.Models
             set { _dateLastPaid = value; NotifyPropertyChanged("DateLastPaid"); }
         }
 
-        private DateTime _dateLastVisit;
-        public DateTime DateLastVisit 
+        private DateTime? _dateLastVisit;
+        public DateTime? DateLastVisit 
         {
             get { return _dateLastVisit; }
             set { _dateLastVisit = value; NotifyPropertyChanged("DateLastVisit"); }
@@ -150,5 +150,9 @@ namespace PoolGuy.Mobile.Data.Models
             } 
         }
 
+        public bool NewCustomer
+        {
+            get { return Id.Equals(Guid.Empty); }
+        }
     }
 }

@@ -39,8 +39,6 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!--Type-->
                     <mr:Frame Grid.Row="0"
@@ -59,26 +57,27 @@
                                    VerticalOptions="Center"/>
                         </StackLayout>
                     </mr:Frame>
-                    
                     <Label Grid.Row="1" Grid.Column="0"  x:Name="PoolModel_TypeError" IsVisible="False" TextColor="Red" />
+                   
                     <!--Surface-->
-                    <Frame Grid.Row="6" 
+                    <Frame Grid.Row="2" 
                            Grid.Column="0">
                         <mycc:CustomEntry Text="{Binding Pool.Surface}"  
                                           Placeholder="Surface" 
                                           MaxLength="200"
                                           Keyboard="Numeric"/>
                     </Frame>
-                    <Label Grid.Row="7" Grid.Column="0" x:Name="PoolModel_SurfaceError" IsVisible="False" TextColor="Red" />
+                    <Label Grid.Row="3" Grid.Column="0" x:Name="PoolModel_SurfaceError" IsVisible="False" TextColor="Red" />
+                    
                     <!--Capacity-->
-                    <Frame Grid.Row="8" 
+                    <Frame Grid.Row="4" 
                            Grid.Column="0">
                         <mycc:CustomEntry Text="{Binding Pool.Capacity}"  
                                           Placeholder="Capacity" 
                                           MaxLength="200"
                                           Keyboard="Numeric"/>
                     </Frame>
-                    <Label Grid.Row="9" Grid.Column="0" x:Name="PoolModel_CapacityError" IsVisible="False" TextColor="Red" />
+                    <Label Grid.Row="5" Grid.Column="0" x:Name="PoolModel_CapacityError" IsVisible="False" TextColor="Red" />
                 </Grid>
             </Frame>
             <Picker x:Name="poolTypePicker"

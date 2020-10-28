@@ -1,5 +1,7 @@
 ﻿using CommonServiceLocator;
+using Omu.ValueInjecter;
 using PoolGuy.Mobile.CustomControls;
+using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.ViewModels;
 using System;
 using System.Linq;
@@ -41,16 +43,13 @@ namespace PoolGuy.Mobile.Views
 
         private void PoolTypePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var picker = sender as Xamarin.Forms.Picker;
-
-            if (picker != null && picker.SelectedItem != null)
+            if (sender is Xamarin.Forms.Picker picker)
             {
                 try
                 {
                     PoolModel_TypeError.IsVisible = false;
-                    _viewModel.Pages.LastOrDefault().Pool.Type = (PoolType)Enum.Parse(typeof(PoolType), picker.SelectedItem.ToString());
-                    _viewModel.Pages.LastOrDefault().NotifyPropertyChanged("Pool");
-
+                    _viewModel.Pages[3].Pool.Type = (PoolType)Enum.Parse(typeof(PoolType), picker.SelectedItem.ToString());
+                    _viewModel.Pages[3].NotifyPropertyChanged("Pool");
                 }
                 catch (Exception ex)
                 {

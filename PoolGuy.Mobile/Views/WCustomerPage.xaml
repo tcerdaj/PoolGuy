@@ -8,6 +8,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
+            <conv:InverseBooleanConverter x:Key="InverseBoolConverter" />
             <Style TargetType="Frame">
                 <Setter Property="BorderColor" Value="#D8D8D8"/>
                 <Setter Property="CornerRadius" Value="6"/>
@@ -31,7 +32,9 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                             </Grid.RowDefinitions>
                             <!--FirstName-->
                             <Frame Grid.Row="0" 
                                    Grid.Column="0">
@@ -53,9 +56,44 @@
                                 <Editor Text="{Binding Customer.AdditionalInformation}"  
                                                   Placeholder="Additional Information" 
                                                   MaxLength="200"
-                                                  HeightRequest="200"/>
+                                                  HeightRequest="100"/>
                              </Frame>
-                        </Grid>
+                    <StackLayout Grid.Row="5" 
+                                 Orientation="Horizontal"
+                                 Padding="10,0"
+                                 IsVisible="{Binding Customer.NewCustomer, Converter={StaticResource InverseBoolConverter}}">
+                        <Label Text="Inactive"
+                               HorizontalOptions="FillAndExpand">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding Source={x:Reference styleSwitch}, Path=IsToggled}"
+                                             Value="true">
+                                    <Setter Property="Text"
+                                            Value="Active" />
+                                    <Setter Property="FontAttributes"
+                                            Value="Italic, Bold" />
+                                    <Setter Property="FontSize"
+                                            Value="Medium" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Switch  x:Name="styleSwitch"
+                                 HorizontalOptions="End"
+                                 IsToggled="{Binding Customer.Active}" 
+                                 OnColor="{StaticResource Primary}"
+                                 ThumbColor="{StaticResource Title}"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="6" 
+                                 IsVisible="{Binding Customer.NewCustomer, Converter={StaticResource InverseBoolConverter}}"
+                                 HorizontalOptions="FillAndExpand"
+                                 Orientation="Horizontal"
+                                 Padding="10,0">
+                         <Label Text="{Binding Customer.Created, StringFormat='Since: {0:MM-dd-yy}'}" 
+                                HorizontalOptions="FillAndExpand"/>
+                         <Label Text="{Binding Customer.DateLastVisit, StringFormat='Last visit: {0:MM-dd-yy}'}"
+                                HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </Grid>
                     </Frame>
         </Grid>
     </ContentPage.Content>

@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
-using static PoolGuy.Mobile.Data.Models.Enums;
 using PoolGuy.Mobile.Views;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using Xamarin.Forms.Internals;
 using Omu.ValueInjecter;
+using Newtonsoft.Json;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -31,6 +31,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             ErrorMessage = "";
             Position = 0;
+            OriginalCustomer = "";
 
             Pages = new List<CustomerPageViewModel> {
               new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage() },
@@ -39,9 +40,10 @@ namespace PoolGuy.Mobile.ViewModels
               new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage()},
             };
 
-            if(customer != null)
+            if (customer != null)
             {
                 Customer = (CustomerModel)new CustomerModel().InjectFrom(customer);
+                OriginalCustomer = JsonConvert.SerializeObject(customer);
                 Pages[0].Customer = customer;
                 Pages[1].Address = customer.Address;
                 Pages[2].Contact = customer.Contact;
@@ -222,6 +224,8 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
+        public string OriginalCustomer { get; set; }
+
         private CustomerModel _customer = new CustomerModel() { 
             Contact = new ContactModel(),
             Address = new AddressModel(),
@@ -274,6 +278,7 @@ namespace PoolGuy.Mobile.ViewModels
             get { return Position > 0; }
         }
 
+        private bool _wasModified = true;
         public bool WasModified 
         { 
             get 
@@ -281,24 +286,42 @@ namespace PoolGuy.Mobile.ViewModels
 
                 try
                 {
-                    return Customer.DetailedCompare(Pages[0].Customer).Any() ||
-                                  Customer.Address.DetailedCompare(Pages[1].Address).Any() ||
-                                  Customer.Contact.DetailedCompare(Pages[2].Contact).Any() ||
-                                  Customer.Pool.DetailedCompare(Pages[3].Pool).Any();
+                    CustomerModel _originalModel = new CustomerModel()
+                    {
+                        Contact = new ContactModel(),
+                        Address = new AddressModel(),
+                        Pool = new PoolModel()
+                    };
+
+                    if (!string.IsNullOrEmpty(OriginalCustomer))
+                    {
+                        _originalModel = JsonConvert.DeserializeObject<CustomerModel>(OriginalCustomer);
+                    }
+
+                    return (_originalModel.DetailedCompare(Pages[0].Customer).Any() ||
+                           _originalModel.Address.DetailedCompare(Pages[1].Address).Any() ||
+                           _originalModel.Contact.DetailedCompare(Pages[2].Contact).Any() ||
+                           _originalModel.Pool.DetailedCompare(Pages[3].Pool).Any()) 
+                           && _wasModified;
                 }
                 catch (Exception)
                 {
                     return true;
                 }
-            } 
+            }
+            set { _wasModified = value; }
         }
 
         public ICommand GoBackCommand => new RelayCommand(async () =>
         {
+            Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
+
             if (WasModified)
             {
                 if (!await Shell.Current.DisplayAlert("Warning", "Are you sure to exit without saving the changes?", "Exit", "Cancel"))
                 {
+                    // Return to last page where you can save
+                    Position = 3;
                     return;
                 }
             }
@@ -384,6 +407,7 @@ namespace PoolGuy.Mobile.ViewModels
                 await customerController.ModifyWithChildrenAsync(Customer);
                 OnPropertyChanged("Progress");
                 OnPropertyChanged("Percent");
+                WasModified = false;
                 ErrorMessage = "Save Customer Success";
             }
             catch (Exception e)
@@ -458,8 +482,9 @@ namespace PoolGuy.Mobile.ViewModels
                     f.GetGetMethod().ReturnType == typeof(int) ||
                     f.GetGetMethod().ReturnType == typeof(double) ||
                     f.GetGetMethod().ReturnType == typeof(decimal) ||
-                    f.GetGetMethod().ReturnType == typeof(Enum) ||
-                    f.GetGetMethod().ReturnType == typeof(DateTime))
+                    f.GetGetMethod().ReturnType.FullName.Contains("Enums") ||
+                    f.GetGetMethod().ReturnType == typeof(DateTime) ||
+                    f.GetGetMethod().ReturnType == typeof(Boolean))
                 {
                     Variance v = new Variance();
                     v.Prop = f.Name;
