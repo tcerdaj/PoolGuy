@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.SearchCustomerPage"
-             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddCommand}" />
@@ -33,8 +34,9 @@
                                 EmptyView="No Customers to display">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Padding="12,0">
-                                <SwipeView BackgroundColor="White"
+                            <StackLayout Padding="20,0,0,0">
+                            
+                            <SwipeView BackgroundColor="White"
                                            Margin="0,10">
                                     <SwipeView.RightItems>
                                         <SwipeItems>
@@ -94,41 +96,64 @@
                                             </SwipeItemView>
                                         </SwipeItems>
                                     </SwipeView.RightItems>
+                                <StackLayout>
+                                    <BoxView HeightRequest=".5" Color="{StaticResource ExtraLightGray}" HorizontalOptions="FillAndExpand"
+                                             Margin="0,0,0,5"/>
                                     <StackLayout Orientation="Horizontal">
-                                <StackLayout HorizontalOptions="FillAndExpand"
-                                             Spacing="5">
-                                    <Label Text="{Binding Name}"
-                                           HorizontalOptions="FillAndExpand"
-                                           VerticalOptions="Center"
-                                           FontSize="14"
-                                           FontAttributes="Bold"/>
-                                    <Label Text="{Binding Address.FullAddress}" 
-                                           HorizontalOptions="FillAndExpand"
-                                           VerticalOptions="Center"
-                                           LineBreakMode="TailTruncation"
-                                           FontSize="12"/>
-                                    <Label HorizontalOptions="FillAndExpand"
-                                           VerticalOptions="Center"
-                                           FontSize="12"
-                                           FontAttributes="Bold">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding Contact.Phone}" TextColor="#2F80ED"/>
-                                                <Span Text=" "/>
-                                                <Span Text="{Binding Contact.Email}" TextColor="#2F80ED"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
+                                        <StackLayout HorizontalOptions="FillAndExpand"
+                                                     Spacing="5">
+                                            <mr:StackLayout TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToCustomerDetailsCommand}"
+                                                            TappedCommandParameter="{Binding}">
+                                                <Label Text="{Binding Name}"
+                                                       HorizontalOptions="FillAndExpand"
+                                                       VerticalOptions="Center"
+                                                       FontSize="14">
+                                                    <Label.FontFamily>
+                                                        <OnPlatform x:TypeArguments="x:String">
+                                                            <On Platform="iOS">Roboto</On>
+                                                            <On Platform="Android">Roboto-Bold.ttf#Roboto-Bold</On>
+                                                        </OnPlatform>
+                                                    </Label.FontFamily>
+                                                </Label>
+                                                <Label Text="{Binding Address.FullAddress}" 
+                                                       HorizontalOptions="FillAndExpand"
+                                                       VerticalOptions="Center"
+                                                       LineBreakMode="TailTruncation"
+                                                       FontSize="12"/>
+                                            </mr:StackLayout>
+                                            <StackLayout Orientation="Horizontal"
+                                                         Spacing="10">
+                                                <mr:Label HorizontalOptions="Fill"
+                                                       Text="{Binding Contact.Phone}" 
+                                                       TextColor="#2F80ED"
+                                                       VerticalOptions="Center"
+                                                       FontSize="12"
+                                                       FontAttributes="Bold"
+                                                       TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
+                                                       TappedCommandParameter="{Binding }">
+                                                 </mr:Label>
+                                                <mr:Label HorizontalOptions="Fill"
+                                                       VerticalOptions="Center"
+                                                       FontSize="12"
+                                                       FontAttributes="Bold"
+                                                       TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
+                                                       TappedCommandParameter="{Binding }"   
+                                                       Text="{Binding Contact.Email}" TextColor="#2F80ED"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <Label Text="{x:Static icons:MaterialDesignIcons.ChevronRight}" 
+                                               FontFamily="{StaticResource MaterialFontFamily}"
+                                               FontSize="25"
+                                               Margin="0,0,5,0"
+                                               TextColor="{StaticResource ExtraLightGray}"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="Start"/>
+                                    </StackLayout>
+                                    <BoxView HeightRequest=".5" Color="{StaticResource ExtraLightGray}" HorizontalOptions="FillAndExpand"/>
                                 </StackLayout>
-                                    <Label Text="{x:Static icons:MaterialDesignIcons.ChevronRight}" 
-                                           FontFamily="{StaticResource MaterialFontFamily}"
-                                           FontSize="25"
-                                           TextColor="{StaticResource ExtraLightGray}"
-                                           HorizontalOptions="End"
-                                           VerticalOptions="Start"/>
-                                </StackLayout>
-                                </SwipeView>
-                            </StackLayout>
+                            </SwipeView>
+                            
+                        </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

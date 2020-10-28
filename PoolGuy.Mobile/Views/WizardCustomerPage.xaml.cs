@@ -1,4 +1,6 @@
 ﻿using CommonServiceLocator;
+using Newtonsoft.Json;
+using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Resources;
 using PoolGuy.Mobile.ViewModels;
 using Xamarin.Forms;
@@ -18,6 +20,16 @@ namespace PoolGuy.Mobile.Views
             _viewModel.InitPages();
             BindingContext = _viewModel;
             _primaryColor  =  (Color)Application.Current.Resources["Primary"];
+            _unselectedColor = (Color)Application.Current.Resources["UnselectedColor"];
+        }
+
+        public WizardCustomerPage(CustomerModel customer)
+        {
+            InitializeComponent();
+            _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
+            _viewModel.InitPages(customer);
+            BindingContext = _viewModel;
+            _primaryColor = (Color)Application.Current.Resources["Primary"];
             _unselectedColor = (Color)Application.Current.Resources["UnselectedColor"];
         }
 

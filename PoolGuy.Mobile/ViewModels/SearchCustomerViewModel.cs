@@ -1,12 +1,13 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
+using PoolGuy.Mobile.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.ViewModels
@@ -32,14 +33,70 @@ namespace PoolGuy.Mobile.ViewModels
             set { _customers = value; OnPropertyChanged("Customers"); }
         }
 
+        public ICommand GoToContactCommand
+        {
+            get { return new RelayCommand<CustomerModel>(async (customer) => await GoToContact(customer)); }
+        }
+
+        private async Task GoToContact(CustomerModel customer)
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                var action = await Message.DisplayActionSheetAsync("Select an option", "Cancel", "Call", "Text", "Email");
+                if (string.IsNullOrEmpty(action) || action == "Cancel")
+                {
+                    return;
+                }
+
+                switch (action)
+                {
+                    case "Call":
+                        PhoneDialer.Open(customer.Contact.Phone);
+                        break;
+                    case "Text":
+                        await Sms.ComposeAsync(new SmsMessage("", customer.Contact.Phone));
+                        break;
+                    case "Email":
+                        await Email.ComposeAsync("", "", customer.Contact.Email);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+            finally { IsBusy = false; }
+        }
+
         public ICommand GoToCustomerDetailsCommand
         {
             get { return new RelayCommand<CustomerModel>(async (customer) => await GoToCustomerDetails(customer)); }
         }
 
-        private Task GoToCustomerDetails(CustomerModel customer)
+        private async Task GoToCustomerDetails(CustomerModel customer)
         {
-            throw new NotImplementedException();
+            if (IsBusy){ return; }
+            IsBusy = true;
+
+            try
+            {
+                await Shell.Current.Navigation.PushModalAsync(new WizardCustomerPage(customer));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+            finally 
+            {
+                IsBusy = false;
+            }
         }
 
         public ICommand AddWorkCommand
@@ -69,9 +126,12 @@ namespace PoolGuy.Mobile.ViewModels
 
         private async Task DeleteCustomer(CustomerModel customer)
         {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
             try
             {
-                if (await Shell.Current.DisplayAlert("Confirmation", "Are you sure want to delete customer?", "Delete", "Cancel").ConfigureAwait(false))
+                if (await Shell.Current.DisplayAlert("Confirmation", $"Are you sure want to delete {customer.Name} customer?", "Delete", "Cancel").ConfigureAwait(false))
                 {
                    await new CustomerController().DeleteAsync(customer);
                 }
@@ -81,6 +141,7 @@ namespace PoolGuy.Mobile.ViewModels
                 Debug.WriteLine(e);
                 await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
+            finally { IsBusy = false; }
         }
 
         public ICommand AddCommand
@@ -90,7 +151,19 @@ namespace PoolGuy.Mobile.ViewModels
 
         private async Task AddAsync()
         {
-            await Shell.Current.GoToAsync("WizardCustomerPage");
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                await Shell.Current.GoToAsync("WizardCustomerPage");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+            finally { IsBusy = false; }
         }
 
         public ICommand SearchCustomerCommand

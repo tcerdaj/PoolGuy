@@ -21,13 +21,12 @@ namespace PoolGuy.Mobile.ViewModels
 {
     public class CustomerViewModel : BaseViewModel
     {
-        Page _page;
         public CustomerViewModel()
         {
             Title = this.GetType().Name.Replace("ViewModel", "");
         }
 
-        public void InitPages()
+        public void InitPages(CustomerModel customer = null)
         {
             Pages = new List<CustomerPageViewModel> {
               new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage() },
@@ -35,6 +34,14 @@ namespace PoolGuy.Mobile.ViewModels
               new CustomerPageViewModel { Title = "Contact", Page =  new WContactPage()},
               new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage()},
             };
+
+            if(customer != null)
+            {
+                Pages[0].Customer = customer;
+                Pages[1].Address = customer.Address;
+                Pages[2].Contact = customer.Contact;
+                Pages[3].Pool = customer.Pool;
+            }
         }
 
         public double Progress => (double)FieldsCompleted / (double)Fields;

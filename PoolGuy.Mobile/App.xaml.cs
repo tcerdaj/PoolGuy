@@ -40,17 +40,16 @@ namespace PoolGuy.Mobile
                 SimpleIoc.Default.Register<CustomerViewModel>(true);
             }
 
-            //var nav = new NavigationService();
-            //nav.Configure(Locator.Popup.ActionSheetPopup, typeof(ActionSheetPopupPage));
-            //nav.Configure("CarouselPage", typeof(Views.CarouselPage));
+            var nav = new NavigationService();
+            nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
             //nav.Configure("HomePage", typeof(HomePage));
             //nav.Configure("CustomerPage", typeof(CustomerPage));
             //nav.Configure("CarouselPage", typeof(Views.CarouselPage));
 
-            //if (!SimpleIoc.Default.IsRegistered<INavigationService>())
-            //{
-            //    SimpleIoc.Default.Register<INavigationService>(() => nav);
-            //}
+            if (!SimpleIoc.Default.IsRegistered<INavigationService>())
+            {
+                SimpleIoc.Default.Register<INavigationService>(() => nav);
+            }
 
             CreateTables();
             MainPage = new AppShell();
