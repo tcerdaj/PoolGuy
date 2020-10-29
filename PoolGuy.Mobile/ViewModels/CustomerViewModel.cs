@@ -340,30 +340,29 @@ namespace PoolGuy.Mobile.ViewModels
             switch (page)
             {
                 case "Customer":
-                    if (Position != 0)
+                    if (Position != 0 && IsValid(Pages[Position]))
                     {
                         Position = 0;
                     }
                     break;
                 case "Address":
-                    if (Position != 1)
+                    if (Position != 1 && IsValid(Pages[Position]))
                     {
                         Position = 1;
                     }
                     break;
                 case "Contact":
-                    if (Position != 2)
+                    if (Position != 2 && IsValid(Pages[Position]))
                     {
                         Position = 2;
                     }
                     break;
                 case "Pool":
-                    if (Position != 3)
+                    if (Position != 3 && IsValid(Pages[Position]))
                     {
                         Position = 3;
                     }
                     break;
-
                 default:
                     break;
             }
