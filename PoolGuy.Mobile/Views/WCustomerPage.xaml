@@ -40,23 +40,31 @@
                                    Grid.Column="0">
                                 <mycc:CustomEntry  Text="{Binding Customer.FirstName}" 
                                                    Placeholder="First name" 
-                                                   MaxLength="20"/>
+                                                   MaxLength="20"
+                                                   ReturnType="Next"
+                                                   NextCommand="{Binding NextCommand}"
+                                                   NextCommandParameter="LastName"/>
                             </Frame>
                             <Label Grid.Row="1" Grid.Column="0"  x:Name="CustomerModel_FirstNameError" IsVisible="False" TextColor="Red" />
                             <!--LastName-->
                             <Frame Grid.Row="2" 
                                    Grid.Column="0">
-                                <mycc:CustomEntry  Text="{Binding Customer.LastName}"  
+                                <mycc:CustomEntry  x:Name="LastName"
+                                                   Text="{Binding Customer.LastName}"  
                                                    Placeholder="Last name" 
-                                                   MaxLength="20"/>
+                                                   MaxLength="20"
+                                                   ReturnType="Next"
+                                                   NextCommand="{Binding NextCommand}"
+                                                   NextCommandParameter="AdditionalInformation"/>
                             </Frame>
                             <Label Grid.Row="3" Grid.Column="0" x:Name="CustomerModel_LastNameError" IsVisible="False" TextColor="Red" />
                             <Frame Grid.Row="4" 
                                            Grid.Column="0">
-                                <Editor Text="{Binding Customer.AdditionalInformation}"  
-                                                  Placeholder="Additional Information" 
-                                                  MaxLength="200"
-                                                  HeightRequest="100"/>
+                                <Editor x:Name="AdditionalInformation" 
+                                        Text="{Binding Customer.AdditionalInformation}"  
+                                        Placeholder="Additional Information" 
+                                        MaxLength="200"
+                                        HeightRequest="100" />
                              </Frame>
                     <StackLayout Grid.Row="5" 
                                  Orientation="Horizontal"

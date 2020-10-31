@@ -35,29 +35,41 @@
                     <!--Phone-->
                     <Frame Grid.Row="0" 
                                    Grid.Column="0">
-                        <mycc:CustomEntry  Text="{Binding Contact.Phone}" 
+                        <mycc:CustomEntry  x:Name="Phone" 
+                                           Text="{Binding Contact.Phone}" 
                                            Placeholder="Phone" 
                                            MaxLength="10"
-                                           Keyboard="Telephone"/>
+                                           Keyboard="Telephone"
+                                           ReturnType="Next"
+                                           NextCommand="{Binding NextCommand}"
+                                           NextCommandParameter="CellPhone"
+                                           HasNext="True"/>
                     </Frame>
-                    <Label Grid.Row="1" Grid.Column="0"  x:Name="ContactInformationModel_PhoneError" IsVisible="False" TextColor="Red" />
+                    <Label Grid.Row="1" Grid.Column="0"  x:Name="ContactModel_PhoneError" IsVisible="False" TextColor="Red" />
                     <!--CellPhone-->
                     <Frame Grid.Row="2" 
                                    Grid.Column="0">
-                        <mycc:CustomEntry  Text="{Binding Contact.CellPhone}"  
+                        <mycc:CustomEntry  x:Name="CellPhone" 
+                                           Text="{Binding Contact.CellPhone}"  
                                            Placeholder="Cell Phone" 
                                            MaxLength="10"
+                                           ReturnType="Next"
+                                           NextCommand="{Binding NextCommand}"
+                                           NextCommandParameter="Email"
                                            Keyboard="Telephone"/>
                     </Frame>
-                    <Label Grid.Row="3" Grid.Column="0" x:Name="ContactInformationModel_CellPhoneError" IsVisible="False" TextColor="Red" />
+                    <Label Grid.Row="3" Grid.Column="0" x:Name="ContactModel_CellPhoneError" IsVisible="False" TextColor="Red" />
                     <Frame Grid.Row="4" 
                            Grid.Column="0">
-                        <mycc:CustomEntry Text="{Binding Contact.Email}"  
+                        <mycc:CustomEntry x:Name="Email" 
+                                          Text="{Binding Contact.Email}"  
                                           Placeholder="Email" 
                                           MaxLength="200"
-                                          Keyboard="Email"/>
+                                          Keyboard="Email"
+                                          ReturnType="Done"
+                                          HasDone="True"/>
                     </Frame>
-                    <Label Grid.Row="5" Grid.Column="0" x:Name="ContactInformationModel_EmailError" IsVisible="False" TextColor="Red" />
+                    <Label Grid.Row="5" Grid.Column="0" x:Name="ContactModel_EmailError" IsVisible="False" TextColor="Red" />
                 </Grid>
             </Frame>
         </Grid>

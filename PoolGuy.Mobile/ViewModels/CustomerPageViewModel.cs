@@ -1,5 +1,8 @@
-﻿using PoolGuy.Mobile.Data.Models;
+﻿using GalaSoft.MvvmLight.Command;
+using PoolGuy.Mobile.CustomControls;
+using PoolGuy.Mobile.Data.Models;
 using System;
+using System.Windows.Input;
 using Xamarin.Forms;
 using static PoolGuy.Mobile.Data.Models.Enums;
 
@@ -44,6 +47,26 @@ namespace PoolGuy.Mobile.ViewModels
         public void NotifyPropertyChanged(string propertyName)
         {
             OnPropertyChanged(propertyName);
+        }
+
+        public ICommand NextCommand
+        {
+            get => new RelayCommand<string>((control) => Next(control));
+        }
+
+        private void Next(string control)
+        {
+            var element = Page?.FindByName<object>(control);
+
+            if (element is CustomEntry customEntry)
+            {
+                customEntry.Focus();
+            }
+
+            if (element is Editor editor)
+            {
+                editor.Focus();
+            }
         }
     }
 }

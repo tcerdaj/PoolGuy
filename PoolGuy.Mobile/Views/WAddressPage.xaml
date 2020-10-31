@@ -42,39 +42,57 @@
                                    Grid.Column="0">
                         <mycc:CustomEntry  Text="{Binding Address.Address1}" 
                                            Placeholder="Address1" 
-                                           MaxLength="100"/>
+                                           MaxLength="100"
+                                           ReturnType="Next"
+                                           NextCommand="{Binding NextCommand}"
+                                           NextCommandParameter="Address2"/>
                     </Frame>
                     <Label Grid.Row="1" Grid.Column="0"  x:Name="AddressModel_Address1Error" IsVisible="False" TextColor="Red" />
                     <!--Address2-->
                     <Frame Grid.Row="2" 
                                    Grid.Column="0">
-                        <mycc:CustomEntry  Text="{Binding Address.Address2}"  
+                        <mycc:CustomEntry  x:Name="Address2"
+                                           Text="{Binding Address.Address2}"  
                                            Placeholder="Address2" 
-                                           MaxLength="100"/>
+                                           MaxLength="100"
+                                           ReturnType="Next"
+                                           NextCommand="{Binding NextCommand}"
+                                           NextCommandParameter="City"/>
                     </Frame>
                     <Label Grid.Row="3" Grid.Column="0" x:Name="AddressModel_Address2Error" IsVisible="False" TextColor="Red" />
                     <!--City-->
                     <Frame Grid.Row="4" 
                                            Grid.Column="0">
-                        <mycc:CustomEntry Text="{Binding Address.City}"  
+                        <mycc:CustomEntry x:Name="City"
+                                          Text="{Binding Address.City}"  
                                           Placeholder="City" 
-                                          MaxLength="80"/>
+                                          MaxLength="80"
+                                          ReturnType="Next"
+                                          NextCommand="{Binding NextCommand}"
+                                          NextCommandParameter="State"/>
                     </Frame>
                     <Label Grid.Row="5" Grid.Column="0" x:Name="AddressModel_CityError" IsVisible="False" TextColor="Red" />
                     <!--State-->
                     <Frame Grid.Row="6" 
                                            Grid.Column="0">
-                        <mycc:CustomEntry Text="{Binding Address.State}"  
+                        <mycc:CustomEntry x:Name="State"
+                                          Text="{Binding Address.State}"  
                                           Placeholder="State" 
-                                          MaxLength="50"/>
+                                          MaxLength="50"
+                                          ReturnType="Next"
+                                          NextCommand="{Binding NextCommand}"
+                                          NextCommandParameter="Zip"/>
                     </Frame>
                     <Label Grid.Row="7" Grid.Column="0" x:Name="AddressModel_StateError" IsVisible="False" TextColor="Red" />
                     <!--Zip-->
                     <Frame Grid.Row="8" 
                                            Grid.Column="0">
-                        <mycc:CustomEntry Text="{Binding Address.Zip}"  
+                        <mycc:CustomEntry x:Name="Zip"
+                                          Text="{Binding Address.Zip}"  
                                           Placeholder="Zip" 
-                                          MaxLength="10"/>
+                                          MaxLength="10"
+                                          ReturnType="Done"
+                                          HasDone="True"/>
                     </Frame>
                     <Label Grid.Row="9" Grid.Column="0" x:Name="AddressModel_ZipError" IsVisible="False" TextColor="Red" />
                 </Grid>

@@ -62,20 +62,27 @@
                     <!--Surface-->
                     <Frame Grid.Row="2" 
                            Grid.Column="0">
-                        <mycc:CustomEntry Text="{Binding Pool.Surface}"  
+                        <mycc:CustomEntry x:Name="Surface"
+                                          Text="{Binding Pool.Surface}"  
                                           Placeholder="Surface" 
                                           MaxLength="200"
-                                          Keyboard="Numeric"/>
+                                          Keyboard="Numeric"
+                                          ReturnType="Next"
+                                          NextCommand="{Binding NextCommand}"
+                                          NextCommandParameter="Capacity"/>
                     </Frame>
                     <Label Grid.Row="3" Grid.Column="0" x:Name="PoolModel_SurfaceError" IsVisible="False" TextColor="Red" />
                     
                     <!--Capacity-->
                     <Frame Grid.Row="4" 
                            Grid.Column="0">
-                        <mycc:CustomEntry Text="{Binding Pool.Capacity}"  
+                        <mycc:CustomEntry x:Name="Capacity"
+                                          Text="{Binding Pool.Capacity}"  
                                           Placeholder="Capacity" 
                                           MaxLength="200"
-                                          Keyboard="Numeric"/>
+                                          Keyboard="Numeric"
+                                          ReturnType="Done"
+                                          HasDone="True"/>
                     </Frame>
                     <Label Grid.Row="5" Grid.Column="0" x:Name="PoolModel_CapacityError" IsVisible="False" TextColor="Red" />
                 </Grid>
