@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using PoolGuy.Mobile.CustomControls;
 using PoolGuy.Mobile.Data.Models;
+using PoolGuy.Mobile.Views;
 using System;
+using System.Diagnostics;
 using System.Windows.Input;
 using Xamarin.Forms;
 using static PoolGuy.Mobile.Data.Models.Enums;
@@ -66,6 +68,32 @@ namespace PoolGuy.Mobile.ViewModels
             if (element is Editor editor)
             {
                 editor.Focus();
+            }
+        }
+
+        public ICommand GoToAddEquipmentCommand
+        {
+            get => new RelayCommand(() => GoToAddEquipment());
+        }
+
+        private async void GoToAddEquipment()
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+
+                await Shell.Current.Navigation.PushAsync(new EquipmentPage(new EquipmentModel { PoolId = Pool.Id }) { Title = "Equipment" });
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

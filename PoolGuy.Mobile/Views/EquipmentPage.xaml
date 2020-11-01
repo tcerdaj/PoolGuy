@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
+              xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
-             x:Class="PoolGuy.Mobile.Views.WPoolPage">
+             x:Class="PoolGuy.Mobile.Views.EquipmentPage"
+             Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
@@ -44,10 +45,9 @@
                     <!--Type-->
                     <mr:Frame Grid.Row="0"
                               BorderColor="#D8D8D8"
-                              Grid.Column="0"
-                              Tapped="PoolType_OnTapped">
+                              Grid.Column="0">
                         <StackLayout Orientation="Horizontal">
-                        <mycc:CustomEntry  Text="{Binding Pool.Type}"  
+                            <mycc:CustomEntry  Text="{Binding Pool.Type}"  
                                            Placeholder="Type"
                                            VerticalOptions="Center"
                                            HorizontalOptions="FillAndExpand"
@@ -59,12 +59,12 @@
                         </StackLayout>
                     </mr:Frame>
                     <Label Grid.Row="1" Grid.Column="0"  x:Name="PoolModel_TypeError" IsVisible="False" TextColor="Red" />
-                   
-                    <!--Surface-->
+
+                    <!--Model-->
                     <Frame Grid.Row="2" 
                            Grid.Column="0">
                         <mycc:CustomEntry x:Name="Surface"
-                                          Text="{Binding Pool.Surface}"  
+                                          Text="{Binding Equipment.Model}"  
                                           Placeholder="Surface" 
                                           MaxLength="200"
                                           Keyboard="Numeric"
@@ -73,12 +73,12 @@
                                           NextCommandParameter="Capacity"/>
                     </Frame>
                     <Label Grid.Row="3" Grid.Column="0" x:Name="PoolModel_SurfaceError" IsVisible="False" TextColor="Red" />
-                    
+
                     <!--Capacity-->
                     <Frame Grid.Row="4" 
                            Grid.Column="0">
                         <mycc:CustomEntry x:Name="Capacity"
-                                          Text="{Binding Pool.Capacity}"  
+                                          Text="{Binding Pool.SerialNumber}"  
                                           Placeholder="Capacity" 
                                           MaxLength="200"
                                           Keyboard="Numeric"

@@ -37,5 +37,16 @@ namespace PoolGuy.Mobile.Helpers
         {
             SearchCustomerAction?.Invoke(message);
         }
+
+        private static Action<Messages.RefreshMessage> PoolAction = null;
+        public static void SubscribePoolAction(Action<Messages.RefreshMessage> method)
+        {
+            PoolAction = method;
+        }
+
+        public static void RaisePoolAction(Messages.RefreshMessage message)
+        {
+            PoolAction?.Invoke(message);
+        }
     }
 }

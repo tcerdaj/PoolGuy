@@ -1,8 +1,8 @@
 ﻿using static PoolGuy.Mobile.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 using System;
-using SQLite;
-using DataAnnotation = System.ComponentModel.DataAnnotations;
+using SQLiteNetExtensions.Attributes;
+using System.Collections.Generic;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -32,6 +32,14 @@ namespace PoolGuy.Mobile.Data.Models
             set { _capacity = value; NotifyPropertyChanged("Capacity"); }
         }
 
+        private List<EquipmentModel> _equipments;
+        [OneToMany]
+        public List<EquipmentModel> Equipments
+        {
+            get => _equipments;
+            set { _equipments = value; NotifyPropertyChanged("Equipments"); }
+        }
+
         public void RaiseAllNotification()
         {
             NotifyPropertyChanged("Type");
@@ -39,6 +47,7 @@ namespace PoolGuy.Mobile.Data.Models
             NotifyPropertyChanged("Description");
             NotifyPropertyChanged("Surface");
             NotifyPropertyChanged("Capacity");
+            NotifyPropertyChanged("Equipments");
         }
     }
 }
