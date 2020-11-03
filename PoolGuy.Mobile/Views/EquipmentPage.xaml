@@ -200,7 +200,7 @@
                                           HorizontalOptions="StartAndExpand"
                                           IsReadOnly="True"
                                           Placeholder="Date Installed"
-                                          Text="{Binding DateInstalled, StringFormat='{0:MM/dd/yyyy}'}}"/>
+                                          Text="{Binding DateInstalled, StringFormat='{0:MM/dd/yyyy}'}"/>
                                 <Label VerticalOptions="Center"
                                        HorizontalOptions="End"
                                        Text="{x:Static icons:MaterialDesignIcons.Calendar}"
@@ -221,7 +221,7 @@
                                           HorizontalOptions="StartAndExpand"
                                           IsReadOnly="True"
                                           Placeholder="Date Installed"
-                                          Text="{Binding WarrantyExpiration, StringFormat='{0:MM/dd/yyyy}'}}"/>
+                                          Text="{Binding WarrantyExpiration, StringFormat='{0:MM/dd/yyyy}'}"/>
                                 <Label VerticalOptions="Center"
                                        HorizontalOptions="End"
                                        Text="{x:Static icons:MaterialDesignIcons.Calendar}"
@@ -242,7 +242,7 @@
                                           HorizontalOptions="StartAndExpand"
                                           IsReadOnly="True"
                                           Placeholder="Date Installed"
-                                          Text="{Binding LastMaintenance, StringFormat='{0:MM/dd/yyyy}'}}"/>
+                                          Text="{Binding LastMaintenance, StringFormat='{0:MM/dd/yyyy}'}"/>
                                 <Label VerticalOptions="Center"
                                        HorizontalOptions="End"
                                        Text="{x:Static icons:MaterialDesignIcons.Calendar}"
@@ -251,6 +251,37 @@
                                        FontSize="30"/>
                             </StackLayout>
                     </mr:Frame>
+                        <Button Grid.Row="8"
+                                Grid.Column="1"
+                                Text="Equipment"
+                                CornerRadius="15"
+                                TextColor="{StaticResource Primary}"
+                                FontSize="Medium"
+                                TextTransform="None"
+                                BackgroundColor="{StaticResource Title}">>
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                         Glyph="{x:Static icons:MaterialDesignIcons.Plus}"
+                                         Size="40"
+                                         Color="{StaticResource Primary}" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button Grid.Row="8"
+                                Grid.Column="0"
+                                Text="Cancel"
+                                CornerRadius="15"
+                                Command="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.GoBackCommand}"
+                                BorderColor="{StaticResource UnselectedColor}"
+                                FontSize="Medium"
+                                TextTransform="None"
+                                BackgroundColor="{StaticResource ExtraLightGray}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                         Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
+                                         Size="40"
+                                         Color="{StaticResource UnselectedColor}" />
+                            </Button.ImageSource>
+                        </Button>
                     </Grid>
                  </ScrollView>
             </DataTemplate>
