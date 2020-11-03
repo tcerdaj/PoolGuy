@@ -255,6 +255,7 @@
                                 Grid.Column="1"
                                 Text="Equipment"
                                 CornerRadius="15"
+                                Command="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.SaveEquipmentCommand}"
                                 TextColor="{StaticResource Primary}"
                                 FontSize="Medium"
                                 TextTransform="None"

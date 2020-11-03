@@ -83,7 +83,6 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-
                 await Shell.Current.Navigation.PushAsync(new EquipmentPage(new EquipmentModel { PoolId = Pool.Id }) { Title = "Select Equipment" });
             }
             catch (Exception e)

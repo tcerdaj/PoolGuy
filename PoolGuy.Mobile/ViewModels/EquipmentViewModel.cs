@@ -1,9 +1,7 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Helpers;
-using PoolGuy.Mobile.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -290,6 +288,46 @@ namespace PoolGuy.Mobile.ViewModels
         private void OpenDate(string controlName)
         {
             ToggleFocus(controlName, ControlTypeEnum.DatePicker, true);
+        }
+
+        public ICommand SaveEquipmentCommand
+        {
+            get => new RelayCommand(async()=> await SaveEquipmentAsync());
+        }
+
+        private async Task SaveEquipmentAsync()
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                if (FieldValidationHelper.IsFormValid(Equipment, CurrentPage))
+                {
+                    if (Equipment.Id == Guid.Empty)
+                    {
+                        Equipment.Created = DateTime.Now;
+                        Pool.Equipments.Add(Equipment);
+                    }
+                    else
+                    {
+                        var equipment = Pool.Equipments.FirstOrDefault(x => x.Id == Equipment.Id);
+                        equipment = Equipment;
+                        equipment.Modified = DateTime.Now;
+                    }
+
+                    var poolController = new PoolController();
+                    await poolController.ModifyWithChildrenAsync(Pool);
+                    Notify.RaisePoolAction(new Messages.RefreshMessage());
+                    _ = Globals.CurrentPage == Enums.ePage.SelectEquipment;
+                    GoBackCommand.Execute(null);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
         }
     }
 }
