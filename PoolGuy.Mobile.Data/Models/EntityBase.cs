@@ -1,19 +1,16 @@
 ﻿using SQLite;
 using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace PoolGuy.Mobile.Data.Models
 {
-    public abstract class EntityBase
+    public abstract class EntityBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void NotifyPropertyChanged(string name)
+        protected void OnPropertyChanged(string propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         [PrimaryKey]

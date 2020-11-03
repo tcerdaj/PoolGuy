@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.SearchCustomerPage"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
-             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddCommand}" />
@@ -38,7 +38,6 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Padding="20,0,0,0">
-                            
                             <SwipeView BackgroundColor="White"
                                            Margin="0,10">
                                     <SwipeView.RightItems>
@@ -99,15 +98,24 @@
                                             </SwipeItemView>
                                         </SwipeItems>
                                     </SwipeView.RightItems>
-                                <StackLayout>
+                                <StackLayout >
                                     <BoxView HeightRequest=".5" Color="{StaticResource ExtraLightGray}" HorizontalOptions="FillAndExpand"
                                              Margin="0,0,0,5"/>
                                     <StackLayout Orientation="Horizontal">
                                         <StackLayout HorizontalOptions="FillAndExpand"
                                                      Spacing="5">
-                                            <mr:StackLayout TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToCustomerDetailsCommand}"
-                                                            TappedCommandParameter="{Binding}">
-                                                <Label Text="{Binding Name}"
+                                                <mr:StackLayout x:Name="ListTemplate" 
+                                                                DownCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToCustomerDetailsCommand}"
+                                                                DownCommandParameter="{Binding BindingContext, Source={x:Reference ListTemplate}}">
+                                                    <mr:StackLayout.Triggers>
+                                                        <EventTrigger Event="Down">
+                                                            <act:ScaleDownTriggerAction />
+                                                        </EventTrigger>
+                                                        <EventTrigger Event="Up">
+                                                            <act:ScaleUpTriggerAction />
+                                                        </EventTrigger>
+                                                    </mr:StackLayout.Triggers>
+                                                    <Label Text="{Binding Name}"
                                                        HorizontalOptions="FillAndExpand"
                                                        VerticalOptions="Center"
                                                        FontSize="14">
@@ -125,23 +133,30 @@
                                                        FontSize="12"/>
                                             </mr:StackLayout>
                                             <StackLayout Orientation="Horizontal"
-                                                         Spacing="10">
-                                                <mr:Label HorizontalOptions="Fill"
-                                                       Text="{Binding Contact.Phone}" 
-                                                       TextColor="#2F80ED"
-                                                       VerticalOptions="Center"
-                                                       FontSize="12"
-                                                       FontAttributes="Bold"
-                                                       TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
-                                                       TappedCommandParameter="{Binding }">
+                                                         Spacing="10"
+                                                         HorizontalOptions="Start">
+                                                <mr:Label x:Name="Phone"
+                                                          HorizontalOptions="Fill"
+                                                          Margin="5"
+                                                          Text="{Binding Contact.Phone}" 
+                                                          TextColor="#2F80ED"
+                                                          VerticalOptions="Center"
+                                                          FontSize="12"
+                                                          FontAttributes="Bold"
+                                                          TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
+                                                          TappedCommandParameter="{Binding }"
+                                                          PinchedCommandParameter="Phone">
                                                  </mr:Label>
-                                                <mr:Label HorizontalOptions="Fill"
-                                                       VerticalOptions="Center"
-                                                       FontSize="12"
-                                                       FontAttributes="Bold"
-                                                       TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
-                                                       TappedCommandParameter="{Binding }"   
-                                                       Text="{Binding Contact.Email}" TextColor="#2F80ED"/>
+                                                <mr:Label x:Name="Email" 
+                                                          HorizontalOptions="Fill"
+                                                          Margin="5"
+                                                          VerticalOptions="Center"
+                                                          FontSize="12"
+                                                          FontAttributes="Bold"
+                                                          TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
+                                                          TappedCommandParameter="{Binding }"
+                                                          PinchedCommandParameter="Phone"
+                                                          Text="{Binding Contact.Email}" TextColor="#2F80ED"/>
                                             </StackLayout>
                                         </StackLayout>
                                         <Label Text="{x:Static icons:MaterialDesignIcons.ChevronRight}" 

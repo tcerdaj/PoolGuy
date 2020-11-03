@@ -1,8 +1,5 @@
-﻿using CommonServiceLocator;
-using PoolGuy.Mobile.ViewModels;
+﻿using PoolGuy.Mobile.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.TemplateSelector
@@ -24,11 +21,8 @@ namespace PoolGuy.Mobile.TemplateSelector
             }
             catch (Exception)
             {
-
                 throw;
             }
-
-            throw new NotImplementedException();
         }
     }
 }

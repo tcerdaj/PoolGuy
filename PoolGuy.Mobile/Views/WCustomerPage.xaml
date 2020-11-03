@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
-             x:Class="PoolGuy.Mobile.Views.WCustomerPage">
+             x:Class="PoolGuy.Mobile.Views.WCustomerPage"
+             Title="{Binding Title}">
     
     <ContentPage.Resources>
         <ResourceDictionary>

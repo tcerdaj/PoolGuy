@@ -1,13 +1,23 @@
 ﻿using SQLiteNetExtensions.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.Data.Models
 {
     public class EquipmentModel : EntityBase
     {
+        private string _imageUrl;
+        public string ImageUrl 
+        {
+            get 
+            { 
+                if (string.IsNullOrEmpty(_imageUrl) && Type != null) {
+                    return Type.ImageUrl;
+                }
+
+                return _imageUrl;
+            }
+            set { _imageUrl = value; OnPropertyChanged("ImageUrl"); } 
+        }
         public Guid CustomerId { get; set; }
 
         [ForeignKey(typeof(PoolModel))]
@@ -20,7 +30,7 @@ namespace PoolGuy.Mobile.Data.Models
         public EquipmentTypeModel Type
         {
             get { return _type; }
-            set { _type = value; NotifyPropertyChanged("Type"); }
+            set { _type = value; OnPropertyChanged("Type"); }
         }
 
         [ForeignKey(typeof(ManufactureModel))]
@@ -30,15 +40,20 @@ namespace PoolGuy.Mobile.Data.Models
         public ManufactureModel Manufacture
         {
             get { return _manufacture; }
-            set { _manufacture = value; NotifyPropertyChanged("Manufacture"); }
+            set { _manufacture = value; OnPropertyChanged("Manufacture"); }
         }
 
-        public string Model { get; set; }
+        private string _model;
+        public string Model { get { return _model; } set { _model = value; OnPropertyChanged("Model"); } }
 
-        public string SerialNumber { get; set; }
-        public DateTime DateInstalled { get; set; }
-        public DateTime WarrantyExpiration { get; set; }
-        public DateTime LastMaintenance { get; set; }
+        private string _serialNumber;
+        public string SerialNumber { get { return _serialNumber; } set { _serialNumber = value; OnPropertyChanged("SerialNumber"); } }
+        private DateTime? _dateInstalled;
+        public DateTime? DateInstalled { get { return _dateInstalled; } set { _dateInstalled = value; OnPropertyChanged("DateInstalled"); } }
+        private DateTime? _warrantyExpiration;
+        public DateTime? WarrantyExpiration { get { return _warrantyExpiration; } set { _warrantyExpiration = value; OnPropertyChanged("WarrantyExpiration"); } }
+        private DateTime? _lastMaintenance;
+        public DateTime? LastMaintenance { get { return _lastMaintenance; } set { _lastMaintenance = value; OnPropertyChanged("LastMaintenance"); } }
         public string Field1 { get; set; }
         public string Field2 { get; set; }
     }

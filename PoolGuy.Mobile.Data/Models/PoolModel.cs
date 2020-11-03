@@ -15,39 +15,39 @@ namespace PoolGuy.Mobile.Data.Models
         [EnumDataType(typeof(PoolType))]
         public PoolType? Type { 
             get { return _type; } 
-            set { _type = value; NotifyPropertyChanged("Type"); } 
+            set { _type = value; OnPropertyChanged("Type"); } 
         }
         
         private double? _surface;
         [Required]
         public double? Surface {
             get { return _surface; }
-            set { _surface = value; NotifyPropertyChanged("Surface"); } 
+            set { _surface = value; OnPropertyChanged("Surface"); } 
         }
         
         private double? _capacity;
         [Required]
         public double? Capacity {
             get { return _capacity; }
-            set { _capacity = value; NotifyPropertyChanged("Capacity"); }
+            set { _capacity = value; OnPropertyChanged("Capacity"); }
         }
 
         private List<EquipmentModel> _equipments;
-        [OneToMany]
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<EquipmentModel> Equipments
         {
             get => _equipments;
-            set { _equipments = value; NotifyPropertyChanged("Equipments"); }
+            set { _equipments = value; OnPropertyChanged("Equipments"); }
         }
 
         public void RaiseAllNotification()
         {
-            NotifyPropertyChanged("Type");
-            NotifyPropertyChanged("Name");
-            NotifyPropertyChanged("Description");
-            NotifyPropertyChanged("Surface");
-            NotifyPropertyChanged("Capacity");
-            NotifyPropertyChanged("Equipments");
+            OnPropertyChanged("Type");
+            OnPropertyChanged("Name");
+            OnPropertyChanged("Description");
+            OnPropertyChanged("Surface");
+            OnPropertyChanged("Capacity");
+            OnPropertyChanged("Equipments");
         }
     }
 }

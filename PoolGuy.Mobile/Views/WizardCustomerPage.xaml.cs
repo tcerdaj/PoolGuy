@@ -17,7 +17,7 @@ namespace PoolGuy.Mobile.Views
         public WizardCustomerPage()
         {
             InitializeComponent();
-            _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
+            _viewModel = new CustomerViewModel();
             _viewModel.InitPages();
             BindingContext = _viewModel;
             _primaryColor  =  (Color)Application.Current.Resources["Primary"];
@@ -27,7 +27,7 @@ namespace PoolGuy.Mobile.Views
         public WizardCustomerPage(CustomerModel customer)
         {
             InitializeComponent();
-            _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
+            _viewModel = new CustomerViewModel();
             _viewModel.InitPages(customer);
             BindingContext = _viewModel;
             _primaryColor = (Color)Application.Current.Resources["Primary"];

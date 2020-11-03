@@ -30,14 +30,13 @@ namespace PoolGuy.Mobile.ViewModels
         public void InitPages(CustomerModel customer = null)
         {
             ErrorMessage = "";
-            Position = 0;
             OriginalCustomer = "";
 
             Pages = new List<CustomerPageViewModel> {
-              new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage() },
-              new CustomerPageViewModel { Title = "Address", Page =  new WAddressPage()},
-              new CustomerPageViewModel { Title = "Contact", Page =  new WContactPage()},
-              new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage()},
+              new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage(){ Title = "Customer" } },
+              new CustomerPageViewModel { Title = "Address", Page =  new WAddressPage(){ Title = "Address" } },
+              new CustomerPageViewModel { Title = "Contact", Page =  new WContactPage(){ Title = "Contact" } },
+              new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage(){ Title = "Pool" } },
             };
 
             if (customer != null)
@@ -49,6 +48,8 @@ namespace PoolGuy.Mobile.ViewModels
                 Pages[2].Contact = customer.Contact;
                 Pages[3].Pool = customer.Pool;
             }
+
+            Position = 0;
         }
 
         public double Progress => (double)FieldsCompleted / (double)Fields;

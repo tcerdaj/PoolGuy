@@ -139,15 +139,11 @@ namespace PoolGuy.Mobile.ViewModels
         #endregion UserDialogs
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        protected void OnPropertyChanged(string propertyName = "")
         {
-            var changed = PropertyChanged;
-            if (changed == null)
-                return;
-
-            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            //let the UI know a property changed.
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
 
         #endregion
     }

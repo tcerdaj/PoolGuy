@@ -22,7 +22,7 @@ namespace PoolGuy.Mobile.Data.Models
         public AddressModel Address
         {
             get => _address;
-            set { _address = value; NotifyPropertyChanged("Address"); }
+            set { _address = value; OnPropertyChanged("Address"); }
         }
 
         [ForeignKey(typeof(ContactModel))]
@@ -33,7 +33,7 @@ namespace PoolGuy.Mobile.Data.Models
         public ContactModel Contact
         {
             get => _contactInfomartion;
-            set { _contactInfomartion = value; NotifyPropertyChanged("ContactInformation"); }
+            set { _contactInfomartion = value; OnPropertyChanged("ContactInformation"); }
         }
 
         [ForeignKey(typeof(PoolModel))]
@@ -44,7 +44,7 @@ namespace PoolGuy.Mobile.Data.Models
         public PoolModel Pool
         {
             get { return _pool; }
-            set { _pool = value; NotifyPropertyChanged("Pool"); }
+            set { _pool = value; OnPropertyChanged("Pool"); }
         }
 
         public string Name {
@@ -58,7 +58,7 @@ namespace PoolGuy.Mobile.Data.Models
             get { return _firstName; }
             set { 
                 _firstName = value; 
-                NotifyPropertyChanged("FirstName");
+                OnPropertyChanged("FirstName");
             }
         }
         
@@ -70,7 +70,7 @@ namespace PoolGuy.Mobile.Data.Models
             get { return _lastName; }
             set { 
                 _lastName = value; 
-                NotifyPropertyChanged("LastName");
+                OnPropertyChanged("LastName");
             }
         }
 
@@ -78,14 +78,14 @@ namespace PoolGuy.Mobile.Data.Models
         public string ImageUrl
         {
             get { return _imageUrl; }
-            set { _imageUrl = value; NotifyPropertyChanged("ImageUrl"); }
+            set { _imageUrl = value; OnPropertyChanged("ImageUrl"); }
         }
 
         private bool _active = true;
         public bool Active 
         {
             get { return _active; }
-            set { _active = value; NotifyPropertyChanged("Active"); }
+            set { _active = value; OnPropertyChanged("Active"); }
         }
 
         WorkStatus _status;
@@ -107,35 +107,35 @@ namespace PoolGuy.Mobile.Data.Models
         public DateTime DateLastPaid 
         {
             get { return _dateLastPaid; }
-            set { _dateLastPaid = value; NotifyPropertyChanged("DateLastPaid"); }
+            set { _dateLastPaid = value; OnPropertyChanged("DateLastPaid"); }
         }
 
         private DateTime? _dateLastVisit;
         public DateTime? DateLastVisit 
         {
             get { return _dateLastVisit; }
-            set { _dateLastVisit = value; NotifyPropertyChanged("DateLastVisit"); }
+            set { _dateLastVisit = value; OnPropertyChanged("DateLastVisit"); }
         }
 
         private double _balance;
         public double Balance 
         {
             get { return _balance; }
-            set { _balance = value; NotifyPropertyChanged("Balance"); }
+            set { _balance = value; OnPropertyChanged("Balance"); }
         }
 
         private double _latitude;
         public double Latitude 
         {
             get { return _latitude; }
-            set { _latitude = value; NotifyPropertyChanged("Latitude"); }
+            set { _latitude = value; OnPropertyChanged("Latitude"); }
         }
 
         private double _logitude;
         public double Longitude 
         {
             get { return _logitude; }
-            set { _logitude = value; NotifyPropertyChanged("Longitude"); } 
+            set { _logitude = value; OnPropertyChanged("Longitude"); } 
         }
 
         private string _additionalInformation;
@@ -146,7 +146,7 @@ namespace PoolGuy.Mobile.Data.Models
             get { return _additionalInformation; }
             set { 
                 _additionalInformation = value; 
-                NotifyPropertyChanged("AdditionalInformation");
+                OnPropertyChanged("AdditionalInformation");
             } 
         }
 

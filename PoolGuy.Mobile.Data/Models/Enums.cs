@@ -23,8 +23,8 @@ namespace PoolGuy.Mobile.Data.Models
 
         public enum PoolType
         {
-            Sweetwater,
-            Saltwater
+            SweetPool,
+            SaltPool
         }
 
         public enum eResultStatus
@@ -32,6 +32,16 @@ namespace PoolGuy.Mobile.Data.Models
             None,
             Ok,
             Error
+        }
+
+        public enum ePage
+        {
+            Home,
+            SearchCustomer,
+            Customer,
+            SelectEquipment,
+            SelecteManufacture,
+            Equipment
         }
     }
 }

@@ -96,7 +96,6 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-
                 await Shell.Current.Navigation.PushAsync(new WizardCustomerPage(customer) { Title = "Customer"});
             }
             catch (Exception e)
