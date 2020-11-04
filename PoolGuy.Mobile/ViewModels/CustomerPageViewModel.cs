@@ -1,9 +1,12 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using PoolGuy.Mobile.CustomControls;
+using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
+using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Views;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using static PoolGuy.Mobile.Data.Models.Enums;
@@ -12,6 +15,18 @@ namespace PoolGuy.Mobile.ViewModels
 {
     public class CustomerPageViewModel :BaseViewModel
     {
+        public CustomerPageViewModel()
+        {
+            SubscribeMessages();
+        }
+
+        private void SubscribeMessages()
+        {
+            Notify.SubscribePoolAction(async (sender) => {
+                Pool = await new PoolController().LoadAsync(Pool.Id);
+            });
+        }
+
         private CustomerModel _customer = new CustomerModel() { };
         public CustomerModel Customer
         {
@@ -93,6 +108,31 @@ namespace PoolGuy.Mobile.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public ICommand SelectEquipmentCommand
+        {
+            get => new RelayCommand<EquipmentModel>(async (model) => SelecteEquipment(model));
+        }
+
+        private async void SelecteEquipment(EquipmentModel model)
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                await Shell.Current.Navigation.PushAsync(new EquipmentPage(model));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+            finally 
+            {
+                IsBusy = false; 
             }
         }
     }

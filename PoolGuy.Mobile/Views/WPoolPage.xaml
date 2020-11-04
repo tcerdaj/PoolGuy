@@ -4,8 +4,9 @@
              xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
-             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
-             x:Class="PoolGuy.Mobile.Views.WPoolPage">
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
+             x:Class="PoolGuy.Mobile.Views.WPoolPage"
+             x:Name="PoolPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
@@ -24,11 +25,14 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid VerticalOptions="Start">
+        <ScrollView VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand">
+           <Grid VerticalOptions="Start">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
             <Frame  Grid.Row="0" 
                         BorderColor="#D2C9C9"  
                         CornerRadius="6"  
@@ -102,10 +106,52 @@
                                          Color="{StaticResource Title}" />
                 </Button.ImageSource>
             </Button>
+            <CollectionView Grid.Row="2"
+                            x:Name="EquipmentList"
+                            VerticalOptions="Start"
+                            HorizontalOptions="FillAndExpand"
+                            ItemsSource="{Binding Pool.Equipments}"
+                            SelectionMode="None"
+                            ItemSizingStrategy="MeasureFirstItem"
+                            EmptyView="No Equipments">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="1"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <mr:StackLayout Padding="10"
+                                        x:Name="CurrentEquipmentTemplate" 
+                                        TappedCommand="{Binding Source={x:Reference EquipmentList}, Path=BindingContext.SelectEquipmentCommand}"
+                                        TappedCommandParameter="{Binding BindingContext, Source={x:Reference CurrentEquipmentTemplate}}">
+                                <mr:StackLayout.Triggers>
+                                    <EventTrigger Event="Down">
+                                        <act:ScaleDownTriggerAction />
+                                    </EventTrigger>
+                                    <EventTrigger Event="Up">
+                                        <act:ScaleUpTriggerAction />
+                                    </EventTrigger>
+                                </mr:StackLayout.Triggers>
+                                <Image Source="{Binding ImageUrl}"
+                                   FlexLayout.Shrink="1"
+                                   HeightRequest="300"
+                                   Margin="10,0"
+                                   Aspect="AspectFill"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="{Binding Type.Name}"
+                                   Margin="0,-20,0,0"
+                                   VerticalOptions="Start"
+                                   VerticalTextAlignment="Start"
+                                   HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"/>
+                        </mr:StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <Picker x:Name="poolTypePicker"
                     Title="Pool Type"
                     ItemsSource="{Binding PoolTypes}"
                     IsVisible="False"/>
         </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.ViewModels;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,7 +13,7 @@ namespace PoolGuy.Mobile.Views
         public EquipmentPage(EquipmentModel equipment)
         {
             InitializeComponent();
-            _viewModel = new EquipmentViewModel(equipment) { Title = "Select Equipment" };
+            _viewModel = new EquipmentViewModel(equipment) { Title = equipment.Id == Guid.Empty? "Select Equipment": "Update Equipment" };
             _viewModel.SetView(this);
             BindingContext = _viewModel;
         }
@@ -20,6 +21,7 @@ namespace PoolGuy.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            _viewModel.InitEquipment();
             DateInstalledPicker.DateSelected += DateInstalledPicker_DateSelected;
             WarrantyExpirationPicker.DateSelected += DateInstalledPicker_DateSelected;
             LastMaintenancePicker.DateSelected += DateInstalledPicker_DateSelected;

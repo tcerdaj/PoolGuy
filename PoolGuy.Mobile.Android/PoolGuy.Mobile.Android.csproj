@@ -92,6 +92,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderer\CustomDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\CustomEntryRenderer.cs" />
     <Compile Include="ISQLite\SQLite_Android.cs" />
     <Compile Include="MainActivity.cs" />

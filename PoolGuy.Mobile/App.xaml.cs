@@ -28,6 +28,8 @@ namespace PoolGuy.Mobile
             DependencyService.Register<ILocalDataStore<ContactModel>, LocalDataStore<ContactModel>>();
             DependencyService.Register<ILocalDataStore<PoolModel>, LocalDataStore<PoolModel>>();
             DependencyService.Register<ILocalDataStore<EquipmentModel>, LocalDataStore<EquipmentModel>>();
+            DependencyService.Register<ILocalDataStore<EquipmentTypeModel>, LocalDataStore<EquipmentTypeModel>>();
+            DependencyService.Register<ILocalDataStore<ManufactureModel>, LocalDataStore<ManufactureModel>>();
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -66,6 +68,8 @@ namespace PoolGuy.Mobile
                 await new AddressController().LocalData.CreateTableAsync();
                 await new ContactInformationController().LocalData.CreateTableAsync();
                 await new EquipmentController().LocalData.CreateTableAsync();
+                await new EquipmentTypeController().LocalData.CreateTableAsync();
+                await new ManufactureController().LocalData.CreateTableAsync();
             });
         }
 

@@ -14,10 +14,5 @@ namespace PoolGuy.Mobile.Views
             viewModel = new SearchCustomerViewModel();
             BindingContext = viewModel;
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-        }
     }
 }

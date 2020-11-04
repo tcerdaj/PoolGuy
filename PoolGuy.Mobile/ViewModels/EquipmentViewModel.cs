@@ -19,7 +19,7 @@ namespace PoolGuy.Mobile.ViewModels
         public EquipmentViewModel(EquipmentModel equipment)
         {
             Equipment = equipment;
-            Globals.CurrentPage = Enums.ePage.SelectEquipment;
+            Globals.CurrentPage = equipment.Id == Guid.Empty? Enums.ePage.SelectEquipment: Enums.ePage.Equipment;
             Initialize();
         }
 
@@ -60,6 +60,31 @@ namespace PoolGuy.Mobile.ViewModels
                    };
                 }
             });
+        }
+
+        public async void InitEquipment()
+        {
+            try
+            {
+                if (Globals.CurrentPage != Enums.ePage.Equipment)
+                {
+                    return;
+                }
+
+                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                if (flexlayout == null)
+                {
+                    return;
+                }
+
+                BindableLayout.SetItemsSource(flexlayout, null);
+                BindableLayout.SetItemsSource(flexlayout, new List<EquipmentModel>() { Equipment });
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
         }
 
         private ObservableCollection<EquipmentTypeModel> _equipmentTypes;
@@ -119,10 +144,10 @@ namespace PoolGuy.Mobile.ViewModels
 
         public ICommand SaveCommand
         {
-            get => new RelayCommand(async () => Save());
+            get => new RelayCommand(async()=> Save());
         }
 
-        private async Task Save()
+        private async void Save()
         {
             if (IsBusy) { return; }
             IsBusy = true;
@@ -165,119 +190,150 @@ namespace PoolGuy.Mobile.ViewModels
 
         public ICommand GoBackCommand => new RelayCommand(async () =>
         {
-            if (CurrentPage == null)
+            try
             {
-                return;
+                if (CurrentPage == null)
+                {
+                    return;
+                }
+
+                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                flexlayout.Children.Clear();
+
+                switch (Globals.CurrentPage)
+                {
+                    case Enums.ePage.Home:
+                        break;
+                    case Enums.ePage.SearchCustomer:
+                        break;
+                    case Enums.ePage.Customer:
+                        break;
+                    case Enums.ePage.SelectEquipment:
+                        Globals.CurrentPage = Enums.ePage.Customer;
+                        await NavigationService.PopPopupAsync(false);
+                        Shell.Current.SendBackButtonPressed();
+                        break;
+                    case Enums.ePage.SelecteManufacture:
+                        CurrentPage.Title = "Select Equipment";
+                        if (flexlayout == null)
+                        {
+                            return;
+                        }
+
+                        Globals.CurrentPage = Enums.ePage.SelectEquipment;
+                        BindableLayout.SetItemsSource(flexlayout, EquipmentTypes);
+                        break;
+                    case Enums.ePage.Equipment:
+                        if (Equipment.Id != Guid.Empty)
+                        {
+                            Globals.CurrentPage = Enums.ePage.Customer;
+                            await NavigationService.PopPopupAsync(false);
+                            Shell.Current.SendBackButtonPressed();
+                            return;
+                        }
+
+                        CurrentPage.Title = "Select Manufacture";
+                        if (flexlayout == null)
+                        {
+                            return;
+                        }
+
+                        Globals.CurrentPage = Enums.ePage.SelecteManufacture;
+                        BindableLayout.SetItemsSource(flexlayout, Manufactures);
+                        break;
+                    default:
+                        break;
+                }
             }
-
-            var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
-
-            switch (Globals.CurrentPage)
+            catch (Exception e)
             {
-                case Enums.ePage.Home:
-                    break;
-                case Enums.ePage.SearchCustomer:
-                    break;
-                case Enums.ePage.Customer:
-                    break;
-                case Enums.ePage.SelectEquipment:
-                    Globals.CurrentPage = Enums.ePage.Customer;
-                    await NavigationService.PopPopupAsync(false);
-                    Shell.Current.SendBackButtonPressed();
-                    break;
-                case Enums.ePage.SelecteManufacture:
-                    CurrentPage.Title = "Select Equipment";
-                    if (flexlayout == null)
-                    {
-                        return;
-                    }
-
-                    Globals.CurrentPage = Enums.ePage.SelectEquipment;
-                    BindableLayout.SetItemsSource(flexlayout, EquipmentTypes);
-                    break;
-                case Enums.ePage.Equipment:
-                    CurrentPage.Title = "Select Manufacture";
-                    
-                    if (flexlayout == null)
-                    {
-                        return;
-                    }
-
-                    Globals.CurrentPage = Enums.ePage.SelecteManufacture;
-                    BindableLayout.SetItemsSource(flexlayout, Manufactures);
-                    break;
-                default:
-                    break;
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
-            
         });
 
         public ICommand SelectEquipmentTypeCommand
         {
-            get => new RelayCommand<EquipmentTypeModel>((model) => SelectEquipmentType(model));
+            get => new RelayCommand<EquipmentTypeModel>((model) => SelectEquipmentTypeAsync(model));
         }
 
-        private void SelectEquipmentType(EquipmentTypeModel model)
+        private async void SelectEquipmentTypeAsync(EquipmentTypeModel model)
         {
-            if (model == null)
+            try
             {
-                return;
-            }
+                if (model == null)
+                {
+                    return;
+                }
 
-            EquipmentTypes?.ForEach(x => x.Selected = false);
-            model.Selected = true;
-            
-            if (CurrentPage == null)
+                EquipmentTypes?.ForEach(x => x.Selected = false);
+                model.Selected = true;
+
+                if (CurrentPage == null)
+                {
+                    return;
+                }
+
+                SelectedEquipmentType = model;
+                CurrentPage.Title = model.Name;
+                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                if (flexlayout == null)
+                {
+                    return;
+                }
+
+                Globals.CurrentPage = Enums.ePage.SelecteManufacture;
+                BindableLayout.SetItemsSource(flexlayout, Manufactures);
+            }
+            catch (Exception e)
             {
-                return;
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
-
-            SelectedEquipmentType = model;
-            CurrentPage.Title = model.Name;
-            var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
-            if (flexlayout == null)
-            {
-                return;
-            }
-
-            Globals.CurrentPage = Enums.ePage.SelecteManufacture;
-            BindableLayout.SetItemsSource(flexlayout, Manufactures);
         }
 
         public ICommand SelectManufactureCommand
         {
-            get => new RelayCommand<ManufactureModel>((model) => SelectManufacture(model));
+            get => new RelayCommand<ManufactureModel>(async(model) => SelectManufactureAsync(model));
         }
 
-        private void SelectManufacture(ManufactureModel model)
+        private async void SelectManufactureAsync(ManufactureModel model)
         {
-            if (model == null)
+            try
             {
-                return;
+                if (model == null)
+                {
+                    return;
+                }
+
+                Manufactures?.ForEach(x => x.Selected = false);
+                model.Selected = !model.Selected;
+
+                if (CurrentPage == null)
+                {
+                    return;
+                }
+
+                SelectedManufacture = model;
+                CurrentPage.Title = "Add Equipment";
+                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                if (flexlayout == null)
+                {
+                    return;
+                }
+
+                Equipment.Type = SelectedEquipmentType;
+                Equipment.Manufacture = SelectedManufacture;
+                Equipment.ImageUrl = SelectedEquipmentType.ImageUrl;
+
+                Globals.CurrentPage = Enums.ePage.Equipment;
+                BindableLayout.SetItemsSource(flexlayout, new List<EquipmentModel>() { Equipment });
             }
-
-            Manufactures?.ForEach(x => x.Selected = false);
-            model.Selected = !model.Selected;
-
-            if (CurrentPage == null)
+            catch (Exception e)
             {
-                return;
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
-
-            SelectedManufacture = model;
-            CurrentPage.Title = "Add Equipment";
-            var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
-            if (flexlayout == null)
-            {
-                return;
-            }
-
-            Equipment.Type = SelectedEquipmentType;
-            Equipment.Manufacture = SelectedManufacture;
-            Equipment.ImageUrl = SelectedEquipmentType.ImageUrl;
-
-            Globals.CurrentPage = Enums.ePage.Equipment;
-            BindableLayout.SetItemsSource(flexlayout, new List<EquipmentModel>() { Equipment });
         }
 
         public ICommand OpenDateCommand
@@ -306,6 +362,7 @@ namespace PoolGuy.Mobile.ViewModels
                 {
                     if (Equipment.Id == Guid.Empty)
                     {
+                        Equipment.Id = Guid.NewGuid();
                         Equipment.Created = DateTime.Now;
                         Pool.Equipments.Add(Equipment);
                     }
@@ -319,8 +376,9 @@ namespace PoolGuy.Mobile.ViewModels
                     var poolController = new PoolController();
                     await poolController.ModifyWithChildrenAsync(Pool);
                     Notify.RaisePoolAction(new Messages.RefreshMessage());
-                    _ = Globals.CurrentPage == Enums.ePage.SelectEquipment;
-                    GoBackCommand.Execute(null);
+
+                    await NavigationService.PopPopupAsync(false);
+                    await Shell.Current.Navigation.PopAsync(true);
                 }
             }
             catch (Exception e)
