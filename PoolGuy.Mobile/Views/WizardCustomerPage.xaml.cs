@@ -17,7 +17,7 @@ namespace PoolGuy.Mobile.Views
         public WizardCustomerPage()
         {
             InitializeComponent();
-            _viewModel = new CustomerViewModel();
+            _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
             _viewModel.InitPages();
             BindingContext = _viewModel;
             _primaryColor  =  (Color)Application.Current.Resources["Primary"];
@@ -77,11 +77,12 @@ namespace PoolGuy.Mobile.Views
         private void Carousel_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
         {
             PreviusButton.Opacity = _viewModel.Position > 0? 1:.5;
+            NextButton.Text = (_viewModel.Position + 1) < _viewModel.Pages.Count ? "" : "Save";
             NextButton.ImageSource = new FontImageSource
             {
                 Glyph = (_viewModel.Position + 1) < _viewModel.Pages.Count ?
                 MaterialDesignIcons.ChevronRight :
-                MaterialDesignIcons.Plus,
+                MaterialDesignIcons.ContentSave,
                 FontFamily = Device.RuntimePlatform == Device.iOS? 
                 "Material Design Icons": 
                 "materialdesignicons.ttf#Material Design Icons",

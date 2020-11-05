@@ -13,7 +13,7 @@ using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.ViewModels
 {
-    public class CustomerPageViewModel :BaseViewModel
+    public class CustomerPageViewModel : BaseViewModel
     {
         public CustomerPageViewModel()
         {
@@ -73,16 +73,23 @@ namespace PoolGuy.Mobile.ViewModels
 
         private void Next(string control)
         {
-            var element = Page?.FindByName<object>(control);
-
-            if (element is CustomEntry customEntry)
+            try
             {
-                customEntry.Focus();
+                var element = Page?.FindByName<object>(control);
+
+                if (element is CustomEntry customEntry)
+                {
+                    customEntry.Focus();
+                }
+
+                if (element is Editor editor)
+                {
+                    editor.Focus();
+                }
             }
-
-            if (element is Editor editor)
+            catch (Exception e)
             {
-                editor.Focus();
+                Debug.WriteLine(e);
             }
         }
 
@@ -133,6 +140,38 @@ namespace PoolGuy.Mobile.ViewModels
             finally 
             {
                 IsBusy = false; 
+            }
+        }
+
+        public ICommand DeleteEquipmentCommand
+        {
+            get => new RelayCommand<EquipmentModel>(async (model) => DeleteEquipment(model));
+        }
+
+        private async void DeleteEquipment(EquipmentModel model)
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                if (!await Shell.Current.DisplayAlert("Delete Confirmation", "Are you sure want to delete equipment?", "Delete", "Cancel"))
+                {
+                    return;
+                }
+
+                Pool.Equipments.Remove(model);
+                await new PoolController().ModifyWithChildrenAsync(Pool);
+                Pool.RaiseEquipmentNotification();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

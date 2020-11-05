@@ -43,6 +43,11 @@ namespace PoolGuy.Mobile
                 SimpleIoc.Default.Register<CustomerViewModel>(true);
             }
 
+            if (!SimpleIoc.Default.IsRegistered<CustomerPageViewModel>())
+            {
+                SimpleIoc.Default.Register<CustomerPageViewModel>(true);
+            }
+
             var nav = new NavigationService();
             nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
             //nav.Configure("HomePage", typeof(HomePage));

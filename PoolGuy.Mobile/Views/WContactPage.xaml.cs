@@ -14,5 +14,11 @@ namespace PoolGuy.Mobile.Views
         {
             InitializeComponent();
         }
+
+        public WContactPage(CustomerViewModel viewModel)
+        {
+            InitializeComponent();
+            _viewModel = viewModel;
+        }
     }
 }

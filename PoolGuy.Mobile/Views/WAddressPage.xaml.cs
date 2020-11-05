@@ -9,9 +9,16 @@ namespace PoolGuy.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class WAddressPage : ContentPage
     {
+        CustomerViewModel _viewModel;
         public WAddressPage()
         {
             InitializeComponent();
+        }
+
+        public WAddressPage(CustomerViewModel viewModel)
+        {
+            InitializeComponent();
+            _viewModel = viewModel;
         }
     }
 }

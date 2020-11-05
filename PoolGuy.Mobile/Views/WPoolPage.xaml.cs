@@ -22,6 +22,13 @@ namespace PoolGuy.Mobile.Views
             _viewModel.SetView(this);
         }
 
+        public WPoolPage(CustomerViewModel viewModel)
+        {
+            InitializeComponent();
+            _viewModel = viewModel;
+            _viewModel.SetView(this);
+        }
+
         private void PoolType_OnTapped(object sender, MR.Gestures.TapEventArgs e)
         {
             poolTypePicker.Focus();
@@ -48,6 +55,7 @@ namespace PoolGuy.Mobile.Views
                 try
                 {
                     PoolModel_TypeError.IsVisible = false;
+                    _viewModel.WasModified = true;
                     _viewModel.Pages[3].Pool.Type = (PoolType)Enum.Parse(typeof(PoolType), picker.SelectedItem.ToString());
                     _viewModel.Pages[3].NotifyPropertyChanged("Pool");
                     Surface.Focus();

@@ -133,6 +133,9 @@
           <!--Navigation Arrows-->
             <Grid HorizontalOptions="FillAndExpand"
                   VerticalOptions="End">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -140,6 +143,7 @@
                 <Button Grid.Column="0" 
                         HorizontalOptions="Start"
                         x:Name="PreviusButton"
+                        Margin="0"
                         Clicked="PreviusButton_Clicked"
                         BackgroundColor="{StaticResource Title}">
                     <Button.ImageSource>
@@ -152,6 +156,9 @@
                 <Button Grid.Column="1" 
                         HorizontalOptions="End"
                         x:Name="NextButton"
+                        Margin="0"
+                        TextColor="{StaticResource Primary}"
+                        VerticalOptions="Center"
                         Clicked="NextButton_Clicked"
                         BackgroundColor="{StaticResource Title}">
                     <Button.ImageSource>

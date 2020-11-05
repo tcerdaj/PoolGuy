@@ -14,6 +14,7 @@
     </Shell.BackButtonBehavior>
     <ContentPage.Resources>
         <ResourceDictionary>
+            <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
             <DataTemplate x:Key="EquipmentTypeTemplate">
                 <mr:Grid x:Name="CurrentTemplate" 
                                  DownCommand="{Binding Source={x:Reference mainLayout}, Path=BindingContext.SelectEquipmentTypeCommand}"
@@ -177,16 +178,23 @@
                         <mycc:CustomEntry HorizontalOptions="FillAndExpand"
                                           Grid.Column="1"
                                           Placeholder="Model"
-                                          Text="{Binding Model}"/>
+                                          Text="{Binding Model}"
+                                          ReturnType="Next"
+                                          HasNext="True"
+                                          NextCommand="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.NextCommand}"
+                                          NextCommandParameter="SerialNumber"/>
                     </Frame>
                     <Frame Grid.Row="4"
                            Grid.ColumnSpan="2"
                            BorderColor="DarkGray"
                            HasShadow="False"
                            Margin="5">
-                        <mycc:CustomEntry HorizontalOptions="FillAndExpand"
+                        <mycc:CustomEntry x:Name="SerialNumber"
+                                          HorizontalOptions="FillAndExpand"
                                           Placeholder="Serial number"
-                                          Text="{Binding SerialNumber}"/>
+                                          Text="{Binding SerialNumber}"
+                                          ReturnType="Done"
+                                          HasDone="True"/>
                     </Frame>
                     <mr:Frame Grid.Row="5"
                               Grid.ColumnSpan="2"
@@ -196,7 +204,7 @@
                               TappedCommand="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.OpenDateCommand}"
                               TappedCommandParameter="DateInstalledPicker">
                             <StackLayout Orientation="Horizontal">
-                                <mycc:CustomEntry 
+                                <mycc:CustomEntry x:Name="DateInstalled"
                                           HorizontalOptions="StartAndExpand"
                                           IsReadOnly="True"
                                           Placeholder="Date Installed"
@@ -208,8 +216,8 @@
                                        TextColor="{StaticResource UnselectedColor}"
                                        FontSize="30"/>
                             </StackLayout>
-                        </mr:Frame>
-                    <mr:Frame Grid.Row="6"
+                     </mr:Frame>
+                     <mr:Frame Grid.Row="6"
                               Grid.ColumnSpan="2"
                               BorderColor="DarkGray"
                               HasShadow="False"
@@ -220,7 +228,7 @@
                                 <mycc:CustomEntry 
                                           HorizontalOptions="StartAndExpand"
                                           IsReadOnly="True"
-                                          Placeholder="Date Installed"
+                                          Placeholder="Warranty Expiration"
                                           Text="{Binding WarrantyExpiration, StringFormat='{0:MM/dd/yyyy}'}"/>
                                 <Label VerticalOptions="Center"
                                        HorizontalOptions="End"
@@ -229,8 +237,8 @@
                                        TextColor="{StaticResource UnselectedColor}"
                                        FontSize="30"/>
                             </StackLayout>
-                    </mr:Frame>
-                    <mr:Frame Grid.Row="7"
+                      </mr:Frame>
+                      <mr:Frame Grid.Row="7"
                               Grid.ColumnSpan="2"
                               BorderColor="DarkGray"
                               HasShadow="False"
@@ -241,7 +249,7 @@
                                 <mycc:CustomEntry 
                                           HorizontalOptions="StartAndExpand"
                                           IsReadOnly="True"
-                                          Placeholder="Date Installed"
+                                          Placeholder="Last Maintenance"
                                           Text="{Binding LastMaintenance, StringFormat='{0:MM/dd/yyyy}'}"/>
                                 <Label VerticalOptions="Center"
                                        HorizontalOptions="End"
@@ -250,16 +258,16 @@
                                        TextColor="{StaticResource UnselectedColor}"
                                        FontSize="30"/>
                             </StackLayout>
-                    </mr:Frame>
-                        <Button Grid.Row="8"
-                                Grid.Column="1"
-                                Text="Equipment"
-                                CornerRadius="15"
-                                Command="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.SaveEquipmentCommand}"
-                                TextColor="{StaticResource Primary}"
-                                FontSize="Medium"
-                                TextTransform="None"
-                                BackgroundColor="{StaticResource Title}">>
+                       </mr:Frame>
+                       <Button Grid.Row="8"
+                              Grid.Column="1"
+                              Text="Equipment"
+                              CornerRadius="15"
+                              Command="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.SaveEquipmentCommand}"
+                              TextColor="{StaticResource Primary}"
+                              FontSize="Medium"
+                              TextTransform="None"
+                              BackgroundColor="{StaticResource Title}">>
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.Plus}"
@@ -290,8 +298,6 @@
                                           DefaultTemplate="{StaticResource EquipmentTypeTemplate}"
                                           ManufactureTemplate="{StaticResource ManufactureTemplate}"
                                           EquipmentTemplate="{StaticResource EquipmentTemplate}" />
-
-            <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
             <Style TargetType="Image">
                 <Setter Property="HeightRequest" Value="100" />
                 <Setter Property="WidthRequest" Value="100" />
@@ -326,9 +332,11 @@
                   </FlexLayout>
             </ScrollView>
             <!--Date installed-->
-            <DatePicker x:Name="DateInstalledPicker"
-                        IsVisible="False"
-                        Date="{Binding Equiopment.DateInstalled}">
+            <mycc:CustomDatePicker x:Name="DateInstalledPicker"
+                                   IsVisible="False"
+                                   VerticalOptions="CenterAndExpand"
+                                   PlaceHolder="Date Installed"
+                                   NullableDate="{Binding Equiopment.DateInstalled,Mode=TwoWay}">
                 <DatePicker.MinimumDate>
                     <system:DateTime x:FactoryMethod="Parse">
                         <x:Arguments>
@@ -337,11 +345,13 @@
                     </system:DateTime>
                 </DatePicker.MinimumDate>
                 <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
-            </DatePicker>
+            </mycc:CustomDatePicker>
             <!--Date WarrantyExpiration-->
-            <DatePicker x:Name="WarrantyExpirationPicker"
-                        IsVisible="False"
-                        Date="{Binding WarrantyExpiration}">
+            <mycc:CustomDatePicker x:Name="WarrantyExpirationPicker"
+                                   IsVisible="False"
+                                   VerticalOptions="CenterAndExpand"
+                                   PlaceHolder="Warrant Expiration"
+                                   NullableDate="{Binding Equiopment.WarrantyExpiration,Mode=TwoWay}">
                 <DatePicker.MinimumDate>
                     <system:DateTime x:FactoryMethod="Parse">
                         <x:Arguments>
@@ -350,11 +360,13 @@
                     </system:DateTime>
                 </DatePicker.MinimumDate>
                 <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
-            </DatePicker>
+            </mycc:CustomDatePicker>
             <!--Date LastMaintenance-->
-            <DatePicker x:Name="LastMaintenancePicker"
-                        IsVisible="False"
-                        Date="{Binding LastMaintenance}">
+            <mycc:CustomDatePicker x:Name="LastMaintenancePicker"
+                                   IsVisible="False"
+                                   VerticalOptions="CenterAndExpand"
+                                   PlaceHolder="Last Maintenance"
+                                   NullableDate="{Binding Equiopment.LastMaintenance,Mode=TwoWay}">
                 <DatePicker.MinimumDate>
                     <system:DateTime x:FactoryMethod="Parse">
                         <x:Arguments>
@@ -363,7 +375,7 @@
                     </system:DateTime>
                 </DatePicker.MinimumDate>
                 <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
-            </DatePicker>
+            </mycc:CustomDatePicker>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

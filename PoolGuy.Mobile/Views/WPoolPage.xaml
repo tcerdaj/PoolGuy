@@ -4,12 +4,14 @@
              xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
-             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" 
+             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
              x:Class="PoolGuy.Mobile.Views.WPoolPage"
              x:Name="PoolPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
+            <conv:CollectionEmptyToBool x:Key="ListToBoolConverter"/>
             <Style TargetType="Frame">
                 <Setter Property="BorderColor" Value="#D8D8D8"/>
                 <Setter Property="CornerRadius" Value="6"/>
@@ -107,8 +109,10 @@
                 </Button.ImageSource>
             </Button>
             <CollectionView Grid.Row="2"
+                            IsVisible="{Binding Pool.Equipments, Converter={StaticResource ListToBoolConverter}}"
                             x:Name="EquipmentList"
                             VerticalOptions="Start"
+                            HeightRequest="250"
                             HorizontalOptions="FillAndExpand"
                             ItemsSource="{Binding Pool.Equipments}"
                             SelectionMode="None"
@@ -119,32 +123,60 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <mr:StackLayout Padding="10"
-                                        x:Name="CurrentEquipmentTemplate" 
-                                        TappedCommand="{Binding Source={x:Reference EquipmentList}, Path=BindingContext.SelectEquipmentCommand}"
-                                        TappedCommandParameter="{Binding BindingContext, Source={x:Reference CurrentEquipmentTemplate}}">
-                                <mr:StackLayout.Triggers>
-                                    <EventTrigger Event="Down">
-                                        <act:ScaleDownTriggerAction />
-                                    </EventTrigger>
-                                    <EventTrigger Event="Up">
-                                        <act:ScaleUpTriggerAction />
-                                    </EventTrigger>
-                                </mr:StackLayout.Triggers>
-                                <Image Source="{Binding ImageUrl}"
-                                   FlexLayout.Shrink="1"
-                                   HeightRequest="300"
-                                   Margin="10,0"
-                                   Aspect="AspectFill"
-                                   HorizontalOptions="Center"/>
-                            <Label Text="{Binding Type.Name}"
-                                   Margin="0,-20,0,0"
-                                   VerticalOptions="Start"
-                                   VerticalTextAlignment="Start"
-                                   HorizontalOptions="Center"
-                                   HorizontalTextAlignment="Center"/>
-                        </mr:StackLayout>
-                    </DataTemplate>
+                            <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="85*"/>
+                                    <ColumnDefinition Width="15*"/>
+                                </Grid.ColumnDefinitions>
+                                <ImageButton Grid.Row="0" 
+                                          Grid.Column="1"
+                                          x:Name="DeleteEquipment"
+                                          VerticalOptions="Center"
+                                             BackgroundColor="Transparent"
+                                          HorizontalOptions="Start"
+                                          Command="{Binding Source={x:Reference EquipmentList}, Path=BindingContext.DeleteEquipmentCommand}"
+                                          CommandParameter="{Binding BindingContext, Source={x:Reference DeleteEquipment}}">>
+                                    <ImageButton.Source>
+                                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                         Size="30"
+                                                         Color="Red"
+                                                         Glyph="{x:Static icons:MaterialDesignIcons.Delete}"/>
+                                    </ImageButton.Source>
+                                </ImageButton>
+                                <mr:Image x:Name="CurrentEquipmentTemplate" 
+                                          Grid.Row="0"
+                                          Grid.Column="0"
+                                          Source="{Binding ImageUrl}"
+                                          FlexLayout.Shrink="1"
+                                          HeightRequest="200"
+                                          Margin="10,0"
+                                          Aspect="AspectFill"
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="End"
+                                          TappedCommand="{Binding Source={x:Reference EquipmentList}, Path=BindingContext.SelectEquipmentCommand}"
+                                          TappedCommandParameter="{Binding BindingContext, Source={x:Reference CurrentEquipmentTemplate}}">
+                                        <mr:Image.Triggers>
+                                            <EventTrigger Event="Down">
+                                                <act:ScaleDownTriggerAction />
+                                            </EventTrigger>
+                                            <EventTrigger Event="Up">
+                                                <act:ScaleUpTriggerAction />
+                                            </EventTrigger>
+                                        </mr:Image.Triggers>
+                                    </mr:Image>
+                                <Label Grid.Row="1"
+                                       Grid.ColumnSpan="2"
+                                       Text="{Binding Type.Name}"
+                                       Margin="0,-20,0,0"
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="Center"
+                                       HorizontalOptions="FillAndExpand"/>
+                            </Grid>
+                        </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Picker x:Name="poolTypePicker"

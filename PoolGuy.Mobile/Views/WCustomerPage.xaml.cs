@@ -20,5 +20,11 @@ namespace PoolGuy.Mobile.Views
         {
             InitializeComponent();
         }
+
+        public WCustomerPage(CustomerViewModel viewModel)
+        {
+            InitializeComponent();
+            _viewModel = viewModel;
+        }
     }
 }

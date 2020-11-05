@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -32,12 +33,17 @@ namespace PoolGuy.Mobile.Data.Models
             set { _capacity = value; OnPropertyChanged("Capacity"); }
         }
 
-        private List<EquipmentModel> _equipments;
+        private ObservableCollection<EquipmentModel> _equipments;
         [OneToMany(CascadeOperations = CascadeOperation.All)]
-        public List<EquipmentModel> Equipments
+        public ObservableCollection<EquipmentModel> Equipments
         {
             get => _equipments;
             set { _equipments = value; OnPropertyChanged("Equipments"); }
+        }
+
+        public void RaiseEquipmentNotification()
+        {
+            OnPropertyChanged("Equipments");
         }
 
         public void RaiseAllNotification()

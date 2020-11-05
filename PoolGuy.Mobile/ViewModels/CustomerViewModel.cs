@@ -33,10 +33,10 @@ namespace PoolGuy.Mobile.ViewModels
             OriginalCustomer = "";
 
             Pages = new List<CustomerPageViewModel> {
-              new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage(){ Title = "Customer" } },
-              new CustomerPageViewModel { Title = "Address", Page =  new WAddressPage(){ Title = "Address" } },
-              new CustomerPageViewModel { Title = "Contact", Page =  new WContactPage(){ Title = "Contact" } },
-              new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage(){ Title = "Pool" } },
+              new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage(this){ Title = "Customer" } },
+              new CustomerPageViewModel { Title = "Address", Page =  new WAddressPage(this){ Title = "Address" } },
+              new CustomerPageViewModel { Title = "Contact", Page =  new WContactPage(this){ Title = "Contact" } },
+              new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage(this){ Title = "Pool" } },
             };
 
             if (customer != null)
@@ -279,7 +279,7 @@ namespace PoolGuy.Mobile.ViewModels
             get { return Position > 0; }
         }
 
-        private bool _wasModified = true;
+        private bool _wasModified = false;
         public bool WasModified 
         { 
             get 
@@ -303,7 +303,7 @@ namespace PoolGuy.Mobile.ViewModels
                            _originalModel.Address.DetailedCompare(Pages[1].Address).Any() ||
                            _originalModel.Contact.DetailedCompare(Pages[2].Contact).Any() ||
                            _originalModel.Pool.DetailedCompare(Pages[3].Pool).Any()) 
-                           && _wasModified;
+                           || _wasModified;
                 }
                 catch (Exception)
                 {
@@ -409,6 +409,7 @@ namespace PoolGuy.Mobile.ViewModels
                 OnPropertyChanged("Percent");
                 WasModified = false;
                 ErrorMessage = "Save Customer Success";
+                OriginalCustomer = JsonConvert.SerializeObject(Customer);
             }
             catch (Exception e)
             {

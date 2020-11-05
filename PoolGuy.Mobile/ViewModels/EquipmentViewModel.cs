@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using PoolGuy.Mobile.CustomControls;
 using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Helpers;
@@ -140,52 +141,6 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get { return _pool; }
             set { _pool = value; OnPropertyChanged("Pool"); }
-        }
-
-        public ICommand SaveCommand
-        {
-            get => new RelayCommand(async()=> Save());
-        }
-
-        private async void Save()
-        {
-            if (IsBusy) { return; }
-            IsBusy = true;
-
-            try
-            {
-                if (Equipment == null)
-                {
-                    return;
-                }
-
-                // Is new equipment
-                if (Equipment.Id == Guid.Empty)
-                {
-                    Pool.Equipments.Add(Equipment);
-                }
-                else
-                {
-                    var equipment = Pool.Equipments.FirstOrDefault(x => x.Id == Equipment.Id);
-                    equipment = Equipment;
-                    equipment.Modified = DateTime.Now;
-                }
-
-                await new PoolController().ModifyWithChildrenAsync(Pool);
-
-                // Close current page
-
-                // Notify refresh
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
-            }
-            finally 
-            {
-                IsBusy = false; 
-            }
         }
 
         public ICommand GoBackCommand => new RelayCommand(async () =>
@@ -351,6 +306,37 @@ namespace PoolGuy.Mobile.ViewModels
             get => new RelayCommand(async()=> await SaveEquipmentAsync());
         }
 
+        public ICommand NextCommand
+        {
+            get => new RelayCommand<string>((control) => Next(control));
+        }
+
+        private void Next(string control)
+        {
+            try
+            {
+                var page = CurrentPage?.FindByName<FlexLayout>("EquipmentType");
+                if (page.Children.FirstOrDefault() is ScrollView sv)
+                {
+                    var element = sv?.FindByName<object>(control);
+
+                    if (element is CustomEntry customEntry)
+                    {
+                        customEntry.Focus();
+                    }
+
+                    if (element is Editor editor)
+                    {
+                        editor.Focus();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+
         private async Task SaveEquipmentAsync()
         {
             if (IsBusy) { return; }
@@ -368,13 +354,11 @@ namespace PoolGuy.Mobile.ViewModels
                     }
                     else
                     {
-                        var equipment = Pool.Equipments.FirstOrDefault(x => x.Id == Equipment.Id);
-                        equipment = Equipment;
-                        equipment.Modified = DateTime.Now;
+                        var index = Pool.Equipments.ToList().FindIndex(x => x.Id == Equipment.Id);
+                        Pool.Equipments[index] = Equipment;
                     }
 
-                    var poolController = new PoolController();
-                    await poolController.ModifyWithChildrenAsync(Pool);
+                    await new PoolController().ModifyWithChildrenAsync(Pool);
                     Notify.RaisePoolAction(new Messages.RefreshMessage());
 
                     await NavigationService.PopPopupAsync(false);
