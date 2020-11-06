@@ -24,6 +24,20 @@ namespace PoolGuy.Mobile.ViewModels
             Initialize();
         }
 
+        private string  _searchTerm;
+
+        public string  SearchTerm
+        {
+            get { return _searchTerm; }
+            set { _searchTerm = value;OnPropertyChanged("SearchTerm"); }
+        }
+
+
+        public bool ShowSearchTerm
+        {
+            get { return Globals.CurrentPage == Enums.ePage.EquipmentModel; }
+        }
+
         public Page CurrentPage
         {
             get => (Shell.Current?.CurrentItem?.CurrentItem as IShellSectionController)?.PresentedPage;
@@ -42,7 +56,6 @@ namespace PoolGuy.Mobile.ViewModels
             get { return _selectedManufacture; }
             set { _selectedManufacture = value; OnPropertyChanged("SelectedManufacture"); }
         }
-
 
         public void Initialize()
         {
@@ -179,6 +192,7 @@ namespace PoolGuy.Mobile.ViewModels
                         BindableLayout.SetItemsSource(flexlayout, EquipmentTypes);
                         break;
                     case Enums.ePage.Equipment:
+                    case Enums.ePage.EquipmentModel:
                         if (Equipment.Id != Guid.Empty)
                         {
                             Globals.CurrentPage = Enums.ePage.Customer;
@@ -193,12 +207,17 @@ namespace PoolGuy.Mobile.ViewModels
                             return;
                         }
 
+                        CurrentPage.ToolbarItems.Clear();
+                        flexlayout.Direction = FlexDirection.Row;
+                        flexlayout.Wrap = FlexWrap.Wrap;
                         Globals.CurrentPage = Enums.ePage.SelecteManufacture;
                         BindableLayout.SetItemsSource(flexlayout, Manufactures);
                         break;
                     default:
                         break;
                 }
+
+                OnPropertyChanged("ShowSearchTerm");
             }
             catch (Exception e)
             {
@@ -280,9 +299,31 @@ namespace PoolGuy.Mobile.ViewModels
                 Equipment.Type = SelectedEquipmentType;
                 Equipment.Manufacture = SelectedManufacture;
                 Equipment.ImageUrl = SelectedEquipmentType.ImageUrl;
+                var equipments = await new EquipmentController()
+                    .ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel
+                    {
+                        Filter = new List<Data.Models.Query.SQLControllerListFilterField>
+                        {
+                            new Data.Models.Query.SQLControllerListFilterField{ FieldName = "ManufactureId",
+                                ValueLBound = SelectedManufacture.Id.ToString()
+                            },
+                            new Data.Models.Query.SQLControllerListFilterField{ FieldName = "EquipmentTypeId",
+                            ValueLBound = SelectedEquipmentType.Id.ToString()
+                        }
+                    }
+                    });
 
-                Globals.CurrentPage = Enums.ePage.Equipment;
-                BindableLayout.SetItemsSource(flexlayout, new List<EquipmentModel>() { Equipment });
+                Globals.CurrentPage = equipments.Any() ? Enums.ePage.EquipmentModel : Enums.ePage.Equipment;
+                if (Globals.CurrentPage == Enums.ePage.EquipmentModel)
+                {
+                    CurrentPage.Title = "Select Model";
+                    CurrentPage.ToolbarItems.Add(new ToolbarItem { Text = "Add", Command = AddEquipmentModelCommand });
+                    flexlayout.Direction = FlexDirection.Column;
+                    flexlayout.Wrap = FlexWrap.NoWrap;
+                    OnPropertyChanged("ShowSearchTerm");
+                }
+
+                BindableLayout.SetItemsSource(flexlayout, (Globals.CurrentPage == Enums.ePage.EquipmentModel? equipments: new List<EquipmentModel> { Equipment }));
             }
             catch (Exception e)
             {
@@ -369,6 +410,73 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 Debug.WriteLine(e);
                 await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+        }
+
+        public ICommand ApplyFilterCommand 
+        {
+            get => new RelayCommand(async() => ApplyEquipmentModelFilterAsync());
+        }
+
+        private async void ApplyEquipmentModelFilterAsync()
+        {
+            try
+            {
+                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                if (flexlayout == null)
+                {
+                    return;
+                }
+
+                var equipments = await new EquipmentController()
+                   .ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel
+                   {
+                       Filter = new List<Data.Models.Query.SQLControllerListFilterField>
+                       {
+                            new Data.Models.Query.SQLControllerListFilterField{ FieldName = "ManufactureId",
+                                ValueLBound = SelectedManufacture.Id.ToString()
+                            },
+                            new Data.Models.Query.SQLControllerListFilterField{ FieldName = "EquipmentTypeId",
+                                ValueLBound = SelectedEquipmentType.Id.ToString()
+                            },
+                            new Data.Models.Query.SQLControllerListFilterField{ FieldName = "Model",
+                                ValueLBound = SearchTerm,
+                                CompareMethod = Data.Models.Query.SQLControllerListFilterField.CompareMethodEnum.ContainsValue
+                            }
+                       }
+                   });
+
+                BindableLayout.SetItemsSource(flexlayout, equipments);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public ICommand AddEquipmentModelCommand
+        {
+            get => new RelayCommand(() => AddEquipmentModel());
+        }
+
+        private void AddEquipmentModel()
+        {
+            try
+            {
+                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                if (flexlayout == null)
+                {
+                    return;
+                }
+
+                Globals.CurrentPage = Enums.ePage.Equipment;
+                OnPropertyChanged("ShowSearchTerm");
+                BindableLayout.SetItemsSource(flexlayout,  new List<EquipmentModel> { Equipment });
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

@@ -139,7 +139,7 @@
                                              BackgroundColor="Transparent"
                                           HorizontalOptions="Start"
                                           Command="{Binding Source={x:Reference EquipmentList}, Path=BindingContext.DeleteEquipmentCommand}"
-                                          CommandParameter="{Binding BindingContext, Source={x:Reference DeleteEquipment}}">>
+                                          CommandParameter="{Binding BindingContext, Source={x:Reference DeleteEquipment}}">
                                     <ImageButton.Source>
                                         <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                                          Size="30"

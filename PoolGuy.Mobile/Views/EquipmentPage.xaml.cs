@@ -13,7 +13,7 @@ namespace PoolGuy.Mobile.Views
         public EquipmentPage(EquipmentModel equipment)
         {
             InitializeComponent();
-            _viewModel = new EquipmentViewModel(equipment) { Title = equipment.Id == Guid.Empty? "Select Equipment": "Update Equipment" };
+            _viewModel = new EquipmentViewModel(equipment) { Title = equipment.Id == Guid.Empty && Globals.CurrentPage == Enums.ePage.Equipment? "Select Equipment": "Update Equipment" };
             _viewModel.SetView(this);
             BindingContext = _viewModel;
         }

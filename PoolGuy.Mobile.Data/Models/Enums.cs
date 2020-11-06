@@ -41,7 +41,8 @@ namespace PoolGuy.Mobile.Data.Models
             Customer,
             SelectEquipment,
             SelecteManufacture,
-            Equipment
+            Equipment,
+            EquipmentModel
         }
     }
 }

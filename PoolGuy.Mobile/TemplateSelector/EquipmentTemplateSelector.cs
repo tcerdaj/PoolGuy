@@ -9,6 +9,7 @@ namespace PoolGuy.Mobile.TemplateSelector
         public DataTemplate DefaultTemplate { get; set; }
         public DataTemplate ManufactureTemplate { get; set; }
         public DataTemplate EquipmentTemplate { get; set; }
+        public DataTemplate EquipmentModelTemplate { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
@@ -17,13 +18,8 @@ namespace PoolGuy.Mobile.TemplateSelector
                 DataTemplate result = DefaultTemplate;
                 switch (Globals.CurrentPage)
                 {
-                    case Data.Models.Enums.ePage.Home:
-                        break;
-                    case Data.Models.Enums.ePage.SearchCustomer:
-                        break;
-                    case Data.Models.Enums.ePage.Customer:
-                        break;
-                    case Data.Models.Enums.ePage.SelectEquipment:
+                    case Data.Models.Enums.ePage.EquipmentModel:
+                        result = EquipmentModelTemplate;
                         break;
                     case Data.Models.Enums.ePage.SelecteManufacture:
                         result = ManufactureTemplate;

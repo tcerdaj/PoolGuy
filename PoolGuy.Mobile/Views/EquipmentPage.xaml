@@ -129,7 +129,7 @@
                 <ScrollView x:Name="EquipmentContainer">
                     <Grid FlexLayout.Grow="1"
                       HorizontalOptions="FillAndExpand">
-                    <Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -139,16 +139,16 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"/>
-                        <ColumnDefinition Width="50*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Row="0"
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Row="0"
                            Grid.Column="0"
                            VerticalOptions="Center"
                            HorizontalOptions="Start"
                            Source="{Binding ImageUrl}"/>
-                    <Frame Grid.Row="1"
+                        <Frame Grid.Row="1"
                            Grid.ColumnSpan="2"
                            BackgroundColor="LightGray"
                            BorderColor="DarkGray"
@@ -158,24 +158,24 @@
                                           IsReadOnly="True"
                                           Placeholder="Type"
                                           Text="{Binding Type.Name}"/>
-                    </Frame>
-                    <Frame Grid.Row="2"
+                        </Frame>
+                        <Frame Grid.Row="2"
                            Grid.ColumnSpan="2"
                            BackgroundColor="LightGray"
                            BorderColor="DarkGray"
                            HasShadow="False"
                            Margin="5">
-                        <mycc:CustomEntry HorizontalOptions="FillAndExpand"
+                            <mycc:CustomEntry HorizontalOptions="FillAndExpand"
                                           IsReadOnly="True"
                                           Placeholder="Manufacture"
                                           Text="{Binding Manufacture.Name}"/>
-                    </Frame>
-                    <Frame Grid.Row="3"
+                        </Frame>
+                        <Frame Grid.Row="3"
                            Grid.ColumnSpan="2"
                            BorderColor="DarkGray"
                            HasShadow="False"
                            Margin="5">
-                        <mycc:CustomEntry HorizontalOptions="FillAndExpand"
+                            <mycc:CustomEntry HorizontalOptions="FillAndExpand"
                                           Grid.Column="1"
                                           Placeholder="Model"
                                           Text="{Binding Model}"
@@ -183,20 +183,20 @@
                                           HasNext="True"
                                           NextCommand="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.NextCommand}"
                                           NextCommandParameter="SerialNumber"/>
-                    </Frame>
-                    <Frame Grid.Row="4"
+                        </Frame>
+                        <Frame Grid.Row="4"
                            Grid.ColumnSpan="2"
                            BorderColor="DarkGray"
                            HasShadow="False"
                            Margin="5">
-                        <mycc:CustomEntry x:Name="SerialNumber"
+                            <mycc:CustomEntry x:Name="SerialNumber"
                                           HorizontalOptions="FillAndExpand"
                                           Placeholder="Serial number"
                                           Text="{Binding SerialNumber}"
                                           ReturnType="Done"
                                           HasDone="True"/>
-                    </Frame>
-                    <mr:Frame Grid.Row="5"
+                        </Frame>
+                        <mr:Frame Grid.Row="5"
                               Grid.ColumnSpan="2"
                               BorderColor="DarkGray"
                               HasShadow="False"
@@ -216,8 +216,8 @@
                                        TextColor="{StaticResource UnselectedColor}"
                                        FontSize="30"/>
                             </StackLayout>
-                     </mr:Frame>
-                     <mr:Frame Grid.Row="6"
+                        </mr:Frame>
+                        <mr:Frame Grid.Row="6"
                               Grid.ColumnSpan="2"
                               BorderColor="DarkGray"
                               HasShadow="False"
@@ -237,8 +237,8 @@
                                        TextColor="{StaticResource UnselectedColor}"
                                        FontSize="30"/>
                             </StackLayout>
-                      </mr:Frame>
-                      <mr:Frame Grid.Row="7"
+                        </mr:Frame>
+                        <mr:Frame Grid.Row="7"
                               Grid.ColumnSpan="2"
                               BorderColor="DarkGray"
                               HasShadow="False"
@@ -258,8 +258,8 @@
                                        TextColor="{StaticResource UnselectedColor}"
                                        FontSize="30"/>
                             </StackLayout>
-                       </mr:Frame>
-                       <Button Grid.Row="8"
+                        </mr:Frame>
+                        <Button Grid.Row="8"
                               Grid.Column="1"
                               Text="Equipment"
                               CornerRadius="15"
@@ -267,7 +267,7 @@
                               TextColor="{StaticResource Primary}"
                               FontSize="Medium"
                               TextTransform="None"
-                              BackgroundColor="{StaticResource Title}">>
+                              BackgroundColor="{StaticResource Title}">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.Plus}"
@@ -292,12 +292,42 @@
                             </Button.ImageSource>
                         </Button>
                     </Grid>
-                 </ScrollView>
+                </ScrollView>
+               
+            </DataTemplate>
+            <DataTemplate x:Key="EquipmentModelTemplate">
+                <StackLayout x:Name="EquipmentModelList"
+                             Padding="10,5"
+                             BackgroundColor="Yellow"
+                             HorizontalOptions="FillAndExpand">
+                    <mr:Label TextColor="Blue"
+                              HorizontalOptions="FillAndExpand"
+                              BackgroundColor="Aqua">
+                        <mr:Label.Triggers>
+                            <EventTrigger Event="Down">
+                                <act:ScaleDownTriggerAction />
+                            </EventTrigger>
+                            <EventTrigger Event="Up">
+                                <act:ScaleUpTriggerAction />
+                            </EventTrigger>
+                        </mr:Label.Triggers>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Type.Name}"/>
+                                <Span Text="/"/>
+                                <Span Text="{Binding Manufacture.Name}"/>
+                                <Span Text=" Model: "/>
+                                <Span Text="{Binding Model}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </mr:Label>
+                </StackLayout>
             </DataTemplate>
             <ts:EquipmentTemplateSelector x:Key="EquipmentTemplateSelector"
                                           DefaultTemplate="{StaticResource EquipmentTypeTemplate}"
                                           ManufactureTemplate="{StaticResource ManufactureTemplate}"
-                                          EquipmentTemplate="{StaticResource EquipmentTemplate}" />
+                                          EquipmentTemplate="{StaticResource EquipmentTemplate}"
+                                          EquipmentModelTemplate="{StaticResource EquipmentModelTemplate}"/>
             <Style TargetType="Image">
                 <Setter Property="HeightRequest" Value="100" />
                 <Setter Property="WidthRequest" Value="100" />
@@ -320,7 +350,15 @@
         <StackLayout x:Name="mainLayout">
             <!--Equipment Types-->
             <ScrollView Margin="10">
+                <StackLayout HorizontalOptions="FillAndExpand">
+                  <SearchBar HorizontalOptions="FillAndExpand"
+                             IsVisible="{Binding ShowSearchTerm}"
+                             Placeholder="Search for a model"
+                             Text="{Binding SearchTerm}"
+                             SearchCommand="{Binding ApplyFilterCommand}"
+                             BackgroundColor="#f7f7f7"/>
                   <FlexLayout x:Name="EquipmentType"
+                              
                               BindableLayout.ItemsSource="{Binding EquipmentTypes}"
                               JustifyContent="SpaceBetween"
                               Direction="Row"
@@ -330,6 +368,7 @@
                               BindableLayout.ItemTemplateSelector="{StaticResource EquipmentTemplateSelector}">
                       
                   </FlexLayout>
+                </StackLayout>
             </ScrollView>
             <!--Date installed-->
             <mycc:CustomDatePicker x:Name="DateInstalledPicker"
