@@ -57,7 +57,6 @@ namespace PoolGuy.Mobile
             }
 
             CreateTables();
-            ClearTables();
             MainPage = new AppShell();
         }
 
