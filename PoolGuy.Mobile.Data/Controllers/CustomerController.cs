@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
-using Omu.ValueInjecter;
+﻿using Omu.ValueInjecter;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Data.Models.Query;
 using PoolGuy.Mobile.Data.SQLite;
-using SQLite;
 using SQLiteNetExtensionsAsync.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace PoolGuy.Mobile.Data.Controllers
@@ -73,16 +72,17 @@ namespace PoolGuy.Mobile.Data.Controllers
         {
             try
             {
-                List<CustomerModel> customers = await LocalData.List(criteria);
+                List<CustomerModel> list = await LocalData.List(criteria);
 
-                foreach (var customer in customers)
+                foreach (var model in list)
                 {
-                    await SQLiteControllerBase
-                    .DatabaseAsync
-                    .GetChildrenAsync<CustomerModel>(customer, true);
+                    SQLiteNetExtensions
+                   .Extensions
+                   .ReadOperations
+                   .GetWithChildren<List<CustomerModel>>(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
                 }
                 
-                return customers;
+                return list;
             }
             catch (Exception)
             {
@@ -126,10 +126,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.Contact.Modified = model.Contact.WasModified ? modified : model.Contact.Modified;
                 }
 
-                await SQLiteControllerBase
-                     .DatabaseAsync
-                     .InsertOrReplaceWithChildrenAsync(model, true)
-                     .ConfigureAwait(false);
+                SQLiteNetExtensions.Extensions.WriteOperations.InsertOrReplaceWithChildren(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
             }
             catch (Exception)
             {

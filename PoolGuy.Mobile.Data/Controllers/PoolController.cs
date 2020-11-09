@@ -29,7 +29,10 @@ namespace PoolGuy.Mobile.Data.Controllers
                 var model = await LocalData.Load(id);
 
                 // load foreing key fields
-                await SQLiteControllerBase.DatabaseAsync.GetChildrenAsync<PoolModel>(model, true);
+                SQLiteNetExtensions
+                    .Extensions
+                    .ReadOperations
+                    .GetWithChildren<PoolModel>(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
 
                 return model;
             }
@@ -65,10 +68,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.Modified = DateTime.Now;
                 }
 
-                await SQLiteControllerBase
-                     .DatabaseAsync
-                     .InsertOrReplaceWithChildrenAsync(model, true)
-                     .ConfigureAwait(false);
+                SQLiteNetExtensions.Extensions.WriteOperations.InsertOrReplaceWithChildren(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
             }
             catch (Exception)
             {
