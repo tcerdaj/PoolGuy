@@ -174,7 +174,17 @@
                                        Margin="0,-20,0,0"
                                        VerticalOptions="Center"
                                        HorizontalTextAlignment="Center"
-                                       HorizontalOptions="FillAndExpand"/>
+                                       HorizontalOptions="FillAndExpand">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Type.Name}"/>
+                                            <Span Text="/"/>
+                                            <Span Text="{Binding Manufacture.Name}"/>
+                                            <Span Text="-"/>
+                                            <Span Text="{Binding Model}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
                             </Grid>
                         </DataTemplate>
                 </CollectionView.ItemTemplate>

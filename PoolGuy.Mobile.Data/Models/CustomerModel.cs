@@ -4,6 +4,7 @@ using static PoolGuy.Mobile.Data.Models.Enums;
 using SQLite;
 using System.ComponentModel.DataAnnotations;
 using SQLiteNetExtensions.Attributes;
+using System.Collections.Concurrent;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -50,9 +51,11 @@ namespace PoolGuy.Mobile.Data.Models
         public string Name {
             get { return $"{FirstName} {LastName}"; }
         }
+
+        
         private string _firstName;
-        [Display(Name ="First Name")]
-        [DataAnnotation.Required, DataAnnotation.MaxLength(20), Indexed(Name = "CustomerName", Order =2, Unique = true)]
+        [Unique(Name = "UniqueName", Order = 0, Unique = true)]
+        [DataAnnotation.Required, DataAnnotation.MaxLength(20)]
         public string FirstName 
         {
             get { return _firstName; }
@@ -63,8 +66,9 @@ namespace PoolGuy.Mobile.Data.Models
         }
         
         private string _lastName;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(20), Indexed(Name = "CustomerName", Order = 1, Unique = true)]
+        [DataAnnotation.Required, DataAnnotation.MaxLength(20)]
         [Display(Name = "Last Name")]
+        [Unique(Name = "UniqueName", Order = 1, Unique = true)]
         public string LastName 
         {
             get { return _lastName; }

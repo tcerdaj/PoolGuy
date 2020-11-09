@@ -17,5 +17,6 @@ namespace PoolGuy.Mobile.Data.Models
         public virtual Guid Id { get; set; }
         public virtual DateTime? Created { get; set; }
         public virtual DateTime? Modified { get; set; }
+        public virtual bool WasModified { get; set; }
     }
 }

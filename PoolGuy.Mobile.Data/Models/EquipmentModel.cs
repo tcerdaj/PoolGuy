@@ -1,4 +1,5 @@
-﻿using SQLiteNetExtensions.Attributes;
+﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 
 namespace PoolGuy.Mobile.Data.Models
@@ -24,6 +25,7 @@ namespace PoolGuy.Mobile.Data.Models
         public Guid PoolId { get; set; }
 
         [ForeignKey(typeof(EquipmentTypeModel))]
+        [Unique(Name = "UniqueModel", Order = 0, Unique = true)]
         public Guid EquipmentTypeId { get; set; }
         private EquipmentTypeModel _type;
         [OneToOne(CascadeOperations = CascadeOperation.All)]
@@ -34,6 +36,7 @@ namespace PoolGuy.Mobile.Data.Models
         }
 
         [ForeignKey(typeof(ManufactureModel))]
+        [Unique(Name = "UniqueModel", Order = 1, Unique = true)]
         public Guid ManufactureId { get; set; }
         private ManufactureModel _manufacture;
         [OneToOne(CascadeOperations = CascadeOperation.All)]
@@ -44,9 +47,12 @@ namespace PoolGuy.Mobile.Data.Models
         }
 
         private string _model;
+        
+        [Unique(Name ="UniqueModel", Order = 2, Unique =true)]
         public string Model { get { return _model; } set { _model = value; OnPropertyChanged("Model"); } }
 
         private string _serialNumber;
+        [Unique(Name = "UniqueSerialNumber", Order = 0, Unique = true)]
         public string SerialNumber { get { return _serialNumber; } set { _serialNumber = value; OnPropertyChanged("SerialNumber"); } }
         private DateTime? _dateInstalled;
         public DateTime? DateInstalled { get { return _dateInstalled; } set { _dateInstalled = value; OnPropertyChanged("DateInstalled"); } }

@@ -10,6 +10,12 @@ namespace PoolGuy.Mobile.Data.Controllers
 {
     public class EquipmentController : BaseController<EquipmentModel>
     {
+        public EquipmentController()
+            :base()
+        {
+            
+        }
+
         public async Task<List<EquipmentModel>> ListWithChildrenAsync(SQLControllerListCriteriaModel criteria)
         {
             try
@@ -25,10 +31,9 @@ namespace PoolGuy.Mobile.Data.Controllers
 
                 return list;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                throw e;
             }
         }
     }

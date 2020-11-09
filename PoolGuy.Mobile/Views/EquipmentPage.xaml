@@ -293,16 +293,19 @@
                         </Button>
                     </Grid>
                 </ScrollView>
-               
             </DataTemplate>
             <DataTemplate x:Key="EquipmentModelTemplate">
                 <StackLayout x:Name="EquipmentModelList"
                              Padding="10,5"
-                             BackgroundColor="Yellow"
+                             Orientation="Horizontal"
                              HorizontalOptions="FillAndExpand">
-                    <mr:Label TextColor="Blue"
+                    <mr:Label x:Name="Model"
+                              TextColor="{StaticResource LinkText}"
+                              TappedCommand="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.AddEquipmentModelCommand}"
+                              TappedCommandParameter="{Binding Model}"
+                              FontSize="14"
                               HorizontalOptions="FillAndExpand"
-                              BackgroundColor="Aqua">
+                              VerticalOptions="Center">
                         <mr:Label.Triggers>
                             <EventTrigger Event="Down">
                                 <act:ScaleDownTriggerAction />
@@ -320,7 +323,26 @@
                                 <Span Text="{Binding Model}"/>
                             </FormattedString>
                         </Label.FormattedText>
+                        
                     </mr:Label>
+                    <mr:Label Text="{x:Static icons:MaterialDesignIcons.Delete}"
+                              FontFamily="{StaticResource MaterialFontFamily}"
+                              FontSize="20"
+                              Margin="40,0,20,0"
+                              TappedCommand="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.DeleteEquipmentCommand}"
+                              TappedCommandParameter="{Binding BindingContext, Source={x:Reference EquipmentModelList}}"
+                              HorizontalOptions="End"
+                              VerticalOptions="Center">
+                        <mr:Label.Triggers>
+                            <EventTrigger Event="Down">
+                                <act:ScaleDownTriggerAction />
+                            </EventTrigger>
+                            <EventTrigger Event="Up">
+                                <act:ScaleUpTriggerAction />
+                            </EventTrigger>
+                        </mr:Label.Triggers>
+                    </mr:Label>
+
                 </StackLayout>
             </DataTemplate>
             <ts:EquipmentTemplateSelector x:Key="EquipmentTemplateSelector"

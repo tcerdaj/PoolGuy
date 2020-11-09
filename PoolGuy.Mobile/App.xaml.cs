@@ -50,9 +50,6 @@ namespace PoolGuy.Mobile
 
             var nav = new NavigationService();
             nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
-            //nav.Configure("HomePage", typeof(HomePage));
-            //nav.Configure("CustomerPage", typeof(CustomerPage));
-            //nav.Configure("CarouselPage", typeof(Views.CarouselPage));
 
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {
@@ -60,8 +57,8 @@ namespace PoolGuy.Mobile
             }
 
             CreateTables();
+            ClearTables();
             MainPage = new AppShell();
-           // MainPage.ToolbarItems.Add(new ToolbarItem { Text ="Test"});
         }
 
         private void CreateTables()
@@ -75,6 +72,20 @@ namespace PoolGuy.Mobile
                 await new EquipmentController().LocalData.CreateTableAsync();
                 await new EquipmentTypeController().LocalData.CreateTableAsync();
                 await new ManufactureController().LocalData.CreateTableAsync();
+            });
+        }
+
+        private void ClearTables()
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await new CustomerController().LocalData.ClearTableAsync();
+                await new PoolController().LocalData.ClearTableAsync();
+                await new AddressController().LocalData.ClearTableAsync();
+                await new ContactInformationController().LocalData.ClearTableAsync();
+                await new EquipmentController().LocalData.ClearTableAsync();
+                await new EquipmentTypeController().LocalData.ClearTableAsync();
+                await new ManufactureController().LocalData.ClearTableAsync();
             });
         }
 

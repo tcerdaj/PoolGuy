@@ -6,6 +6,7 @@ using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Views;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -160,7 +161,8 @@ namespace PoolGuy.Mobile.ViewModels
                     return;
                 }
 
-                Pool.Equipments.Remove(model);
+                var obj = Pool.Equipments.FirstOrDefault(x=>x.Id == model.Id);
+                Pool.Equipments.Remove(obj);
                 await new PoolController().ModifyWithChildrenAsync(Pool);
                 Pool.RaiseEquipmentNotification();
             }

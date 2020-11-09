@@ -1,4 +1,5 @@
-﻿using PoolGuy.Mobile.Data.Models;
+﻿using Omu.ValueInjecter;
+using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Data.SQLite;
 using SQLiteNetExtensionsAsync.Extensions;
 using System;
@@ -55,6 +56,13 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.Equipments.LastOrDefault().Created = created;
                     model.Equipments.LastOrDefault().PoolId = model.Id;
                     model.Equipments.LastOrDefault().CustomerId = model.CustomerId;
+                }
+                else
+                {
+                    var tempModel = (PoolModel)new PoolModel().InjectFrom(model);
+                    model = await LoadAsync(model.Id);
+                    model.InjectFrom(tempModel);
+                    model.Modified = DateTime.Now;
                 }
 
                 await SQLiteControllerBase

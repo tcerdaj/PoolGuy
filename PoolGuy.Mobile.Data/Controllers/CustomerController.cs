@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Omu.ValueInjecter;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Data.Models.Query;
 using PoolGuy.Mobile.Data.SQLite;
@@ -90,39 +91,44 @@ namespace PoolGuy.Mobile.Data.Controllers
             }
         }
 
-        public async Task ModifyWithChildrenAsync(CustomerModel customer)
+        public async Task ModifyWithChildrenAsync(CustomerModel model)
         {
             try
             {
-                if (customer == null)
+                if (model == null)
                 {
                     return;
                 }
 
-                if (customer.Id == Guid.Empty)
+                if (model.Id == Guid.Empty)
                 {
                     var created = DateTime.Now;
-                    customer.Id = Guid.NewGuid();
-                    customer.Address.Id = Guid.NewGuid();
-                    customer.Contact.Id = Guid.NewGuid();
-                    customer.Pool.Id = Guid.NewGuid();
-                    customer.Created = created;
-                    customer.Pool.Created = created;
-                    customer.Address.Created = created;
-                    customer.Contact.Created = created;
+                    model.Id = Guid.NewGuid();
+                    model.Address.Id = Guid.NewGuid();
+                    model.Contact.Id = Guid.NewGuid();
+                    model.Pool.Id = Guid.NewGuid();
+                    model.Created = created;
+                    model.Pool.Created = created;
+                    model.Address.Created = created;
+                    model.Contact.Created = created;
                 }
                 else 
                 {
                     var modified = DateTime.Now;
-                    customer.Modified = DateTime.Now;
-                    customer.Pool.Modified = modified;
-                    customer.Address.Modified = modified;
-                    customer.Contact.Modified = modified;
+                    var tempModel = (CustomerModel)new CustomerModel().InjectFrom(model);
+                    
+                    model = await LoadAsync(model.Id);
+                    model.InjectFrom(tempModel);
+
+                    model.Modified = modified;
+                    model.Pool.Modified = model.Pool.WasModified ? modified : model.Pool.Modified;
+                    model.Address.Modified = model.Address.WasModified ? modified : model.Address.Modified;
+                    model.Contact.Modified = model.Contact.WasModified ? modified : model.Contact.Modified;
                 }
 
                 await SQLiteControllerBase
                      .DatabaseAsync
-                     .InsertOrReplaceWithChildrenAsync(customer, true)
+                     .InsertOrReplaceWithChildrenAsync(model, true)
                      .ConfigureAwait(false);
             }
             catch (Exception)
@@ -131,7 +137,7 @@ namespace PoolGuy.Mobile.Data.Controllers
             }
         }
 
-        public async Task<PoolModel> ModifyPoolAsync(PoolModel model)
+        public async Task<CustomerModel> ModifyAsync(CustomerModel model)
         {
             try
             {
@@ -140,8 +146,6 @@ namespace PoolGuy.Mobile.Data.Controllers
                     return null;
                 }
                 
-                var controller = new PoolController();
-
                 if (model.Id == Guid.Empty)
                 {
                     model.Id = Guid.NewGuid();
@@ -149,19 +153,23 @@ namespace PoolGuy.Mobile.Data.Controllers
                 }
                 else
                 {
+                    var tempModel = (CustomerModel)new CustomerModel().InjectFrom(model);
+                    model = await LoadAsync(model.Id);
+                    model.InjectFrom(tempModel);
                     model.Modified = DateTime.Now;
                 }
 
-                return await controller.LocalData.Modify(model);
+                return await LocalData
+                    .Modify(model)
+                    .ConfigureAwait(false);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
-
         }
 
-        public async Task<bool> DeletePoolAsync(PoolModel model)
+        public async Task<bool> DeleteAsync(CustomerModel model)
         {
             try
             {
@@ -170,153 +178,8 @@ namespace PoolGuy.Mobile.Data.Controllers
                     return false;
                 }
 
-                var controller = new PoolController();
-                await controller.LocalData.Delete(model);
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public async Task<AddressModel> ModifyAddressAsync(AddressModel model)
-        {
-            try
-            {
-                if (model == null)
-                {
-                    return null;
-                }
-
-                var controller = new AddressController();
-
-                if (model.Id == Guid.Empty)
-                {
-                    model.Id = Guid.NewGuid();
-                    model.Created = DateTime.Now;
-                }
-                else
-                {
-                    model.Modified = DateTime.Now;
-                }
-
-                return await controller.LocalData.Modify(model);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public async Task<bool> DeleteAddressAsync(AddressModel model)
-        {
-            try
-            {
-                if (model == null)
-                {
-                    return false;
-                }
-
-                var controller = new AddressController();
-                await controller.LocalData.Delete(model);
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public async Task<ContactModel> ModifyContactAsync(ContactModel model)
-        {
-            try
-            {
-                if (model == null)
-                {
-                    return null;
-                }
-
-                var controller = new ContactInformationController();
-
-                if (model.Id == Guid.Empty)
-                {
-                    model.Id = Guid.NewGuid();
-                    model.Created = DateTime.Now;
-                }
-                else
-                {
-                    model.Modified = DateTime.Now;
-                }
-
-                return await controller.LocalData.Modify(model);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public async Task<bool> DeleteContactInformationAsync(ContactModel model)
-        {
-            try
-            {
-                if (model == null)
-                {
-                    return false;
-                }
-
-                var controller = new ContactInformationController();
-                await controller.LocalData.Delete(model);
-
-                return true;
-
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public async Task<CustomerModel> ModifyAsync(CustomerModel customer)
-        {
-            try
-            {
-                if (customer == null)
-                {
-                    return null;
-                }
-                
-                if (customer.Id == Guid.Empty)
-                {
-                    customer.Id = Guid.NewGuid();
-                    customer.Created = DateTime.Now;
-                }
-                else
-                {
-                    customer.Modified = DateTime.Now;
-                }
-
-                return await LocalData.Modify(customer);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
-        public async Task<bool> DeleteAsync(CustomerModel customer)
-        {
-            try
-            {
-                if (customer == null)
-                {
-                    return false;
-                }
-
-                await SQLiteControllerBase.DatabaseAsync.DeleteAsync(customer, true);
+                var c = await LoadAsync(model.Id);
+                SQLiteNetExtensions.Extensions.WriteOperations.Delete(SQLiteControllerBase.DatabaseAsync.GetConnection(), c, true);
 
                 return true;
             }

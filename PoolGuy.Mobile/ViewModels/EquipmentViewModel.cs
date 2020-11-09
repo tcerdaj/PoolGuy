@@ -6,6 +6,7 @@ using PoolGuy.Mobile.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,7 +30,14 @@ namespace PoolGuy.Mobile.ViewModels
         public string  SearchTerm
         {
             get { return _searchTerm; }
-            set { _searchTerm = value;OnPropertyChanged("SearchTerm"); }
+            set {
+                _searchTerm = value;
+                OnPropertyChanged("SearchTerm");
+                if (string.IsNullOrEmpty(value))
+                {
+                    ApplyEquipmentModelFilterAsync();
+                }
+            }
         }
 
 
@@ -193,6 +201,13 @@ namespace PoolGuy.Mobile.ViewModels
                         break;
                     case Enums.ePage.Equipment:
                     case Enums.ePage.EquipmentModel:
+                        if (CurrentPage.Title == "Add Model Equipment")
+                        {
+                            Globals.CurrentPage = Enums.ePage.EquipmentModel;
+                            SelectManufactureCommand.Execute(SelectedManufacture);
+                            return;
+                        }
+
                         if (Equipment.Id != Guid.Empty)
                         {
                             Globals.CurrentPage = Enums.ePage.Customer;
@@ -299,31 +314,7 @@ namespace PoolGuy.Mobile.ViewModels
                 Equipment.Type = SelectedEquipmentType;
                 Equipment.Manufacture = SelectedManufacture;
                 Equipment.ImageUrl = SelectedEquipmentType.ImageUrl;
-                var equipments = await new EquipmentController()
-                    .ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel
-                    {
-                        Filter = new List<Data.Models.Query.SQLControllerListFilterField>
-                        {
-                            new Data.Models.Query.SQLControllerListFilterField{ FieldName = "ManufactureId",
-                                ValueLBound = SelectedManufacture.Id.ToString()
-                            },
-                            new Data.Models.Query.SQLControllerListFilterField{ FieldName = "EquipmentTypeId",
-                            ValueLBound = SelectedEquipmentType.Id.ToString()
-                        }
-                    }
-                    });
-
-                Globals.CurrentPage = equipments.Any() ? Enums.ePage.EquipmentModel : Enums.ePage.Equipment;
-                if (Globals.CurrentPage == Enums.ePage.EquipmentModel)
-                {
-                    CurrentPage.Title = "Select Model";
-                    CurrentPage.ToolbarItems.Add(new ToolbarItem { Text = "Add", Command = AddEquipmentModelCommand });
-                    flexlayout.Direction = FlexDirection.Column;
-                    flexlayout.Wrap = FlexWrap.NoWrap;
-                    OnPropertyChanged("ShowSearchTerm");
-                }
-
-                BindableLayout.SetItemsSource(flexlayout, (Globals.CurrentPage == Enums.ePage.EquipmentModel? equipments: new List<EquipmentModel> { Equipment }));
+                ApplyEquipmentModelFilterAsync();
             }
             catch (Exception e)
             {
@@ -411,6 +402,10 @@ namespace PoolGuy.Mobile.ViewModels
                 Debug.WriteLine(e);
                 await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
+            finally 
+            { 
+                IsBusy = false; 
+            }
         }
 
         public ICommand ApplyFilterCommand 
@@ -428,11 +423,18 @@ namespace PoolGuy.Mobile.ViewModels
                     return;
                 }
 
-                var equipments = await new EquipmentController()
-                   .ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel
-                   {
-                       Filter = new List<Data.Models.Query.SQLControllerListFilterField>
-                       {
+                var criteria = new List<Data.Models.Query.SQLControllerListFilterField>(){
+                            new Data.Models.Query.SQLControllerListFilterField{ FieldName = "ManufactureId",
+                                ValueLBound = SelectedManufacture.Id.ToString()
+                            },
+                            new Data.Models.Query.SQLControllerListFilterField{ FieldName = "EquipmentTypeId",
+                                ValueLBound = SelectedEquipmentType.Id.ToString()
+                            }
+                    };
+
+                if (!string.IsNullOrEmpty(SearchTerm))
+                {
+                    criteria = new List<Data.Models.Query.SQLControllerListFilterField>(){
                             new Data.Models.Query.SQLControllerListFilterField{ FieldName = "ManufactureId",
                                 ValueLBound = SelectedManufacture.Id.ToString()
                             },
@@ -443,10 +445,29 @@ namespace PoolGuy.Mobile.ViewModels
                                 ValueLBound = SearchTerm,
                                 CompareMethod = Data.Models.Query.SQLControllerListFilterField.CompareMethodEnum.ContainsValue
                             }
-                       }
+                       };
+                }
+
+                var equipments = await new EquipmentController()
+                   .ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel
+                   {
+                       Filter = criteria
                    });
 
-                BindableLayout.SetItemsSource(flexlayout, equipments);
+                Globals.CurrentPage = equipments.Any() ? Enums.ePage.EquipmentModel : Enums.ePage.Equipment;
+                if (Globals.CurrentPage == Enums.ePage.EquipmentModel)
+                {
+                    CurrentPage.Title = "Select Model";
+                    if (!CurrentPage.ToolbarItems.Any())
+                    {
+                        CurrentPage.ToolbarItems.Add(new ToolbarItem { Text = "Add", Command = AddEquipmentModelCommand });
+                    }
+                    flexlayout.Direction = FlexDirection.Column;
+                    flexlayout.Wrap = FlexWrap.NoWrap;
+                    OnPropertyChanged("ShowSearchTerm");
+                }
+
+                BindableLayout.SetItemsSource(flexlayout, (Globals.CurrentPage == Enums.ePage.EquipmentModel ? equipments : new List<EquipmentModel> { Equipment }));
             }
             catch (Exception)
             {
@@ -457,10 +478,10 @@ namespace PoolGuy.Mobile.ViewModels
 
         public ICommand AddEquipmentModelCommand
         {
-            get => new RelayCommand(() => AddEquipmentModel());
+            get => new RelayCommand<string>((model) => AddEquipmentModel(model));
         }
 
-        private void AddEquipmentModel()
+        private void AddEquipmentModel(string model = null)
         {
             try
             {
@@ -470,6 +491,13 @@ namespace PoolGuy.Mobile.ViewModels
                     return;
                 }
 
+                if(!string.IsNullOrEmpty(model))
+                {
+                    Equipment.Model = model;
+                }
+
+                CurrentPage.ToolbarItems.Clear();
+                CurrentPage.Title = $"Add Model Equipment";
                 Globals.CurrentPage = Enums.ePage.Equipment;
                 OnPropertyChanged("ShowSearchTerm");
                 BindableLayout.SetItemsSource(flexlayout,  new List<EquipmentModel> { Equipment });
@@ -477,6 +505,43 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public ICommand DeleteEquipmentCommand
+        {
+            get => new RelayCommand<EquipmentModel>(async (model) => DeleteEquipment(model));
+        }
+
+        private async void DeleteEquipment(EquipmentModel model)
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                if (!await Shell.Current.DisplayAlert("Delete Confirmation", "Are you sure want to delete equipment?", "Delete", "Cancel"))
+                {
+                    return;
+                }
+
+                var obj = Pool.Equipments.FirstOrDefault(x => x.Id == model.Id);
+                Pool.Equipments.Remove(obj);
+                var pc = new PoolController();
+                var pool = await  pc.LoadAsync(Pool.Id);
+                pool.Equipments = Pool.Equipments;
+                await new PoolController().ModifyWithChildrenAsync(pool);
+                Pool.RaiseEquipmentNotification();
+                OnPropertyChanged("Pool");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }
