@@ -7,7 +7,6 @@ using PoolGuy.Mobile.Views;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using static PoolGuy.Mobile.Data.Models.Enums;
@@ -24,8 +23,21 @@ namespace PoolGuy.Mobile.ViewModels
         private void SubscribeMessages()
         {
             Notify.SubscribePoolAction(async (sender) => {
-                Pool = await new PoolController().LoadAsync(Pool.Id);
+                try
+                {
+                    Pool = await new PoolController().LoadAsync(Pool.Id);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                    await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                }
             });
+        }
+
+        public bool ShowAddEquipment
+        {
+            get { return Pool.Id != Guid.Empty; }
         }
 
         private CustomerModel _customer = new CustomerModel() { };
@@ -106,7 +118,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await Shell.Current.Navigation.PushAsync(new EquipmentPage(new EquipmentModel { PoolId = Pool.Id }) { Title = "Select Equipment" });
+                await Shell.Current.Navigation.PushAsync(new EquipmentPage(new EquipmentModel { PoolId = Pool.Id, Pool = Pool }) { Title = "Select Equipment" });
             }
             catch (Exception e)
             {

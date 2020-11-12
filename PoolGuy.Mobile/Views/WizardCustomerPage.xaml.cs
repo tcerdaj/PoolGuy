@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Resources;
 using PoolGuy.Mobile.ViewModels;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,22 +17,38 @@ namespace PoolGuy.Mobile.Views
         Color _primaryColor, _unselectedColor;
         public WizardCustomerPage()
         {
-            InitializeComponent();
-            _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
-            _viewModel.InitPages();
-            BindingContext = _viewModel;
-            _primaryColor  =  (Color)Application.Current.Resources["Primary"];
-            _unselectedColor = (Color)Application.Current.Resources["UnselectedColor"];
+            try
+            {
+                InitializeComponent();
+                _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
+                _viewModel.InitPages();
+                BindingContext = _viewModel;
+                _primaryColor = (Color)Application.Current.Resources["Primary"];
+                _unselectedColor = (Color)Application.Current.Resources["UnselectedColor"];
+            }
+            catch (System.Exception e)
+            {
+                Debug.WriteLine(e);
+                throw;
+            }
         }
 
         public WizardCustomerPage(CustomerModel customer)
         {
-            InitializeComponent();
-            _viewModel = new CustomerViewModel();
-            _viewModel.InitPages(customer);
-            BindingContext = _viewModel;
-            _primaryColor = (Color)Application.Current.Resources["Primary"];
-            _unselectedColor = (Color)Application.Current.Resources["UnselectedColor"];
+            try
+            {
+                InitializeComponent();
+                _viewModel = new CustomerViewModel();
+                _viewModel.InitPages(customer);
+                BindingContext = _viewModel;
+                _primaryColor = (Color)Application.Current.Resources["Primary"];
+                _unselectedColor = (Color)Application.Current.Resources["UnselectedColor"];
+            }
+            catch (System.Exception e)
+            {
+                Debug.WriteLine(e);
+                throw;
+            }
         }
 
         private string _id;

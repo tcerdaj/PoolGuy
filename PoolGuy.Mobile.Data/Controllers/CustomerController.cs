@@ -1,4 +1,5 @@
-﻿using Omu.ValueInjecter;
+﻿using Newtonsoft.Json.Schema;
+using Omu.ValueInjecter;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Data.Models.Query;
 using PoolGuy.Mobile.Data.SQLite;
@@ -26,9 +27,9 @@ namespace PoolGuy.Mobile.Data.Controllers
                 var customers =  await SQLiteControllerBase
                     .DatabaseAsync
                     .QueryAsync<CustomerModel>("SELECT c.* FROM CustomerModel c " +
-                                                  "LEFT OUTER JOIN AddressModel am on c.Id = am.CustomerId " +
-                                                  "LEFT OUTER JOIN ContactModel cm on c.Id = cm.CustomerId " +
-                                                  "LEFT OUTER JOIN PoolModel pm    on c.Id = pm.CustomerId " +
+                                                  "LEFT OUTER JOIN AddressModel am on c.AddressId = am.Id " +
+                                                  "LEFT OUTER JOIN ContactModel cm on c.ContactId = cm.Id " +
+                                                  "LEFT OUTER JOIN PoolModel pm    on c.PoolId = pm.Id " +
                                                   "WHERE c.FirstName like '%" + criteria + "%' " +
                                                   "OR c.LastName like '%" + criteria + "%' " +
                                                   "OR am.Address1 like '%" + criteria + "' " +
@@ -45,9 +46,9 @@ namespace PoolGuy.Mobile.Data.Controllers
                     customers = await SQLiteControllerBase
                                         .DatabaseAsync
                                         .QueryAsync<CustomerModel>("SELECT c.* FROM CustomerModel c " +
-                                                                      "LEFT OUTER JOIN AddressModel am on c.Id = am.CustomerId " +
-                                                                      "LEFT OUTER JOIN ContactModel cm on c.Id = cm.CustomerId " +
-                                                                      "LEFT OUTER JOIN PoolModel pm    on c.Id = pm.CustomerId " +
+                                                                     "LEFT OUTER JOIN AddressModel am on c.AddressId = am.Id " +
+                                                                      "LEFT OUTER JOIN ContactModel cm on c.ContactId = cm.Id " +
+                                                                      "LEFT OUTER JOIN PoolModel pm    on c.PoolId = pm.Id " +
                                                                       "ORDER BY C.FirstName " +
                                                                       "LIMIT 10");
 
@@ -57,7 +58,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                 {
                     await SQLiteControllerBase
                     .DatabaseAsync
-                    .GetChildrenAsync<CustomerModel>(customer, true);
+                    .GetChildrenAsync(customer, true);
                 }
 
                 return customers;
@@ -105,8 +106,11 @@ namespace PoolGuy.Mobile.Data.Controllers
                     var created = DateTime.Now;
                     model.Id = Guid.NewGuid();
                     model.Address.Id = Guid.NewGuid();
+                    model.AddressId = model.Address.Id;
                     model.Contact.Id = Guid.NewGuid();
+                    model.ContactId = model.Contact.Id;
                     model.Pool.Id = Guid.NewGuid();
+                    model.PoolId = model.Pool.Id;
                     model.Created = created;
                     model.Pool.Created = created;
                     model.Address.Created = created;
@@ -176,7 +180,15 @@ namespace PoolGuy.Mobile.Data.Controllers
                 }
 
                 var c = await LoadAsync(model.Id);
-                SQLiteNetExtensions.Extensions.WriteOperations.Delete(SQLiteControllerBase.DatabaseAsync.GetConnection(), c, true);
+
+
+                var list = await LocalData.List();
+                foreach (var item in list)
+                {
+                    SQLiteNetExtensions.Extensions.WriteOperations.Delete(SQLiteControllerBase.DatabaseAsync.GetConnection(), item, true);
+                }
+
+                
 
                 return true;
             }

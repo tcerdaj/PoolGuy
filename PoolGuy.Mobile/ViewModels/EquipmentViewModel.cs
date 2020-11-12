@@ -40,7 +40,6 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
-
         public bool ShowSearchTerm
         {
             get { return Globals.CurrentPage == Enums.ePage.EquipmentModel; }
@@ -68,9 +67,19 @@ namespace PoolGuy.Mobile.ViewModels
         public void Initialize()
         {
             Device.BeginInvokeOnMainThread(async () => {
-                if (Equipment != null && Equipment.PoolId != Guid.Empty)
+                try
                 {
-                    Pool = await new PoolController().LoadAsync(Equipment.PoolId);
+                    if (Equipment != null && Equipment.PoolId != Guid.Empty)
+                    {
+                        Pool = await new PoolController().LoadAsync(Equipment.PoolId);
+                    }
+                    else
+                    {
+                        Equipment.Pool.Id = Guid.NewGuid();
+                        Equipment.PoolId = Equipment.Pool.Id;
+                        Pool = Equipment.Pool;
+                    }
+
                     EquipmentTypes = new ObservableCollection<EquipmentTypeModel>(){
                           new EquipmentTypeModel{Id = Guid.Parse("34acfaed-3bc6-421d-9f42-9cb762dcef54"), Name = "Pump", ImageUrl = "pumps.png"},
                           new EquipmentTypeModel{Id = Guid.Parse("b744b63b-6735-44bc-8ead-5d472395d777"), Name = "Filter", ImageUrl = "filters.png"},
@@ -79,7 +88,12 @@ namespace PoolGuy.Mobile.ViewModels
                           new EquipmentTypeModel{Id = Guid.Parse("7fd61270-8009-4a6d-9ceb-035577fe417b"), Name = "Ozone Generator", ImageUrl = "OzoneSystem.png"},
                           new EquipmentTypeModel{Id = Guid.Parse("50f0649f-194a-416a-9a1c-bbf83474dd5d"), Name = "PH Control", ImageUrl = "PHControls.png"},
                           new EquipmentTypeModel{Id = Guid.Parse("8d4fd11e-0fd1-49ca-b26f-9433df1d1de5"), Name = "Parts Accessories", ImageUrl = "PartsAccessotries.png"},
-                   };
+                          };
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                    await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
                 }
             });
         }
@@ -384,7 +398,7 @@ namespace PoolGuy.Mobile.ViewModels
                         Equipment.Created = DateTime.Now;
                         Pool.Equipments.Add(Equipment);
                     }
-                    else
+                    else 
                     {
                         var index = Pool.Equipments.ToList().FindIndex(x => x.Id == Equipment.Id);
                         Pool.Equipments[index] = Equipment;

@@ -23,6 +23,13 @@ namespace PoolGuy.Mobile.Data.Models
 
         [ForeignKey(typeof(PoolModel))]
         public Guid PoolId { get; set; }
+        private PoolModel _pool;
+        [OneToOne(CascadeOperations = CascadeOperation.None)]
+        public PoolModel Pool
+        {
+            get { return _pool; }
+            set { _pool = value; OnPropertyChanged("Pool"); }
+        }
 
         [ForeignKey(typeof(EquipmentTypeModel))]
         [Unique(Name = "UniqueModel", Order = 0, Unique = true)]

@@ -407,6 +407,7 @@ namespace PoolGuy.Mobile.ViewModels
                 await customerController.ModifyWithChildrenAsync(Customer);
                 OnPropertyChanged("Progress");
                 OnPropertyChanged("Percent");
+                Pages[3].NotifyPropertyChanged("ShowAddEquipment");
                 WasModified = false;
                 ErrorMessage = "Save Customer Success";
                 OriginalCustomer = JsonConvert.SerializeObject(Customer);

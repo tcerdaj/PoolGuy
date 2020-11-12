@@ -95,12 +95,13 @@
                 </Grid>
             </Frame>
             <Button Grid.Row="1" 
-                        HorizontalOptions="End"
-                        Text="Equipment"
+                    HorizontalOptions="End"
+                    Text="Equipment"
                     TextColor="{StaticResource Title}"
                     Command="{Binding GoToAddEquipmentCommand}"
                     BackgroundColor="{StaticResource Primary}"
-                    HeightRequest="40">
+                    HeightRequest="40"
+                    IsVisible="{Binding ShowAddEquipment}">
                 <Button.ImageSource>
                     <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.Plus}"

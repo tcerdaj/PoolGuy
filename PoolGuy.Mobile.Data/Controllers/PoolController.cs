@@ -29,10 +29,9 @@ namespace PoolGuy.Mobile.Data.Controllers
                 var model = await LocalData.Load(id);
 
                 // load foreing key fields
-                SQLiteNetExtensions
-                    .Extensions
-                    .ReadOperations
-                    .GetWithChildren<PoolModel>(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
+                await SQLiteControllerBase
+                    .DatabaseAsync
+                    .GetWithChildrenAsync<PoolModel>(model, true);
 
                 return model;
             }

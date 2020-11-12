@@ -51,7 +51,6 @@ namespace PoolGuy.Mobile.Data.Models
         public string Name {
             get { return $"{FirstName} {LastName}"; }
         }
-
         
         private string _firstName;
         [Unique(Name = "UniqueName", Order = 0, Unique = true)]
