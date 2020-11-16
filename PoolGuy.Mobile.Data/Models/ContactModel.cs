@@ -6,8 +6,6 @@ namespace PoolGuy.Mobile.Data.Models
 {
     public class ContactModel : EntityBase
     {
-        public Guid CustomerId { get; set; }
-
         private string _phone;
         [DataAnnotation.Required, DataAnnotation.MaxLength(10), Unique]
         public string Phone

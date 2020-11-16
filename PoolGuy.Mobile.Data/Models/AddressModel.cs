@@ -5,8 +5,6 @@ namespace PoolGuy.Mobile.Data.Models
 {
     public class AddressModel : EntityBase
     {
-        public Guid CustomerId { get; set; }
-
         public string FullAddress
         {
             get 

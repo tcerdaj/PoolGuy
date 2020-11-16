@@ -57,7 +57,6 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.Equipments.LastOrDefault().Id = Guid.NewGuid();
                     model.Equipments.LastOrDefault().Created = created;
                     model.Equipments.LastOrDefault().PoolId = model.Id;
-                    model.Equipments.LastOrDefault().CustomerId = model.CustomerId;
                 }
                 else
                 {
