@@ -11,6 +11,8 @@ using PoolGuy.Mobile.Data.SQLite;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.ViewModels;
 using PoolGuy.Mobile.Data.Controllers;
+using System.Threading.Tasks;
+using Plugin.Permissions.Abstractions;
 
 namespace PoolGuy.Mobile
 {
@@ -22,7 +24,6 @@ namespace PoolGuy.Mobile
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-
             DependencyService.Register<ILocalDataStore<CustomerModel>, LocalDataStore<CustomerModel>>();
             DependencyService.Register<ILocalDataStore<AddressModel>, LocalDataStore<AddressModel>>();
             DependencyService.Register<ILocalDataStore<ContactModel>, LocalDataStore<ContactModel>>();
@@ -88,8 +89,10 @@ namespace PoolGuy.Mobile
             });
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
+            await DependencyService.Get<IPermissionService>()
+                    .CheckPermissions(Permission.Storage);
         }
 
         protected override void OnSleep()

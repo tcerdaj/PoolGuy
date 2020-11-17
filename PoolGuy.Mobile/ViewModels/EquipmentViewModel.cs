@@ -71,7 +71,7 @@ namespace PoolGuy.Mobile.ViewModels
                 {
                     if (Equipment != null && Equipment.PoolId != Guid.Empty)
                     {
-                        Pool = await new PoolController().LoadAsync(Equipment.PoolId);
+                        Pool = await new PoolController().LoadAsync(Equipment.PoolId).ConfigureAwait(false);
                     }
                     else
                     {
@@ -483,10 +483,10 @@ namespace PoolGuy.Mobile.ViewModels
 
                 BindableLayout.SetItemsSource(flexlayout, (Globals.CurrentPage == Enums.ePage.EquipmentModel ? equipments : new List<EquipmentModel> { Equipment }));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
         }
 

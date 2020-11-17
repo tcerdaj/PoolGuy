@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using Xamarin.Forms.Internals;
 using Omu.ValueInjecter;
 using Newtonsoft.Json;
+using Xamarin.Essentials;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -42,7 +43,9 @@ namespace PoolGuy.Mobile.ViewModels
             if (customer != null)
             {
                 Customer = (CustomerModel)new CustomerModel().InjectFrom(customer);
-                OriginalCustomer = JsonConvert.SerializeObject(customer);
+                OriginalCustomer = JsonConvert.SerializeObject(customer, 
+                            Formatting.Indented,
+                            new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
                 Pages[0].Customer = customer;
                 Pages[1].Address = customer.Address;
                 Pages[2].Contact = customer.Contact;
@@ -67,27 +70,36 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get
             {
-                var count =
-                    (from c in typeof(CustomerModel).GetProperties()
-                     where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                     c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                     c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                     select c).Count() +
-                 (from c in typeof(AddressModel).GetProperties()
-                  where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                       c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                       c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                  select c).Count() +
-                 (from c in typeof(ContactModel).GetProperties()
-                  where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                       c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                       c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                  select c).Count() +
-                 (from c in typeof(PoolModel).GetProperties()
-                  where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                       c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                       c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                  select c).Count();
+                int count = 0;
+
+                try
+                {
+                    count =
+                                (from c in typeof(CustomerModel).GetProperties()
+                                 where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
+                                 c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
+                                 c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
+                                 select c).Count() +
+                             (from c in typeof(AddressModel).GetProperties()
+                              where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
+                                   c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
+                                   c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
+                              select c).Count() +
+                             (from c in typeof(ContactModel).GetProperties()
+                              where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
+                                   c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
+                                   c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
+                              select c).Count() +
+                             (from c in typeof(PoolModel).GetProperties()
+                              where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
+                                   c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
+                                   c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
+                              select c).Count();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
 
                 return count;
             }
@@ -99,45 +111,52 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 Dictionary<string, PropertyInfo> result = new Dictionary<string, PropertyInfo>();
 
-                (from c in typeof(CustomerModel).GetProperties()
-                 where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                       c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                       c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                 select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
-                 {
-                     result.Add(e.Key, e.Value);
+                try
+                {
+                    (from c in typeof(CustomerModel).GetProperties()
+                     where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
+                           c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
+                           c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
+                     select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
+                     {
+                         result.Add(e.Key, e.Value);
 
-                 });
+                     });
 
-                (from c in typeof(AddressModel).GetProperties()
-                 where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                      c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                      c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                 select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
-                 {
-                     result.Add(e.Key, e.Value);
+                    (from c in typeof(AddressModel).GetProperties()
+                     where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
+                          c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
+                          c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
+                     select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
+                     {
+                         result.Add(e.Key, e.Value);
 
-                 });
+                     });
 
-                (from c in typeof(ContactModel).GetProperties()
-                 where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                      c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                      c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                 select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
-                 {
-                     result.Add(e.Key, e.Value);
+                    (from c in typeof(ContactModel).GetProperties()
+                     where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
+                          c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
+                          c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
+                     select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
+                     {
+                         result.Add(e.Key, e.Value);
 
-                 });
+                     });
 
-                (from c in typeof(PoolModel).GetProperties()
-                 where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                      c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                      c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                 select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
-                 {
-                     result.Add(e.Key, e.Value);
+                    (from c in typeof(PoolModel).GetProperties()
+                     where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
+                          c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
+                          c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
+                     select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
+                     {
+                         result.Add(e.Key, e.Value);
 
-                 });
+                     });
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
 
                 return result;
             }
@@ -149,76 +168,95 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 int count = 0;
 
-                foreach (var page in Pages)
+                try
                 {
-                    Type type;
-                    IList<PropertyInfo> props;
-
-                    switch (page.Title)
+                    foreach (var page in Pages)
                     {
-                        case "Customer":
-                            type = page.Customer.GetType();
-                            props = new List<PropertyInfo>(type.GetProperties());
-                            foreach (PropertyInfo prop in props)
-                            {
-                                if (Properties.ContainsValue(prop))
+                        Type type;
+                        IList<PropertyInfo> props;
+
+                        switch (page.Title)
+                        {
+                            case "Customer":
+                                if (page?.Customer != null)
                                 {
-                                    object propValue = prop.GetValue(page.Customer, null);
-                                    if (propValue != null)
+                                    type = page.Customer.GetType();
+                                    props = new List<PropertyInfo>(type.GetProperties());
+                                    foreach (PropertyInfo prop in props)
                                     {
-                                        count++;
+                                        if (Properties.ContainsValue(prop))
+                                        {
+                                            object propValue = prop.GetValue(page.Customer, null);
+                                            if (propValue != null)
+                                            {
+                                                count++;
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                            break;
-                        case "Address":
-                            type = page.Address.GetType();
-                            props = new List<PropertyInfo>(type.GetProperties());
-                            foreach (PropertyInfo prop in props)
-                            {
-                                if (Properties.ContainsValue(prop))
+                                break;
+                            case "Address":
+                                if (page?.Address != null)
                                 {
-                                    object propValue = prop.GetValue(page.Address, null);
-                                    if (propValue != null)
+                                    type = page.Address.GetType();
+                                    props = new List<PropertyInfo>(type.GetProperties());
+                                    foreach (PropertyInfo prop in props)
                                     {
-                                        count++;
+                                        if (Properties.ContainsValue(prop))
+                                        {
+                                            object propValue = prop.GetValue(page.Address, null);
+                                            if (propValue != null)
+                                            {
+                                                count++;
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                            break;
-                        case "Contact":
-                            type = page.Contact.GetType();
-                            props = new List<PropertyInfo>(type.GetProperties());
-                            foreach (PropertyInfo prop in props)
-                            {
-                                if (Properties.ContainsValue(prop))
+                                break;
+                            case "Contact":
+                                if (page?.Contact != null)
                                 {
-                                    object propValue = prop.GetValue(page.Contact, null);
-                                    if (propValue != null)
+                                    type = page.Contact.GetType();
+                                    props = new List<PropertyInfo>(type.GetProperties());
+                                    foreach (PropertyInfo prop in props)
                                     {
-                                        count++;
+                                        if (Properties.ContainsValue(prop))
+                                        {
+                                            object propValue = prop.GetValue(page.Contact, null);
+                                            if (propValue != null)
+                                            {
+                                                count++;
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                            break;
-                        case "Pool":
-                            type = page.Pool.GetType();
-                            props = new List<PropertyInfo>(type.GetProperties());
-                            foreach (PropertyInfo prop in props)
-                            {
-                                if (Properties.ContainsValue(prop))
+                                break;
+                            case "Pool":
+                                if (page?.Pool != null)
                                 {
-                                    object propValue = prop.GetValue(page.Pool, null);
-                                    if (propValue != null)
+                                    type = page.Pool.GetType();
+                                    props = new List<PropertyInfo>(type.GetProperties());
+                                    foreach (PropertyInfo prop in props)
                                     {
-                                        count++;
+                                        if (Properties.ContainsValue(prop))
+                                        {
+                                            object propValue = prop.GetValue(page.Pool, null);
+                                            if (propValue != null)
+                                            {
+                                                count++;
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                            break;
-                        default:
-                            break;
+                                break;
+                            default:
+                                break;
+                        }
                     }
+                }
+                catch (Exception e)
+                {
+                   Debug.WriteLine(e);
                 }
 
                 return count;
@@ -399,9 +437,12 @@ namespace PoolGuy.Mobile.ViewModels
                 Customer.Contact = Pages[2].Contact;
                 Customer.Pool = Pages[3].Pool;
 
-                Position position = await GetPosition(Customer.Address.FullAddress);
-                Customer.Latitude = position.Latitude;
-                Customer.Longitude = position.Longitude;
+                Position? position = await GetPosition(Customer.Address.FullAddress);
+                if (position.HasValue)
+                {
+                    Customer.Latitude = position.Value.Latitude;
+                    Customer.Longitude = position.Value.Longitude;
+                }
 
                 var customerController = new CustomerController();
                 await customerController.ModifyWithChildrenAsync(Customer);
@@ -419,12 +460,29 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
-        private async Task<Position> GetPosition(string fullAddress)
+        private async Task<Position?> GetPosition(string fullAddress)
         {
-            Geocoder geoCoder = new Geocoder();
-            IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync(fullAddress);
-            Position position = approximateLocations.FirstOrDefault();
-            return position;
+            try
+            {
+                var current = Connectivity.NetworkAccess;
+
+                if (current == NetworkAccess.None)
+                {
+                    await Shell.Current.DisplayAlert("Geocode Address", "No internet connectivity is available now, check airplain mode if apply your addres is not be setted to geocode.", "Ok");
+                    return null;
+                }
+
+                Geocoder geoCoder = new Geocoder();
+                IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync(fullAddress);
+                Position position = approximateLocations.FirstOrDefault();
+                
+                return position;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return null;
+            }
         }
 
         public bool IsValid(CustomerPageViewModel page)

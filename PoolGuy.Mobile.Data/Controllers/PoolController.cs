@@ -25,13 +25,10 @@ namespace PoolGuy.Mobile.Data.Controllers
                     return null;
                 }
 
-                // load customer
-                var model = await LocalData.Load(id);
-
                 // load foreing key fields
-                await SQLiteControllerBase
+               var model =  await SQLiteControllerBase
                     .DatabaseAsync
-                    .GetWithChildrenAsync<PoolModel>(model, true);
+                    .FindWithChildrenAsync<PoolModel>(id, true);
 
                 return model;
             }

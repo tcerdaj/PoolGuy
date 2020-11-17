@@ -4,7 +4,6 @@ using static PoolGuy.Mobile.Data.Models.Enums;
 using SQLite;
 using System.ComponentModel.DataAnnotations;
 using SQLiteNetExtensions.Attributes;
-using System.Collections.Concurrent;
 
 namespace PoolGuy.Mobile.Data.Models
 {

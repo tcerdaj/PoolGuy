@@ -1,7 +1,6 @@
 ﻿using SQLite;
 using System;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace PoolGuy.Mobile.Data.Models
 {

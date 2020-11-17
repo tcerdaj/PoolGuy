@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using SQLiteNetExtensionsAsync.Extensions;
+using System.Collections.ObjectModel;
 
 namespace PoolGuy.Mobile.Data.Controllers
 {
@@ -20,7 +21,7 @@ namespace PoolGuy.Mobile.Data.Controllers
         {
             try
             {
-                List<EquipmentModel> list = await LocalData.List(criteria);
+                List<EquipmentModel> list = await LocalData.List(criteria).ConfigureAwait(false);
 
                 foreach (var model in list)
                 {
