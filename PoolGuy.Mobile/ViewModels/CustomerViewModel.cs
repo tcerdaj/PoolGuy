@@ -451,7 +451,9 @@ namespace PoolGuy.Mobile.ViewModels
                 Pages[3].NotifyPropertyChanged("ShowAddEquipment");
                 WasModified = false;
                 ErrorMessage = "Save Customer Success";
-                OriginalCustomer = JsonConvert.SerializeObject(Customer);
+                OriginalCustomer = JsonConvert.SerializeObject(Customer,
+                            Formatting.Indented,
+                            new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
             }
             catch (Exception e)
             {
@@ -539,12 +541,18 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 if (f.GetGetMethod().ReturnType == typeof(string) ||
                     f.GetGetMethod().ReturnType == typeof(Guid) ||
+                     f.GetGetMethod().ReturnType == typeof(Guid?) ||
                     f.GetGetMethod().ReturnType == typeof(int) ||
+                    f.GetGetMethod().ReturnType == typeof(int?) ||
                     f.GetGetMethod().ReturnType == typeof(double) ||
+                    f.GetGetMethod().ReturnType == typeof(double?) ||
+                    f.GetGetMethod().ReturnType == typeof(decimal?) ||
                     f.GetGetMethod().ReturnType == typeof(decimal) ||
                     f.GetGetMethod().ReturnType.FullName.Contains("Enums") ||
                     f.GetGetMethod().ReturnType == typeof(DateTime) ||
-                    f.GetGetMethod().ReturnType == typeof(Boolean))
+                    f.GetGetMethod().ReturnType == typeof(DateTime?) ||
+                    f.GetGetMethod().ReturnType == typeof(Boolean) ||
+                    f.GetGetMethod().ReturnType == typeof(Boolean?))
                 {
                     Variance v = new Variance();
                     v.Prop = f.Name;
