@@ -11,6 +11,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using System.Linq;
 using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Services.Interface;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -96,6 +97,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
+                var customerWeather = await DependencyService.Get<IWeatherService>().GetWeather(customer.Latitude, customer.Longitude);
                 await Shell.Current.Navigation.PushAsync(new WizardCustomerPage(customer) { Title = "Customer"});
             }
             catch (Exception e)

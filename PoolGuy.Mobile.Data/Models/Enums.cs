@@ -44,5 +44,11 @@ namespace PoolGuy.Mobile.Data.Models
             Equipment,
             EquipmentModel
         }
+
+        public enum Units
+        {
+            Imperial,
+            Metric
+        }
     }
 }
