@@ -1,4 +1,6 @@
-﻿using PoolGuy.Mobile.Helpers;
+﻿using PoolGuy.Mobile.Extensions;
+using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Services.Interface;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -17,5 +19,25 @@ namespace PoolGuy.Mobile.ViewModels
 
         public ICommand OpenWebCommand { get; }
         public ICommand GoToCustomerCommand { get; }
+
+        private void Initialize()
+        {
+            if (MainThread.IsMainThread)
+            {
+
+            }
+            else
+            {
+                MainThread.BeginInvokeOnMainThread(async() =>
+                {
+                    var device = await Utils.GetPositionAsync();
+                    if (device != null)
+                    {
+                        var wather = await DependencyService.Get<IWeatherService>().GetWeather(device.Latitude, device.Longitude);
+
+                    }
+                });
+            }
+        }
     }
 }

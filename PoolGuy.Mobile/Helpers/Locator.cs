@@ -1,4 +1,5 @@
-﻿namespace PoolGuy.Mobile.Helpers
+﻿
+namespace PoolGuy.Mobile.Helpers
 {
     public class Locator
     {

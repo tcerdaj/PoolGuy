@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using PoolGuy.Mobile.Models;
 using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.ViewModels

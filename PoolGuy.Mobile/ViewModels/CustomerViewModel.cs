@@ -17,7 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using Xamarin.Forms.Internals;
 using Omu.ValueInjecter;
 using Newtonsoft.Json;
-using Xamarin.Essentials;
+using PoolGuy.Mobile.Extensions;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -437,7 +437,7 @@ namespace PoolGuy.Mobile.ViewModels
                 Customer.Contact = Pages[2].Contact;
                 Customer.Pool = Pages[3].Pool;
 
-                Position? position = await GetPosition(Customer.Address.FullAddress);
+                Position? position = await Customer.Address.FullAddress.GetPositionAsync();
                 if (position.HasValue)
                 {
                     Customer.Latitude = position.Value.Latitude;
@@ -462,30 +462,7 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
-        private async Task<Position?> GetPosition(string fullAddress)
-        {
-            try
-            {
-                var current = Connectivity.NetworkAccess;
-
-                if (current == NetworkAccess.None)
-                {
-                    await Shell.Current.DisplayAlert("Geocode Address", "No internet connectivity is available now, check airplain mode if apply your addres is not be setted to geocode.", "Ok");
-                    return null;
-                }
-
-                Geocoder geoCoder = new Geocoder();
-                IEnumerable<Position> approximateLocations = await geoCoder.GetPositionsForAddressAsync(fullAddress);
-                Position position = approximateLocations.FirstOrDefault();
-                
-                return position;
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                return null;
-            }
-        }
+       
 
         public bool IsValid(CustomerPageViewModel page)
         {

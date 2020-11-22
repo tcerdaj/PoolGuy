@@ -2200,6 +2200,7 @@
         public const string WeatherLightning = "\uf593";
         public const string WeatherNight = "\uf594";
         public const string WeatherPartlyCloudy = "\uf595";
+        public const string WeatherNightPartlyCloudy = "\uf0f31";
         public const string WeatherPouring = "\uf596";
         public const string WeatherRainy = "\uf597";
         public const string WeatherSnowy = "\uf598";
@@ -4615,7 +4616,6 @@
         public const string Wave = "\uff4b";
         public const string WeatherCloudyAlert = "\uff4c";
         public const string WeatherHazy = "\uff4d";
-        public const string WeatherNightPartlyCloudy = "\uff4e";
         public const string WeatherPartlyLightning = "\uff4f";
         public const string WeatherPartlyRainy = "\uff50";
         public const string WeatherPartlySnowy = "\uff51";

@@ -97,7 +97,6 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                var customerWeather = await DependencyService.Get<IWeatherService>().GetWeather(customer.Latitude, customer.Longitude);
                 await Shell.Current.Navigation.PushAsync(new WizardCustomerPage(customer) { Title = "Customer"});
             }
             catch (Exception e)
