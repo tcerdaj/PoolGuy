@@ -1,5 +1,6 @@
 ﻿using PoolGuy.Mobile.Extensions;
 using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
 using System;
 using System.Threading.Tasks;
@@ -20,11 +21,15 @@ namespace PoolGuy.Mobile.ViewModels
         public ICommand OpenWebCommand { get; }
         public ICommand GoToCustomerCommand { get; }
 
-        private void Initialize()
+        public async void Initialize()
         {
             if (MainThread.IsMainThread)
             {
-
+                var device = await Utils.GetPositionAsync();
+                if (device != null)
+                {
+                    Weather = await DependencyService.Get<IWeatherService>().GetWeather(device.Latitude, device.Longitude);
+                }
             }
             else
             {
@@ -33,11 +38,19 @@ namespace PoolGuy.Mobile.ViewModels
                     var device = await Utils.GetPositionAsync();
                     if (device != null)
                     {
-                        var wather = await DependencyService.Get<IWeatherService>().GetWeather(device.Latitude, device.Longitude);
-
+                        Weather = await DependencyService.Get<IWeatherService>().GetWeather(device.Latitude, device.Longitude);
                     }
                 });
             }
         }
+
+        private WeatherRoot _weatherRoot;
+
+        public WeatherRoot Weather
+        {
+            get { return _weatherRoot; }
+            set { _weatherRoot = value;OnPropertyChanged("Weather"); }
+        }
+
     }
 }
