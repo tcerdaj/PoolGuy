@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
+using PoolGuy.Mobile.Data.Models;
 using System;
 
 namespace PoolGuy.Mobile.Models
 {
 
-    public class WeatherHistoryRoot
+    public class WeatherHistoryRoot : EntityBase
     {
-        public int WeatherId { get; set; }
         public float lat { get; set; }
         public int lon { get; set; }
         public string timezone { get; set; }

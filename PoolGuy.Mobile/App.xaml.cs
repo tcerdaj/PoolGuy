@@ -13,6 +13,7 @@ using PoolGuy.Mobile.ViewModels;
 using PoolGuy.Mobile.Data.Controllers;
 using System.Threading.Tasks;
 using Plugin.Permissions.Abstractions;
+using PoolGuy.Mobile.Models;
 
 namespace PoolGuy.Mobile
 {
@@ -31,6 +32,7 @@ namespace PoolGuy.Mobile
             DependencyService.Register<ILocalDataStore<EquipmentTypeModel>, LocalDataStore<EquipmentTypeModel>>();
             DependencyService.Register<ILocalDataStore<ManufactureModel>, LocalDataStore<ManufactureModel>>();
             DependencyService.Register<ILocalDataStore<PoolModel>, LocalDataStore<PoolModel>>();
+            DependencyService.Register<ILocalDataStore<WeatherHistoryRoot>, LocalDataStore<WeatherHistoryRoot>>();
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -72,6 +74,7 @@ namespace PoolGuy.Mobile
                 await new EquipmentController().LocalData.CreateTableAsync();
                 await new EquipmentTypeController().LocalData.CreateTableAsync();
                 await new ManufactureController().LocalData.CreateTableAsync();
+                await new WeatherController().LocalData.CreateTableAsync();
             });
         }
 
