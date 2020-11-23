@@ -184,5 +184,58 @@
       <Name>PoolGuy.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\01d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\01n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\02d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\02n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\03d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\03n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\04d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\04n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\09d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\09n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\10d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\10n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\11d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\11n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\13d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\13n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\50d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\50n.png" />
+  </ItemGroup>
 </Project>
