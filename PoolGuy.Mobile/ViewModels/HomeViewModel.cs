@@ -49,7 +49,7 @@ namespace PoolGuy.Mobile.ViewModels
         public WeatherRoot Weather
         {
             get { return _weatherRoot; }
-            set { _weatherRoot = value;OnPropertyChanged("Weather"); }
+            set { _weatherRoot = value; OnPropertyChanged("Weather"); }
         }
 
     }

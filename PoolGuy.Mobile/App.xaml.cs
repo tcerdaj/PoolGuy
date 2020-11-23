@@ -32,7 +32,7 @@ namespace PoolGuy.Mobile
             DependencyService.Register<ILocalDataStore<EquipmentTypeModel>, LocalDataStore<EquipmentTypeModel>>();
             DependencyService.Register<ILocalDataStore<ManufactureModel>, LocalDataStore<ManufactureModel>>();
             DependencyService.Register<ILocalDataStore<PoolModel>, LocalDataStore<PoolModel>>();
-            DependencyService.Register<ILocalDataStore<WeatherHistoryRoot>, LocalDataStore<WeatherHistoryRoot>>();
+            DependencyService.Register<ILocalDataStore<WeatherModel>, LocalDataStore<WeatherModel>>();
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -89,6 +89,7 @@ namespace PoolGuy.Mobile
                 await new EquipmentTypeController().LocalData.ClearTableAsync();
                 await new ManufactureController().LocalData.ClearTableAsync();
                 await new PoolController().LocalData.ClearTableAsync();
+                await new WeatherController().LocalData.ClearTableAsync();
             });
         }
 
