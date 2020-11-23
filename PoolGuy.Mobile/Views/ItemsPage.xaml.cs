@@ -15,7 +15,7 @@ namespace PoolGuy.Mobile.Views
             BindingContext = _viewModel = new ItemsViewModel();
         }
 
-        protected override void OnAppearing()
+        protected override void OnAppearingAsync()
         {
             base.OnAppearing();
             _viewModel.OnAppearing();

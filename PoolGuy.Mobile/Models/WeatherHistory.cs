@@ -5,7 +5,7 @@ using System;
 namespace PoolGuy.Mobile.Models
 {
 
-    public class WeatherHistoryRoot : EntityBase
+    public class WeatherHistoryRoot 
     {
         public float lat { get; set; }
         public int lon { get; set; }

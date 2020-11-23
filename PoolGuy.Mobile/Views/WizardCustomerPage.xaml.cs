@@ -60,7 +60,7 @@ namespace PoolGuy.Mobile.Views
         }
 
 
-        protected override void OnAppearing()
+        protected override void OnAppearingAsync()
         {
             base.OnAppearing();
         }

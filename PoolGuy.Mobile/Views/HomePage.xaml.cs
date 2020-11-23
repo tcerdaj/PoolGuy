@@ -13,9 +13,10 @@ namespace PoolGuy.Mobile.Views
             BindingContext = _viewModel;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
+            await _viewModel.Initialize();
         }
 
         protected override void OnDisappearing()
