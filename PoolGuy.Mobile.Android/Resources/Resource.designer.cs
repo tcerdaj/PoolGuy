@@ -25078,13 +25078,67 @@ namespace PoolGuy.Mobile.Droid
 			public const int tooltip_frame_light = 2131165362;
 			
 			// aapt resource value: 0x7F0700B3
-			public const int waterco = 2131165363;
+			public const int w01d = 2131165363;
 			
 			// aapt resource value: 0x7F0700B4
-			public const int xamarin_logo = 2131165364;
+			public const int w01n = 2131165364;
 			
 			// aapt resource value: 0x7F0700B5
-			public const int zodiac = 2131165365;
+			public const int w02d = 2131165365;
+			
+			// aapt resource value: 0x7F0700B6
+			public const int w02n = 2131165366;
+			
+			// aapt resource value: 0x7F0700B7
+			public const int w03d = 2131165367;
+			
+			// aapt resource value: 0x7F0700B8
+			public const int w03n = 2131165368;
+			
+			// aapt resource value: 0x7F0700B9
+			public const int w04d = 2131165369;
+			
+			// aapt resource value: 0x7F0700BA
+			public const int w04n = 2131165370;
+			
+			// aapt resource value: 0x7F0700BB
+			public const int w09d = 2131165371;
+			
+			// aapt resource value: 0x7F0700BC
+			public const int w09n = 2131165372;
+			
+			// aapt resource value: 0x7F0700BD
+			public const int w10d = 2131165373;
+			
+			// aapt resource value: 0x7F0700BE
+			public const int w10n = 2131165374;
+			
+			// aapt resource value: 0x7F0700BF
+			public const int w11d = 2131165375;
+			
+			// aapt resource value: 0x7F0700C0
+			public const int w11n = 2131165376;
+			
+			// aapt resource value: 0x7F0700C1
+			public const int w13d = 2131165377;
+			
+			// aapt resource value: 0x7F0700C2
+			public const int w13n = 2131165378;
+			
+			// aapt resource value: 0x7F0700C3
+			public const int w50d = 2131165379;
+			
+			// aapt resource value: 0x7F0700C4
+			public const int w50n = 2131165380;
+			
+			// aapt resource value: 0x7F0700C5
+			public const int waterco = 2131165381;
+			
+			// aapt resource value: 0x7F0700C6
+			public const int xamarin_logo = 2131165382;
+			
+			// aapt resource value: 0x7F0700C7
+			public const int zodiac = 2131165383;
 			
 			static Drawable()
 			{
@@ -26173,6 +26227,60 @@ namespace PoolGuy.Mobile.Droid
 			
 			// aapt resource value: 0x7F0C0008
 			public const int searched_black = 2131492872;
+			
+			// aapt resource value: 0x7F0C0009
+			public const int w01d = 2131492873;
+			
+			// aapt resource value: 0x7F0C000A
+			public const int w01n = 2131492874;
+			
+			// aapt resource value: 0x7F0C000B
+			public const int w02d = 2131492875;
+			
+			// aapt resource value: 0x7F0C000C
+			public const int w02n = 2131492876;
+			
+			// aapt resource value: 0x7F0C000D
+			public const int w03d = 2131492877;
+			
+			// aapt resource value: 0x7F0C000E
+			public const int w03n = 2131492878;
+			
+			// aapt resource value: 0x7F0C000F
+			public const int w04d = 2131492879;
+			
+			// aapt resource value: 0x7F0C0010
+			public const int w04n = 2131492880;
+			
+			// aapt resource value: 0x7F0C0011
+			public const int w09d = 2131492881;
+			
+			// aapt resource value: 0x7F0C0012
+			public const int w09n = 2131492882;
+			
+			// aapt resource value: 0x7F0C0013
+			public const int w10d = 2131492883;
+			
+			// aapt resource value: 0x7F0C0014
+			public const int w10n = 2131492884;
+			
+			// aapt resource value: 0x7F0C0015
+			public const int w11d = 2131492885;
+			
+			// aapt resource value: 0x7F0C0016
+			public const int w11n = 2131492886;
+			
+			// aapt resource value: 0x7F0C0017
+			public const int w13d = 2131492887;
+			
+			// aapt resource value: 0x7F0C0018
+			public const int w13n = 2131492888;
+			
+			// aapt resource value: 0x7F0C0019
+			public const int w50d = 2131492889;
+			
+			// aapt resource value: 0x7F0C001A
+			public const int w50n = 2131492890;
 			
 			static Mipmap()
 			{

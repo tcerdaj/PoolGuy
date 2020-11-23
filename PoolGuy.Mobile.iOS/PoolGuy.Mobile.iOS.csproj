@@ -185,57 +185,111 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\01d.png" />
+    <BundleResource Include="Resources\w01d%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\01n.png" />
+    <BundleResource Include="Resources\w01n%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\02d.png" />
+    <BundleResource Include="Resources\w02d%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\02n.png" />
+    <BundleResource Include="Resources\w02n%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\03d.png" />
+    <BundleResource Include="Resources\w03d%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\03n.png" />
+    <BundleResource Include="Resources\w03n%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\04d.png" />
+    <BundleResource Include="Resources\w04d%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\04n.png" />
+    <BundleResource Include="Resources\w04n%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\09d.png" />
+    <BundleResource Include="Resources\w09d%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\09n.png" />
+    <BundleResource Include="Resources\w09n%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\10d.png" />
+    <BundleResource Include="Resources\w10d%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\10n.png" />
+    <BundleResource Include="Resources\w10n%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\11d.png" />
+    <BundleResource Include="Resources\w11d%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\11n.png" />
+    <BundleResource Include="Resources\w11n%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\13d.png" />
+    <BundleResource Include="Resources\w13d%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\13n.png" />
+    <BundleResource Include="Resources\w13n%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\50d.png" />
+    <BundleResource Include="Resources\w50d%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\50n.png" />
+    <BundleResource Include="Resources\w50n%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w01d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w01n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w02d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w02n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w03d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w03n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w04d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w04n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w09d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w09n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w10d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w10n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w11d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w11n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w13d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w13n.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w50d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\w50n.png" />
   </ItemGroup>
 </Project>

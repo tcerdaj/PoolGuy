@@ -332,328 +332,274 @@
     <AndroidResource Include="Resources\drawable\zodiac.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\01d.png" />
+    <AndroidResource Include="Resources\drawable\w01d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\01n.png" />
+    <AndroidResource Include="Resources\drawable\w01n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\02d.png" />
+    <AndroidResource Include="Resources\drawable\w02d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\02n.png" />
+    <AndroidResource Include="Resources\drawable\w02n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\03d.png" />
+    <AndroidResource Include="Resources\drawable\w03d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\03n.png" />
+    <AndroidResource Include="Resources\drawable\w03n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\04d.png" />
+    <AndroidResource Include="Resources\drawable\w04d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\04n.png" />
+    <AndroidResource Include="Resources\drawable\w04n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\09d.png" />
+    <AndroidResource Include="Resources\drawable\w09d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\09n.png" />
+    <AndroidResource Include="Resources\drawable\w09n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\10d.png" />
+    <AndroidResource Include="Resources\drawable\w10d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\10n.png" />
+    <AndroidResource Include="Resources\drawable\w10n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\11d.png" />
+    <AndroidResource Include="Resources\drawable\w11d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\11n.png" />
+    <AndroidResource Include="Resources\drawable\w11n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\13d.png" />
+    <AndroidResource Include="Resources\drawable\w13d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\13n.png" />
+    <AndroidResource Include="Resources\drawable\w13n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\50d.png" />
+    <AndroidResource Include="Resources\drawable\w50d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\50n.png" />
+    <AndroidResource Include="Resources\drawable\w50n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\01d.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w01d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\01n.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w01n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\02d.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w02d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\02n.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w02n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\03d.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w03d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\03n.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w03n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\04d.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w04d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\04n.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w04n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\09d.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w09d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\09n.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w09n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\10d.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w10d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\10n.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w10n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\11d.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w11d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\11n.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w11n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\13d.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w13d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\13n.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w13n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\50d.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w50d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\50n.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\w50n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\01d.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w01d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\01n.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w01n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\02d.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w02d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\02n.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w02n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\03d.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w03d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\03n.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w03n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\04d.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w04d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\04n.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w04n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\09d.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w09d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\09n.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w09n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\10d.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w10d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\10n.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w10n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\11d.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w11d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\11n.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w11n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\13d.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w13d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\13n.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w13n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\50d.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w50d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\50n.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\w50n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\01d.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w01d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\01n.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w01n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\02d.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w02d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\02n.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w02n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\03d.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w03d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\03n.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w03n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\04d.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w04d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\04n.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w04n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\09d.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w09d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\09n.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w09n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\10d.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w10d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\10n.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w10n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\11d.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w11d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\11n.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w11n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\13d.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w13d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\13n.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w13n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\50d.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w50d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\50n.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\w50n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\01d.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w01d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\01n.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w01n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\02d.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w02d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\02n.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w02n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\03d.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w03d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\03n.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w03n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\04d.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w04d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\04n.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w04n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\09d.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w09d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\09n.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w09n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\10d.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w10d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\10n.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w10n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\11d.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w11d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\11n.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w11n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\13d.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w13d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\13n.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w13n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\50d.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w50d.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\50n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\01d.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\01n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\02d.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\02n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\03d.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\03n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\04d.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\04n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\09d.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\09n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\10d.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\10n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\11d.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\11n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\13d.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\13n.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\50d.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\50n.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\w50n.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
