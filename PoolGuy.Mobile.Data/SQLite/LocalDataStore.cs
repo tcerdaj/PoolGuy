@@ -55,7 +55,7 @@ namespace PoolGuy.Mobile.Data.SQLite
                 {
                     model.Id = Guid.NewGuid();
 
-                    if (model.Created == DateTime.MinValue)
+                    if (model.Created == null || model.Created == DateTime.MinValue)
                     {
                         model.Created = DateTime.Now;
                     }

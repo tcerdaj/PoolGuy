@@ -49,7 +49,9 @@ namespace PoolGuy.Mobile.ViewModels
                            new Data.Models.Query.SQLControllerListFilterField
                            {
                                FieldName = "Created",
-                               ValueLBound = DateTime.Now.Date.ToString(),
+                               ValueLBound = DateTime.Now.Date.AddDays(-1).ToString(),
+                               ValueUBound = DateTime.Now.Date.AddDays(1).ToString(),
+                               CompareMethod = Data.Models.Query.SQLControllerListFilterField.CompareMethodEnum.GreaterThan 
                            }
                        }
             }).ConfigureAwait(false);
@@ -68,16 +70,16 @@ namespace PoolGuy.Mobile.ViewModels
                     {
                         Weather = new WeatherModel
                         {
-                            Id = Guid.NewGuid(),
                             WeatherId = weather.current.weather.FirstOrDefault().Id,
                             Icon = weather.current.weather.FirstOrDefault().Icon,
                             Temp = weather.current.temp,
                             DT = weather.current.dt,
+                            Sunrise = weather.current.sunrise,
+                            Sunset = weather.current.sunset,
                             FeelsLike = weather.current.feels_like,
                             Humidity = weather.current.humidity,
                             Description = weather.current.weather.FirstOrDefault().Description,
                             Clouds = weather.current.clouds,
-                            Created = DateTime.Now,
                             Uvi = weather.current.uvi,
                             Rain = weather.daily.Sum(x => x.rain),
                             ThreeHoursRain = weather.daily.FirstOrDefault(x => string.IsNullOrEmpty(x.Rain?.ThreeHours)).Rain?.ThreeHours,
@@ -86,6 +88,7 @@ namespace PoolGuy.Mobile.ViewModels
                         };
 
                         await new WeatherController().LocalData.Modify(Weather);
+                        var w = await new WeatherController().LocalData.List().ConfigureAwait(false);
                     }
                 }
             }

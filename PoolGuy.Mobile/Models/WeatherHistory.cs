@@ -18,9 +18,9 @@ namespace PoolGuy.Mobile.Models
 
     public class Current
     {
-        public DateTime dt { get; set; }
-        public DateTime sunrise { get; set; }
-        public DateTime sunset { get; set; }
+        public int dt { get; set; }
+        public int sunrise { get; set; }
+        public int sunset { get; set; }
         public float temp { get; set; }
         public float feels_like { get; set; }
         public int pressure { get; set; }

@@ -24,7 +24,7 @@ namespace PoolGuy.Mobile.Views
             this.IsPresented = false;
         }
 
-        protected override void OnAppearingAsync()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             //var navPage = ((MasterDetailPage)App.Current.MainPage).Detail as Page;

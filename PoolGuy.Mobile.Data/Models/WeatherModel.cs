@@ -5,10 +5,10 @@ namespace PoolGuy.Mobile.Data.Models
     public class WeatherModel : EntityBase
     {
         public int WeatherId { get; set; }
-        public DateTime DT { get; set; }
-        public DateTime Sunrise { get; set; }
+        public int DT { get; set; }
+        public int Sunrise { get; set; }
 
-        public DateTime Sunset { get; set; }
+        public int Sunset { get; set; }
 
         public float Temp { get; set; }
         public float FeelsLike { get; set; }

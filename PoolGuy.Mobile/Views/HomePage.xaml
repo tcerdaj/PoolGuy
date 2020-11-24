@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.HomePage"
-             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
              Title="{Binding Title}">
     
     <ContentPage.Resources>
@@ -83,6 +83,7 @@
             <!--Progress Bar-->
             <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand"
                      VerticalOptions="Center"
+                         IsVisible="False"
                      Padding="10,0"
                      Spacing="10"
                      Orientation="Horizontal">
@@ -99,7 +100,9 @@
                     </Label.FormattedText>
                 </Label>
             </StackLayout>
-            <ScrollView Grid.Row="2">
+            <!--Summary-->
+            <ScrollView Grid.Row="2"
+                        IsVisible="False">
                 <StackLayout Orientation="Vertical" Padding="20,10" Spacing="10">
                     <StackLayout Orientation="Horizontal">
                         <Label TextColor="#4A4A4A" 
@@ -130,7 +133,7 @@
                         <Label TextColor="#7B7575" HorizontalOptions="StartAndExpand">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="72" FontSize="30" />
+                                    <Span Text="{Binding Weather.Temp}" FontSize="30" />
                                     <Span Text="{x:Static icons:MaterialDesignIcons.TemperatureFahrenheit}" FontSize="22"
                                       FontFamily="{StaticResource MaterialFontFamily}"/>
                                 </FormattedString>
@@ -160,6 +163,25 @@
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <mycc:Thermometer Grid.Column="0"
+                                  Margin="10,0"
+                                  x:Name="Thermometer"
+                                  BackgroundColor="Yellow"
+                                  MaxTemperature="100"
+                                  MinTemperature="0"
+                              Temperature="{Binding Weather.Temp, Mode=OneWay}"
+                              GlassColor="White"
+                                 IsVisible="True"
+                              FluidColor="Red"
+                              MarkerColor="Black"
+                              IndicatorColor="{StaticResource Title}"
+                              IndicatorTextColor="{StaticResource Title}"/>
+            </Grid>
         </Grid>
         <!-- Busy Status -->
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
