@@ -1,17 +1,14 @@
 ﻿using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using System;
-using System.Collections.ObjectModel;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.CustomControls
 {
     public class Thermometer : SKCanvasView
     {
-        public Thermometer()
-        {
-
-        }
+        VisualElement _parentElement;
 
         public float Temperature
         {
@@ -64,7 +61,7 @@ namespace PoolGuy.Mobile.CustomControls
     BindableProperty.Create(nameof(MaxTemperature), typeof(int), typeof(Thermometer), 50);
 
         // indicator
-        private const int indicatorOffset = 350;
+        private const int indicatorOffset = 180;
         // from 0.0 to 1.0
         private const float indicatorPositionY = 0.8f;
 
@@ -137,6 +134,8 @@ namespace PoolGuy.Mobile.CustomControls
             fluidTopGlass.Right = bottomFluidGlassHullCenter.X + topFluidGlassWidth / 2;
             fluidTopGlass.Bottom = bottomFluidGlassHullCenter.Y;
 
+            var width = fluidTopGlass.Width / 2 ;
+
             // top fluid glass
             canvas.DrawRect(fluidTopGlass, fluidGlassHullPaint);
             canvas.DrawCircle(bottomFluidGlassHullCenter.X, fluidTopGlass.Top, fluidTopGlass.Width / 2, fluidGlassHullPaint);
@@ -202,7 +201,7 @@ namespace PoolGuy.Mobile.CustomControls
             SKSurface surface = e.Surface;
             SKCanvas canvas = surface.Canvas;
             SKPoint center = new SKPoint(info.Width / 2, info.Height / 2);
-
+            
             // draw live
             FixMaxMin();
             float livePixelsYStart = info.Height + bottomFluidGlassCircleCenterY - bottomFluidGlassHullRadius - startMarkerDistance;

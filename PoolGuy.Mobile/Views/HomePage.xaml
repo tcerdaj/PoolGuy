@@ -39,6 +39,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Frame  Grid.Row="0" HasShadow="False" BorderColor="#D2C9C9" Margin="10" CornerRadius="6"  Padding="5">
@@ -101,8 +102,7 @@
                 </Label>
             </StackLayout>
             <!--Summary-->
-            <ScrollView Grid.Row="2"
-                        IsVisible="False">
+            <ScrollView Grid.Row="2">
                 <StackLayout Orientation="Vertical" Padding="20,10" Spacing="10">
                     <StackLayout Orientation="Horizontal">
                         <Label TextColor="#4A4A4A" 
@@ -163,25 +163,6 @@
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
-                </Grid.ColumnDefinitions>
-                <mycc:Thermometer Grid.Column="0"
-                                  Margin="10,0"
-                                  x:Name="Thermometer"
-                                  BackgroundColor="Yellow"
-                                  MaxTemperature="100"
-                                  MinTemperature="0"
-                              Temperature="{Binding Weather.Temp, Mode=OneWay}"
-                              GlassColor="White"
-                                 IsVisible="True"
-                              FluidColor="Red"
-                              MarkerColor="Black"
-                              IndicatorColor="{StaticResource Title}"
-                              IndicatorTextColor="{StaticResource Title}"/>
-            </Grid>
         </Grid>
         <!-- Busy Status -->
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
