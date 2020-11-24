@@ -9,6 +9,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using System.Linq;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Command;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -21,7 +22,17 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         public ICommand OpenWebCommand { get; }
-        public ICommand GoToCustomerCommand { get; }
+        public ICommand GoToCustomerDetailsCommand { get; }
+        public ICommand GoToSearchCustomerCommand 
+        { 
+            get 
+            {
+                return new RelayCommand(async () =>
+                {
+                    await Shell.Current.GoToAsync(Locator.SearchCustomer);
+                });
+            } 
+        }
 
         public async Task Initialize()
         {

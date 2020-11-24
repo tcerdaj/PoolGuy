@@ -21,7 +21,17 @@ namespace PoolGuy.Mobile.Data.Models
         public int WindDeg { get; set; }
         public float Rain { get; set; }
         public string ThreeHoursRain { get; set; }
-        public string Icon { get; set; }
+        private string _icon;
+        public string Icon 
+        {
+            get 
+            {
+                if (!_icon.Contains("w"))
+                    return $"w{_icon}";
+                else return _icon;
+            }
+            set { _icon = value; }
+        }
         public string Description { get; set; }
     }
 }

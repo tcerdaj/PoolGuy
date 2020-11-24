@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.HomePage"
-             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls" xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
              Title="{Binding Title}">
     
     <ContentPage.Resources>
@@ -117,50 +117,71 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <Image Aspect="AspectFit" 
-                           Margin="0,0,0,0" 
-                           HorizontalOptions="End" 
-                           VerticalOptions="Center">
+                        <mr:Image Aspect="AspectFit" 
+                                  Margin="0,0,0,0" 
+                                  HorizontalOptions="End" 
+                                  VerticalOptions="Center"
+                                  TappedCommand="{Binding GoToSearchCustomerCommand}">
+                            <mr:Image.Triggers>
+                                <EventTrigger Event="Down">
+                                    <act:ScaleDownTriggerAction />
+                                </EventTrigger>
+                                <EventTrigger Event="Up">
+                                    <act:ScaleUpTriggerAction />
+                                </EventTrigger>
+                            </mr:Image.Triggers>
                             <Image.Source>
                                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                             Glyph="{x:Static icons:MaterialDesignIcons.Plus}"
+                                             Glyph="{x:Static icons:MaterialDesignIcons.PlusCircle}"
                                              Size="30"
                                              Color="{StaticResource Primary}" />
                             </Image.Source>
-                        </Image>
+                        </mr:Image>
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal">
-                        <Label TextColor="#7B7575" HorizontalOptions="StartAndExpand">
+                    <Grid HorizontalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               TextColor="#7B7575"
+                               HorizontalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="{Binding Weather.Temp}" FontSize="30" />
+                                    <Span Text="{Binding Weather.Temp, StringFormat='{0:##}'}" FontSize="30" />
                                     <Span Text="{x:Static icons:MaterialDesignIcons.TemperatureFahrenheit}" FontSize="22"
                                       FontFamily="{StaticResource MaterialFontFamily}"/>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <Label TextColor="#7B7575" HorizontalOptions="StartAndExpand" CharacterSpacing="10">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text=" 83% " FontSize="30"/>
-                                    <Span Text="{x:Static icons:MaterialDesignIcons.WeatherLightningRainy}" FontSize="22"
-                                      FontFamily="{StaticResource MaterialFontFamily}"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <StackLayout Orientation="Horizontal">
-                            <Label TextColor="#7B7575" HorizontalOptions="StartAndExpand" 
-                           VerticalOptions="Center">
+                        <StackLayout Grid.Column="1"
+                                     Orientation="Horizontal"
+                                     HorizontalOptions="Center">
+                           <Label TextColor="#7B7575">
+                               <Label.FormattedText>
+                                   <FormattedString>
+                                       <Span Text="{Binding Weather.Clouds, StringFormat='{0:d}%'}" FontSize="30"/>
+                                   </FormattedString>
+                               </Label.FormattedText>
+                           </Label>
+                           <Image Source="{Binding Weather.Icon}" Margin="-10,0,0,0"/>
+                        </StackLayout>
+                        <StackLayout Grid.Column="2"
+                                     Orientation="Horizontal"
+                                     HorizontalOptions="End">
+                            <Label TextColor="#7B7575" 
+                                   VerticalOptions="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="2.5 " FontSize="30"/>
+                                        <Span Text="{Binding Weather.Rain}" FontSize="30"/>
                                         <Span Text="{x:Static icons:MaterialDesignIcons.Water}" FontSize="22"
                                       FontFamily="{StaticResource MaterialFontFamily}"/>
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
                         </StackLayout>
-                    </StackLayout>
+                    </Grid>
                 </StackLayout>
             </ScrollView>
         </Grid>
