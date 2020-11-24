@@ -103,7 +103,9 @@
             </StackLayout>
             <!--Summary-->
             <ScrollView Grid.Row="2">
+                
                 <StackLayout Orientation="Vertical" Padding="20,10" Spacing="10">
+                    <!--Dispatchs/Add-->
                     <StackLayout Orientation="Horizontal">
                         <Label TextColor="#4A4A4A" 
                            HorizontalOptions="StartAndExpand" 
@@ -144,6 +146,7 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
+                        <!--Temperature-->
                         <Label Grid.Column="0"
                                TextColor="#7B7575"
                                HorizontalOptions="Start">
@@ -155,6 +158,7 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
+                        <!--Clouds-->
                         <StackLayout Grid.Column="1"
                                      Orientation="Horizontal"
                                      HorizontalOptions="Center">
@@ -167,6 +171,7 @@
                            </Label>
                            <Image Source="{Binding Weather.Icon}" Margin="-10,0,0,0"/>
                         </StackLayout>
+                        <!--Rain-->
                         <StackLayout Grid.Column="2"
                                      Orientation="Horizontal"
                                      HorizontalOptions="End">
@@ -182,8 +187,10 @@
                             </Label>
                         </StackLayout>
                     </Grid>
+                    
                 </StackLayout>
             </ScrollView>
+            
         </Grid>
         <!-- Busy Status -->
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
