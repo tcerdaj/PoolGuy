@@ -1,4 +1,4 @@
-﻿using PoolGuy.Mobile.Models;
+﻿using PoolGuy.Mobile.Data.Models.Weather;
 using Refit;
 using System.Threading.Tasks;
 using static PoolGuy.Mobile.Data.Models.Enums;

@@ -152,7 +152,7 @@
                                HorizontalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="{Binding Weather.Temp, StringFormat='{0:##}'}" FontSize="30" />
+                                    <Span Text="{Binding Weather.Main.current.temp, StringFormat='{0:##}'}" FontSize="30" />
                                     <Span Text="{x:Static icons:MaterialDesignIcons.TemperatureFahrenheit}" FontSize="22"
                                       FontFamily="{StaticResource MaterialFontFamily}"/>
                                 </FormattedString>
@@ -165,7 +165,7 @@
                            <Label TextColor="#7B7575">
                                <Label.FormattedText>
                                    <FormattedString>
-                                       <Span Text="{Binding Weather.Clouds, StringFormat='{0:d}%'}" FontSize="30"/>
+                                        <Span Text="{Binding Weather.Main.current.clouds, StringFormat='{0:d}%'}" FontSize="30"/>
                                    </FormattedString>
                                </Label.FormattedText>
                            </Label>
@@ -179,7 +179,7 @@
                                    VerticalOptions="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Weather.Rain}" FontSize="30"/>
+                                        <Span Text="{Binding Weather.AccumulatedRain}" FontSize="30"/>
                                         <Span Text="{x:Static icons:MaterialDesignIcons.Water}" FontSize="22"
                                       FontFamily="{StaticResource MaterialFontFamily}"/>
                                     </FormattedString>

@@ -1,18 +1,39 @@
-﻿using PoolGuy.Mobile.ViewModels;
+﻿using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Models;
+using PoolGuy.Mobile.Services.Interface;
+using PoolGuy.Mobile.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace PoolGuy.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SearchCustomerPage : ContentPage
+    public partial class SearchCustomerPage : ContentPage, IContentPage
     {
-        SearchCustomerViewModel viewModel;
+        SearchCustomerViewModel _viewModel;
         public SearchCustomerPage()
         {
             InitializeComponent();
-            viewModel = new SearchCustomerViewModel();
-            BindingContext = viewModel;
+            _viewModel = new SearchCustomerViewModel();
+            BindingContext = _viewModel;
+        }
+
+        public void CleanUp()
+        {
+        }
+
+        public void Initialize()
+        {
+        }
+
+        public MobileNavigationModel OnSleep()
+        {
+            return new MobileNavigationModel
+            {
+                CurrentPage = Locator.SearchCustomer,
+                PageViewModel = _viewModel,
+                IsModal = true
+            };
         }
     }
 }

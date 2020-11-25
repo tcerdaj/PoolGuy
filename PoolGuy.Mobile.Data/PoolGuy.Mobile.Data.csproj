@@ -16,6 +16,7 @@
     <PackageReference Include="SQLiteNetExtensions.Async" Version="2.1.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
     <PackageReference Include="ValueInjecter" Version="3.2.0" />
+    <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
   </ItemGroup>
 

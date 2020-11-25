@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PoolGuy.Mobile.Models
+namespace PoolGuy.Mobile.Data.Models.Weather
 {
     public class Coord
     {

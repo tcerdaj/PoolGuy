@@ -1,7 +1,9 @@
 ﻿using CommonServiceLocator;
-using Newtonsoft.Json;
 using PoolGuy.Mobile.Data.Models;
+using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Resources;
+using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
 using System.Diagnostics;
 using Xamarin.Forms;
@@ -10,8 +12,7 @@ using Xamarin.Forms.Xaml;
 namespace PoolGuy.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [QueryProperty("Id", "id")]
-    public partial class WizardCustomerPage : ContentPage
+    public partial class WizardCustomerPage : ContentPage, IContentPage
     {
         CustomerViewModel _viewModel;
         Color _primaryColor, _unselectedColor;
@@ -48,14 +49,6 @@ namespace PoolGuy.Mobile.Views
             {
                 Debug.WriteLine(e);
                 throw;
-            }
-        }
-
-        private string _id;
-        public string Id {
-            set 
-            {
-                _id = value; 
             }
         }
 
@@ -143,6 +136,24 @@ namespace PoolGuy.Mobile.Views
                 }
             }
         }
-        
+
+        public void Initialize()
+        {
+        }
+
+        public MobileNavigationModel OnSleep()
+        {
+            return new MobileNavigationModel
+            {
+                CurrentPage = Locator.WizardCustomer,
+                PageViewModel = _viewModel,
+                IsModal = true
+            };
+        }
+
+        public void CleanUp()
+        {
+            
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using PoolGuy.Mobile.Data.Models;
-using PoolGuy.Mobile.Models;
+using PoolGuy.Mobile.Data.Models.Weather;
 using PoolGuy.Mobile.Services;
 using PoolGuy.Mobile.Services.Interface;
 using Refit;

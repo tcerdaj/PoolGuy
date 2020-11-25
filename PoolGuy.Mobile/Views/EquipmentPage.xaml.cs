@@ -1,4 +1,7 @@
 ﻿using PoolGuy.Mobile.Data.Models;
+using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Models;
+using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
 using System;
 using Xamarin.Forms;
@@ -7,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace PoolGuy.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EquipmentPage : ContentPage
+    public partial class EquipmentPage : ContentPage, IContentPage
     {
         EquipmentViewModel _viewModel;
         public EquipmentPage(EquipmentModel equipment)
@@ -16,6 +19,26 @@ namespace PoolGuy.Mobile.Views
             _viewModel = new EquipmentViewModel(equipment) { Title = equipment.Id == Guid.Empty && Globals.CurrentPage == Enums.ePage.Equipment? "Select Equipment": "Update Equipment" };
             _viewModel.SetView(this);
             BindingContext = _viewModel;
+        }
+
+        public void CleanUp()
+        {
+            
+        }
+
+        public void Initialize()
+        {
+            
+        }
+
+        public MobileNavigationModel OnSleep()
+        {
+            return new MobileNavigationModel
+            {
+                CurrentPage = Locator.Equipment,
+                PageViewModel = _viewModel,
+                IsModal = true
+            };
         }
 
         protected override void OnAppearing()

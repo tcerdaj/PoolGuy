@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 using Xamarin.Forms;
 using PoolGuy.Mobile.Services.Interface;
 using System.Diagnostics;
-using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Data.Helpers;
 using System.IO;
 using PoolGuy.Mobile.ViewModels;
 

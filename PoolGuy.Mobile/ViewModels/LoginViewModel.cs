@@ -1,9 +1,9 @@
-﻿using PoolGuy.Mobile.Views;
+﻿using Acr.UserDialogs;
+using GalaSoft.MvvmLight.Ioc;
+using PoolGuy.Mobile.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific.AppCompat;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -19,8 +19,26 @@ namespace PoolGuy.Mobile.ViewModels
 
         private async void OnLoginClicked(object obj)
         {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                await Task.Delay(2000);
+                await Shell.Current.GoToAsync(Locator.Home);
+            }
+            catch (Exception e)
+            {
+                if (Message != null)
+                {
+                    await Message.DisplayAlertAsync($"Unabble to navigate to {Locator.Home}", Title, "Ok");
+                }
+            }
+            finally { IsBusy = false; }
         }
     }
 }

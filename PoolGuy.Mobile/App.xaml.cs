@@ -1,6 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 using PoolGuy.Mobile.Services;
 using PoolGuy.Mobile.Views;
 using CommonServiceLocator;
@@ -11,9 +9,15 @@ using PoolGuy.Mobile.Data.SQLite;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.ViewModels;
 using PoolGuy.Mobile.Data.Controllers;
-using System.Threading.Tasks;
 using Plugin.Permissions.Abstractions;
-using PoolGuy.Mobile.Models;
+using PoolGuy.Mobile.Data.Models.Weather;
+using System.Threading.Tasks;
+using PoolGuy.Mobile.Data.Helpers;
+using System.Linq;
+using Xamarin.Essentials;
+using PoolGuy.Mobile.Controllers;
+using System;
+using System.Diagnostics;
 
 namespace PoolGuy.Mobile
 {
@@ -23,6 +27,8 @@ namespace PoolGuy.Mobile
         public App()
         {
             InitializeComponent();
+
+            Settings.TabletsRegistered = null;
 
             DependencyService.Register<MockDataStore>();
             DependencyService.Register<ILocalDataStore<CustomerModel>, LocalDataStore<CustomerModel>>();
@@ -59,13 +65,12 @@ namespace PoolGuy.Mobile
                 SimpleIoc.Default.Register<INavigationService>(() => nav);
             }
 
-            CreateTables();
-            MainPage = new AppShell();
+            MainPage = new LoginPage();
         }
 
-        private void CreateTables()
+        private async Task CreateTablesAsync()
         {
-            Device.BeginInvokeOnMainThread(async () =>
+            try
             {
                 await new CustomerController().LocalData.CreateTableAsync();
                 await new PoolController().LocalData.CreateTableAsync();
@@ -75,12 +80,17 @@ namespace PoolGuy.Mobile
                 await new EquipmentTypeController().LocalData.CreateTableAsync();
                 await new ManufactureController().LocalData.CreateTableAsync();
                 await new WeatherController().LocalData.CreateTableAsync();
-            });
+            }
+            catch (System.Exception e)
+            {
+
+                throw;
+            }
         }
 
-        private void ClearTables()
+        private async Task ClearTablesAsync()
         {
-            Device.BeginInvokeOnMainThread(async () =>
+            try
             {
                 await new CustomerController().LocalData.ClearTableAsync();
                 await new AddressController().LocalData.ClearTableAsync();
@@ -90,23 +100,63 @@ namespace PoolGuy.Mobile
                 await new ManufactureController().LocalData.ClearTableAsync();
                 await new PoolController().LocalData.ClearTableAsync();
                 await new WeatherController().LocalData.ClearTableAsync();
-            });
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
         protected override async void OnStart()
         {
-            await DependencyService.Get<IPermissionService>()
+            base.OnStart();
+
+            var result = await DependencyService.Get<IPermissionService>()
                     .CheckPermissions(Permission.Storage);
+
+            if (!result.Any(x => x.Value == Plugin.Permissions.Abstractions.PermissionStatus.Granted))
+            {
+                return;
+            }
+
+            await CreateTablesAsync();
+            
+            var navigationService = SimpleIoc.Default.GetInstance<INavigationService>();
+            var navList = AppStateController.RestoreState();
+            AppStateController.ClearNavigationMetaStack();
+
+            foreach (var nav in navList)
+            {
+                switch (nav.CurrentPage)
+                {
+                    case "MainPage":
+                        await navigationService.ReplaceRoot(Locator.Home);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         protected override void OnSleep()
         {
+            try
+            {
+                if (Shell.Current.Navigation.ModalStack.Any())
+                {
+                    AppStateController.SaveViewState(((IContentPage)Shell.Current.Navigation.ModalStack.Last()).OnSleep());
+                }
+
+                AppStateController.SaveFinalState();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
         protected override void OnResume()
         {
         }
     }
-
-    
 }

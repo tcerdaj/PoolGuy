@@ -1,5 +1,5 @@
 ﻿using PoolGuy.Mobile.Data.Controllers;
-using PoolGuy.Mobile.Data.Models;
+using PoolGuy.Mobile.Data.Models.Weather;
 using PoolGuy.Mobile.Extensions;
 using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Services.Interface;
@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -81,24 +82,11 @@ namespace PoolGuy.Mobile.ViewModels
                     {
                         Weather = new WeatherModel
                         {
-                            WeatherId = weather.current.weather.FirstOrDefault().Id,
-                            Icon = weather.current.weather.FirstOrDefault().Icon,
-                            Temp = weather.current.temp,
-                            DT = weather.current.dt,
-                            Sunrise = weather.current.sunrise,
-                            Sunset = weather.current.sunset,
-                            FeelsLike = weather.current.feels_like,
-                            Humidity = weather.current.humidity,
-                            Description = weather.current.weather.FirstOrDefault().Description,
-                            Clouds = weather.current.clouds,
-                            Uvi = weather.current.uvi,
-                            Rain = weather.daily.Sum(x => x.rain),
-                            ThreeHoursRain = weather.daily.FirstOrDefault(x => string.IsNullOrEmpty(x.Rain?.ThreeHours)).Rain?.ThreeHours,
-                            WindDeg = weather.current.wind_deg,
-                            WindSpeed = weather.current.wind_speed
+                            WeatherJson = JsonConvert.SerializeObject(weather)
                         };
 
                         await new WeatherController().LocalData.Modify(Weather);
+                        Weather.RaiseFields();
                         var w = await new WeatherController().LocalData.List().ConfigureAwait(false);
                     }
                 }
@@ -112,6 +100,5 @@ namespace PoolGuy.Mobile.ViewModels
             get { return _weatherRoot; }
             set { _weatherRoot = value; OnPropertyChanged("Weather"); }
         }
-
     }
 }

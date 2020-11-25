@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
-using PoolGuy.Mobile.Data.Models;
-using System;
 
-namespace PoolGuy.Mobile.Models
+namespace PoolGuy.Mobile.Data.Models.Weather
 {
 
     public class WeatherHistoryRoot 

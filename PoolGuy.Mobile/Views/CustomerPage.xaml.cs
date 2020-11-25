@@ -1,12 +1,14 @@
-﻿using PoolGuy.Mobile.ViewModels;
+﻿using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Models;
+using PoolGuy.Mobile.Services.Interface;
+using PoolGuy.Mobile.ViewModels;
 using System;
-using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.Views
 {
-    public partial class CustomerPage : ContentPage
+    public partial class CustomerPage : ContentPage, IContentPage
     {
         CustomerViewModel _viewModel;
         public CustomerPage()
@@ -46,6 +48,24 @@ namespace PoolGuy.Mobile.Views
                     System.Diagnostics.Debug.WriteLine(ex);
                 }
             }
+        }
+
+        public void Initialize()
+        {
+        }
+
+        public MobileNavigationModel OnSleep()
+        {
+            return new MobileNavigationModel
+            {
+                CurrentPage = Locator.Customer,
+                PageViewModel = _viewModel,
+                IsModal = true
+            };
+        }
+
+        public void CleanUp()
+        {
         }
     }
 }

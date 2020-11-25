@@ -6,39 +6,61 @@ using System.Threading.Tasks;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Data.Models.Query;
 using PoolGuy.Mobile.Data.Extentions;
-using System.Runtime.CompilerServices;
-using PoolGuy.Mobile.Data.SQLite;
+using PoolGuy.Mobile.Data.Helpers;
+using System.Diagnostics;
 
 namespace PoolGuy.Mobile.Data.SQLite
 {
     public class LocalDataStore<T> : SQLiteControllerBase, ILocalDataStore<T> where T : EntityBase, new()
     {
-        private static bool initialized = false;
+        private static bool Initialized 
+        {
+            get
+            {
+                return Settings.TabletsRegistered.Any(x => x.Equals(typeof(T).Name));
+            }
+        }
 
         public LocalDataStore()
         {
-            CreateTableAsync()
-                .SaveFireAndForget(false);
         }
 
         public async Task CreateTableAsync()
         {
             try
             {
-                if (!initialized)
+                if (!Initialized)
                 {
                     if (DatabaseAsync.TableMappings.All(m => m.MappedType.Name != typeof(T).Name))
                     {
                         await DatabaseAsync.CreateTableAsync(typeof(T), CreateFlags.None);
+                        
+                        AddRegisteredTablet(typeof(T).Name);
                     }
-
-                    initialized = true;
                 }
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("Exception at ClearTableAsync: {0} {1}", typeof(T).Name, e);
                 throw;
+            }
+        }
+
+        void AddRegisteredTablet(string tabletName)
+        {
+            try
+            {
+                var tablets = Settings.TabletsRegistered.ToList();
+
+                if (!tablets.Any(x => x.Equals(tabletName)))
+                {
+                    tablets.Add(tabletName);
+                    Settings.TabletsRegistered = tablets.ToArray();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
             }
         }
 
@@ -161,7 +183,7 @@ namespace PoolGuy.Mobile.Data.SQLite
         {
             try
             {
-                if (!initialized)
+                if (!Initialized)
                     return null;
 
                 return await DatabaseAsync.Table<T>().FirstOrDefaultAsync(x => x.Id == id);
@@ -177,7 +199,7 @@ namespace PoolGuy.Mobile.Data.SQLite
         {
             try
             {
-                if (initialized)
+                if (Initialized)
                 {
                     await DatabaseAsync.DropTableAsync<T>();
                     await DatabaseAsync.CreateTableAsync<T>();

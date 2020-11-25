@@ -5709,6 +5709,7 @@ namespace PoolGuy.Mobile.Droid
 			global::BottomNavigationBar.Resource.Styleable.ViewStubCompat_android_id = global::PoolGuy.Mobile.Droid.Resource.Styleable.ViewStubCompat_android_id;
 			global::BottomNavigationBar.Resource.Styleable.ViewStubCompat_android_inflatedId = global::PoolGuy.Mobile.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId;
 			global::BottomNavigationBar.Resource.Styleable.ViewStubCompat_android_layout = global::PoolGuy.Mobile.Droid.Resource.Styleable.ViewStubCompat_android_layout;
+			global::Microcharts.Droid.Resource.String.library_name = global::PoolGuy.Mobile.Droid.Resource.String.library_name;
 			global::MR.Gestures.Resource.Animation.abc_fade_in = global::PoolGuy.Mobile.Droid.Resource.Animation.abc_fade_in;
 			global::MR.Gestures.Resource.Animation.abc_fade_out = global::PoolGuy.Mobile.Droid.Resource.Animation.abc_fade_out;
 			global::MR.Gestures.Resource.Animation.abc_grow_fade_in_from_bottom = global::PoolGuy.Mobile.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
