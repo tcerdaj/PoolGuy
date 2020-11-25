@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
+using PoolGuy.Mobile.Data.Helpers;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -20,6 +21,15 @@ namespace PoolGuy.Mobile.ViewModels
         {
             Title = this.GetType().Name.Replace("ViewModel", "");
             Notify.RaiseNavigationAction(new Messages.RefreshMessage());
+            SubscribeMessages();
+        }
+
+        private void SubscribeMessages()
+        {
+            Notify.SubscribeHomeAction(async(sender) =>
+            {
+                await Initialize();
+            });
         }
 
         public ICommand OpenWebCommand { get; }
@@ -35,20 +45,44 @@ namespace PoolGuy.Mobile.ViewModels
             } 
         }
 
-        public async Task Initialize()
+        private async Task Initialize()
         {
-            if (MainThread.IsMainThread)
+            if(IsBusy || Weather != null)
             {
-                await SetWeather()
-                        .ConfigureAwait(false);
+                return;
             }
-            else
+
+            IsBusy = true;
+
+            try
             {
-                MainThread.BeginInvokeOnMainThread(async() =>
+                if (!Settings.IsLoggedIn)
+                {
+                    await Shell.Current.GoToAsync(Locator.Login);
+                    return;
+                }
+
+                if (MainThread.IsMainThread)
                 {
                     await SetWeather()
                             .ConfigureAwait(false);
-                });
+                }
+                else
+                {
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        await SetWeather()
+                                .ConfigureAwait(false);
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                await Message.DisplayAlertAsync(e.Message, "Initialize", "Ok");
+            }
+            finally 
+            {
+                IsBusy = false;
             }
         }
 

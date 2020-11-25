@@ -1,6 +1,8 @@
-﻿using Acr.UserDialogs;
+﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using PoolGuy.Mobile.Data.Helpers;
 using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Services.Interface;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -29,7 +31,10 @@ namespace PoolGuy.Mobile.ViewModels
             try
             {
                 await Task.Delay(2000);
+                Application.Current.MainPage = new AppShell();
                 await Shell.Current.GoToAsync(Locator.Home);
+                Settings.IsLoggedIn = true;
+                Notify.RaiseHomeAction(new Messages.RefreshMessage());
             }
             catch (Exception e)
             {

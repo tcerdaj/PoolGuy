@@ -38,7 +38,6 @@ namespace PoolGuy.Mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await _viewModel.Initialize();
         }
 
         protected override void OnDisappearing()

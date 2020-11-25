@@ -11,11 +11,14 @@ namespace PoolGuy.Mobile
         public AppShell()
         {
             InitializeComponent();
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
             Routing.RegisterRoute(nameof(CustomerPage), typeof(CustomerPage));
             Routing.RegisterRoute(nameof(SearchCustomerPage), typeof(SearchCustomerPage));
+            Routing.RegisterRoute(nameof(ActionSheetPopupPage), typeof(ActionSheetPopupPage));
+            Routing.RegisterRoute(nameof(EquipmentPage), typeof(EquipmentPage));
             Routing.RegisterRoute(nameof(WizardCustomerPage), typeof(WizardCustomerPage));
         }
 

@@ -65,7 +65,15 @@ namespace PoolGuy.Mobile
                 SimpleIoc.Default.Register<INavigationService>(() => nav);
             }
 
-            MainPage = new LoginPage();
+            if(Settings.IsLoggedIn)
+            {
+                MainPage = new AppShell();
+            }
+            else
+            {
+                MainPage = new LoginPage();
+            }
+            
         }
 
         private async Task CreateTablesAsync()
@@ -157,6 +165,14 @@ namespace PoolGuy.Mobile
 
         protected override void OnResume()
         {
+            try
+            {
+                AppStateController.ResetState();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
     }
 }
