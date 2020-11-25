@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Data.Models.Query;
-using PoolGuy.Mobile.Data.Extentions;
 using PoolGuy.Mobile.Data.Helpers;
 using System.Diagnostics;
 
@@ -79,7 +78,7 @@ namespace PoolGuy.Mobile.Data.SQLite
 
                     if (model.Created == null || model.Created == DateTime.MinValue)
                     {
-                        model.Created = DateTime.Now;
+                        model.Created = DateTime.Now.ToUniversalTime();
                     }
 
                     await DatabaseAsync.InsertAsync(model);
@@ -87,7 +86,7 @@ namespace PoolGuy.Mobile.Data.SQLite
                 }
                 else
                 {
-                    model.Modified = DateTime.Now;
+                    model.Modified = DateTime.Now.ToUniversalTime();
                     await DatabaseAsync.UpdateAsync(model);
                     return (T)model;
                 }

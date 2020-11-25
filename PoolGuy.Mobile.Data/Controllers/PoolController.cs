@@ -49,7 +49,7 @@ namespace PoolGuy.Mobile.Data.Controllers
 
                 if (model.Id == Guid.Empty)
                 {
-                    var created = DateTime.Now;
+                    var created = DateTime.Now.ToUniversalTime();
                     model.Id = Guid.NewGuid();
                     model.Equipments.LastOrDefault().Id = Guid.NewGuid();
                     model.Equipments.LastOrDefault().Created = created;
@@ -60,7 +60,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                     var tempModel = (PoolModel)new PoolModel().InjectFrom(model);
                     model = await LoadAsync(model.Id);
                     model.InjectFrom(tempModel);
-                    model.Modified = DateTime.Now;
+                    model.Modified = DateTime.Now.ToUniversalTime();
                 }
 
                 SQLiteNetExtensions.Extensions.WriteOperations.InsertOrReplaceWithChildren(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);

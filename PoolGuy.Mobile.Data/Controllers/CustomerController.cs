@@ -103,7 +103,7 @@ namespace PoolGuy.Mobile.Data.Controllers
 
                 if (model.Id == Guid.Empty)
                 {
-                    var created = DateTime.Now;
+                    var created = DateTime.Now.ToUniversalTime();
                     model.Id = Guid.NewGuid();
                     model.Address.Id = Guid.NewGuid();
                     model.AddressId = model.Address.Id;
@@ -118,7 +118,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                 }
                 else 
                 {
-                    var modified = DateTime.Now;
+                    var modified = DateTime.Now.ToUniversalTime();
                     var tempModel = (CustomerModel)new CustomerModel().InjectFrom(model);
                     
                     model = await LoadAsync(model.Id);
@@ -150,14 +150,14 @@ namespace PoolGuy.Mobile.Data.Controllers
                 if (model.Id == Guid.Empty)
                 {
                     model.Id = Guid.NewGuid();
-                    model.Created = DateTime.Now;
+                    model.Created = DateTime.Now.ToUniversalTime();
                 }
                 else
                 {
                     var tempModel = (CustomerModel)new CustomerModel().InjectFrom(model);
                     model = await LoadAsync(model.Id);
                     model.InjectFrom(tempModel);
-                    model.Modified = DateTime.Now;
+                    model.Modified = DateTime.Now.ToUniversalTime();
                 }
 
                 return await LocalData

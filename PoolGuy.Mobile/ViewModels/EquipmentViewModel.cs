@@ -395,7 +395,7 @@ namespace PoolGuy.Mobile.ViewModels
                     if (Equipment.Id == Guid.Empty)
                     {
                         Equipment.Id = Guid.NewGuid();
-                        Equipment.Created = DateTime.Now;
+                        Equipment.Created = DateTime.Now.ToUniversalTime();
                         Pool.Equipments.Add(Equipment);
                     }
                     else 

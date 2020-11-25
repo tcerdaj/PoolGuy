@@ -1,4 +1,5 @@
-﻿using PoolGuy.Mobile.Helpers;
+﻿using PoolGuy.Mobile.Data.Helpers;
+using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
@@ -38,6 +39,10 @@ namespace PoolGuy.Mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            if (Settings.IsLoggedIn)
+            {
+                await _viewModel.Initialize();
+            }
         }
 
         protected override void OnDisappearing()

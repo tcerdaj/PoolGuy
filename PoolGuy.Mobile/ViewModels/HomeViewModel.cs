@@ -45,7 +45,7 @@ namespace PoolGuy.Mobile.ViewModels
             } 
         }
 
-        private async Task Initialize()
+        public async Task Initialize()
         {
             if(IsBusy || Weather != null)
             {
@@ -95,9 +95,9 @@ namespace PoolGuy.Mobile.ViewModels
                            new Data.Models.Query.SQLControllerListFilterField
                            {
                                FieldName = "Created",
-                               ValueLBound = DateTime.Now.Date.AddDays(-1).ToString(),
-                               ValueUBound = DateTime.Now.Date.AddDays(1).ToString(),
-                               CompareMethod = Data.Models.Query.SQLControllerListFilterField.CompareMethodEnum.GreaterThan 
+                               ValueLBound = DateTime.Now.Date.ToString(),
+                               ValueUBound = DateTime.Now.Date.AddDays(1).AddTicks(-1).ToString(),
+                               DateKind = Data.Models.Query.SQLControllerListFilterField.DateKindEnum.Localized
                            }
                        }
             }).ConfigureAwait(false);
@@ -121,7 +121,6 @@ namespace PoolGuy.Mobile.ViewModels
 
                         await new WeatherController().LocalData.Modify(Weather);
                         Weather.RaiseFields();
-                        var w = await new WeatherController().LocalData.List().ConfigureAwait(false);
                     }
                 }
             }

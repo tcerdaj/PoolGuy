@@ -100,7 +100,7 @@ namespace PoolGuy.Mobile.Data.Models
                 
                 if(_status != WorkStatus.None)
                 {
-                    DateLastVisit = DateTime.Now;
+                    DateLastVisit = DateTime.Now.ToUniversalTime();
                 }
             }
         }
