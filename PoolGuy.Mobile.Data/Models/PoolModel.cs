@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.ObjectModel;
-using System.Runtime.Serialization;
 
 namespace PoolGuy.Mobile.Data.Models
 {

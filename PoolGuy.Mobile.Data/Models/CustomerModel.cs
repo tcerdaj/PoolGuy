@@ -4,6 +4,7 @@ using static PoolGuy.Mobile.Data.Models.Enums;
 using SQLite;
 using System.ComponentModel.DataAnnotations;
 using SQLiteNetExtensions.Attributes;
+using System.Collections.Generic;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -13,6 +14,9 @@ namespace PoolGuy.Mobile.Data.Models
         {
 
         }
+
+        [ManyToMany(typeof(SchedulerModel), CascadeOperations = CascadeOperation.All)]
+        public List<SchedulerModel> Scheduler { get; set; }
 
         [ForeignKey(typeof(AddressModel))]
         public Guid AddressId { get; set; }
@@ -150,11 +154,6 @@ namespace PoolGuy.Mobile.Data.Models
                 _additionalInformation = value; 
                 OnPropertyChanged("AdditionalInformation");
             } 
-        }
-
-        public bool NewCustomer
-        {
-            get { return Id.Equals(Guid.Empty); }
         }
     }
 }

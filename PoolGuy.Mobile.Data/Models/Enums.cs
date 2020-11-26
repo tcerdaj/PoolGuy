@@ -50,5 +50,14 @@ namespace PoolGuy.Mobile.Data.Models
             Imperial,
             Metric
         }
+
+        public enum ImageType
+        {
+            Customer,
+            User,
+            WorkOrder,
+            Equipment,
+            Report
+        }
     }
 }

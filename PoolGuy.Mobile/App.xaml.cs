@@ -28,17 +28,7 @@ namespace PoolGuy.Mobile
         {
             InitializeComponent();
 
-            Settings.TabletsRegistered = null;
-
-            DependencyService.Register<MockDataStore>();
-            DependencyService.Register<ILocalDataStore<CustomerModel>, LocalDataStore<CustomerModel>>();
-            DependencyService.Register<ILocalDataStore<AddressModel>, LocalDataStore<AddressModel>>();
-            DependencyService.Register<ILocalDataStore<ContactModel>, LocalDataStore<ContactModel>>();
-            DependencyService.Register<ILocalDataStore<EquipmentModel>, LocalDataStore<EquipmentModel>>();
-            DependencyService.Register<ILocalDataStore<EquipmentTypeModel>, LocalDataStore<EquipmentTypeModel>>();
-            DependencyService.Register<ILocalDataStore<ManufactureModel>, LocalDataStore<ManufactureModel>>();
-            DependencyService.Register<ILocalDataStore<PoolModel>, LocalDataStore<PoolModel>>();
-            DependencyService.Register<ILocalDataStore<WeatherModel>, LocalDataStore<WeatherModel>>();
+            RegisterTables();
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -73,7 +63,37 @@ namespace PoolGuy.Mobile
             {
                 MainPage = new LoginPage();
             }
-            
+        }
+
+        private void RegisterTables()
+        {
+            try
+            {
+                Settings.TabletsRegistered = null;
+
+                DependencyService.Register<MockDataStore>();
+                DependencyService.Register<ILocalDataStore<CustomerModel>, LocalDataStore<CustomerModel>>();
+                DependencyService.Register<ILocalDataStore<AddressModel>, LocalDataStore<AddressModel>>();
+                DependencyService.Register<ILocalDataStore<ContactModel>, LocalDataStore<ContactModel>>();
+                DependencyService.Register<ILocalDataStore<EquipmentModel>, LocalDataStore<EquipmentModel>>();
+                DependencyService.Register<ILocalDataStore<EquipmentTypeModel>, LocalDataStore<EquipmentTypeModel>>();
+                DependencyService.Register<ILocalDataStore<ManufactureModel>, LocalDataStore<ManufactureModel>>();
+                DependencyService.Register<ILocalDataStore<PoolModel>, LocalDataStore<PoolModel>>();
+                DependencyService.Register<ILocalDataStore<WeatherModel>, LocalDataStore<WeatherModel>>();
+                DependencyService.Register<ILocalDataStore<SchedulerModel>, LocalDataStore<SchedulerModel>>();
+                DependencyService.Register<ILocalDataStore<EntityImageModel>, LocalDataStore<EntityImageModel>>();
+                DependencyService.Register<ILocalDataStore<UserModel>, LocalDataStore<UserModel>>();
+                DependencyService.Register<ILocalDataStore<RoleModel>, LocalDataStore<RoleModel>>();
+                DependencyService.Register<ILocalDataStore<WorkOrderModel>, LocalDataStore<WorkOrderModel>>();
+                DependencyService.Register<ILocalDataStore<WorkOrderDetailsModel>, LocalDataStore<WorkOrderDetailsModel>>();
+                DependencyService.Register<ILocalDataStore<ItemModel>, LocalDataStore<ItemModel>>();
+                DependencyService.Register<ILocalDataStore<ReportModel>, LocalDataStore<ReportModel>>();
+                DependencyService.Register<ILocalDataStore<EquipmentIssueModel>, LocalDataStore<EquipmentIssueModel>>();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         private async Task CreateTablesAsync()
@@ -88,28 +108,17 @@ namespace PoolGuy.Mobile
                 await new EquipmentTypeController().LocalData.CreateTableAsync();
                 await new ManufactureController().LocalData.CreateTableAsync();
                 await new WeatherController().LocalData.CreateTableAsync();
+                await new SchedulerController().LocalData.CreateTableAsync();
+                await new UserController().LocalData.CreateTableAsync();
+                await new RoleController().LocalData.CreateTableAsync();
+                await new WorkOrderController().LocalData.CreateTableAsync();
+                await new WorkOrderDetailsController().LocalData.CreateTableAsync();
+                await new ItemController().LocalData.CreateTableAsync();
+                await new ReportController().LocalData.CreateTableAsync();
+                await new EquipmentIssueController().LocalData.CreateTableAsync();
+                await new ImageController().LocalData.CreateTableAsync();
             }
             catch (System.Exception e)
-            {
-
-                throw;
-            }
-        }
-
-        private async Task ClearTablesAsync()
-        {
-            try
-            {
-                await new CustomerController().LocalData.ClearTableAsync();
-                await new AddressController().LocalData.ClearTableAsync();
-                await new ContactInformationController().LocalData.ClearTableAsync();
-                await new EquipmentController().LocalData.ClearTableAsync();
-                await new EquipmentTypeController().LocalData.ClearTableAsync();
-                await new ManufactureController().LocalData.ClearTableAsync();
-                await new PoolController().LocalData.ClearTableAsync();
-                await new WeatherController().LocalData.ClearTableAsync();
-            }
-            catch (System.Exception)
             {
                 throw;
             }
@@ -150,7 +159,7 @@ namespace PoolGuy.Mobile
         {
             try
             {
-                if (Shell.Current.Navigation.ModalStack.Any())
+                if (Shell.Current != null && Shell.Current.Navigation.ModalStack.Any())
                 {
                     AppStateController.SaveViewState(((IContentPage)Shell.Current.Navigation.ModalStack.Last()).OnSleep());
                 }
