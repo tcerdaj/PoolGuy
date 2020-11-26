@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 using PoolGuy.Mobile.Data.Helpers;
+using PoolGuy.Mobile.Views;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -56,12 +58,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                if (!Settings.IsLoggedIn)
-                {
-                    await Shell.Current.GoToAsync(Locator.Login);
-                    return;
-                }
-
+           
                 if (MainThread.IsMainThread)
                 {
                     await SetWeather()

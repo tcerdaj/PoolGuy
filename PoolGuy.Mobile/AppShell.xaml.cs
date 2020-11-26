@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using PoolGuy.Mobile.ViewModels;
+using PoolGuy.Mobile.Data.Helpers;
 using PoolGuy.Mobile.Views;
 using Xamarin.Forms;
 
@@ -22,6 +21,10 @@ namespace PoolGuy.Mobile
             Routing.RegisterRoute(nameof(WizardCustomerPage), typeof(WizardCustomerPage));
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+        }
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {

@@ -39,7 +39,12 @@ namespace PoolGuy.Mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            if (Settings.IsLoggedIn)
+            if (!Settings.IsLoggedIn)
+            {
+                Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White};
+                return;
+            }
+            else
             {
                 await _viewModel.Initialize();
             }

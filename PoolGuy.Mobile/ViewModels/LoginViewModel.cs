@@ -32,7 +32,6 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 await Task.Delay(2000);
                 Application.Current.MainPage = new AppShell();
-                await Shell.Current.GoToAsync(Locator.Home);
                 Settings.IsLoggedIn = true;
                 Notify.RaiseHomeAction(new Messages.RefreshMessage());
             }

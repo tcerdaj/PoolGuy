@@ -49,6 +49,10 @@ namespace PoolGuy.Mobile
 
             var nav = new NavigationService();
             nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
+            nav.Configure(Locator.Home, typeof(HomePage));
+            nav.Configure(Locator.SearchCustomer, typeof(SearchCustomerPage));
+            nav.Configure(Locator.Login, typeof(LoginPage));
+            nav.Configure(Locator.Equipment, typeof(EquipmentPage));
 
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {
@@ -159,12 +163,24 @@ namespace PoolGuy.Mobile
         {
             try
             {
-                if (Shell.Current != null && Shell.Current.Navigation.ModalStack.Any())
+                
+                if (Shell.Current != null && Shell.Current.Navigation.NavigationStack.Any() || Shell.Current.Navigation.ModalStack.Any())
                 {
-                    AppStateController.SaveViewState(((IContentPage)Shell.Current.Navigation.ModalStack.Last()).OnSleep());
-                }
 
-                AppStateController.SaveFinalState();
+                    if (Shell.Current.Navigation.ModalStack.Any())
+                    {
+                        AppStateController.SaveViewState(((IContentPage)Shell.Current.Navigation.ModalStack.Last()).OnSleep());
+                    }
+
+                    if (Shell.Current.Navigation.NavigationStack.Any())
+                    {
+
+                        var page = (IContentPage)Shell.Current.Navigation.NavigationStack.Last();
+                        AppStateController.SaveViewState(((IContentPage)Shell.Current.Navigation.NavigationStack.Last()).OnSleep());
+                    }
+
+                    AppStateController.SaveFinalState();
+                }
             }
             catch (Exception ex)
             {
