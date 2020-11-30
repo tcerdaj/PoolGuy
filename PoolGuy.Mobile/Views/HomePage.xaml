@@ -2,7 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.HomePage"
-             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls" xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
+             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              Title="{Binding Title}">
     
     <ContentPage.Resources>
@@ -146,8 +149,13 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                         <!--Temperature-->
                         <Label Grid.Column="0"
+                               Grid.Row="0"
                                TextColor="#7B7575"
                                HorizontalOptions="Start">
                             <Label.FormattedText>
@@ -160,6 +168,7 @@
                         </Label>
                         <!--Clouds-->
                         <StackLayout Grid.Column="1"
+                                     Grid.Row="0"
                                      Orientation="Horizontal"
                                      HorizontalOptions="Center">
                            <Label TextColor="#7B7575">
@@ -173,6 +182,7 @@
                         </StackLayout>
                         <!--Rain-->
                         <StackLayout Grid.Column="2"
+                                     Grid.Row="0"
                                      Orientation="Horizontal"
                                      HorizontalOptions="End">
                             <Label TextColor="#7B7575" 
@@ -185,6 +195,17 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
+                        </StackLayout>
+                        <!--Charts-->
+                        <StackLayout Grid.ColumnSpan="3"
+                                     Grid.Row="1">
+                            <microcharts:ChartView Chart="{Binding Temperature}" 
+                                                   HeightRequest="140" 
+                                                   BackgroundColor="White"/>
+                            <microcharts:ChartView Chart="{Binding Rain}" 
+                                                   HeightRequest="140" 
+                                                   BackgroundColor="White"
+                                                   />
                         </StackLayout>
                     </Grid>
                     

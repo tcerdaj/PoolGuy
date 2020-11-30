@@ -14,6 +14,9 @@ using Newtonsoft.Json;
 using PoolGuy.Mobile.Data.Helpers;
 using PoolGuy.Mobile.Views;
 using GalaSoft.MvvmLight.Ioc;
+using Microcharts;
+using SkiaSharp;
+using System.Diagnostics;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -24,6 +27,23 @@ namespace PoolGuy.Mobile.ViewModels
             Title = this.GetType().Name.Replace("ViewModel", "");
             Notify.RaiseNavigationAction(new Messages.RefreshMessage());
             SubscribeMessages();
+        }
+
+
+        private Chart _temperature;
+
+        public Chart Temperature
+        {
+            get { return _temperature; }
+            set { _temperature = value; OnPropertyChanged("Temperature"); }
+        }
+
+        private Chart _rain;
+
+        public Chart Rain
+        {
+            get { return _rain; }
+            set { _rain = value; OnPropertyChanged("Rain"); }
         }
 
         private void SubscribeMessages()
@@ -102,6 +122,7 @@ namespace PoolGuy.Mobile.ViewModels
             if (storagedWeather.Any())
             {
                 Weather = storagedWeather.FirstOrDefault();
+                
             }
             else
             {
@@ -121,6 +142,29 @@ namespace PoolGuy.Mobile.ViewModels
                     }
                 }
             }
+
+            if(Weather != null)
+            {
+                Temperature = new LineChart
+                {
+                    Entries = Weather.Main.daily.Select(x => new ChartEntry(x.temp.day)
+                    {
+                        Label = CastDtToDayOfWeek(x.dt),
+                        ValueLabel = x.temp.day.ToString("f0"),
+                        Color = SKColor.Parse(GetTemperatureColor(x.temp.day))
+                    })
+                };
+
+                Rain = new LineChart
+                {
+                    Entries = Weather.Main.daily.Select(x => new ChartEntry(x.rain)
+                    {
+                        Label = CastDtToDayOfWeek(x.dt),
+                        ValueLabel = x.rain.ToString("f0"),
+                        Color = SKColor.Parse("#2389da")
+                    })
+                };
+            }
         }
 
         private WeatherModel _weatherRoot;
@@ -129,6 +173,95 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get { return _weatherRoot; }
             set { _weatherRoot = value; OnPropertyChanged("Weather"); }
+        }
+
+        string GetTemperatureColor(float color)
+        {
+            string result = "";
+          
+            switch (color)
+            {
+                case float n when(n > 159):
+                    result = "#FF00E0";
+                        break;
+                case float n when (n > 145):
+                    result = "#FF0070";
+                    break;
+                case float n when (n > 129):
+                    result = "#FF0000";
+                    break;
+                case float n when (n > 121):
+                    result = "#FF3200";
+                    break;
+                case float n when (n > 113):
+                    result = "#FF5a00";
+                    break;
+                case float n when (n > 101):
+                    result = "#FF9600";
+                    break;
+                case float n when (n > 91):
+                    result = "#FFc800";
+                    break;
+                case float n when (n > 83):
+                    result = "#FFf000";
+                    break;
+                case float n when (n > 79):
+                    result = "#fdff00";
+                    break;
+                case float n when (n > 77):
+                    result = "#d7ff00";
+                    break;
+                case float n when (n > 67):
+                    result = "#17ff00";
+                    break;
+                case float n when (n > 59):
+                    result = "#00ff83";
+                    break;
+                case float n when (n > 55):
+                    result = "#00ffd0";
+                    break;
+                case float n when (n > 53):
+                    result = "#00fff4";
+                    break;
+                case float n when (n > 49):
+                    result = "#00d4ff";
+                    break;
+                case float n when (n > 39):
+                    result = "#0094ff";
+                    break;
+                case float n when (n > 31):
+                    result = "#0044ff";
+                    break;
+                case float n when (n > 23):
+                    result = "#0002ff";
+                    break;
+                case float n when (n > 0):
+                    result = "#0500ff";
+                    break;
+                default:
+                    result = "#0500ff";
+                    break;
+            }
+
+            return result;
+        }
+
+        string CastDtToDayOfWeek(int dt)
+        {
+            try
+            {
+                var culture = System.Globalization.CultureInfo.CurrentCulture;
+                
+                DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+                dtDateTime = dtDateTime.AddSeconds(dt).ToLocalTime();
+
+                return culture.DateTimeFormat.GetAbbreviatedDayName(dtDateTime.DayOfWeek);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return "";
+            }
         }
     }
 }

@@ -28,7 +28,15 @@ namespace PoolGuy.Mobile
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            try
+            {
+                Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White };
+                Settings.IsLoggedIn = false;
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", $"Unable to logout: {ex.Message}", "Ok");
+            }
         }
     }
 }
