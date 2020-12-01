@@ -38,6 +38,19 @@ namespace PoolGuy.Mobile.ViewModels
             set { _temperature = value; OnPropertyChanged("Temperature"); }
         }
 
+        public string TempColor
+        {
+            get
+            {
+                if(Weather == null)
+                {
+                    return "#7B7575";
+                }
+
+                return GetTemperatureColor(Weather.Main.current.temp);
+            }
+        }
+
         private Chart _rain;
 
         public Chart Rain
@@ -129,11 +142,21 @@ namespace PoolGuy.Mobile.ViewModels
                 var device = await Utils.GetPositionAsync();
                 if (device != null)
                 {
-                    var weather = await DependencyService.Get<IWeatherService>().GetOneCall(device.Latitude, device.Longitude);
-                    if (weather != null)
+                    WeatherHistoryRoot weather = null;
+                    try
+                    {
+                        weather = await DependencyService.Get<IWeatherService>().GetOneCall(device.Latitude, device.Longitude);
+                    }
+                    catch (Exception e)
+                    {
+                        Weather =  (await new WeatherController().LocalData.List().ConfigureAwait(false)).LastOrDefault();
+                    }
+                    
+                    if (weather != null && Weather == null)
                     {
                         Weather = new WeatherModel
                         {
+                            Id = Guid.Empty,
                             WeatherJson = JsonConvert.SerializeObject(weather)
                         };
 
@@ -164,6 +187,8 @@ namespace PoolGuy.Mobile.ViewModels
                         Color = SKColor.Parse("#2389da")
                     })
                 };
+
+                OnPropertyChanged("TempColor");
             }
         }
 

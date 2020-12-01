@@ -19,7 +19,7 @@ namespace PoolGuy.Mobile.Views
 
         public void CleanUp()
         {
-            
+
         }
 
         public void Initialize()
@@ -41,7 +41,7 @@ namespace PoolGuy.Mobile.Views
             base.OnAppearing();
             if (!Settings.IsLoggedIn)
             {
-                Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White};
+                Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White };
                 return;
             }
             else

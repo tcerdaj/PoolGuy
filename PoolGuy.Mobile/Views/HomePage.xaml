@@ -5,7 +5,7 @@
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
              xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
              xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
-             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
              Title="{Binding Title}">
     
     <ContentPage.Resources>
@@ -87,7 +87,7 @@
             <!--Progress Bar-->
             <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand"
                      VerticalOptions="Center"
-                         IsVisible="False"
+                         IsVisible="True"
                      Padding="10,0"
                      Spacing="10"
                      Orientation="Horizontal">
@@ -105,45 +105,47 @@
                 </Label>
             </StackLayout>
             <!--Summary-->
-            <ScrollView Grid.Row="2">
-                
-                <StackLayout Orientation="Vertical" Padding="20,10" Spacing="10">
-                    <!--Dispatchs/Add-->
-                    <StackLayout Orientation="Horizontal">
-                        <Label TextColor="#4A4A4A" 
+            <!--Dispatchs/Add-->
+            <StackLayout Grid.Row="2"
+                         Padding="20,10" 
+                         Orientation="Horizontal">
+                <Label TextColor="#4A4A4A" 
                            HorizontalOptions="StartAndExpand" 
                            VerticalOptions="Center">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="15 " FontSize="30"/>
-                                    <Span Text="{x:Static icons:MaterialDesignIcons.Truck}" 
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="15 " FontSize="30"/>
+                            <Span Text="{x:Static icons:MaterialDesignIcons.Truck}" 
                                      FontFamily="{StaticResource MaterialFontFamily}" 
                                      FontSize="22"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <mr:Image Aspect="AspectFit" 
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <mr:Image Aspect="AspectFit" 
                                   Margin="0,0,0,0" 
                                   HorizontalOptions="End" 
                                   VerticalOptions="Center"
                                   TappedCommand="{Binding GoToSearchCustomerCommand}">
-                            <mr:Image.Triggers>
-                                <EventTrigger Event="Down">
-                                    <act:ScaleDownTriggerAction />
-                                </EventTrigger>
-                                <EventTrigger Event="Up">
-                                    <act:ScaleUpTriggerAction />
-                                </EventTrigger>
-                            </mr:Image.Triggers>
-                            <Image.Source>
-                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                    <mr:Image.Triggers>
+                        <EventTrigger Event="Down">
+                            <act:ScaleDownTriggerAction />
+                        </EventTrigger>
+                        <EventTrigger Event="Up">
+                            <act:ScaleUpTriggerAction />
+                        </EventTrigger>
+                    </mr:Image.Triggers>
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                              Glyph="{x:Static icons:MaterialDesignIcons.PlusCircle}"
                                              Size="30"
                                              Color="{StaticResource Primary}" />
-                            </Image.Source>
-                        </mr:Image>
-                    </StackLayout>
-                    <Grid HorizontalOptions="FillAndExpand">
+                    </Image.Source>
+                </mr:Image>
+            </StackLayout>
+            <ScrollView Grid.Row="3"
+                        Padding="20,10" >
+                 <Grid HorizontalOptions="FillAndExpand"
+                          >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
@@ -154,10 +156,15 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <!--Temperature-->
-                        <Label Grid.Column="0"
-                               Grid.Row="0"
-                               TextColor="#7B7575"
-                               HorizontalOptions="Start">
+                        <StackLayout Grid.Column="0"
+                                     Grid.Row="0"
+                                     Padding="5"
+                                     HorizontalOptions="Start"
+                                     BackgroundColor="Black"
+                               Opacity=".5">
+                        <Label  
+                               TextColor="{Binding TempColor}"
+                               HorizontalOptions="Center">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="{Binding Weather.Main.current.temp, StringFormat='{0:##}'}" FontSize="30" />
@@ -166,12 +173,16 @@
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
+                        </StackLayout>
                         <!--Clouds-->
                         <StackLayout Grid.Column="1"
                                      Grid.Row="0"
+                                     Padding="5"
                                      Orientation="Horizontal"
                                      HorizontalOptions="Center">
-                           <Label TextColor="#7B7575">
+                           <Label TextColor="#7B7575"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="Center">
                                <Label.FormattedText>
                                    <FormattedString>
                                         <Span Text="{Binding Weather.Main.current.clouds, StringFormat='{0:d}%'}" FontSize="30"/>
@@ -183,13 +194,14 @@
                         <!--Rain-->
                         <StackLayout Grid.Column="2"
                                      Grid.Row="0"
+                                     Padding="10"
                                      Orientation="Horizontal"
                                      HorizontalOptions="End">
-                            <Label TextColor="#7B7575" 
+                            <Label TextColor="#2389da" 
                                    VerticalOptions="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="{Binding Weather.AccumulatedRain}" FontSize="30"/>
+                                        <Span Text="{Binding Weather.AccumulatedRain, StringFormat='{0:f0}'}" FontSize="30"/>
                                         <Span Text="{x:Static icons:MaterialDesignIcons.Water}" FontSize="22"
                                       FontFamily="{StaticResource MaterialFontFamily}"/>
                                     </FormattedString>
@@ -197,19 +209,16 @@
                             </Label>
                         </StackLayout>
                         <!--Charts-->
-                        <StackLayout Grid.ColumnSpan="3"
-                                     Grid.Row="1">
-                            <microcharts:ChartView Chart="{Binding Temperature}" 
-                                                   HeightRequest="140" 
-                                                   BackgroundColor="White"/>
-                            <microcharts:ChartView Chart="{Binding Rain}" 
-                                                   HeightRequest="140" 
-                                                   BackgroundColor="White"
-                                                   />
+                    <mycc:CustomPinchToZoom Grid.ColumnSpan="3"
+                                            Grid.Row="1">
+                        <StackLayout>
+                        <microcharts:ChartView Chart="{Binding Temperature}" 
+                                               HeightRequest="140"/>
+                        <microcharts:ChartView Chart="{Binding Rain}" 
+                                                   HeightRequest="140" />
                         </StackLayout>
-                    </Grid>
-                    
-                </StackLayout>
+                    </mycc:CustomPinchToZoom>
+                </Grid>
             </ScrollView>
             
         </Grid>
