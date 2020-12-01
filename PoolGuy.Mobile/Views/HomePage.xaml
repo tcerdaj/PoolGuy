@@ -209,15 +209,15 @@
                             </Label>
                         </StackLayout>
                         <!--Charts-->
-                    <mycc:CustomPinchToZoom Grid.ColumnSpan="3"
-                                            Grid.Row="1">
+                    <ScrollView Grid.ColumnSpan="3"
+                                Grid.Row="1">
                         <StackLayout>
                         <microcharts:ChartView Chart="{Binding Temperature}" 
                                                HeightRequest="140"/>
                         <microcharts:ChartView Chart="{Binding Rain}" 
                                                    HeightRequest="140" />
                         </StackLayout>
-                    </mycc:CustomPinchToZoom>
+                    </ScrollView>
                 </Grid>
             </ScrollView>
             

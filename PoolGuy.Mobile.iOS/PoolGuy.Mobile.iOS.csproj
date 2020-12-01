@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="CustomRenderer\CustomDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\CustomEntryRenderer.cs" />
+    <Compile Include="CustomRenderer\ZoomScrollViewRenderer.cs" />
     <Compile Include="ISQLite\SQLite_iOS.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
