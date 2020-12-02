@@ -19,6 +19,9 @@ namespace PoolGuy.Mobile
             Routing.RegisterRoute(nameof(ActionSheetPopupPage), typeof(ActionSheetPopupPage));
             Routing.RegisterRoute(nameof(EquipmentPage), typeof(EquipmentPage));
             Routing.RegisterRoute(nameof(WizardCustomerPage), typeof(WizardCustomerPage));
+            Routing.RegisterRoute(nameof(SchedulerPage), typeof(SchedulerPage));
+            Routing.RegisterRoute(nameof(WorkOrderDetailsPage), typeof(WorkOrderDetailsPage));
+            Routing.RegisterRoute(nameof(WorkOrderListPage), typeof(WorkOrderListPage));
         }
 
         protected override void OnAppearing()

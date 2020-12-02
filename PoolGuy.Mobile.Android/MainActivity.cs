@@ -14,8 +14,10 @@ namespace PoolGuy.Mobile.Droid
     [Activity(Label = "PoolGuy", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        static Bundle _savedInstanceState;
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            _savedInstanceState = savedInstanceState;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
@@ -64,6 +66,18 @@ namespace PoolGuy.Mobile.Droid
                 var errorMessage = String.Format("Time: {0}\r\nError: Unhandled Exception\r\n{1}",
                 DateTime.Now, exception.ToString());
                 File.WriteAllText(errorFilePath, errorMessage);
+
+                Android.App.AlertDialog.Builder dialog = new AlertDialog.Builder(Android.App.Application.Context);
+                AlertDialog alert = dialog.Create();
+                alert.SetTitle("Unhandle Exception");
+                alert.SetMessage(exception.Message);
+                alert.SetIcon(Resource.Drawable.ic_errorstatus);
+                alert.SetButton("OK", (c, ev) =>
+                {
+                    // Ok button click task  
+                });
+               
+                alert.Show();
 
                 // Log to Android Device Logging.
                 Android.Util.Log.Error("Crash Report", errorMessage);

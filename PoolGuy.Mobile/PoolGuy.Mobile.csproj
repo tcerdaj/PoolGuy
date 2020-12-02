@@ -38,6 +38,15 @@
     <Compile Update="Views\ActionSheetPopupPage.xaml.cs">
       <DependentUpon>ActionSheetPopupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\WorkOrderDetailsPage.xaml.cs">
+      <DependentUpon>WorkOrderDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\WorkOrderListPage.xaml.cs">
+      <DependentUpon>WorkOrderListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SchedulerPage.xaml.cs">
+      <DependentUpon>SchedulerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\WCustomerPage.xaml.cs">
       <DependentUpon>WCustomerPage.xaml</DependentUpon>
     </Compile>

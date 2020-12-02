@@ -3,6 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:PoolGuy.Mobile.Views"
        Title="PoolGuy.Mobile"
+       xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
        x:Class="PoolGuy.Mobile.AppShell">
 
     <!--
@@ -81,7 +82,16 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" NavigationPage.HasNavigationBar="True">
         <ShellContent Title="Home" Icon="dashboard_black.png" Route="AboutPage" ContentTemplate="{DataTemplate local:HomePage}" />
         <ShellContent Title="Customer" Icon="account_circle_black.png" Route="SearchCustomerPage" ContentTemplate="{DataTemplate local:SearchCustomerPage}" x:Name="customerPage" />
-        <ShellContent Title="Browse" Icon="tab_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <ShellContent Title="Scheduler" ContentTemplate="{DataTemplate local:SchedulerPage}">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                 Glyph="{x:Static icons:MaterialDesignIcons.CalendarAccount}"
+                                 Size="40"
+                                 Color="#7B7575">
+                    
+                </FontImageSource>
+            </ShellContent.Icon>
+        </ShellContent>
     </FlyoutItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
