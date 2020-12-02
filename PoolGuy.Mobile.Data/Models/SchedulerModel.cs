@@ -21,7 +21,7 @@ namespace PoolGuy.Mobile.Data.Models
         [OneToOne]
         public UserModel User { get; set; }
 
-        [ManyToMany(typeof(CustomerModel))]
+        [ManyToMany(typeof(CustomerSchedulerModel), "CustomerId", "Scheduler")]
         public List<CustomerModel> Customers { get; set; }
 
         public void IncreaseIndex(int lastIndex)
@@ -30,7 +30,7 @@ namespace PoolGuy.Mobile.Data.Models
         }
     }
 
-    public class CustomerScheduler
+    public class CustomerSchedulerModel :EntityBase
     { 
         [ForeignKey(typeof(SchedulerModel))]
         public Guid SchedulerId { get; set; }

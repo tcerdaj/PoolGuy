@@ -15,7 +15,7 @@ namespace PoolGuy.Mobile.Data.Models
 
         }
 
-        [ManyToMany(typeof(SchedulerModel), CascadeOperations = CascadeOperation.All)]
+        [ManyToMany(typeof(CustomerSchedulerModel), "SchedulerId", "Customers", CascadeOperations = CascadeOperation.All)]
         public List<SchedulerModel> Scheduler { get; set; }
 
         [ForeignKey(typeof(AddressModel))]
@@ -154,6 +154,14 @@ namespace PoolGuy.Mobile.Data.Models
                 _additionalInformation = value; 
                 OnPropertyChanged("AdditionalInformation");
             } 
+        }
+
+        private bool _selected;
+        [Ignore]
+        public bool Selected 
+        {
+            get { return _selected; }
+            set { _selected = value; OnPropertyChanged("Selected"); } 
         }
     }
 }

@@ -74,8 +74,10 @@ namespace PoolGuy.Mobile
             try
             {
                 Settings.TabletsRegistered = null;
-
+                
                 DependencyService.Register<MockDataStore>();
+                DependencyService.Register<ILocalDataStore<CustomerSchedulerModel>, LocalDataStore<CustomerSchedulerModel>>();
+                DependencyService.Register<ILocalDataStore<SchedulerModel>, LocalDataStore<SchedulerModel>>();
                 DependencyService.Register<ILocalDataStore<CustomerModel>, LocalDataStore<CustomerModel>>();
                 DependencyService.Register<ILocalDataStore<AddressModel>, LocalDataStore<AddressModel>>();
                 DependencyService.Register<ILocalDataStore<ContactModel>, LocalDataStore<ContactModel>>();
@@ -84,7 +86,6 @@ namespace PoolGuy.Mobile
                 DependencyService.Register<ILocalDataStore<ManufactureModel>, LocalDataStore<ManufactureModel>>();
                 DependencyService.Register<ILocalDataStore<PoolModel>, LocalDataStore<PoolModel>>();
                 DependencyService.Register<ILocalDataStore<WeatherModel>, LocalDataStore<WeatherModel>>();
-                DependencyService.Register<ILocalDataStore<SchedulerModel>, LocalDataStore<SchedulerModel>>();
                 DependencyService.Register<ILocalDataStore<EntityImageModel>, LocalDataStore<EntityImageModel>>();
                 DependencyService.Register<ILocalDataStore<UserModel>, LocalDataStore<UserModel>>();
                 DependencyService.Register<ILocalDataStore<RoleModel>, LocalDataStore<RoleModel>>();
@@ -104,6 +105,8 @@ namespace PoolGuy.Mobile
         {
             try
             {
+                await new CustomerSchedulerController().LocalData.CreateTableAsync();
+                await new SchedulerController().LocalData.CreateTableAsync();
                 await new CustomerController().LocalData.CreateTableAsync();
                 await new PoolController().LocalData.CreateTableAsync();
                 await new AddressController().LocalData.CreateTableAsync();
@@ -112,7 +115,6 @@ namespace PoolGuy.Mobile
                 await new EquipmentTypeController().LocalData.CreateTableAsync();
                 await new ManufactureController().LocalData.CreateTableAsync();
                 await new WeatherController().LocalData.CreateTableAsync();
-                await new SchedulerController().LocalData.CreateTableAsync();
                 await new UserController().LocalData.CreateTableAsync();
                 await new RoleController().LocalData.CreateTableAsync();
                 await new WorkOrderController().LocalData.CreateTableAsync();
