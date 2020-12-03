@@ -2,7 +2,7 @@
 using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Helpers;
-using PoolGuy.Mobile.Views;
+using System.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Newtonsoft.Json;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -19,7 +20,6 @@ namespace PoolGuy.Mobile.ViewModels
         {
             Title = this.GetType().Name.Replace("ViewModel", "").Replace("Search", "");
             Globals.CurrentPage = Enums.ePage.Scheduler;
-            InitializeAsync();
         }
 
         private string _searchTerm = "";
@@ -49,58 +49,30 @@ namespace PoolGuy.Mobile.ViewModels
             get => (Shell.Current?.CurrentItem?.CurrentItem as IShellSectionController)?.PresentedPage;
         }
 
-        public ICommand GoToSchedulerDetailsCommand
+        public async Task InitializeAsync()
         {
-            get { return new RelayCommand<SchedulerModel>(async (scheduler) => await GoToDetails(scheduler)); }
-        }
-
-        private async Task GoToDetails(SchedulerModel scheduler)
-        {
-            if (IsBusy) { return; }
+            if(IsBusy){ return; }
             IsBusy = true;
 
             try
             {
-                //await Shell.Current.Navigation.PushAsync(new WizardCustomerPage(customer) { Title = "Customer" });
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+                Schedulers = new ObservableCollection<SchedulerModel>(await new SchedulerController()
+                    .LocalData.List(new Data.Models.Query.SQLControllerListCriteriaModel {
+                     Sort = new List<Data.Models.Query.SQLControllerListSortField> { 
+                        new Data.Models.Query.SQLControllerListSortField {
+                          FieldName = "Index"
+                        }
+                     }}));
 
-        public async Task InitializeAsync()
-        {
-            try
-            {
-                Reset();  
-                 
-                Schedulers = new ObservableCollection<SchedulerModel>(await new SchedulerController().LocalData.List());
+                Reset();
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
                 await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
+            finally { IsBusy = false; }
         }
-
-        public ICommand GoBackCommand => new RelayCommand(async () =>
-        {
-            try
-            {
-              
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
-            }
-        });
 
         public ICommand SaveCommand 
         {
@@ -109,6 +81,9 @@ namespace PoolGuy.Mobile.ViewModels
 
         private async void Save()
         {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
             try
             {
                 if (!FieldValidationHelper.IsFormValid(Scheduler, CurrentPage))
@@ -117,24 +92,83 @@ namespace PoolGuy.Mobile.ViewModels
                 }
 
                 await new SchedulerController().LocalData.Modify(Scheduler);
-                Schedulers.Add(Scheduler);
-                OnPropertyChanged("Schedulers");
+
+                // Add/modify list
+                if (!Schedulers.Any(x => x.Id == Scheduler.Id))
+                {
+                    Schedulers.Insert(Scheduler.Index, Scheduler);
+                    OnPropertyChanged("Schedulers");
+                }
+                else
+                {
+                    var sch = Schedulers.FirstOrDefault(x => x.Id == Scheduler.Id);
+                    
+                    if(sch != null)
+                    {
+                        sch = Scheduler;
+                        Schedulers = new ObservableCollection<SchedulerModel>(Schedulers.OrderBy(x => x.Index));
+                    }
+                }
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
                 await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
+            finally { IsBusy = false; }
+        }
+
+        public ICommand DeleteCommand
+        {
+            get => new RelayCommand<SchedulerModel>((scheduler) => DeleteAsync(scheduler));
+        }
+
+        private async void DeleteAsync(SchedulerModel scheduler)
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                if (await Shell.Current.DisplayAlert("Confirmation", $"Are you sure want to delete {scheduler.LongName} scheduler?", "Delete", "Cancel").ConfigureAwait(false))
+                {
+                    await new SchedulerController().LocalData.Delete(scheduler);
+                    Schedulers = new ObservableCollection<SchedulerModel>(Schedulers.Where(x => x.Id != scheduler.Id).OrderBy(x=>x.Index));
+                    // Get next index
+                    Scheduler.IncreaseIndex(Schedulers.Max(x => x.Index));
+                    OnPropertyChanged("Scheduler");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+            finally { IsBusy = false; }
         }
 
         public ICommand GoToCustomerCommand
         {
-            get => new RelayCommand(async () => GoToCustomer());
+            get => new RelayCommand<SchedulerModel>(async (scheduler) => GoToCustomer(scheduler));
         }
 
-        private async void GoToCustomer()
+        private async void GoToCustomer(SchedulerModel scheduler)
         {
-            await Shell.Current.DisplayAlert(Title,"Go To Customers","Ok");
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                var sch = Schedulers.FirstOrDefault(x => x.Id == scheduler.Id);
+                sch.Selected = true;
+                await Shell.Current.GoToAsync($"{Locator.CustomerScheduler}?schedulers={JsonConvert.SerializeObject(Schedulers)}");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+            finally { IsBusy = false; }
         }
 
         public ICommand ResetCommand
@@ -152,7 +186,8 @@ namespace PoolGuy.Mobile.ViewModels
                     FirstName = "Teofilo",
                     LastName = "Cerda"
                 },
-                Customers = new List<CustomerModel>()
+                Customers = new List<CustomerModel>(),
+                Index = Schedulers.Any()? Schedulers.Max(x => x.Index) + 1: 0
             };
         }
     }

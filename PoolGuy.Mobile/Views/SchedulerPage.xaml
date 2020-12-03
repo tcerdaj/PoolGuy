@@ -5,11 +5,13 @@
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
              xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
              xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
-             xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" 
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
              Title="{Binding Title}">
     
     <ContentPage.Resources>
         <ResourceDictionary>
+            <conv:CollectionListToCount x:Key="ListToCount" />
             <!--  *****************************  -->
             <!--  Material Design Icon FontFamily  -->
             <!--  *****************************  -->
@@ -105,13 +107,14 @@
                             Margin="0"
                             TextColor="{StaticResource UnselectedColor}"
                             VerticalOptions="Center"
+                            HeightRequest="50"
                             Command="{Binding ResetCommand}"
                             CornerRadius="8"
                             BackgroundColor="{StaticResource ExtraLightGray}">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.Autorenew}"
-                                         Size="40"
+                                         Size="30"
                                          Color="{StaticResource Title}" />
                             </Button.ImageSource>
                         </Button>
@@ -119,6 +122,7 @@
                             HorizontalOptions="End"
                             Text="Save"
                             Margin="0"
+                            HeightRequest="50"
                             TextColor="{StaticResource Primary}"
                             VerticalOptions="Center"
                             Command="{Binding SaveCommand}"
@@ -127,45 +131,79 @@
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.ContentSave}"
-                                         Size="40"
+                                         Size="30"
                                          Color="{StaticResource Primary}" />
                             </Button.ImageSource>
                         </Button>
                     </StackLayout>
                 </Grid>
             </Frame>
+            <BoxView Grid.Row="1"
+                     HeightRequest="1" 
+                     Color="{StaticResource ExtraLightGray}" 
+                     HorizontalOptions="FillAndExpand"
+                     Margin="10,20,10,5"/>
             <!--Scheduler list-->
-            <CollectionView Grid.Row="1"
+            <CollectionView Grid.Row="2"
                             x:Name="SchedulerList"
                             EmptyView="No scheduler added yet"
                             SelectionMode="Single"
-                            Margin="10,20"
+                            Margin="15,0"
                             SelectedItem="{Binding Scheduler}"
                             ItemsSource="{Binding Schedulers}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid x:Name="SchedulerItem">
-                        <StackLayout Orientation="Horizontal" 
-                                     HorizontalOptions="FillAndExpand"
-                                     Margin="10,15">
-                            <Label Text="{Binding LongName}"
-                                   HorizontalOptions="StartAndExpand"/>
-                                <mr:Label Text="0 Customers"
-                                          TextColor="#2F80ED"
-                                          FontAttributes="Bold"
-                                          TappedCommand="{Binding Source={x:Reference SchedulerList}, Path=BindingContext.GoToCustomerCommand}"
-                                          TappedCommandParameter="{Binding BindingContext, Source={x:Reference SchedulerItem}}">
-                                    <mr:Label.Triggers>
-                                        <EventTrigger Event="Down">
-                                            <act:ScaleDownTriggerAction />
-                                        </EventTrigger>
-                                        <EventTrigger Event="Up">
-                                            <act:ScaleUpTriggerAction />
-                                        </EventTrigger>
-                                    </mr:Label.Triggers>
-                                </mr:Label>
-                            
-                        </StackLayout>
+                            <SwipeView BackgroundColor="White">
+                                <SwipeView.RightItems>
+                                    <SwipeItems>
+                                        <SwipeItemView BackgroundColor="Red"
+                                                       Margin="10"
+                                                       Command="{Binding Source={x:Reference SchedulerList}, Path=BindingContext.DeleteCommand}"
+                                                       CommandParameter="{Binding}">
+                                            <StackLayout Spacing="0">
+                                                <Label Text="{x:Static icons:MaterialDesignIcons.TrashCan}"
+                                                           FontFamily="{StaticResource MaterialFontFamily}"
+                                                           FontSize="25"
+                                                           Margin="0,5,0,0"
+                                                           TextColor="White"
+                                                           HorizontalOptions="Center"/>
+                                                <Label Text="Delete" 
+                                                           FontSize="10" 
+                                                           HorizontalOptions="Center" 
+                                                           TextColor="White"/>
+                                            </StackLayout>
+                                        </SwipeItemView>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <StackLayout Spacing="0"
+                                             Padding="10,0">
+                                    <StackLayout Orientation="Horizontal" 
+                                                 HorizontalOptions="FillAndExpand"
+                                                 Margin="0,5">
+                                        <Label Text="{Binding LongName}"
+                                               HorizontalOptions="StartAndExpand"
+                                               VerticalOptions="Center"/>
+                                        <mr:Label Text="{Binding Customers, Converter={StaticResource ListToCount}, StringFormat='{0} Customers'}"
+                                                  TextColor="#2F80ED"
+                                                  Padding="0,10"
+                                                  FontAttributes="Bold"
+                                                  VerticalOptions="Center"
+                                                  TappedCommand="{Binding Source={x:Reference SchedulerList}, Path=BindingContext.GoToCustomerCommand}"
+                                                  TappedCommandParameter="{Binding BindingContext, Source={x:Reference SchedulerItem}}">
+                                            <mr:Label.Triggers>
+                                                <EventTrigger Event="Down">
+                                                    <act:ScaleDownTriggerAction />
+                                                </EventTrigger>
+                                                <EventTrigger Event="Up">
+                                                    <act:ScaleUpTriggerAction />
+                                                </EventTrigger>
+                                            </mr:Label.Triggers>
+                                        </mr:Label>
+                                    </StackLayout>
+                                    <BoxView HeightRequest="1" Color="{StaticResource ExtraLightGray}" HorizontalOptions="FillAndExpand"/>
+                                </StackLayout>
+                            </SwipeView>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

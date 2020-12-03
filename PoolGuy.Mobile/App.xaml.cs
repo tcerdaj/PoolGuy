@@ -28,6 +28,8 @@ namespace PoolGuy.Mobile
         {
             InitializeComponent();
 
+            //Device.SetFlags(new string[] { "RadioButton_Experimental" });
+
             RegisterTables();
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -48,11 +50,11 @@ namespace PoolGuy.Mobile
             }
 
             var nav = new NavigationService();
-            nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
-            nav.Configure(Locator.Home, typeof(HomePage));
-            nav.Configure(Locator.SearchCustomer, typeof(SearchCustomerPage));
-            nav.Configure(Locator.Login, typeof(LoginPage));
-            nav.Configure(Locator.Equipment, typeof(EquipmentPage));
+            //nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
+            //nav.Configure(Locator.Home, typeof(HomePage));
+            //nav.Configure(Locator.SearchCustomer, typeof(SearchCustomerPage));
+            //nav.Configure(Locator.Login, typeof(LoginPage));
+            //nav.Configure(Locator.Equipment, typeof(EquipmentPage));
 
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {

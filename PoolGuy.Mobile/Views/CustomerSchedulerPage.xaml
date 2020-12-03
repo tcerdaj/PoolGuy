@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PoolGuy.Mobile.Views.CustomerSchedulerPage"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
+             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" 
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
+             Title="{Binding Title}">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:CollectionListToCount x:Key="ListToCount" />
+            <!--  *****************************  -->
+            <!--  Material Design Icon FontFamily  -->
+            <!--  *****************************  -->
+            <OnPlatform x:Key="FontAwesonFamily"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS"
+                    Value="Font Awesome 5 Free" />
+                <On Platform="Android"
+                    Value="fa-regular-400.ttf#Font Awesome 5 Free Regular" />
+            </OnPlatform>
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor" Value="#D8D8D8"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="HasShadow" Value="False"/>
+            </Style>
+           
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <AbsoluteLayout VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand">
+        <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <!--Scheduler-->
+            
+                <Grid x:Name="mainContent" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--Select scheduler-->
+                    <Label Grid.Row="0"
+                           Text="Please select scheduler"/>
+                    <BoxView Grid.Row="1"
+                             HeightRequest="1" 
+                             Color="{StaticResource ExtraLightGray}" 
+                             HorizontalOptions="FillAndExpand"/>
+                    <!--Horizontal list-->
+                    <CollectionView Grid.Row="2"
+                                    ItemsSource="{Binding Schedulers}"
+                                    ItemsLayout="HorizontalList">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="5,10"
+                                      Margin="5,12">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                <StackLayout Grid.Row="0"
+                                             Spacing="0"
+                                             BackgroundColor="Aqua">
+                                      <CheckBox HorizontalOptions="Center"
+                                               IsChecked="{Binding Selected}" />
+                                      <Label Text="{Binding ShortName}"
+                                             HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        
+                    </CollectionView>
+                    <BoxView Grid.Row="3"
+                             HeightRequest="1" 
+                             Color="{StaticResource ExtraLightGray}" 
+                             HorizontalOptions="FillAndExpand"/>
+                  
+                    <StackLayout Grid.Row="4" Orientation="Horizontal">
+                        <Button 
+                            HorizontalOptions="StartAndExpand"
+                            Margin="0"
+                            TextColor="{StaticResource UnselectedColor}"
+                            VerticalOptions="Center"
+                            HeightRequest="50"
+                            Command="{Binding ResetCommand}"
+                            CornerRadius="8"
+                            BackgroundColor="{StaticResource ExtraLightGray}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                         Glyph="{x:Static icons:MaterialDesignIcons.Plus}"
+                                         Size="30"
+                                         Color="{StaticResource Title}" />
+                            </Button.ImageSource>
+                        </Button>
+                        <Button  
+                            HorizontalOptions="End"
+                            Text="Save"
+                            Margin="0"
+                            HeightRequest="50"
+                            TextColor="{StaticResource Primary}"
+                            VerticalOptions="Center"
+                            Command="{Binding SaveCommand}"
+                            CornerRadius="8"
+                            BackgroundColor="{StaticResource Title}">
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                         Glyph="{x:Static icons:MaterialDesignIcons.ContentSave}"
+                                         Size="30"
+                                         Color="{StaticResource Primary}" />
+                            </Button.ImageSource>
+                        </Button>
+                    </StackLayout>
+                </Grid>
+            <BoxView Grid.Row="1"
+                     HeightRequest="1" 
+                     Color="{StaticResource ExtraLightGray}" 
+                     HorizontalOptions="FillAndExpand"
+                     Margin="10,20,10,5"/>
+            <!--Scheduler list-->
+            <CollectionView Grid.Row="2"
+                            x:Name="SchedulerList"
+                            EmptyView="No scheduler added yet"
+                            SelectionMode="Single"
+                            Margin="15,0"
+                            SelectedItem="{Binding Customer}"
+                            ItemsSource="{Binding CustomerSearchResults}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="SchedulerItem">
+                            <StackLayout Orientation="Horizontal" 
+                                                HorizontalOptions="FillAndExpand"
+                                                Spacing="0"
+                                                Padding="10,0">
+                                <Label Text="{Binding Name}"
+                                            HorizontalOptions="StartAndExpand"
+                                            VerticalOptions="Center"/>
+                                <CheckBox IsChecked="{Binding Selected}"/>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+        <!-- Busy Status -->
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        BackgroundColor="White"
+                        Opacity="0.5"
+                        IsVisible="{Binding IsBusy}">
+            <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                                   IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}" />
+        </AbsoluteLayout>
+    </AbsoluteLayout>
+</ContentPage>

@@ -155,13 +155,5 @@ namespace PoolGuy.Mobile.Data.Models
                 OnPropertyChanged("AdditionalInformation");
             } 
         }
-
-        private bool _selected;
-        [Ignore]
-        public bool Selected 
-        {
-            get { return _selected; }
-            set { _selected = value; OnPropertyChanged("Selected"); } 
-        }
     }
 }

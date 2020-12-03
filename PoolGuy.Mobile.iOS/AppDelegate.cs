@@ -24,6 +24,8 @@ namespace PoolGuy.Mobile.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.SetFlags("SwipeView_Experimental");
+            global::Xamarin.Forms.Forms.SetFlags("RadioButton_Experimental");
+            
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
             global::Xamarin.FormsMaps.Init();

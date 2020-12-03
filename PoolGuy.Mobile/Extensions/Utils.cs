@@ -15,6 +15,8 @@ namespace PoolGuy.Mobile.Extensions
 {
     public static class Utils
     {
+
+
         /// <summary>
         /// Get Device current position
         /// </summary>

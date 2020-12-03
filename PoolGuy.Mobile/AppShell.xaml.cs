@@ -22,6 +22,7 @@ namespace PoolGuy.Mobile
             Routing.RegisterRoute(nameof(SchedulerPage), typeof(SchedulerPage));
             Routing.RegisterRoute(nameof(WorkOrderDetailsPage), typeof(WorkOrderDetailsPage));
             Routing.RegisterRoute(nameof(WorkOrderListPage), typeof(WorkOrderListPage));
+            Routing.RegisterRoute(nameof(CustomerSchedulerPage), typeof(CustomerSchedulerPage));
         }
 
         protected override void OnAppearing()

@@ -1,4 +1,5 @@
-﻿using PoolGuy.Mobile.Helpers;
+﻿using PoolGuy.Mobile.Data.Helpers;
+using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
@@ -24,6 +25,15 @@ namespace PoolGuy.Mobile.Views
 
         public void Initialize()
         {
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (!Settings.IsLoggedIn)
+            {
+                Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White };
+            }
         }
 
         public MobileNavigationModel OnSleep()

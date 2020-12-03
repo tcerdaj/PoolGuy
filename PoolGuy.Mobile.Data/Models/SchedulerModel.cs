@@ -23,11 +23,7 @@ namespace PoolGuy.Mobile.Data.Models
 
         [ManyToMany(typeof(CustomerSchedulerModel), "CustomerId", "Scheduler")]
         public List<CustomerModel> Customers { get; set; }
-
-        public void IncreaseIndex(int lastIndex)
-        {
-            Index = lastIndex + 1;
-        }
+     
     }
 
     public class CustomerSchedulerModel :EntityBase

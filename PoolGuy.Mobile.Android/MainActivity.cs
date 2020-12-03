@@ -25,6 +25,8 @@ namespace PoolGuy.Mobile.Droid
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.SetFlags("SwipeView_Experimental");
+            global::Xamarin.Forms.Forms.SetFlags("RadioButton_Experimental");
+            
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
