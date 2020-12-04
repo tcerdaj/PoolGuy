@@ -26,18 +26,6 @@ namespace PoolGuy.Mobile.Data.Models
             set { _selected = value; OnPropertyChanged("Selected"); }
         }
 
-        private int _index;
-        public int Index
-        {
-            get { return _index; }
-            set { _index = value; OnPropertyChanged("Index"); }
-        }
-
-        public void IncreaseIndex(int lastIndex)
-        {
-            Index = lastIndex + 1;
-        }
-
         public void NotififySelected()
         {
             OnPropertyChanged("Selected");

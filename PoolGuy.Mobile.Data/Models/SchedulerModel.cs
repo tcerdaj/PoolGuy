@@ -13,7 +13,6 @@ namespace PoolGuy.Mobile.Data.Models
         [Required, DataAnnotation.MaxLength(20)]
         public string ShortName { get; set; }
         public int MaxEntries { get; set; }
-        public int Index { get; set; }
         public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
         [ForeignKey(typeof(UserModel))]
@@ -23,7 +22,19 @@ namespace PoolGuy.Mobile.Data.Models
 
         [ManyToMany(typeof(CustomerSchedulerModel), "CustomerId", "Scheduler")]
         public List<CustomerModel> Customers { get; set; }
-     
+
+        private int _index;
+        public int Index
+        {
+            get { return _index; }
+            set { _index = value; OnPropertyChanged("Index"); }
+        }
+
+        public void IncreaseIndex(int lastIndex)
+        {
+            Index = lastIndex + 1;
+        }
+
     }
 
     public class CustomerSchedulerModel :EntityBase
