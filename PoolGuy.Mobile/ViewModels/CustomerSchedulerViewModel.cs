@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
-using PoolGuy.Mobile.Helpers;
 using System.Linq;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Newtonsoft.Json;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -97,6 +97,17 @@ namespace PoolGuy.Mobile.ViewModels
             finally { IsBusy = false; }
         }
 
+        public void RefreshList()
+        {
+            var customers = Schedulers.Where(c => c.Selected)
+                .SelectMany(p => p.Customers)
+                .GroupBy(g => g.Id)
+                .Select(m =>m.First())
+                .ToList();
+
+            CustomerSearchResults = new ObservableCollection<CustomerModel>(customers);
+        }
+
         public ICommand SaveCommand 
         {
             get => new RelayCommand(async() => Save());
@@ -106,36 +117,45 @@ namespace PoolGuy.Mobile.ViewModels
         {
             if (IsBusy) { return; }
             IsBusy = true;
+            string customers = string.Empty;
 
             try
             {
-                if(CustomerSearchResults.Any(x=>!x.Selected))
+                var selectedCustomers = CustomerSearchResults
+                    .Where(x => x.Selected)
+                    .ToList();
+
+                if (!selectedCustomers.Any())
                 {
                     await Shell.Current.DisplayAlert(Title, "Please make a selection first", "Ok");
                     return;
                 }
 
-                //await new SchedulerController().LocalData.Modify(Scheduler);
+                customers = JsonConvert.SerializeObject(Customers);
+                Customers.Clear();
 
-                //// Add/modify list
-                //if (!Schedulers.Any(x => x.Id == Scheduler.Id))
-                //{
-                //    Schedulers.Insert(Scheduler.Index, Scheduler);
-                //    OnPropertyChanged("Schedulers");
-                //}
-                //else
-                //{
-                //    var sch = Schedulers.FirstOrDefault(x => x.Id == Scheduler.Id);
+                foreach (var sch in Schedulers.Where(x=>x.Selected))
+                {
                     
-                //    if(sch != null)
-                //    {
-                //        sch = Scheduler;
-                //        Schedulers = new ObservableCollection<SchedulerModel>(Schedulers.OrderBy(x => x.Index));
-                //    }
-                //}
+                    sch.Customers = selectedCustomers;
+                    await new SchedulerController().ModifyWithChildrenAsync(sch);
+                    
+                    selectedCustomers.ForEach((c) =>
+                    {
+                        if (!Customers.Any(x => x.Id == c.Id))
+                            Customers.Add(c);
+                    });
+                }
+
+                CustomerSearchResults = Customers;
+                OnPropertyChanged("CustomerSearchResults");
+                OnPropertyChanged("Schedulers");
+
+                Message.Toast($"{selectedCustomers.Count()} Customers were added successfully!", TimeSpan.FromSeconds(5));
             }
             catch (Exception e)
             {
+                Customers = JsonConvert.DeserializeObject<ObservableCollection<CustomerModel>>(customers);
                 Debug.WriteLine(e);
                 await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
@@ -182,7 +202,8 @@ namespace PoolGuy.Mobile.ViewModels
                 }
                 else
                 {
-                    CustomerSearchResults = new ObservableCollection<CustomerModel>(await new CustomerController().SearchCustomer(SearchTerm));
+                    var list = await new CustomerController().SearchCustomer(SearchTerm);
+                    CustomerSearchResults = new ObservableCollection<CustomerModel>(list.Where(x => !Customers.Any(p => p.Id == x.Id)));
                 }
             }
             catch (System.Exception e)

@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using System;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace PoolGuy.Mobile.Views
 {
@@ -19,9 +20,16 @@ namespace PoolGuy.Mobile.Views
 
         public CustomerSchedulerPage()
         {
-            InitializeComponent();
-            _viewModel = new CustomerSchedulerViewModel();
-            BindingContext = _viewModel;
+            try
+            {
+                InitializeComponent();
+                _viewModel = new CustomerSchedulerViewModel();
+                BindingContext = _viewModel;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public string Entry
@@ -98,6 +106,34 @@ namespace PoolGuy.Mobile.Views
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
+        }
+
+        private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue == string.Empty)
+            {
+                // Yes, which one?
+                if (e.OldTextValue == null)
+                {
+                    Debug.WriteLine("Initialize");
+                }
+                else if (e.OldTextValue.Length > 1)
+                {
+                    // Cancel has most probably been pressed
+                    Debug.WriteLine("Cancel Pressed");
+                }
+                else
+                {
+                    // Backspace pressed on single character
+                    // Cancel pressed on single character
+                    Debug.WriteLine("Backspace or Cancel Pressed");
+                }
+            }
+        }
+
+        private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            _viewModel.RefreshList();
         }
     }
 }

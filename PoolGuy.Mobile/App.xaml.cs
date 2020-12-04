@@ -18,6 +18,7 @@ using Xamarin.Essentials;
 using PoolGuy.Mobile.Controllers;
 using System;
 using System.Diagnostics;
+using SQLite;
 
 namespace PoolGuy.Mobile
 {
@@ -50,8 +51,8 @@ namespace PoolGuy.Mobile
             }
 
             var nav = new NavigationService();
-            //nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
-            //nav.Configure(Locator.Home, typeof(HomePage));
+            nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
+            nav.Configure(Locator.Home, typeof(HomePage));
             //nav.Configure(Locator.SearchCustomer, typeof(SearchCustomerPage));
             //nav.Configure(Locator.Login, typeof(LoginPage));
             //nav.Configure(Locator.Equipment, typeof(EquipmentPage));
@@ -78,7 +79,6 @@ namespace PoolGuy.Mobile
                 Settings.TabletsRegistered = null;
                 
                 DependencyService.Register<MockDataStore>();
-                DependencyService.Register<ILocalDataStore<CustomerSchedulerModel>, LocalDataStore<CustomerSchedulerModel>>();
                 DependencyService.Register<ILocalDataStore<SchedulerModel>, LocalDataStore<SchedulerModel>>();
                 DependencyService.Register<ILocalDataStore<CustomerModel>, LocalDataStore<CustomerModel>>();
                 DependencyService.Register<ILocalDataStore<AddressModel>, LocalDataStore<AddressModel>>();
@@ -107,7 +107,11 @@ namespace PoolGuy.Mobile
         {
             try
             {
-                await new CustomerSchedulerController().LocalData.CreateTableAsync();
+                if (SQLiteControllerBase.DatabaseAsync.TableMappings.All(m => m.MappedType.Name != typeof(CustomerSchedulerModel).Name))
+                {
+                    await SQLiteControllerBase.DatabaseAsync.CreateTableAsync(typeof(CustomerSchedulerModel), CreateFlags.None);
+                }
+
                 await new SchedulerController().LocalData.CreateTableAsync();
                 await new CustomerController().LocalData.CreateTableAsync();
                 await new PoolController().LocalData.CreateTableAsync();

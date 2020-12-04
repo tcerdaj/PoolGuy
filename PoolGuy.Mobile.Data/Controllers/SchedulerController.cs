@@ -17,18 +17,17 @@ namespace PoolGuy.Mobile.Data.Controllers
 
         }
 
-        public async Task<List<SchedulerModel>> ListWithChildrenAsync(SQLControllerListCriteriaModel criteria)
+        public async Task<List<SchedulerModel>> ListWithChildrenAsync(SQLControllerListCriteriaModel criteria = null)
         {
             try
             {
-                List<SchedulerModel> list = await LocalData.List(criteria);
+                List<SchedulerModel> list = criteria == null? await LocalData.List() : await LocalData.List(criteria);
 
                 foreach (var model in list)
                 {
-                    SQLiteNetExtensions
-                   .Extensions
-                   .ReadOperations
-                   .GetWithChildren<List<SchedulerModel>>(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
+                    await SQLiteControllerBase
+                      .DatabaseAsync
+                      .GetChildrenAsync(model, true);
                 }
 
                 return list;

@@ -147,12 +147,24 @@ namespace PoolGuy.Mobile.Data.SQLite
         {
             try
             {
+                await CreateTabletIfNotExist();
+
                 return await DatabaseAsync.Table<T>().ToListAsync();
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("Exception at List: {0} {1}", typeof(T).Name, e);
                 throw;
+            }
+        }
+
+        private async Task CreateTabletIfNotExist()
+        {
+            if (DatabaseAsync.TableMappings.All(m => m.MappedType.Name != typeof(T).Name))
+            {
+                await DatabaseAsync.CreateTableAsync(typeof(T), CreateFlags.None);
+
+                AddRegisteredTablet(typeof(T).Name);
             }
         }
 
@@ -164,6 +176,8 @@ namespace PoolGuy.Mobile.Data.SQLite
                 {
                     return null;
                 }
+
+                await CreateTabletIfNotExist();
 
                 criteria.View = typeof(T).Name;
 
@@ -184,6 +198,8 @@ namespace PoolGuy.Mobile.Data.SQLite
             {
                 if (!Initialized)
                     return null;
+                
+                await CreateTabletIfNotExist();
 
                 return await DatabaseAsync.Table<T>().FirstOrDefaultAsync(x => x.Id == id);
             }

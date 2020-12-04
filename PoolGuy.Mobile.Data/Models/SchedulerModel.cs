@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
+using SQLite;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -37,8 +38,8 @@ namespace PoolGuy.Mobile.Data.Models
 
     }
 
-    public class CustomerSchedulerModel :EntityBase
-    { 
+    public class CustomerSchedulerModel 
+    {
         [ForeignKey(typeof(SchedulerModel))]
         public Guid SchedulerId { get; set; }
         [ForeignKey(typeof(CustomerModel))]

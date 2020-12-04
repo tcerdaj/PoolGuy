@@ -74,7 +74,8 @@
                                 <Label Text="{Binding ShortName}"
                                              HorizontalOptions="Center"/>
                                 <CheckBox HorizontalOptions="Center"
-                                               IsChecked="{Binding Selected}" />
+                                          CheckedChanged="CheckBox_CheckedChanged"
+                                          IsChecked="{Binding Selected}" />
                                       
                                 </StackLayout>
                             </Grid>
@@ -89,22 +90,6 @@
                     <!--Buttons-->
                     <StackLayout Grid.Row="4" Orientation="Horizontal"
                                  IsVisible="True">
-                        <!--<Button 
-                            HorizontalOptions="StartAndExpand"
-                            Margin="0"
-                            TextColor="{StaticResource UnselectedColor}"
-                            VerticalOptions="Center"
-                            HeightRequest="50"
-                            Command="{Binding ResetCommand}"
-                            CornerRadius="8"
-                            BackgroundColor="{StaticResource ExtraLightGray}">
-                            <Button.ImageSource>
-                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                         Glyph="{x:Static icons:MaterialDesignIcons.Plus}"
-                                         Size="30"
-                                         Color="{StaticResource Title}" />
-                            </Button.ImageSource>
-                        </Button>-->
                         <Button  
                             HorizontalOptions="EndAndExpand"
                             Text="Save"
@@ -123,14 +108,10 @@
                             </Button.ImageSource>
                         </Button>
                     </StackLayout>
-                    <!--<BoxView Grid.Row="5"
-                             HeightRequest="1" 
-                             IsVisible="True"
-                             Color="{StaticResource ExtraLightGray}" 
-                             HorizontalOptions="FillAndExpand"/>-->
                     <!--Search-->
                     <SearchBar Grid.Row="6"
                                Margin="0,15,0,0"
+                               TextChanged="SearchBar_TextChanged"
                                HorizontalOptions="FillAndExpand"
                                Placeholder="Search for a customer"
                                Text="{Binding SearchTerm}"

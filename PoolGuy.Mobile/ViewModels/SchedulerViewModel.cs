@@ -57,7 +57,7 @@ namespace PoolGuy.Mobile.ViewModels
             try
             {
                 Schedulers = new ObservableCollection<SchedulerModel>(await new SchedulerController()
-                    .LocalData.List(new Data.Models.Query.SQLControllerListCriteriaModel {
+                    .ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel {
                      Sort = new List<Data.Models.Query.SQLControllerListSortField> { 
                         new Data.Models.Query.SQLControllerListSortField {
                           FieldName = "Index"
@@ -91,7 +91,7 @@ namespace PoolGuy.Mobile.ViewModels
                     return;
                 }
 
-                await new SchedulerController().LocalData.Modify(Scheduler);
+                await new SchedulerController().ModifyWithChildrenAsync(Scheduler);
 
                 // Add/modify list
                 if (!Schedulers.Any(x => x.Id == Scheduler.Id))
@@ -132,7 +132,7 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 if (await Shell.Current.DisplayAlert("Confirmation", $"Are you sure want to delete {scheduler.LongName} scheduler?", "Delete", "Cancel").ConfigureAwait(false))
                 {
-                    await new SchedulerController().LocalData.Delete(scheduler);
+                    await new SchedulerController().DeleteAsync(scheduler);
                     Schedulers = new ObservableCollection<SchedulerModel>(Schedulers.Where(x => x.Id != scheduler.Id).OrderBy(x=>x.Index));
                     // Get next index
                     Scheduler.IncreaseIndex(Schedulers.Max(x => x.Index));
@@ -161,7 +161,11 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 var sch = Schedulers.FirstOrDefault(x => x.Id == scheduler.Id);
                 sch.Selected = true;
-                await Shell.Current.GoToAsync($"{Locator.CustomerScheduler}?schedulers={JsonConvert.SerializeObject(Schedulers)}");
+                sch.Customers.ForEach((c) => { c.Selected = true; });
+                var json = JsonConvert.SerializeObject(Schedulers,
+                            Formatting.Indented,
+                            new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
+                await Shell.Current.GoToAsync($"{Locator.CustomerScheduler}?schedulers={json}");
             }
             catch (Exception e)
             {
