@@ -179,16 +179,8 @@ namespace PoolGuy.Mobile.Data.Controllers
                     return false;
                 }
 
-                var c = await LoadAsync(model.Id);
-
-
-                var list = await LocalData.List();
-                foreach (var item in list)
-                {
-                    SQLiteNetExtensions.Extensions.WriteOperations.Delete(SQLiteControllerBase.DatabaseAsync.GetConnection(), item, true);
-                }
-
-                
+                var item = await LoadAsync(model.Id);
+                SQLiteNetExtensions.Extensions.WriteOperations.Delete(SQLiteControllerBase.DatabaseAsync.GetConnection(), item, true);
 
                 return true;
             }

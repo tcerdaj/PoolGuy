@@ -109,10 +109,11 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                //if (!FieldValidationHelper.IsFormValid(Scheduler, CurrentPage))
-                //{
-                //    return;
-                //}
+                if(CustomerSearchResults.Any(x=>!x.Selected))
+                {
+                    await Shell.Current.DisplayAlert(Title, "Please make a selection first", "Ok");
+                    return;
+                }
 
                 //await new SchedulerController().LocalData.Modify(Scheduler);
 
