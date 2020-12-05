@@ -135,5 +135,13 @@ namespace PoolGuy.Mobile.Views
         {
             _viewModel.RefreshList();
         }
+
+        private void SelectAllck_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            if (sender is CheckBox check)
+            {
+                _viewModel.SelectCommand.Execute(check.IsChecked);
+            }
+        }
     }
 }

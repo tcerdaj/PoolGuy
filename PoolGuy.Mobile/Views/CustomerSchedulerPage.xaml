@@ -12,6 +12,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:CollectionListToCount x:Key="ListToCount" />
+            <conv:CollectionEmptyToBool x:Key="IsEmptyList" />
             <!--  *****************************  -->
             <!--  Material Design Icon FontFamily  -->
             <!--  *****************************  -->
@@ -101,7 +102,8 @@
                             CornerRadius="8"
                             BackgroundColor="{StaticResource Title}">
                             <Button.ImageSource>
-                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                <FontImageSource 
+                                         FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.ContentSave}"
                                          Size="30"
                                          Color="{StaticResource Primary}" />
@@ -109,29 +111,51 @@
                         </Button>
                     </StackLayout>
                     <!--Search-->
-                    <SearchBar Grid.Row="6"
-                               Margin="0,15,0,0"
-                               TextChanged="SearchBar_TextChanged"
-                               HorizontalOptions="FillAndExpand"
+            <StackLayout Grid.Row="6"
+                               Margin="0,15,0,0">
+                    <SearchBar  TextChanged="SearchBar_TextChanged"
+                               HorizontalOptions="Start"
                                Placeholder="Search for a customer"
                                Text="{Binding SearchTerm}"
                                SearchCommand="{Binding SearchCustomerCommand}"
                                BackgroundColor="#f7f7f7"/>
-                    <!--Scheduler list-->
-                    <CollectionView Grid.Row="7"
-                            x:Name="SchedulerList"
+                    <!--Select/UnSelect All-->
+                    <StackLayout Spacing="0"
+                                 IsVisible="{Binding CustomerSearchResults, Converter={StaticResource IsEmptyList}}"
+                                 HorizontalOptions="End"
+                                 WidthRequest="60"
+                                 BackgroundColor="Yellow">
+                                <Label Text="Select"
+                                               HorizontalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Source={x:Reference SelectAllck}, Path=IsChecked}"
+                                                     Value="True">
+                                            <Setter Property="Text" Value="Unselect" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <CheckBox x:Name="SelectAllck" 
+                                          HorizontalOptions="Center"
+                                          CheckedChanged="SelectAllck_CheckedChanged"
+                                          IsChecked="{Binding Selected}" />
+                    </StackLayout>
+            </StackLayout>
+            <!--Scheduler list-->
+                    <CollectionView Grid.Row="8"
+                                    x:Name="SchedulerList"
                                     BackgroundColor="#fbfbfb"
-                            EmptyView="No scheduler added yet"
-                            SelectionMode="Single"
-                            SelectedItem="{Binding Customer}"
-                            ItemsSource="{Binding CustomerSearchResults}">
-                <CollectionView.ItemTemplate>
+                                    EmptyView="No scheduler added yet"
+                                    SelectionMode="None"
+                                    SelectedItem="{Binding Customer}"
+                                    ItemsSource="{Binding CustomerSearchResults}">
+                         <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid x:Name="SchedulerItem">
                             <StackLayout Orientation="Horizontal" 
                                                 HorizontalOptions="FillAndExpand"
                                                 Spacing="0"
-                                                Padding="10,0">
+                                                Padding="10,0,15,0">
                                 <Label Text="{Binding Name}"
                                             HorizontalOptions="StartAndExpand"
                                             VerticalOptions="Center"/>
@@ -140,7 +164,7 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
+                     </CollectionView>
         </Grid>
         <!-- Busy Status -->
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"

@@ -165,6 +165,7 @@ namespace PoolGuy.Mobile.ViewModels
                 var json = JsonConvert.SerializeObject(Schedulers,
                             Formatting.Indented,
                             new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
+                
                 await Shell.Current.GoToAsync($"{Locator.CustomerScheduler}?schedulers={json}");
             }
             catch (Exception e)

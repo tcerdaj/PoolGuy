@@ -103,6 +103,7 @@ namespace PoolGuy.Mobile.ViewModels
                 .SelectMany(p => p.Customers)
                 .GroupBy(g => g.Id)
                 .Select(m =>m.First())
+                .Select(x => { x.Selected = true; return x; })
                 .ToList();
 
             CustomerSearchResults = new ObservableCollection<CustomerModel>(customers);
@@ -121,17 +122,25 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                var selectedCustomers = CustomerSearchResults
-                    .Where(x => x.Selected)
-                    .ToList();
-
-                if (!selectedCustomers.Any())
+                if (!Schedulers.Where(x => x.Selected).Any())
                 {
                     await Shell.Current.DisplayAlert(Title, "Please make a selection first", "Ok");
                     return;
                 }
 
-                customers = JsonConvert.SerializeObject(Customers);
+                var selectedCustomers = CustomerSearchResults
+                    .Where(x => x.Selected)
+                    .ToList();
+
+                customers = JsonConvert.SerializeObject(Customers, Formatting.Indented,
+                            new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
+
+                var distinctCustomers = Customers
+                      .Where(x=>x.Selected)
+                      .GroupBy(g => g.Id)
+                      .Select(m => m.First());
+
+                selectedCustomers.AddRange(distinctCustomers);
                 Customers.Clear();
 
                 foreach (var sch in Schedulers.Where(x=>x.Selected))
@@ -151,11 +160,15 @@ namespace PoolGuy.Mobile.ViewModels
                 OnPropertyChanged("CustomerSearchResults");
                 OnPropertyChanged("Schedulers");
 
-                Message.Toast($"{selectedCustomers.Count()} Customers were added successfully!", TimeSpan.FromSeconds(5));
+                Message.Toast($"{selectedCustomers.Count()} Customers were added successfully!");
             }
             catch (Exception e)
             {
-                Customers = JsonConvert.DeserializeObject<ObservableCollection<CustomerModel>>(customers);
+                if (!string.IsNullOrEmpty(customers))
+                {
+                    Customers = JsonConvert.DeserializeObject<ObservableCollection<CustomerModel>>(customers);
+                }
+                
                 Debug.WriteLine(e);
                 await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
             }
@@ -217,24 +230,15 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
-        public ICommand UnSelectAllCommand
+        public ICommand SelectCommand
         {
-            get => new RelayCommand(async () => UnSelectAll());
+            get => new RelayCommand<bool>(async (all) => Select(all));
         }
 
-        private void UnSelectAll()
+        private void Select(bool all)
         {
-            throw new NotImplementedException();
-        }
-
-        public ICommand SelectAllCommand
-        {
-            get => new RelayCommand(async () => SelectAll());
-        }
-
-        private void SelectAll()
-        {
-            throw new NotImplementedException();
+            CustomerSearchResults = new ObservableCollection<CustomerModel>(
+                CustomerSearchResults.Select(x => { x.Selected = all; return x; }));
         }
     }
 }

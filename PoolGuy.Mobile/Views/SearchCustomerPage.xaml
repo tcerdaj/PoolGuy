@@ -28,7 +28,8 @@
                        Text="{Binding SearchTerm}"
                        SearchCommand="{Binding SearchCustomerCommand}"
                        BackgroundColor="#f7f7f7"/>
-            <CollectionView x:Name="SearchResults"
+                <Button Text="Load Sample Customers" Command="{Binding LoadSampleCustomersCommand}"/>
+                <CollectionView x:Name="SearchResults"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="StartAndExpand"
                                 ItemsSource="{Binding Customers}"

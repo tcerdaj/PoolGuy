@@ -4,6 +4,7 @@
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              x:Class="PoolGuy.Mobile.Views.WCustomerPage"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
              Title="{Binding Title}">
     
     <ContentPage.Resources>
@@ -36,9 +37,28 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                              </Grid.RowDefinitions>
-                            <!--FirstName-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="7*"/>
+                    </Grid.ColumnDefinitions>
+                           <!--Image-->
+                            <ImageButton Grid.RowSpan="3"
+                                         BorderWidth="1"
+                                         BorderColor="{StaticResource ExtraLightGray}"
+                                         BackgroundColor="Transparent"
+                                         Grid.Column="0"
+                                         Aspect="AspectFit">
+                                        <ImageButton.Source>
+                                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                             Glyph="{x:Static icons:MaterialDesignIcons.FileImage}"
+                                                             Size="20"
+                                                             Color="{StaticResource UnselectedColor}"/>
+                                        </ImageButton.Source>
+                            </ImageButton>
+
+                    <!--FirstName-->
                             <Frame Grid.Row="0" 
-                                   Grid.Column="0">
+                                   Grid.Column="1">
                                 <mycc:CustomEntry  Text="{Binding Customer.FirstName}" 
                                                    Placeholder="First name" 
                                                    MaxLength="20"
@@ -46,10 +66,14 @@
                                                    NextCommand="{Binding NextCommand}"
                                                    NextCommandParameter="LastName"/>
                             </Frame>
-                            <Label Grid.Row="1" Grid.Column="0"  x:Name="CustomerModel_FirstNameError" IsVisible="False" TextColor="Red" />
+                            <Label Grid.Row="1" 
+                                   Grid.Column="1"  
+                                   x:Name="CustomerModel_FirstNameError" 
+                                   IsVisible="False" 
+                                   TextColor="Red" />
                             <!--LastName-->
                             <Frame Grid.Row="2" 
-                                   Grid.Column="0">
+                                   Grid.Column="1">
                                 <mycc:CustomEntry  x:Name="LastName"
                                                    Text="{Binding Customer.LastName}"  
                                                    Placeholder="Last name" 
@@ -58,16 +82,17 @@
                                                    NextCommand="{Binding NextCommand}"
                                                    NextCommandParameter="AdditionalInformation"/>
                             </Frame>
-                            <Label Grid.Row="3" Grid.Column="0" x:Name="CustomerModel_LastNameError" IsVisible="False" TextColor="Red" />
+                            <Label Grid.Row="3" Grid.Column="1" x:Name="CustomerModel_LastNameError" IsVisible="False" TextColor="Red" />
                             <Frame Grid.Row="4" 
-                                           Grid.Column="0">
+                                           Grid.ColumnSpan="2">
                                 <Editor x:Name="AdditionalInformation" 
                                         Text="{Binding Customer.AdditionalInformation}"  
                                         Placeholder="Additional Information" 
                                         MaxLength="200"
                                         HeightRequest="100" />
                              </Frame>
-                    <StackLayout Grid.Row="5" 
+                    <StackLayout Grid.Row="5"
+                                 Grid.ColumnSpan="2"
                                  Orientation="Horizontal"
                                  Padding="10,0"
                                  IsVisible="{Binding Customer.NewCustomer, Converter={StaticResource InverseBoolConverter}}">
@@ -93,6 +118,7 @@
                                  ThumbColor="{StaticResource Title}"/>
                     </StackLayout>
                     <StackLayout Grid.Row="6" 
+                                 Grid.ColumnSpan="2"
                                  IsVisible="{Binding Customer.NewCustomer, Converter={StaticResource InverseBoolConverter}}"
                                  HorizontalOptions="FillAndExpand"
                                  Orientation="Horizontal"
