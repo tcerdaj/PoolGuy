@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace PoolGuy.Mobile.Data.Models.SampleData
@@ -15,7 +16,16 @@ namespace PoolGuy.Mobile.Data.Models.SampleData
         {
             try
             {
-                _customers = JsonConvert.DeserializeObject<CustomerSample[]>(File.ReadAllText(@"../../SampleData/Customers.json"));
+                var assembly = IntrospectionExtensions.GetTypeInfo(typeof(CustomerListSample)).Assembly;
+                var stream = assembly.GetManifestResourceStream("PoolGuy.Mobile.Data.Models.SampleData.Customers.json");
+                using (var reader = new StreamReader(stream))
+                {
+                    var json = reader.ReadToEnd();
+                    var rootobject = JsonConvert.DeserializeObject<CustomerSample[]>(json);
+                    
+                }
+
+                _customers = JsonConvert.DeserializeObject<CustomerSample[]>(File.ReadAllText(@"Customers.json"));
             }
             catch (Exception e)
             {

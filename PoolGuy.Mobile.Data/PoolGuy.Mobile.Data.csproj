@@ -5,6 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Models\SampleData\Customers.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Models\SampleData\Customers.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Models\SampleData\Customers.cs" />
+    <Resource Include="Models\SampleData\Customers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.454" />
     <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
     <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
