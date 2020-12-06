@@ -39,6 +39,9 @@
     <Compile Update="Views\ActionSheetPopupPage.xaml.cs">
       <DependentUpon>ActionSheetPopupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\CustomerSchedulerPage.xaml.cs">
       <DependentUpon>CustomerSchedulerPage.xaml</DependentUpon>
     </Compile>

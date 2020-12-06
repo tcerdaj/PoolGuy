@@ -11,7 +11,6 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using System.Linq;
 using PoolGuy.Mobile.Helpers;
-using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.Data.Models.SampleData;
 
 namespace PoolGuy.Mobile.ViewModels

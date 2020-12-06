@@ -1,5 +1,6 @@
 ﻿using System;
 using PoolGuy.Mobile.Data.Helpers;
+using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Views;
 using Xamarin.Forms;
 
@@ -23,6 +24,7 @@ namespace PoolGuy.Mobile
             Routing.RegisterRoute(nameof(WorkOrderDetailsPage), typeof(WorkOrderDetailsPage));
             Routing.RegisterRoute(nameof(WorkOrderListPage), typeof(WorkOrderListPage));
             Routing.RegisterRoute(nameof(CustomerSchedulerPage), typeof(CustomerSchedulerPage));
+            Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
         }
 
         protected override void OnAppearing()
@@ -34,13 +36,48 @@ namespace PoolGuy.Mobile
         {
             try
             {
-                Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White };
-                Settings.IsLoggedIn = false;
+                var menuItem = sender as MenuItem;
+                if (menuItem == null)
+                {
+                    return;
+                }
+
+                var selectedItem = menuItem.Text;
+                switch (selectedItem)
+                {
+                    case "Logout":
+                        Application
+                            .Current
+                            .MainPage = new LoginPage()
+                            {
+                                BackgroundColor = Color.White
+                            };
+                        Settings.IsLoggedIn = false;
+                        break;
+                    case "Settings":
+                        await Current.GoToAsync(Locator.Settings);
+                        break;
+                    default:
+                        await Current.DisplayAlert(Title, $"Unable to navigate to {selectedItem} page", "Ok");
+                        break;
+                }
+
+                this.FlyoutIsPresented = false;
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Error", $"Unable to logout: {ex.Message}", "Ok");
+                await Current.DisplayAlert("Error", $"Unable to logout: {ex.Message}", "Ok");
             }
+        }
+
+        private void MenuItem_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Clicked_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

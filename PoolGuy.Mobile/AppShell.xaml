@@ -87,17 +87,27 @@
                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                  Glyph="{x:Static icons:MaterialDesignIcons.CalendarAccount}"
                                  Size="40"
-                                 Color="#7B7575">
-                    
-                </FontImageSource>
+                                 Color="#7B7575"/>
             </ShellContent.Icon>
         </ShellContent>
     </FlyoutItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <MenuItem x:Name="Logout" Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" >
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                 Glyph="{x:Static icons:MaterialDesignIcons.Logout}"
+                                 Size="40"
+                                 Color="#7B7575"/>
+        </MenuItem.IconImageSource>
     </MenuItem>
-    <MenuItem Text="TEST" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" >
+     <MenuItem Text="Settings" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                 Glyph="{x:Static icons:MaterialDesignIcons.Settings}"
+                                 Size="40"
+                                 Color="#7B7575"/>
+        </MenuItem.IconImageSource>
     </MenuItem>
 
     <!--

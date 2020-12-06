@@ -13,6 +13,7 @@ namespace PoolGuy.Mobile.Helpers
         public static string WorkOrderDetails = "WorkOrderDetailsPage";
         public static string WorkOrderList = "WorkOrderListPage";
         public static string CustomerScheduler = "CustomerSchedulerPage";
+        public static string Settings = "SettingsPage";
         public class Popup
         {
             public static string ActionSheetPopup = "ActionSheetPopupPage";
