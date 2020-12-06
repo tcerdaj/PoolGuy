@@ -30,5 +30,10 @@ namespace PoolGuy.Mobile.Data.Models
         {
             OnPropertyChanged("Selected");
         }
+
+        public void NotififyImageUrl()
+        {
+            OnPropertyChanged("ImageUrl");
+        }
     }
 }

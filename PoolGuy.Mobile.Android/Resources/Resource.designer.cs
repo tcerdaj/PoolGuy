@@ -8284,6 +8284,188 @@ namespace PoolGuy.Mobile.Droid
 			global::MR.Gestures.Resource.Styleable.View_paddingEnd = global::PoolGuy.Mobile.Droid.Resource.Styleable.View_paddingEnd;
 			global::MR.Gestures.Resource.Styleable.View_paddingStart = global::PoolGuy.Mobile.Droid.Resource.Styleable.View_paddingStart;
 			global::MR.Gestures.Resource.Styleable.View_theme = global::PoolGuy.Mobile.Droid.Resource.Styleable.View_theme;
+			global::Plugin.Media.Resource.Attribute.alpha = global::PoolGuy.Mobile.Droid.Resource.Attribute.alpha;
+			global::Plugin.Media.Resource.Attribute.coordinatorLayoutStyle = global::PoolGuy.Mobile.Droid.Resource.Attribute.coordinatorLayoutStyle;
+			global::Plugin.Media.Resource.Attribute.font = global::PoolGuy.Mobile.Droid.Resource.Attribute.font;
+			global::Plugin.Media.Resource.Attribute.fontProviderAuthority = global::PoolGuy.Mobile.Droid.Resource.Attribute.fontProviderAuthority;
+			global::Plugin.Media.Resource.Attribute.fontProviderCerts = global::PoolGuy.Mobile.Droid.Resource.Attribute.fontProviderCerts;
+			global::Plugin.Media.Resource.Attribute.fontProviderFetchStrategy = global::PoolGuy.Mobile.Droid.Resource.Attribute.fontProviderFetchStrategy;
+			global::Plugin.Media.Resource.Attribute.fontProviderFetchTimeout = global::PoolGuy.Mobile.Droid.Resource.Attribute.fontProviderFetchTimeout;
+			global::Plugin.Media.Resource.Attribute.fontProviderPackage = global::PoolGuy.Mobile.Droid.Resource.Attribute.fontProviderPackage;
+			global::Plugin.Media.Resource.Attribute.fontProviderQuery = global::PoolGuy.Mobile.Droid.Resource.Attribute.fontProviderQuery;
+			global::Plugin.Media.Resource.Attribute.fontStyle = global::PoolGuy.Mobile.Droid.Resource.Attribute.fontStyle;
+			global::Plugin.Media.Resource.Attribute.fontVariationSettings = global::PoolGuy.Mobile.Droid.Resource.Attribute.fontVariationSettings;
+			global::Plugin.Media.Resource.Attribute.fontWeight = global::PoolGuy.Mobile.Droid.Resource.Attribute.fontWeight;
+			global::Plugin.Media.Resource.Attribute.keylines = global::PoolGuy.Mobile.Droid.Resource.Attribute.keylines;
+			global::Plugin.Media.Resource.Attribute.layout_anchor = global::PoolGuy.Mobile.Droid.Resource.Attribute.layout_anchor;
+			global::Plugin.Media.Resource.Attribute.layout_anchorGravity = global::PoolGuy.Mobile.Droid.Resource.Attribute.layout_anchorGravity;
+			global::Plugin.Media.Resource.Attribute.layout_behavior = global::PoolGuy.Mobile.Droid.Resource.Attribute.layout_behavior;
+			global::Plugin.Media.Resource.Attribute.layout_dodgeInsetEdges = global::PoolGuy.Mobile.Droid.Resource.Attribute.layout_dodgeInsetEdges;
+			global::Plugin.Media.Resource.Attribute.layout_insetEdge = global::PoolGuy.Mobile.Droid.Resource.Attribute.layout_insetEdge;
+			global::Plugin.Media.Resource.Attribute.layout_keyline = global::PoolGuy.Mobile.Droid.Resource.Attribute.layout_keyline;
+			global::Plugin.Media.Resource.Attribute.statusBarBackground = global::PoolGuy.Mobile.Droid.Resource.Attribute.statusBarBackground;
+			global::Plugin.Media.Resource.Attribute.ttcIndex = global::PoolGuy.Mobile.Droid.Resource.Attribute.ttcIndex;
+			global::Plugin.Media.Resource.Color.browser_actions_bg_grey = global::PoolGuy.Mobile.Droid.Resource.Color.browser_actions_bg_grey;
+			global::Plugin.Media.Resource.Color.browser_actions_divider_color = global::PoolGuy.Mobile.Droid.Resource.Color.browser_actions_divider_color;
+			global::Plugin.Media.Resource.Color.browser_actions_text_color = global::PoolGuy.Mobile.Droid.Resource.Color.browser_actions_text_color;
+			global::Plugin.Media.Resource.Color.browser_actions_title_color = global::PoolGuy.Mobile.Droid.Resource.Color.browser_actions_title_color;
+			global::Plugin.Media.Resource.Color.notification_action_color_filter = global::PoolGuy.Mobile.Droid.Resource.Color.notification_action_color_filter;
+			global::Plugin.Media.Resource.Color.notification_icon_bg_color = global::PoolGuy.Mobile.Droid.Resource.Color.notification_icon_bg_color;
+			global::Plugin.Media.Resource.Color.ripple_material_light = global::PoolGuy.Mobile.Droid.Resource.Color.ripple_material_light;
+			global::Plugin.Media.Resource.Color.secondary_text_default_material_light = global::PoolGuy.Mobile.Droid.Resource.Color.secondary_text_default_material_light;
+			global::Plugin.Media.Resource.Dimension.browser_actions_context_menu_max_width = global::PoolGuy.Mobile.Droid.Resource.Dimension.browser_actions_context_menu_max_width;
+			global::Plugin.Media.Resource.Dimension.browser_actions_context_menu_min_padding = global::PoolGuy.Mobile.Droid.Resource.Dimension.browser_actions_context_menu_min_padding;
+			global::Plugin.Media.Resource.Dimension.compat_button_inset_horizontal_material = global::PoolGuy.Mobile.Droid.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::Plugin.Media.Resource.Dimension.compat_button_inset_vertical_material = global::PoolGuy.Mobile.Droid.Resource.Dimension.compat_button_inset_vertical_material;
+			global::Plugin.Media.Resource.Dimension.compat_button_padding_horizontal_material = global::PoolGuy.Mobile.Droid.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::Plugin.Media.Resource.Dimension.compat_button_padding_vertical_material = global::PoolGuy.Mobile.Droid.Resource.Dimension.compat_button_padding_vertical_material;
+			global::Plugin.Media.Resource.Dimension.compat_control_corner_material = global::PoolGuy.Mobile.Droid.Resource.Dimension.compat_control_corner_material;
+			global::Plugin.Media.Resource.Dimension.compat_notification_large_icon_max_height = global::PoolGuy.Mobile.Droid.Resource.Dimension.compat_notification_large_icon_max_height;
+			global::Plugin.Media.Resource.Dimension.compat_notification_large_icon_max_width = global::PoolGuy.Mobile.Droid.Resource.Dimension.compat_notification_large_icon_max_width;
+			global::Plugin.Media.Resource.Dimension.notification_action_icon_size = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_action_icon_size;
+			global::Plugin.Media.Resource.Dimension.notification_action_text_size = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_action_text_size;
+			global::Plugin.Media.Resource.Dimension.notification_big_circle_margin = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_big_circle_margin;
+			global::Plugin.Media.Resource.Dimension.notification_content_margin_start = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_content_margin_start;
+			global::Plugin.Media.Resource.Dimension.notification_large_icon_height = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_large_icon_height;
+			global::Plugin.Media.Resource.Dimension.notification_large_icon_width = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_large_icon_width;
+			global::Plugin.Media.Resource.Dimension.notification_main_column_padding_top = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_main_column_padding_top;
+			global::Plugin.Media.Resource.Dimension.notification_media_narrow_margin = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_media_narrow_margin;
+			global::Plugin.Media.Resource.Dimension.notification_right_icon_size = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_right_icon_size;
+			global::Plugin.Media.Resource.Dimension.notification_right_side_padding_top = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_right_side_padding_top;
+			global::Plugin.Media.Resource.Dimension.notification_small_icon_background_padding = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_small_icon_background_padding;
+			global::Plugin.Media.Resource.Dimension.notification_small_icon_size_as_large = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_small_icon_size_as_large;
+			global::Plugin.Media.Resource.Dimension.notification_subtext_size = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_subtext_size;
+			global::Plugin.Media.Resource.Dimension.notification_top_pad = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_top_pad;
+			global::Plugin.Media.Resource.Dimension.notification_top_pad_large_text = global::PoolGuy.Mobile.Droid.Resource.Dimension.notification_top_pad_large_text;
+			global::Plugin.Media.Resource.Drawable.notification_action_background = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_action_background;
+			global::Plugin.Media.Resource.Drawable.notification_bg = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_bg;
+			global::Plugin.Media.Resource.Drawable.notification_bg_low = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_bg_low;
+			global::Plugin.Media.Resource.Drawable.notification_bg_low_normal = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_bg_low_normal;
+			global::Plugin.Media.Resource.Drawable.notification_bg_low_pressed = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_bg_low_pressed;
+			global::Plugin.Media.Resource.Drawable.notification_bg_normal = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_bg_normal;
+			global::Plugin.Media.Resource.Drawable.notification_bg_normal_pressed = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_bg_normal_pressed;
+			global::Plugin.Media.Resource.Drawable.notification_icon_background = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_icon_background;
+			global::Plugin.Media.Resource.Drawable.notification_template_icon_bg = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_template_icon_bg;
+			global::Plugin.Media.Resource.Drawable.notification_template_icon_low_bg = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_template_icon_low_bg;
+			global::Plugin.Media.Resource.Drawable.notification_tile_bg = global::PoolGuy.Mobile.Droid.Resource.Drawable.notification_tile_bg;
+			global::Plugin.Media.Resource.Drawable.notify_panel_notification_icon_bg = global::PoolGuy.Mobile.Droid.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::Plugin.Media.Resource.Id.actions = global::PoolGuy.Mobile.Droid.Resource.Id.actions;
+			global::Plugin.Media.Resource.Id.action_container = global::PoolGuy.Mobile.Droid.Resource.Id.action_container;
+			global::Plugin.Media.Resource.Id.action_divider = global::PoolGuy.Mobile.Droid.Resource.Id.action_divider;
+			global::Plugin.Media.Resource.Id.action_image = global::PoolGuy.Mobile.Droid.Resource.Id.action_image;
+			global::Plugin.Media.Resource.Id.action_text = global::PoolGuy.Mobile.Droid.Resource.Id.action_text;
+			global::Plugin.Media.Resource.Id.all = global::PoolGuy.Mobile.Droid.Resource.Id.all;
+			global::Plugin.Media.Resource.Id.async = global::PoolGuy.Mobile.Droid.Resource.Id.async;
+			global::Plugin.Media.Resource.Id.blocking = global::PoolGuy.Mobile.Droid.Resource.Id.blocking;
+			global::Plugin.Media.Resource.Id.bottom = global::PoolGuy.Mobile.Droid.Resource.Id.bottom;
+			global::Plugin.Media.Resource.Id.browser_actions_header_text = global::PoolGuy.Mobile.Droid.Resource.Id.browser_actions_header_text;
+			global::Plugin.Media.Resource.Id.browser_actions_menu_items = global::PoolGuy.Mobile.Droid.Resource.Id.browser_actions_menu_items;
+			global::Plugin.Media.Resource.Id.browser_actions_menu_item_icon = global::PoolGuy.Mobile.Droid.Resource.Id.browser_actions_menu_item_icon;
+			global::Plugin.Media.Resource.Id.browser_actions_menu_item_text = global::PoolGuy.Mobile.Droid.Resource.Id.browser_actions_menu_item_text;
+			global::Plugin.Media.Resource.Id.browser_actions_menu_view = global::PoolGuy.Mobile.Droid.Resource.Id.browser_actions_menu_view;
+			global::Plugin.Media.Resource.Id.center = global::PoolGuy.Mobile.Droid.Resource.Id.center;
+			global::Plugin.Media.Resource.Id.center_horizontal = global::PoolGuy.Mobile.Droid.Resource.Id.center_horizontal;
+			global::Plugin.Media.Resource.Id.center_vertical = global::PoolGuy.Mobile.Droid.Resource.Id.center_vertical;
+			global::Plugin.Media.Resource.Id.chronometer = global::PoolGuy.Mobile.Droid.Resource.Id.chronometer;
+			global::Plugin.Media.Resource.Id.clip_horizontal = global::PoolGuy.Mobile.Droid.Resource.Id.clip_horizontal;
+			global::Plugin.Media.Resource.Id.clip_vertical = global::PoolGuy.Mobile.Droid.Resource.Id.clip_vertical;
+			global::Plugin.Media.Resource.Id.end = global::PoolGuy.Mobile.Droid.Resource.Id.end;
+			global::Plugin.Media.Resource.Id.fill = global::PoolGuy.Mobile.Droid.Resource.Id.fill;
+			global::Plugin.Media.Resource.Id.fill_horizontal = global::PoolGuy.Mobile.Droid.Resource.Id.fill_horizontal;
+			global::Plugin.Media.Resource.Id.fill_vertical = global::PoolGuy.Mobile.Droid.Resource.Id.fill_vertical;
+			global::Plugin.Media.Resource.Id.forever = global::PoolGuy.Mobile.Droid.Resource.Id.forever;
+			global::Plugin.Media.Resource.Id.icon = global::PoolGuy.Mobile.Droid.Resource.Id.icon;
+			global::Plugin.Media.Resource.Id.icon_group = global::PoolGuy.Mobile.Droid.Resource.Id.icon_group;
+			global::Plugin.Media.Resource.Id.info = global::PoolGuy.Mobile.Droid.Resource.Id.info;
+			global::Plugin.Media.Resource.Id.italic = global::PoolGuy.Mobile.Droid.Resource.Id.italic;
+			global::Plugin.Media.Resource.Id.left = global::PoolGuy.Mobile.Droid.Resource.Id.left;
+			global::Plugin.Media.Resource.Id.line1 = global::PoolGuy.Mobile.Droid.Resource.Id.line1;
+			global::Plugin.Media.Resource.Id.line3 = global::PoolGuy.Mobile.Droid.Resource.Id.line3;
+			global::Plugin.Media.Resource.Id.none = global::PoolGuy.Mobile.Droid.Resource.Id.none;
+			global::Plugin.Media.Resource.Id.normal = global::PoolGuy.Mobile.Droid.Resource.Id.normal;
+			global::Plugin.Media.Resource.Id.notification_background = global::PoolGuy.Mobile.Droid.Resource.Id.notification_background;
+			global::Plugin.Media.Resource.Id.notification_main_column = global::PoolGuy.Mobile.Droid.Resource.Id.notification_main_column;
+			global::Plugin.Media.Resource.Id.notification_main_column_container = global::PoolGuy.Mobile.Droid.Resource.Id.notification_main_column_container;
+			global::Plugin.Media.Resource.Id.right = global::PoolGuy.Mobile.Droid.Resource.Id.right;
+			global::Plugin.Media.Resource.Id.right_icon = global::PoolGuy.Mobile.Droid.Resource.Id.right_icon;
+			global::Plugin.Media.Resource.Id.right_side = global::PoolGuy.Mobile.Droid.Resource.Id.right_side;
+			global::Plugin.Media.Resource.Id.start = global::PoolGuy.Mobile.Droid.Resource.Id.start;
+			global::Plugin.Media.Resource.Id.tag_transition_group = global::PoolGuy.Mobile.Droid.Resource.Id.tag_transition_group;
+			global::Plugin.Media.Resource.Id.tag_unhandled_key_event_manager = global::PoolGuy.Mobile.Droid.Resource.Id.tag_unhandled_key_event_manager;
+			global::Plugin.Media.Resource.Id.tag_unhandled_key_listeners = global::PoolGuy.Mobile.Droid.Resource.Id.tag_unhandled_key_listeners;
+			global::Plugin.Media.Resource.Id.text = global::PoolGuy.Mobile.Droid.Resource.Id.text;
+			global::Plugin.Media.Resource.Id.text2 = global::PoolGuy.Mobile.Droid.Resource.Id.text2;
+			global::Plugin.Media.Resource.Id.time = global::PoolGuy.Mobile.Droid.Resource.Id.time;
+			global::Plugin.Media.Resource.Id.title = global::PoolGuy.Mobile.Droid.Resource.Id.title;
+			global::Plugin.Media.Resource.Id.top = global::PoolGuy.Mobile.Droid.Resource.Id.top;
+			global::Plugin.Media.Resource.Integer.status_bar_notification_info_maxnum = global::PoolGuy.Mobile.Droid.Resource.Integer.status_bar_notification_info_maxnum;
+			global::Plugin.Media.Resource.Layout.browser_actions_context_menu_page = global::PoolGuy.Mobile.Droid.Resource.Layout.browser_actions_context_menu_page;
+			global::Plugin.Media.Resource.Layout.browser_actions_context_menu_row = global::PoolGuy.Mobile.Droid.Resource.Layout.browser_actions_context_menu_row;
+			global::Plugin.Media.Resource.Layout.notification_action = global::PoolGuy.Mobile.Droid.Resource.Layout.notification_action;
+			global::Plugin.Media.Resource.Layout.notification_action_tombstone = global::PoolGuy.Mobile.Droid.Resource.Layout.notification_action_tombstone;
+			global::Plugin.Media.Resource.Layout.notification_template_custom_big = global::PoolGuy.Mobile.Droid.Resource.Layout.notification_template_custom_big;
+			global::Plugin.Media.Resource.Layout.notification_template_icon_group = global::PoolGuy.Mobile.Droid.Resource.Layout.notification_template_icon_group;
+			global::Plugin.Media.Resource.Layout.notification_template_part_chronometer = global::PoolGuy.Mobile.Droid.Resource.Layout.notification_template_part_chronometer;
+			global::Plugin.Media.Resource.Layout.notification_template_part_time = global::PoolGuy.Mobile.Droid.Resource.Layout.notification_template_part_time;
+			global::Plugin.Media.Resource.String.status_bar_notification_info_overflow = global::PoolGuy.Mobile.Droid.Resource.String.status_bar_notification_info_overflow;
+			global::Plugin.Media.Resource.Style.TextAppearance_Compat_Notification = global::PoolGuy.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification;
+			global::Plugin.Media.Resource.Style.TextAppearance_Compat_Notification_Info = global::PoolGuy.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::Plugin.Media.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::PoolGuy.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::Plugin.Media.Resource.Style.TextAppearance_Compat_Notification_Time = global::PoolGuy.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::Plugin.Media.Resource.Style.TextAppearance_Compat_Notification_Title = global::PoolGuy.Mobile.Droid.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::Plugin.Media.Resource.Style.Widget_Compat_NotificationActionContainer = global::PoolGuy.Mobile.Droid.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::Plugin.Media.Resource.Style.Widget_Compat_NotificationActionText = global::PoolGuy.Mobile.Droid.Resource.Style.Widget_Compat_NotificationActionText;
+			global::Plugin.Media.Resource.Style.Widget_Support_CoordinatorLayout = global::PoolGuy.Mobile.Droid.Resource.Style.Widget_Support_CoordinatorLayout;
+			global::Plugin.Media.Resource.Styleable.ColorStateListItem = global::PoolGuy.Mobile.Droid.Resource.Styleable.ColorStateListItem;
+			global::Plugin.Media.Resource.Styleable.ColorStateListItem_alpha = global::PoolGuy.Mobile.Droid.Resource.Styleable.ColorStateListItem_alpha;
+			global::Plugin.Media.Resource.Styleable.ColorStateListItem_android_alpha = global::PoolGuy.Mobile.Droid.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::Plugin.Media.Resource.Styleable.ColorStateListItem_android_color = global::PoolGuy.Mobile.Droid.Resource.Styleable.ColorStateListItem_android_color;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_keylines = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout_keylines;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::Plugin.Media.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::PoolGuy.Mobile.Droid.Resource.Styleable.CoordinatorLayout_statusBarBackground;
+			global::Plugin.Media.Resource.Styleable.FontFamily = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamily;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_android_font = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont_android_font;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_android_fontStyle = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_android_fontVariationSettings = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont_android_fontVariationSettings;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_android_fontWeight = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_android_ttcIndex = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont_android_ttcIndex;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_font = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont_font;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_fontStyle = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_fontVariationSettings = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont_fontVariationSettings;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_fontWeight = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::Plugin.Media.Resource.Styleable.FontFamilyFont_ttcIndex = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamilyFont_ttcIndex;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderAuthority = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderCerts = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderPackage = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::Plugin.Media.Resource.Styleable.FontFamily_fontProviderQuery = global::PoolGuy.Mobile.Droid.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::Plugin.Media.Resource.Styleable.GradientColor = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor;
+			global::Plugin.Media.Resource.Styleable.GradientColorItem = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColorItem;
+			global::Plugin.Media.Resource.Styleable.GradientColorItem_android_color = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColorItem_android_color;
+			global::Plugin.Media.Resource.Styleable.GradientColorItem_android_offset = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColorItem_android_offset;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_centerColor = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_centerColor;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_centerX = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_centerX;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_centerY = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_centerY;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_endColor = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_endColor;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_endX = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_endX;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_endY = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_endY;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_gradientRadius = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_gradientRadius;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_startColor = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_startColor;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_startX = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_startX;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_startY = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_startY;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_tileMode = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_tileMode;
+			global::Plugin.Media.Resource.Styleable.GradientColor_android_type = global::PoolGuy.Mobile.Droid.Resource.Styleable.GradientColor_android_type;
+			global::Plugin.Media.Resource.Xml.xamarin_essentials_fileprovider_file_paths = global::PoolGuy.Mobile.Droid.Resource.Xml.xamarin_essentials_fileprovider_file_paths;
 			global::Plugin.Permissions.Resource.Attribute.alpha = global::PoolGuy.Mobile.Droid.Resource.Attribute.alpha;
 			global::Plugin.Permissions.Resource.Attribute.coordinatorLayoutStyle = global::PoolGuy.Mobile.Droid.Resource.Attribute.coordinatorLayoutStyle;
 			global::Plugin.Permissions.Resource.Attribute.font = global::PoolGuy.Mobile.Droid.Resource.Attribute.font;
@@ -27392,328 +27574,334 @@ namespace PoolGuy.Mobile.Droid
 			public const int account_circle_black = 2131165275;
 			
 			// aapt resource value: 0x7F07005C
-			public const int assignment_black = 2131165276;
+			public const int addphotoblack = 2131165276;
 			
 			// aapt resource value: 0x7F07005D
-			public const int AutoPilotLogo = 2131165277;
+			public const int assignment_black = 2131165277;
 			
 			// aapt resource value: 0x7F07005E
-			public const int avd_hide_password = 2131165278;
+			public const int AutoPilotLogo = 2131165278;
 			
 			// aapt resource value: 0x7F07005F
-			public const int avd_show_password = 2131165279;
+			public const int avd_hide_password = 2131165279;
 			
 			// aapt resource value: 0x7F070060
-			public const int bb_bottom_bar_top_shadow = 2131165280;
+			public const int avd_show_password = 2131165280;
 			
 			// aapt resource value: 0x7F070061
-			public const int blueessene = 2131165281;
+			public const int bb_bottom_bar_top_shadow = 2131165281;
 			
 			// aapt resource value: 0x7F070062
-			public const int ChlorinationSystem = 2131165282;
+			public const int blueessene = 2131165282;
 			
 			// aapt resource value: 0x7F070063
-			public const int CircuPool = 2131165283;
+			public const int ChlorinationSystem = 2131165283;
 			
 			// aapt resource value: 0x7F070064
-			public const int clfree = 2131165284;
+			public const int CircuPool = 2131165284;
 			
 			// aapt resource value: 0x7F070065
-			public const int cmdsgs = 2131165285;
+			public const int clfree = 2131165285;
 			
 			// aapt resource value: 0x7F070066
-			public const int common_full_open_on_phone = 2131165286;
+			public const int cmdsgs = 2131165286;
 			
 			// aapt resource value: 0x7F070067
-			public const int common_google_signin_btn_icon_dark = 2131165287;
+			public const int common_full_open_on_phone = 2131165287;
 			
 			// aapt resource value: 0x7F070068
-			public const int common_google_signin_btn_icon_dark_focused = 2131165288;
+			public const int common_google_signin_btn_icon_dark = 2131165288;
 			
 			// aapt resource value: 0x7F070069
-			public const int common_google_signin_btn_icon_dark_normal = 2131165289;
+			public const int common_google_signin_btn_icon_dark_focused = 2131165289;
 			
 			// aapt resource value: 0x7F07006A
-			public const int common_google_signin_btn_icon_dark_normal_background = 2131165290;
+			public const int common_google_signin_btn_icon_dark_normal = 2131165290;
 			
 			// aapt resource value: 0x7F07006B
-			public const int common_google_signin_btn_icon_disabled = 2131165291;
+			public const int common_google_signin_btn_icon_dark_normal_background = 2131165291;
 			
 			// aapt resource value: 0x7F07006C
-			public const int common_google_signin_btn_icon_light = 2131165292;
+			public const int common_google_signin_btn_icon_disabled = 2131165292;
 			
 			// aapt resource value: 0x7F07006D
-			public const int common_google_signin_btn_icon_light_focused = 2131165293;
+			public const int common_google_signin_btn_icon_light = 2131165293;
 			
 			// aapt resource value: 0x7F07006E
-			public const int common_google_signin_btn_icon_light_normal = 2131165294;
+			public const int common_google_signin_btn_icon_light_focused = 2131165294;
 			
 			// aapt resource value: 0x7F07006F
-			public const int common_google_signin_btn_icon_light_normal_background = 2131165295;
+			public const int common_google_signin_btn_icon_light_normal = 2131165295;
 			
 			// aapt resource value: 0x7F070070
-			public const int common_google_signin_btn_text_dark = 2131165296;
+			public const int common_google_signin_btn_icon_light_normal_background = 2131165296;
 			
 			// aapt resource value: 0x7F070071
-			public const int common_google_signin_btn_text_dark_focused = 2131165297;
+			public const int common_google_signin_btn_text_dark = 2131165297;
 			
 			// aapt resource value: 0x7F070072
-			public const int common_google_signin_btn_text_dark_normal = 2131165298;
+			public const int common_google_signin_btn_text_dark_focused = 2131165298;
 			
 			// aapt resource value: 0x7F070073
-			public const int common_google_signin_btn_text_dark_normal_background = 2131165299;
+			public const int common_google_signin_btn_text_dark_normal = 2131165299;
 			
 			// aapt resource value: 0x7F070074
-			public const int common_google_signin_btn_text_disabled = 2131165300;
+			public const int common_google_signin_btn_text_dark_normal_background = 2131165300;
 			
 			// aapt resource value: 0x7F070075
-			public const int common_google_signin_btn_text_light = 2131165301;
+			public const int common_google_signin_btn_text_disabled = 2131165301;
 			
 			// aapt resource value: 0x7F070076
-			public const int common_google_signin_btn_text_light_focused = 2131165302;
+			public const int common_google_signin_btn_text_light = 2131165302;
 			
 			// aapt resource value: 0x7F070077
-			public const int common_google_signin_btn_text_light_normal = 2131165303;
+			public const int common_google_signin_btn_text_light_focused = 2131165303;
 			
 			// aapt resource value: 0x7F070078
-			public const int common_google_signin_btn_text_light_normal_background = 2131165304;
+			public const int common_google_signin_btn_text_light_normal = 2131165304;
 			
 			// aapt resource value: 0x7F070079
-			public const int CompuPool = 2131165305;
+			public const int common_google_signin_btn_text_light_normal_background = 2131165305;
 			
 			// aapt resource value: 0x7F07007A
-			public const int controlomatic = 2131165306;
+			public const int CompuPool = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
-			public const int dashboard_black = 2131165307;
+			public const int controlomatic = 2131165307;
 			
 			// aapt resource value: 0x7F07007C
-			public const int design_bottom_navigation_item_background = 2131165308;
+			public const int dashboard_black = 2131165308;
 			
 			// aapt resource value: 0x7F07007D
-			public const int design_fab_background = 2131165309;
+			public const int design_bottom_navigation_item_background = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
-			public const int design_ic_visibility = 2131165310;
+			public const int design_fab_background = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
-			public const int design_ic_visibility_off = 2131165311;
+			public const int design_ic_visibility = 2131165311;
 			
 			// aapt resource value: 0x7F070080
-			public const int design_password_eye = 2131165312;
+			public const int design_ic_visibility_off = 2131165312;
 			
 			// aapt resource value: 0x7F070081
-			public const int design_snackbar_background = 2131165313;
+			public const int design_password_eye = 2131165313;
 			
 			// aapt resource value: 0x7F070082
-			public const int dive = 2131165314;
+			public const int design_snackbar_background = 2131165314;
 			
 			// aapt resource value: 0x7F070083
-			public const int ecomatic = 2131165315;
+			public const int dive = 2131165315;
 			
 			// aapt resource value: 0x7F070084
-			public const int filters = 2131165316;
+			public const int ecomatic = 2131165316;
 			
 			// aapt resource value: 0x7F070085
-			public const int googleg_disabled_color_18 = 2131165317;
+			public const int filters = 2131165317;
 			
 			// aapt resource value: 0x7F070086
-			public const int googleg_standard_color_18 = 2131165318;
+			public const int googleg_disabled_color_18 = 2131165318;
 			
 			// aapt resource value: 0x7F070087
-			public const int hayward = 2131165319;
+			public const int googleg_standard_color_18 = 2131165319;
 			
 			// aapt resource value: 0x7F070088
-			public const int ic_errorstatus = 2131165320;
+			public const int hayward = 2131165320;
 			
 			// aapt resource value: 0x7F070089
-			public const int ic_mtrl_chip_checked_black = 2131165321;
+			public const int ic_errorstatus = 2131165321;
 			
 			// aapt resource value: 0x7F07008A
-			public const int ic_mtrl_chip_checked_circle = 2131165322;
+			public const int ic_mtrl_chip_checked_black = 2131165322;
 			
 			// aapt resource value: 0x7F07008B
-			public const int ic_mtrl_chip_close_circle = 2131165323;
+			public const int ic_mtrl_chip_checked_circle = 2131165323;
 			
 			// aapt resource value: 0x7F07008C
-			public const int ic_successstatus = 2131165324;
+			public const int ic_mtrl_chip_close_circle = 2131165324;
 			
 			// aapt resource value: 0x7F07008D
-			public const int jandy = 2131165325;
+			public const int ic_successstatus = 2131165325;
 			
 			// aapt resource value: 0x7F07008E
-			public const int MaterialActivityIndicatorBackground = 2131165326;
+			public const int imageplaceholder = 2131165326;
 			
 			// aapt resource value: 0x7F07008F
-			public const int MaterialProgressBar = 2131165327;
+			public const int jandy = 2131165327;
 			
 			// aapt resource value: 0x7F070090
-			public const int mineralsprings = 2131165328;
+			public const int MaterialActivityIndicatorBackground = 2131165328;
 			
 			// aapt resource value: 0x7F070091
-			public const int mtrl_snackbar_background = 2131165329;
+			public const int MaterialProgressBar = 2131165329;
 			
 			// aapt resource value: 0x7F070092
-			public const int mtrl_tabs_default_indicator = 2131165330;
+			public const int mineralsprings = 2131165330;
 			
 			// aapt resource value: 0x7F070093
-			public const int navigation_empty_icon = 2131165331;
+			public const int mtrl_snackbar_background = 2131165331;
 			
 			// aapt resource value: 0x7F070094
-			public const int notification_action_background = 2131165332;
+			public const int mtrl_tabs_default_indicator = 2131165332;
 			
 			// aapt resource value: 0x7F070095
-			public const int notification_bg = 2131165333;
+			public const int navigation_empty_icon = 2131165333;
 			
 			// aapt resource value: 0x7F070096
-			public const int notification_bg_low = 2131165334;
+			public const int notification_action_background = 2131165334;
 			
 			// aapt resource value: 0x7F070097
-			public const int notification_bg_low_normal = 2131165335;
+			public const int notification_bg = 2131165335;
 			
 			// aapt resource value: 0x7F070098
-			public const int notification_bg_low_pressed = 2131165336;
+			public const int notification_bg_low = 2131165336;
 			
 			// aapt resource value: 0x7F070099
-			public const int notification_bg_normal = 2131165337;
+			public const int notification_bg_low_normal = 2131165337;
 			
 			// aapt resource value: 0x7F07009A
-			public const int notification_bg_normal_pressed = 2131165338;
+			public const int notification_bg_low_pressed = 2131165338;
 			
 			// aapt resource value: 0x7F07009B
-			public const int notification_icon_background = 2131165339;
+			public const int notification_bg_normal = 2131165339;
 			
 			// aapt resource value: 0x7F07009C
-			public const int notification_template_icon_bg = 2131165340;
+			public const int notification_bg_normal_pressed = 2131165340;
 			
 			// aapt resource value: 0x7F07009D
-			public const int notification_template_icon_low_bg = 2131165341;
+			public const int notification_icon_background = 2131165341;
 			
 			// aapt resource value: 0x7F07009E
-			public const int notification_tile_bg = 2131165342;
+			public const int notification_template_icon_bg = 2131165342;
 			
 			// aapt resource value: 0x7F07009F
-			public const int notify_panel_notification_icon_bg = 2131165343;
+			public const int notification_template_icon_low_bg = 2131165343;
 			
 			// aapt resource value: 0x7F0700A0
-			public const int optimum = 2131165344;
+			public const int notification_tile_bg = 2131165344;
 			
 			// aapt resource value: 0x7F0700A1
-			public const int orenda = 2131165345;
+			public const int notify_panel_notification_icon_bg = 2131165345;
 			
 			// aapt resource value: 0x7F0700A2
-			public const int OzoneSystem = 2131165346;
+			public const int optimum = 2131165346;
 			
 			// aapt resource value: 0x7F0700A3
-			public const int PartsAccessotries = 2131165347;
+			public const int orenda = 2131165347;
 			
 			// aapt resource value: 0x7F0700A4
-			public const int pentair = 2131165348;
+			public const int OzoneSystem = 2131165348;
 			
 			// aapt resource value: 0x7F0700A5
-			public const int PHControls = 2131165349;
+			public const int PartsAccessotries = 2131165349;
 			
 			// aapt resource value: 0x7F0700A6
-			public const int pumps = 2131165350;
+			public const int pentair = 2131165350;
 			
 			// aapt resource value: 0x7F0700A7
-			public const int replacementcells = 2131165351;
+			public const int PHControls = 2131165351;
 			
 			// aapt resource value: 0x7F0700A8
-			public const int resilience = 2131165352;
+			public const int pumps = 2131165352;
 			
 			// aapt resource value: 0x7F0700A9
-			public const int roundedbg = 2131165353;
+			public const int replacementcells = 2131165353;
 			
 			// aapt resource value: 0x7F0700AA
-			public const int roundedbgdark = 2131165354;
+			public const int resilience = 2131165354;
 			
 			// aapt resource value: 0x7F0700AB
-			public const int searched_black = 2131165355;
+			public const int roundedbg = 2131165355;
 			
 			// aapt resource value: 0x7F0700AC
-			public const int solaxx = 2131165356;
+			public const int roundedbgdark = 2131165356;
 			
 			// aapt resource value: 0x7F0700AD
-			public const int speckpumps = 2131165357;
+			public const int searched_black = 2131165357;
 			
 			// aapt resource value: 0x7F0700AE
-			public const int swinpureplus = 2131165358;
+			public const int solaxx = 2131165358;
 			
 			// aapt resource value: 0x7F0700AF
-			public const int tab_about = 2131165359;
+			public const int speckpumps = 2131165359;
 			
 			// aapt resource value: 0x7F0700B0
-			public const int tab_feed = 2131165360;
+			public const int swinpureplus = 2131165360;
 			
 			// aapt resource value: 0x7F0700B1
-			public const int tooltip_frame_dark = 2131165361;
+			public const int tab_about = 2131165361;
 			
 			// aapt resource value: 0x7F0700B2
-			public const int tooltip_frame_light = 2131165362;
+			public const int tab_feed = 2131165362;
 			
 			// aapt resource value: 0x7F0700B3
-			public const int w01d = 2131165363;
+			public const int tooltip_frame_dark = 2131165363;
 			
 			// aapt resource value: 0x7F0700B4
-			public const int w01n = 2131165364;
+			public const int tooltip_frame_light = 2131165364;
 			
 			// aapt resource value: 0x7F0700B5
-			public const int w02d = 2131165365;
+			public const int w01d = 2131165365;
 			
 			// aapt resource value: 0x7F0700B6
-			public const int w02n = 2131165366;
+			public const int w01n = 2131165366;
 			
 			// aapt resource value: 0x7F0700B7
-			public const int w03d = 2131165367;
+			public const int w02d = 2131165367;
 			
 			// aapt resource value: 0x7F0700B8
-			public const int w03n = 2131165368;
+			public const int w02n = 2131165368;
 			
 			// aapt resource value: 0x7F0700B9
-			public const int w04d = 2131165369;
+			public const int w03d = 2131165369;
 			
 			// aapt resource value: 0x7F0700BA
-			public const int w04n = 2131165370;
+			public const int w03n = 2131165370;
 			
 			// aapt resource value: 0x7F0700BB
-			public const int w09d = 2131165371;
+			public const int w04d = 2131165371;
 			
 			// aapt resource value: 0x7F0700BC
-			public const int w09n = 2131165372;
+			public const int w04n = 2131165372;
 			
 			// aapt resource value: 0x7F0700BD
-			public const int w10d = 2131165373;
+			public const int w09d = 2131165373;
 			
 			// aapt resource value: 0x7F0700BE
-			public const int w10n = 2131165374;
+			public const int w09n = 2131165374;
 			
 			// aapt resource value: 0x7F0700BF
-			public const int w11d = 2131165375;
+			public const int w10d = 2131165375;
 			
 			// aapt resource value: 0x7F0700C0
-			public const int w11n = 2131165376;
+			public const int w10n = 2131165376;
 			
 			// aapt resource value: 0x7F0700C1
-			public const int w13d = 2131165377;
+			public const int w11d = 2131165377;
 			
 			// aapt resource value: 0x7F0700C2
-			public const int w13n = 2131165378;
+			public const int w11n = 2131165378;
 			
 			// aapt resource value: 0x7F0700C3
-			public const int w50d = 2131165379;
+			public const int w13d = 2131165379;
 			
 			// aapt resource value: 0x7F0700C4
-			public const int w50n = 2131165380;
+			public const int w13n = 2131165380;
 			
 			// aapt resource value: 0x7F0700C5
-			public const int waterco = 2131165381;
+			public const int w50d = 2131165381;
 			
 			// aapt resource value: 0x7F0700C6
-			public const int xamarin_logo = 2131165382;
+			public const int w50n = 2131165382;
 			
 			// aapt resource value: 0x7F0700C7
-			public const int zodiac = 2131165383;
+			public const int waterco = 2131165383;
+			
+			// aapt resource value: 0x7F0700C8
+			public const int xamarin_logo = 2131165384;
+			
+			// aapt resource value: 0x7F0700C9
+			public const int zodiac = 2131165385;
 			
 			static Drawable()
 			{
@@ -28786,76 +28974,79 @@ namespace PoolGuy.Mobile.Droid
 			public const int account_circle_black = 2131492866;
 			
 			// aapt resource value: 0x7F0C0003
-			public const int assignment_black = 2131492867;
+			public const int addphotoblack = 2131492867;
 			
 			// aapt resource value: 0x7F0C0004
-			public const int dashboard_black = 2131492868;
+			public const int assignment_black = 2131492868;
 			
 			// aapt resource value: 0x7F0C0005
-			public const int icon = 2131492869;
+			public const int dashboard_black = 2131492869;
 			
 			// aapt resource value: 0x7F0C0006
-			public const int icon_round = 2131492870;
+			public const int icon = 2131492870;
 			
 			// aapt resource value: 0x7F0C0007
-			public const int launcher_foreground = 2131492871;
+			public const int icon_round = 2131492871;
 			
 			// aapt resource value: 0x7F0C0008
-			public const int searched_black = 2131492872;
+			public const int launcher_foreground = 2131492872;
 			
 			// aapt resource value: 0x7F0C0009
-			public const int w01d = 2131492873;
+			public const int searched_black = 2131492873;
 			
 			// aapt resource value: 0x7F0C000A
-			public const int w01n = 2131492874;
+			public const int w01d = 2131492874;
 			
 			// aapt resource value: 0x7F0C000B
-			public const int w02d = 2131492875;
+			public const int w01n = 2131492875;
 			
 			// aapt resource value: 0x7F0C000C
-			public const int w02n = 2131492876;
+			public const int w02d = 2131492876;
 			
 			// aapt resource value: 0x7F0C000D
-			public const int w03d = 2131492877;
+			public const int w02n = 2131492877;
 			
 			// aapt resource value: 0x7F0C000E
-			public const int w03n = 2131492878;
+			public const int w03d = 2131492878;
 			
 			// aapt resource value: 0x7F0C000F
-			public const int w04d = 2131492879;
+			public const int w03n = 2131492879;
 			
 			// aapt resource value: 0x7F0C0010
-			public const int w04n = 2131492880;
+			public const int w04d = 2131492880;
 			
 			// aapt resource value: 0x7F0C0011
-			public const int w09d = 2131492881;
+			public const int w04n = 2131492881;
 			
 			// aapt resource value: 0x7F0C0012
-			public const int w09n = 2131492882;
+			public const int w09d = 2131492882;
 			
 			// aapt resource value: 0x7F0C0013
-			public const int w10d = 2131492883;
+			public const int w09n = 2131492883;
 			
 			// aapt resource value: 0x7F0C0014
-			public const int w10n = 2131492884;
+			public const int w10d = 2131492884;
 			
 			// aapt resource value: 0x7F0C0015
-			public const int w11d = 2131492885;
+			public const int w10n = 2131492885;
 			
 			// aapt resource value: 0x7F0C0016
-			public const int w11n = 2131492886;
+			public const int w11d = 2131492886;
 			
 			// aapt resource value: 0x7F0C0017
-			public const int w13d = 2131492887;
+			public const int w11n = 2131492887;
 			
 			// aapt resource value: 0x7F0C0018
-			public const int w13n = 2131492888;
+			public const int w13d = 2131492888;
 			
 			// aapt resource value: 0x7F0C0019
-			public const int w50d = 2131492889;
+			public const int w13n = 2131492889;
 			
 			// aapt resource value: 0x7F0C001A
-			public const int w50n = 2131492890;
+			public const int w50d = 2131492890;
+			
+			// aapt resource value: 0x7F0C001B
+			public const int w50n = 2131492891;
 			
 			static Mipmap()
 			{
@@ -33839,10 +34030,13 @@ namespace PoolGuy.Mobile.Droid
 		{
 			
 			// aapt resource value: 0x7F100000
-			public const int network_security_config = 2131755008;
+			public const int file_paths = 2131755008;
 			
 			// aapt resource value: 0x7F100001
-			public const int xamarin_essentials_fileprovider_file_paths = 2131755009;
+			public const int network_security_config = 2131755009;
+			
+			// aapt resource value: 0x7F100002
+			public const int xamarin_essentials_fileprovider_file_paths = 2131755010;
 			
 			static Xml()
 			{

@@ -19,12 +19,25 @@ namespace PoolGuy.Mobile.Views
         public WCustomerPage()
         {
             InitializeComponent();
+            _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
+            _viewModel.SetView(this);
         }
 
         public WCustomerPage(CustomerViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
+            _viewModel.SetView(this);
+        }
+
+        private  void ImageButton_Clicked(object sender, EventArgs e)
+        {
+            if (_viewModel == null)
+            { 
+               _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
+            }
+
+            _viewModel.TakePhotoCommand.Execute(null);
         }
     }
 }

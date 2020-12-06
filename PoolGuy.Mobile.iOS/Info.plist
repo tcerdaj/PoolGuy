@@ -42,5 +42,13 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFGoogleApiKey</key>
 	<string>AIzaSyC5arQ3aoeRkOjQ7dk1sjY0B78Rbwp0zyI</string>
+  <key>NSCameraUsageDescription</key>
+  <string>This app needs access to the camera to take photos.</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>This app needs access to photos.</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>This app needs access to microphone.</string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>This app needs access to the photo gallery.</string>
 </dict>
 </plist>

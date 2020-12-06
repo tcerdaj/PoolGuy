@@ -5,7 +5,8 @@
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              x:Class="PoolGuy.Mobile.Views.WCustomerPage"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             x:Name="CustomerSection">
     
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -42,19 +43,20 @@
                         <ColumnDefinition Width="7*"/>
                     </Grid.ColumnDefinitions>
                            <!--Image-->
-                            <ImageButton Grid.RowSpan="3"
-                                         BorderWidth="1"
-                                         BorderColor="{StaticResource ExtraLightGray}"
-                                         BackgroundColor="Transparent"
-                                         Grid.Column="0"
-                                         Aspect="AspectFit">
-                                        <ImageButton.Source>
-                                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                                             Glyph="{x:Static icons:MaterialDesignIcons.FileImage}"
-                                                             Size="20"
-                                                             Color="{StaticResource UnselectedColor}"/>
-                                        </ImageButton.Source>
-                            </ImageButton>
+                    <Frame Grid.RowSpan="3"
+                           Grid.Column="0"
+                           HasShadow="False"
+                           BorderColor="{StaticResource ExtraLightGray}">
+                        <ImageButton BackgroundColor="Transparent"
+                                     Clicked="ImageButton_Clicked"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="Center"
+                                     Aspect="AspectFit"
+                                     WidthRequest="80"
+                                     Source="{Binding Customer.ImageUrl}">
+                        </ImageButton>
+                    </Frame>
+                            
 
                     <!--FirstName-->
                             <Frame Grid.Row="0" 

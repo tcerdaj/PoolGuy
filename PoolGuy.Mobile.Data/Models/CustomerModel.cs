@@ -83,7 +83,7 @@ namespace PoolGuy.Mobile.Data.Models
         private string _imageUrl;
         public string ImageUrl
         {
-            get { return _imageUrl; }
+            get { return string.IsNullOrEmpty(_imageUrl)? "addphotoblack.png": _imageUrl; }
             set { _imageUrl = value; OnPropertyChanged("ImageUrl"); }
         }
 

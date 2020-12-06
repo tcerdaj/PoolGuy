@@ -18,6 +18,7 @@ using Xamarin.Forms.Internals;
 using Omu.ValueInjecter;
 using Newtonsoft.Json;
 using PoolGuy.Mobile.Extensions;
+using PoolGuy.Mobile.Services.Interface;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -462,8 +463,6 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
-       
-
         public bool IsValid(CustomerPageViewModel page)
         {
             try
@@ -506,6 +505,47 @@ namespace PoolGuy.Mobile.ViewModels
         public void OnPoolChanged()
         {
             OnPropertyChanged("Customer");
+        }
+
+        public ICommand TakePhotoCommand
+        {
+            get => new RelayCommand(async () => await TakePhotoAsync());
+        }
+
+        private async Task TakePhotoAsync()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                var action = await Shell.Current.DisplayActionSheet("Select Image Source", "Cancel", null, null, "Gallery",
+                            "Camera");
+                if (string.IsNullOrEmpty(action) || action == "Cancel")
+                {
+                    return;
+                }
+
+                var imageService = DependencyService.Get<IImageService>();
+                var photo = await imageService.TakePhoto(action);
+
+                if (photo == null)
+                {
+                    return;
+                }
+
+                Pages[0].Customer.ImageUrl = photo.Path;
+                Pages[0].Customer.NotififyImageUrl();
+            }
+            catch (Exception e)
+            {
+                await Message.DisplayAlertAsync(e.Message, Title, "Ok");
+            }
+            finally { IsBusy = false; }
         }
     }
     static class extentions

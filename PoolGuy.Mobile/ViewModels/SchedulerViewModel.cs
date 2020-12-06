@@ -88,6 +88,7 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 if (!FieldValidationHelper.IsFormValid(Scheduler, CurrentPage))
                 {
+                    await Message.DisplayAlertAsync("Please check your enter and try again", Title);
                     return;
                 }
 
