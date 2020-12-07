@@ -107,17 +107,20 @@
                                              Margin="0,0,0,5"/>
                                     <StackLayout Orientation="Horizontal">
                                         <!--Circular Image-->
-                                        <Frame Padding="0"
+                                        <mr:Frame Padding="0"
                                                    CornerRadius="50"
                                                    VerticalOptions="Center"
                                                    HorizontalOptions="Start"
                                                    HasShadow="False"
+                                                   TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.DisplayImageCommand}"
+                                                   TappedCommandParameter="{Binding BindingContext, Source={x:Reference ListTemplate}}"
                                                    IsClippedToBounds="True"
                                                    Margin="0">
                                                 <Image Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
                                                        VerticalOptions="CenterAndExpand"
                                                        HorizontalOptions="CenterAndExpand"/>
-                                            </Frame>
+                                        </mr:Frame>
+                                        <!--Personal Info-->
                                         <StackLayout Orientation="Horizontal"
                                                          Margin="10,0,0,0"
                                                          HorizontalOptions="EndAndExpand">
@@ -201,7 +204,6 @@
                                     </StackLayout>
                                 </StackLayout>
                             </SwipeView>
-                            
                         </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

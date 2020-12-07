@@ -446,6 +446,7 @@ namespace PoolGuy.Mobile.Services
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex);
+                    throw;
                 }
                 finally
                 {

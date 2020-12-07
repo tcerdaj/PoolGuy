@@ -53,7 +53,7 @@ namespace PoolGuy.Mobile
             var nav = new NavigationService();
             nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
             nav.Configure(Locator.Home, typeof(HomePage));
-            //nav.Configure(Locator.SearchCustomer, typeof(SearchCustomerPage));
+            nav.Configure(Locator.Popup.ActionSheetPopup, typeof(ActionSheetPopupPage));
             //nav.Configure(Locator.Login, typeof(LoginPage));
             //nav.Configure(Locator.Equipment, typeof(EquipmentPage));
 

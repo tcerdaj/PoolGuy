@@ -16,11 +16,14 @@ namespace PoolGuy.Mobile.ViewModels
             Title = this.GetType().Name.Replace("ViewModel", "");
         }
 
+
+        public eContentType ContentType { get; set; }
         public ActionSheetPopupViewModel(ActionSheetModel model)
         {
             Title = model.Title;
             ButtonLabels = model.Buttons.ToList();
             CancelLabel = model.Cancel;
+            ContentType = model.ContentType;
         }
 
         private List<string> buttonLabels;

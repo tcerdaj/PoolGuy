@@ -2,9 +2,11 @@
 using PoolGuy.Mobile.Services.Interface;
 using Rg.Plugins.Popup.Pages;
 using PoolGuy.Mobile.ViewModels;
+using Xamarin.Forms.Xaml;
 
 namespace PoolGuy.Mobile.Views
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ActionSheetPopupPage : PopupPage, IContentPage
     {
         ActionSheetPopupViewModel _viewModel;
@@ -19,10 +21,18 @@ namespace PoolGuy.Mobile.Views
 
         public ActionSheetPopupPage(ActionSheetModel model)
         {
-            InitializeComponent();
-            CloseWhenBackgroundIsClicked = false;
-            _viewModel = new ActionSheetPopupViewModel(model);
-            BindingContext = _viewModel;
+            try
+            {
+                InitializeComponent();
+                CloseWhenBackgroundIsClicked = false;
+                _viewModel = new ActionSheetPopupViewModel(model);
+                BindingContext = _viewModel;
+
+            }
+            catch (System.Exception ex)
+            {
+                throw;
+            }        
         }
 
         protected override bool OnBackgroundClicked()

@@ -38,7 +38,7 @@ namespace PoolGuy.Mobile.Services
             }
         }
 
-        public async Task<string> DisplayActionSheetCustomAsync(string title, string cancel, params string[] buttons)
+        public async Task<string> DisplayActionSheetCustomAsync(string title, string cancel, eContentType contentType, params string[] buttons)
         {
             _action = string.Empty;
             _cancellationToken?.Cancel();
@@ -57,7 +57,7 @@ namespace PoolGuy.Mobile.Services
                 });
 
                 await SimpleIoc.Default.GetInstance<INavigationService>().PushPopupAsync(Locator.Popup.ActionSheetPopup,
-                    new ActionSheetModel { Title = title, Cancel = cancel, Buttons = buttons }, false, _cancellationToken.Token);
+                    new ActionSheetModel { Title = title, Cancel = cancel, ContentType = contentType, Buttons = buttons }, false, _cancellationToken.Token);
 
                 await Task.Run(() => WaitHandle.WaitOne());
             }

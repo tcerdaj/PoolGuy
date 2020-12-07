@@ -142,40 +142,44 @@
                     </StackLayout>
             </StackLayout>
             <!--Scheduler list-->
-                    <CollectionView Grid.Row="8"
-                                    x:Name="SchedulerList"
-                                    BackgroundColor="#fbfbfb"
-                                    EmptyView="No scheduler added yet"
-                                    SelectionMode="None"
-                                    SelectedItem="{Binding Customer}"
-                                    ItemsSource="{Binding CustomerSearchResults}">
-                         <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid x:Name="SchedulerItem">
+            <CollectionView Grid.Row="8"
+                            x:Name="SchedulerList"
+                            BackgroundColor="#fbfbfb"
+                            EmptyView="No scheduler added yet"
+                            SelectionMode="None"
+                            SelectedItem="{Binding Customer}"
+                            ItemsSource="{Binding CustomerSearchResults}">
+                          <CollectionView.ItemTemplate>
+                              <DataTemplate>
+                                  <Grid x:Name="SchedulerItem">
                             <StackLayout Orientation="Horizontal" 
                                                 HorizontalOptions="FillAndExpand"
                                                 Spacing="15"
                                                 Padding="10,5,15,5">
-                                <Frame Padding="0"
-                                                   CornerRadius="50"
-                                                   VerticalOptions="Center"
-                                                   HorizontalOptions="Start"
-                                                   HasShadow="False"
-                                                   IsClippedToBounds="True"
-                                                   Margin="0">
+                                <!--Image Curcular-->
+                                <mr:Frame Padding="0"
+                                          TappedCommand="{Binding Source={x:Reference SchedulerList}, Path=BindingContext.DisplayImageCommand}"
+                                          TappedCommandParameter="{Binding BindingContext, Source={x:Reference SchedulerItem}}"
+                                          CornerRadius="50"
+                                          VerticalOptions="Center"
+                                          HorizontalOptions="Start"
+                                          HasShadow="False"
+                                          IsClippedToBounds="True"
+                                          Margin="0">
                                     <Image Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
-                                                       VerticalOptions="CenterAndExpand"
-                                                       HorizontalOptions="CenterAndExpand"/>
-                                </Frame>
+                                           VerticalOptions="CenterAndExpand"
+                                           HorizontalOptions="CenterAndExpand"/>
+                                </mr:Frame>
+                                <!--Customer Name-->
                                 <Label Text="{Binding Name}"
                                             HorizontalOptions="StartAndExpand"
                                             VerticalOptions="Center"/>
                                 <CheckBox IsChecked="{Binding Selected}"/>
                             </StackLayout>
                         </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                     </CollectionView>
+                              </DataTemplate>
+                          </CollectionView.ItemTemplate>
+             </CollectionView>
         </Grid>
         <!-- Busy Status -->
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"

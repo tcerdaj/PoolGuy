@@ -29,11 +29,6 @@ namespace PoolGuy.Mobile.Converter
 
                 if (val.StartsWith("http"))
                 {
-                    //ServicePointManager.ServerCertificateValidationCallback = ServerCertificateValidationCallback;
-                    //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                    //var imageArray = _client.DownloadData(val);
-
-                    //return ImageSource.FromStream(()=> { return new MemoryStream(imageArray); });
                     return new UriImageSource
                     {
                         Uri = new Uri(val),

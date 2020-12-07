@@ -258,5 +258,30 @@ namespace PoolGuy.Mobile.ViewModels
             CustomerSearchResults = new ObservableCollection<CustomerModel>(
                 CustomerSearchResults.Select(x => { x.Selected = all; return x; }));
         }
+
+        public ICommand DisplayImageCommand
+        {
+            get { return new RelayCommand<CustomerModel>(async (customer) => await DisplayImage(customer)); }
+        }
+
+        private async Task DisplayImage(CustomerModel customer)
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                await Message.DisplayActionSheetCustomAsync(customer.Name, "Ok", Models.eContentType.ImageUrl, customer.ImageUrl);
+            }
+            catch (System.Exception e)
+            {
+                Debug.WriteLine(e);
+                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
     }
 }
