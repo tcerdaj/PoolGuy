@@ -105,9 +105,9 @@
                                              Color="{StaticResource ExtraLightGray}" 
                                              HorizontalOptions="FillAndExpand"
                                              Margin="0,0,0,5"/>
-                                        <StackLayout Orientation="Horizontal">
-                                            <!--Circular Image-->
-                                            <Frame Padding="0"
+                                    <StackLayout Orientation="Horizontal">
+                                        <!--Circular Image-->
+                                        <Frame Padding="0"
                                                    CornerRadius="50"
                                                    VerticalOptions="Center"
                                                    HorizontalOptions="Start"
@@ -118,7 +118,7 @@
                                                        VerticalOptions="CenterAndExpand"
                                                        HorizontalOptions="CenterAndExpand"/>
                                             </Frame>
-                                            <StackLayout Orientation="Horizontal"
+                                        <StackLayout Orientation="Horizontal"
                                                          Margin="10,0,0,0"
                                                          HorizontalOptions="EndAndExpand">
                                                 <StackLayout HorizontalOptions="FillAndExpand"
@@ -198,8 +198,8 @@
                                                HorizontalOptions="End"
                                                VerticalOptions="Start"/>
                                             </StackLayout>
-                                        </StackLayout>
                                     </StackLayout>
+                                </StackLayout>
                             </SwipeView>
                             
                         </StackLayout>
