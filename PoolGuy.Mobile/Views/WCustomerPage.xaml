@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
             <conv:InverseBooleanConverter x:Key="InverseBoolConverter" />
+            <conv:ImageUrlConverter x:Key="ImageUrlConverter" />
             <Style TargetType="Frame">
                 <Setter Property="BorderColor" Value="#D8D8D8"/>
                 <Setter Property="CornerRadius" Value="6"/>
@@ -45,15 +46,15 @@
                            <!--Image-->
                     <Frame Grid.RowSpan="3"
                            Grid.Column="0"
+                           Padding="0"
+                           Margin="0"
                            HasShadow="False"
-                           BorderColor="{StaticResource ExtraLightGray}">
+                           BackgroundColor="Transparent"
+                           BorderColor="Transparent">
                         <ImageButton BackgroundColor="Transparent"
                                      Clicked="ImageButton_Clicked"
-                                     VerticalOptions="Center"
-                                     HorizontalOptions="Center"
                                      Aspect="AspectFit"
-                                     WidthRequest="80"
-                                     Source="{Binding Customer.ImageUrl}">
+                                     Source="{Binding Customer.ImageUrl, Converter={StaticResource ImageUrlConverter}}">
                         </ImageButton>
                     </Frame>
                             

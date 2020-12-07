@@ -21,11 +21,11 @@ namespace PoolGuy.Mobile.Data.Models.SampleData
                 using (var reader = new StreamReader(stream))
                 {
                     var json = reader.ReadToEnd();
-                    var rootobject = JsonConvert.DeserializeObject<CustomerSample[]>(json);
-                    
+                    if (!string.IsNullOrEmpty(json))
+                    { 
+                      _customers = JsonConvert.DeserializeObject<CustomerSample[]>(json);
+                    }
                 }
-
-                _customers = JsonConvert.DeserializeObject<CustomerSample[]>(File.ReadAllText(@"Customers.json"));
             }
             catch (Exception e)
             {

@@ -354,7 +354,7 @@ namespace PoolGuy.Mobile.ViewModels
 
         public ICommand GoBackCommand => new RelayCommand(async () =>
         {
-            Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
+            //Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
 
             if (WasModified)
             {
