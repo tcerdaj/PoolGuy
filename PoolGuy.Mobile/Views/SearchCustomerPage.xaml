@@ -106,6 +106,7 @@
                                              HorizontalOptions="FillAndExpand"
                                              Margin="0,0,0,5"/>
                                         <StackLayout Orientation="Horizontal">
+                                            <!--Circular Image-->
                                             <Frame Padding="0"
                                                    CornerRadius="50"
                                                    VerticalOptions="Center"
@@ -117,11 +118,12 @@
                                                        VerticalOptions="CenterAndExpand"
                                                        HorizontalOptions="CenterAndExpand"/>
                                             </Frame>
-                                    <StackLayout Orientation="Horizontal"
-                                                 HorizontalOptions="EndAndExpand">
-                                        <StackLayout HorizontalOptions="FillAndExpand"
-                                                     Spacing="5">
-                                                <mr:StackLayout x:Name="ListTemplate" 
+                                            <StackLayout Orientation="Horizontal"
+                                                         Margin="10,0,0,0"
+                                                         HorizontalOptions="EndAndExpand">
+                                                <StackLayout HorizontalOptions="FillAndExpand"
+                                                             Spacing="5">
+                                                      <mr:StackLayout x:Name="ListTemplate" 
                                                                 DownCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToCustomerDetailsCommand}"
                                                                 DownCommandParameter="{Binding BindingContext, Source={x:Reference ListTemplate}}">
                                                     <mr:StackLayout.Triggers>
@@ -132,56 +134,70 @@
                                                             <act:ScaleUpTriggerAction />
                                                         </EventTrigger>
                                                     </mr:StackLayout.Triggers>
+                                                    <!--Customer FullName-->
                                                     <Label Text="{Binding Name}"
-                                                       HorizontalOptions="FillAndExpand"
-                                                       VerticalOptions="Center"
-                                                       FontSize="14">
-                                                    <Label.FontFamily>
-                                                        <OnPlatform x:TypeArguments="x:String">
-                                                            <On Platform="iOS">Roboto</On>
-                                                            <On Platform="Android">Roboto-Bold.ttf#Roboto-Bold</On>
-                                                        </OnPlatform>
-                                                    </Label.FontFamily>
-                                                </Label>
-                                                <Label Text="{Binding Address.FullAddress}" 
-                                                       HorizontalOptions="FillAndExpand"
-                                                       VerticalOptions="Center"
-                                                       LineBreakMode="TailTruncation"
-                                                       FontSize="12"/>
+                                                           LineBreakMode="TailTruncation"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           VerticalOptions="Center"
+                                                           FontSize="14">
+                                                         <Label.FontFamily>
+                                                             <OnPlatform x:TypeArguments="x:String">
+                                                                 <On Platform="iOS">Roboto</On>
+                                                                 <On Platform="Android">Roboto-Bold.ttf#Roboto-Bold</On>
+                                                             </OnPlatform>
+                                                         </Label.FontFamily>
+                                                     </Label>
+                                                    <!--Full Address-->
+                                                    <Label Text="{Binding Address.FullAddress}" 
+                                                           HorizontalOptions="FillAndExpand"
+                                                           VerticalOptions="Center"
+                                                           LineBreakMode="TailTruncation"
+                                                           FontSize="12"/>
                                             </mr:StackLayout>
-                                            <StackLayout Orientation="Horizontal"
+                                                    <!--Phone/Email-->
+                                                    <StackLayout Orientation="Horizontal"
                                                          Spacing="10"
                                                          HorizontalOptions="Start">
-                                                <mr:Label x:Name="Phone"
-                                                          HorizontalOptions="Fill"
-                                                          Text="{Binding Contact.Phone}" 
-                                                          TextColor="#2F80ED"
-                                                          VerticalOptions="Center"
-                                                          FontSize="12"
-                                                          FontAttributes="Bold"
-                                                          TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
-                                                          TappedCommandParameter="{Binding }"
-                                                          PinchedCommandParameter="Phone">
-                                                 </mr:Label>
-                                                <mr:Label x:Name="Email" 
-                                                          HorizontalOptions="Fill"
-                                                          VerticalOptions="Center"
-                                                          FontSize="12"
-                                                          FontAttributes="Bold"
-                                                          TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
-                                                          TappedCommandParameter="{Binding }"
-                                                          PinchedCommandParameter="Phone"
-                                                          Text="{Binding Contact.Email}" TextColor="#2F80ED"/>
-                                            </StackLayout>
-                                        </StackLayout>
-                                        <Label Text="{x:Static icons:MaterialDesignIcons.ChevronRight}" 
+                                                <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                      <mr:Label x:Name="Phone"
+                                                                Grid.Column="0"
+                                                                Text="{Binding Contact.Phone}" 
+                                                                TextColor="#2F80ED"
+                                                                VerticalOptions="Center"
+                                                                HorizontalOptions="Start"
+                                                                FontSize="12"
+                                                                FontAttributes="Bold"
+                                                                TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
+                                                                TappedCommandParameter="{Binding }"
+                                                                PinchedCommandParameter="Phone">
+                                                       </mr:Label>
+                                                      <mr:Label x:Name="Email"
+                                                                Grid.Column="1"
+                                                                HorizontalOptions="Fill"
+                                                                VerticalOptions="Center"
+                                                                FontSize="12"
+                                                                FontAttributes="Bold"
+                                                                TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
+                                                                TappedCommandParameter="{Binding }"
+                                                                PinchedCommandParameter="Phone"
+                                                                LineBreakMode="TailTruncation"
+                                                                Text="{Binding Contact.Email}" TextColor="#2F80ED"/>
+                                              </Grid>
+                                           </StackLayout>
+                                                </StackLayout>
+                                                <!--Right Arrow-->
+                                                <Label Text="{x:Static icons:MaterialDesignIcons.ChevronRight}" 
                                                FontFamily="{StaticResource MaterialFontFamily}"
                                                FontSize="25"
                                                Margin="0,0,5,0"
                                                TextColor="{StaticResource ExtraLightGray}"
                                                HorizontalOptions="End"
                                                VerticalOptions="Start"/>
-                                    </StackLayout>
+                                            </StackLayout>
                                         </StackLayout>
                                     </StackLayout>
                             </SwipeView>

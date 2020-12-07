@@ -177,15 +177,13 @@
                         <!--Clouds-->
                         <StackLayout Grid.Column="1"
                                      Grid.Row="0"
-                                     Padding="5"
                                      Orientation="Horizontal"
-                                     HorizontalOptions="Center">
+                                     HorizontalOptions="FillAndExpand">
                            <Label TextColor="#7B7575"
-                                  HorizontalOptions="Center"
                                   VerticalOptions="Center">
                                <Label.FormattedText>
                                    <FormattedString>
-                                        <Span Text="{Binding Weather.Main.current.clouds, StringFormat='{0:d}%'}" FontSize="30"/>
+                                        <Span Text="{Binding Weather.Main.current.clouds, StringFormat='{0:##}%'}" FontSize="30"/>
                                    </FormattedString>
                                </Label.FormattedText>
                            </Label>
