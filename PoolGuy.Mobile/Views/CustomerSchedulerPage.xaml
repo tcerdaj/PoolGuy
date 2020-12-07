@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <conv:CollectionListToCount x:Key="ListToCount" />
             <conv:CollectionEmptyToBool x:Key="IsEmptyList" />
+            <conv:ImageUrlConverter x:Key="ImageUrlConverter" />
             <!--  *****************************  -->
             <!--  Material Design Icon FontFamily  -->
             <!--  *****************************  -->
@@ -123,8 +124,7 @@
                     <StackLayout Spacing="0"
                                  IsVisible="{Binding CustomerSearchResults, Converter={StaticResource IsEmptyList}}"
                                  HorizontalOptions="End"
-                                 WidthRequest="60"
-                                 BackgroundColor="Yellow">
+                                 WidthRequest="60">
                                 <Label Text="Select"
                                                HorizontalOptions="Center">
                                     <Label.Triggers>
@@ -154,8 +154,19 @@
                         <Grid x:Name="SchedulerItem">
                             <StackLayout Orientation="Horizontal" 
                                                 HorizontalOptions="FillAndExpand"
-                                                Spacing="0"
-                                                Padding="10,0,15,0">
+                                                Spacing="15"
+                                                Padding="10,5,15,5">
+                                <Frame Padding="0"
+                                                   CornerRadius="50"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Start"
+                                                   HasShadow="False"
+                                                   IsClippedToBounds="True"
+                                                   Margin="0">
+                                    <Image Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
+                                                       VerticalOptions="CenterAndExpand"
+                                                       HorizontalOptions="CenterAndExpand"/>
+                                </Frame>
                                 <Label Text="{Binding Name}"
                                             HorizontalOptions="StartAndExpand"
                                             VerticalOptions="Center"/>

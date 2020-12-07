@@ -1,4 +1,5 @@
-﻿using PoolGuy.Mobile.Data.Helpers;
+﻿using PoolGuy.Mobile.CustomControls;
+using PoolGuy.Mobile.Data.Helpers;
 using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
@@ -38,6 +39,8 @@ namespace PoolGuy.Mobile.Views
 
         protected override async void OnAppearing()
         {
+            LongName.Unfocused += LongName_Unfocused;
+
             base.OnAppearing();
             if (!Settings.IsLoggedIn)
             {
@@ -50,8 +53,21 @@ namespace PoolGuy.Mobile.Views
             }
         }
 
+        private void LongName_Unfocused(object sender, FocusEventArgs e)
+        {
+            if(sender is CustomEntry customEntry)
+            {
+                if(!string.IsNullOrEmpty(customEntry.Text) && string.IsNullOrEmpty(_viewModel.Scheduler.ShortName))
+                {
+                    _viewModel.Scheduler.ShortName = customEntry.Text.Substring(0, 3);
+                    _viewModel.Scheduler.NotififyShortName();
+                }
+            }
+        }
+
         protected override void OnDisappearing()
         {
+            LongName.Unfocused -= LongName_Unfocused;
             base.OnDisappearing();
         }
     }

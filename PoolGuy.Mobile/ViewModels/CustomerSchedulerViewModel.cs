@@ -21,6 +21,8 @@ namespace PoolGuy.Mobile.ViewModels
             Globals.CurrentPage = Enums.ePage.Scheduler;
         }
 
+        public Guid SelectedSchedulerId { get; set; }
+
         private string _searchTerm = "";
         public string SearchTerm
         {
@@ -59,6 +61,22 @@ namespace PoolGuy.Mobile.ViewModels
         public Page CurrentPage
         {
             get => (Shell.Current?.CurrentItem?.CurrentItem as IShellSectionController)?.PresentedPage;
+        }
+
+        public async Task InitSchedulers()
+        {
+            Schedulers = new ObservableCollection<SchedulerModel>(await new SchedulerController().ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel { 
+             Sort = new List<Data.Models.Query.SQLControllerListSortField> { 
+              new Data.Models.Query.SQLControllerListSortField{ FieldName = "Index"}
+             }}));
+      
+            var sch = Schedulers.FirstOrDefault(x => x.Id == SelectedSchedulerId);
+
+            if (sch != null)
+            {
+                sch.Selected = true;
+                sch.Customers.ForEach((c) => { c.Selected = true; });
+            }
         }
 
         public async Task InitializeAsync()

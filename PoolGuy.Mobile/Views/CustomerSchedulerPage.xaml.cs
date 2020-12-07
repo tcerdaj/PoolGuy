@@ -12,8 +12,7 @@ using System.Diagnostics;
 
 namespace PoolGuy.Mobile.Views
 {
-    [QueryProperty("Entry", "schedulers")]
-
+    [QueryProperty("SetScheduler", "schedulerid")]
     public partial class CustomerSchedulerPage : ContentPage, IContentPage
     {
         CustomerSchedulerViewModel _viewModel;
@@ -32,20 +31,14 @@ namespace PoolGuy.Mobile.Views
             }
         }
 
-        public string Entry
+        public string SetScheduler
         {
             set
             {
-                var json = Uri.UnescapeDataString(value);
-                if(!string.IsNullOrEmpty(json))
+                var id = Uri.UnescapeDataString(value);
+                if (!string.IsNullOrEmpty(id))
                 {
-                    var list = JsonConvert.DeserializeObject<List<SchedulerModel>>(json);
-                    if(list != null)
-                    {
-                        _viewModel.Schedulers = new System.Collections
-                                                   .ObjectModel
-                                                   .ObservableCollection<SchedulerModel>(list);
-                    }                              
+                    _viewModel.SelectedSchedulerId = Guid.Parse(id);
                 }
             }
         }
@@ -98,7 +91,8 @@ namespace PoolGuy.Mobile.Views
                 return;
             }
             else
-            {
+            { 
+                await _viewModel.InitSchedulers();
                 await _viewModel.InitializeAsync();
             }
         }

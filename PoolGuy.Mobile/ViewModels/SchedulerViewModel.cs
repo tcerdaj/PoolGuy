@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Newtonsoft.Json;
+using PoolGuy.Mobile.CustomControls;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -160,14 +161,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                var sch = Schedulers.FirstOrDefault(x => x.Id == scheduler.Id);
-                sch.Selected = true;
-                sch.Customers.ForEach((c) => { c.Selected = true; });
-                var json = JsonConvert.SerializeObject(Schedulers,
-                            Formatting.Indented,
-                            new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
-                
-                await Shell.Current.GoToAsync($"{Locator.CustomerScheduler}?schedulers={json}");
+                await Shell.Current.GoToAsync($"{Locator.CustomerScheduler}?schedulerid={scheduler.Id}");
             }
             catch (Exception e)
             {
@@ -195,6 +189,33 @@ namespace PoolGuy.Mobile.ViewModels
                 Customers = new List<CustomerModel>(),
                 Index = Schedulers.Any()? Schedulers.Max(x => x.Index) + 1: 0
             };
+        }
+
+        public ICommand NextCommand
+        {
+            get => new RelayCommand<string>((control) => Next(control));
+        }
+
+        private void Next(string control)
+        {
+            try
+            {
+                var element = CurrentPage?.FindByName<object>(control);
+
+                if (element is CustomEntry customEntry)
+                {
+                    customEntry.Focus();
+                }
+
+                if (element is Editor editor)
+                {
+                    editor.Focus();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
     }
 }

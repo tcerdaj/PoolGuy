@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using DataAnnotation = System.ComponentModel.DataAnnotations;
 
 namespace PoolGuy.Mobile.Data.Models
 {
     public class AddressModel : EntityBase
     {
+        [JsonIgnore]
         public string FullAddress
         {
             get 

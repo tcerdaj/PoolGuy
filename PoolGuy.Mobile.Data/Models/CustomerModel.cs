@@ -5,6 +5,7 @@ using SQLite;
 using System.ComponentModel.DataAnnotations;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -51,6 +52,7 @@ namespace PoolGuy.Mobile.Data.Models
             set { _pool = value; OnPropertyChanged("Pool"); }
         }
 
+        [JsonIgnore]
         public string Name {
             get { return $"{FirstName} {LastName}"; }
         }

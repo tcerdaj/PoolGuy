@@ -35,5 +35,10 @@ namespace PoolGuy.Mobile.Data.Models
         {
             OnPropertyChanged("ImageUrl");
         }
+
+        public void NotififyShortName()
+        {
+            OnPropertyChanged("ShortName");
+        }
     }
 }

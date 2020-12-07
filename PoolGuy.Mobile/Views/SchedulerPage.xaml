@@ -70,18 +70,18 @@
                     </Grid.RowDefinitions>
                     <!--LongName-->
                     <Frame Grid.Row="0">
-                        <mycc:CustomEntry  Text="{Binding Scheduler.LongName}" 
+                        <mycc:CustomEntry x:Name="LongName" Text="{Binding Scheduler.LongName}" 
                                                    Placeholder="Long name" 
                                                    MaxLength="20"
                                                    ReturnType="Next"
                                                    NextCommand="{Binding NextCommand}"
-                                                   NextCommandParameter="LongName"/>
+                                                   NextCommandParameter="ShortName"/>
                     </Frame>
                     <Label Grid.Row="1" Grid.Column="0"  x:Name="SchedulerModel_LongNameError" IsVisible="False" TextColor="Red" />
                     <!--ShortName-->
                     <Frame Grid.Row="1" 
                            Grid.Column="0">
-                        <mycc:CustomEntry  x:Name="LongName"
+                        <mycc:CustomEntry  x:Name="ShortName"
                                                    Text="{Binding Scheduler.ShortName}"  
                                                    Placeholder="Short name" 
                                                    MaxLength="20"
@@ -97,9 +97,7 @@
                                                    Text="{Binding Scheduler.Index}"  
                                                    Placeholder="Index" 
                                                    MaxLength="20"
-                                                   ReturnType="Next"
-                                                   NextCommand="{Binding NextCommand}"
-                                                   NextCommandParameter="Index"/>
+                                                   ReturnType="Done"/>
                     </Frame>
                     <StackLayout Grid.Row="3" Orientation="Horizontal">
                         <Button 
