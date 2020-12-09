@@ -3,6 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:PoolGuy.Mobile.Views"
        Title="PoolGuy.Mobile"
+       Shell.TabBarIsVisible="True"
        xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
        x:Class="PoolGuy.Mobile.AppShell">
 
@@ -80,9 +81,9 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" NavigationPage.HasNavigationBar="True">
-        <ShellContent Title="Home" Icon="dashboard_black.png" Route="AboutPage" ContentTemplate="{DataTemplate local:HomePage}" />
+        <ShellContent Title="Home" Icon="dashboard_black.png" Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
         <ShellContent Title="Customer" Icon="account_circle_black.png" Route="SearchCustomerPage" ContentTemplate="{DataTemplate local:SearchCustomerPage}" x:Name="customerPage" />
-        <ShellContent Title="Scheduler" ContentTemplate="{DataTemplate local:SchedulerPage}">
+        <ShellContent Title="Scheduler" Route="SchedulerPage"  ContentTemplate="{DataTemplate local:SchedulerPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                  Glyph="{x:Static icons:MaterialDesignIcons.CalendarAccount}"

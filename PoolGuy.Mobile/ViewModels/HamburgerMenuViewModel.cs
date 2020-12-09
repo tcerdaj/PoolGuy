@@ -9,16 +9,22 @@ namespace PoolGuy.Mobile.ViewModels
 {
     public class HamburgerMenuViewModel: BaseViewModel
     {
-        public ObservableCollection<MenuItemModel> MenuItems { get; set; }
+        private ObservableCollection<MenuItemModel> _menuItems;
+        public ObservableCollection<MenuItemModel> MenuItems 
+        {
+            get { return _menuItems; }
+            set { _menuItems = value; OnPropertyChanged("MenuItems"); }
+        }
+
         public HamburgerMenuViewModel()
         {
             MenuItems = new ObservableCollection<MenuItemModel>(new[]
                 {
-                    new MenuItemModel { Id = 0, Title = "Home", NavigateToCommand = NavigateToCommand },
-                    new MenuItemModel { Id = 1, Title = "Customer", NavigateToCommand = NavigateToCommand },
-                    new MenuItemModel { Id = 2, Title = "Carousel", NavigateToCommand = NavigateToCommand},
-                    new MenuItemModel { Id = 3, Title = "Page 4", NavigateToCommand = NavigateToCommand },
-                    new MenuItemModel { Id = 4, Title = "Page 5", NavigateToCommand = NavigateToCommand },
+                    new MenuItemModel { Id = 0, Title = "Home", Icon = "dashboard_black.png", NavigateToCommand = NavigateToCommand },
+                    new MenuItemModel { Id = 1, Title = "Customer", Icon = "account_circle.png", NavigateToCommand = NavigateToCommand },
+                    new MenuItemModel { Id = 2, Title = "Scheduler", Icon = "schedule.png", NavigateToCommand = NavigateToCommand},
+                    new MenuItemModel { Id = 3, Title = "Logout", Icon = "logout.png", NavigateToCommand = NavigateToCommand },
+                    new MenuItemModel { Id = 4, Title = "Settings", Icon = "settings.png", NavigateToCommand = NavigateToCommand },
                 });
         }
 

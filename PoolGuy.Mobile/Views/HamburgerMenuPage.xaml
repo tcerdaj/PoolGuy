@@ -9,36 +9,41 @@
         <StackLayout>
             <CollectionView x:Name="MenuItemsListView"
               ItemsSource="{Binding MenuItems}">
-                <CollectionView.Header>
-                    <Grid BackgroundColor="#03A9F4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30"/>
-                            <RowDefinition Height="80"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="10"/>
-                        </Grid.RowDefinitions>
-                        <Label
-              Grid.Column="1"
-              Grid.Row="2"
-              Text="PoolGuy"
-              Style="{DynamicResource SubtitleStyle}"/>
-                    </Grid>
-                </CollectionView.Header>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                            <StackLayout Padding="15,10" HorizontalOptions="FillAndExpand">
-                                <mr:Label VerticalOptions="FillAndExpand" 
-                    VerticalTextAlignment="Center" 
-                    Text="{Binding Title}" 
-                                          TappedCommand="{Binding NavigateToCommand}"
-                                          TappedCommandParameter="{Binding Title}"
-                    FontSize="24"/>
+                            <StackLayout Padding="15,10" 
+                                         Orientation="Vertical"
+                                         HorizontalOptions="FillAndExpand"
+                                         BackgroundColor="{Binding BackgroundColor}">
+                            <!--Line show just for third line-->
+                            <BoxView IsVisible="False"
+                                     Color="{StaticResource ExtraLightGray}"
+                                     HeightRequest="1"
+                                     HorizontalOptions="FillAndExpand">
+                                <BoxView.Triggers>
+                                    <DataTrigger TargetType="BoxView"
+                                                 Binding="{Binding Source={x:Reference Title}, Path=Text}"
+                                                 Value="Logout">
+                                        <Setter Property="IsVisible" Value="True"/>
+                                    </DataTrigger>
+                                </BoxView.Triggers>
+                            </BoxView>
+                             <!--Icon/Title-->
+                            <StackLayout Orientation="Horizontal"
+                                         Spacing="30">
+                                <Image Source="{Binding Icon}"
+                                   VerticalOptions="Center"
+                                   Aspect="AspectFit"/>
+                                <mr:Label x:Name="Title"
+                                      VerticalOptions="FillAndExpand" 
+                                      VerticalTextAlignment="Center" 
+                                      FontSize="18"
+                                      Text="{Binding Title}" 
+                                      TextColor="{Binding TextColor}"
+                                      TappedCommand="{Binding NavigateToCommand}"
+                                      TappedCommandParameter="{Binding Title}"/>
                             </StackLayout>
+                        </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

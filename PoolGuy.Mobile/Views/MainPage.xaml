@@ -7,9 +7,9 @@
         <pages:HamburgerMenuPage/>
     </MasterDetailPage.Master>
   <MasterDetailPage.Detail>
-    <NavigationPage>
+    <NavigationPage BarTextColor="{StaticResource Title}">
       <x:Arguments>
-        <pages:WizardCustomerPage />
+        <pages:HomePage />
       </x:Arguments>
     </NavigationPage>
   </MasterDetailPage.Detail>

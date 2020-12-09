@@ -91,20 +91,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-           
-                if (MainThread.IsMainThread)
-                {
-                    await SetWeather()
-                            .ConfigureAwait(false);
-                }
-                else
-                {
-                    MainThread.BeginInvokeOnMainThread(async () =>
-                    {
-                        await SetWeather()
-                                .ConfigureAwait(false);
-                    });
-                }
+                await SetWeather();
             }
             catch (Exception e)
             {
@@ -130,7 +117,7 @@ namespace PoolGuy.Mobile.ViewModels
                                DateKind = Data.Models.Query.SQLControllerListFilterField.DateKindEnum.Localized
                            }
                        }
-            }).ConfigureAwait(false);
+            });
 
             if (storagedWeather.Any())
             {
@@ -190,6 +177,8 @@ namespace PoolGuy.Mobile.ViewModels
 
                 OnPropertyChanged("TempColor");
             }
+
+            await Task.Delay(100);
         }
 
         private WeatherModel _weatherRoot;

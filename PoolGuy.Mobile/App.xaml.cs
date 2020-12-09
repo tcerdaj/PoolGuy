@@ -64,7 +64,7 @@ namespace PoolGuy.Mobile
 
             if(Settings.IsLoggedIn)
             {
-                MainPage = new AppShell();
+                MainPage = new MainPage();
             }
             else
             {

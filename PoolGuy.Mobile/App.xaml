@@ -31,7 +31,7 @@
                     Value="materialdesignicons.ttf#Material Design Icons" />
             </OnPlatform>
             <Style TargetType="NavigationPage">
-                <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+                <Setter Property="BackgroundColor" Value="White"/>
             </Style>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="Black"></Setter>
