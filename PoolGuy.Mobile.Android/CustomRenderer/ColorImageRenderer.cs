@@ -56,11 +56,13 @@ namespace PoolGuy.Mobile.Droid.CustomRenderer
         {
             if (!_isDisposed)
             {
-                //var d = Resources.GetDrawable(Element.Source).Mutate();
                 var d = ResourceManager.GetDrawable(Android.App.Application.Context, Element.Source).Mutate();
-                d.SetColorFilter(new LightingColorFilter(Element.Foreground.ToAndroid(), Element.Foreground.ToAndroid()));
-                d.Alpha = Element.Foreground.ToAndroid().A;
-                Control.SetImageDrawable(d);
+                if (d != null)
+                {
+                    d.SetColorFilter(new LightingColorFilter(Element.Foreground.ToAndroid(), Element.Foreground.ToAndroid()));
+                    d.Alpha = Element.Foreground.ToAndroid().A;
+                    Control.SetImageDrawable(d);
+                }
                 ((IVisualElementController)Element).NativeSizeChanged();
             }
         }
