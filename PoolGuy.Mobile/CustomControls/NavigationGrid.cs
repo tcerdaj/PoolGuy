@@ -16,8 +16,8 @@ namespace PoolGuy.Mobile.CustomControls
         Dictionary<string, string> pages =
             new Dictionary<string, string> {
                 { "Home", "dashboard_black.png" },
-                { "Customer", "account_circle_black.png" },
-                { "Scheduler", "account_circle_black.png" },
+                { "Customer", "account_circle.png" },
+                { "Scheduler", "schedule.png" },
             };
         #endregion
         #region Binding Properties

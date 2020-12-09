@@ -27571,7 +27571,7 @@ namespace PoolGuy.Mobile.Droid
 			public const int account_box = 2131165274;
 			
 			// aapt resource value: 0x7F07005B
-			public const int account_circle_black = 2131165275;
+			public const int account_circle = 2131165275;
 			
 			// aapt resource value: 0x7F07005C
 			public const int addphotoblack = 2131165276;
