@@ -17,6 +17,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Microcharts;
 using SkiaSharp;
 using System.Diagnostics;
+using PoolGuy.Mobile.Data.Models;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -275,6 +276,18 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 Debug.WriteLine(e);
                 return "";
+            }
+        }
+
+        public ICommand NavigateToCommand
+        {
+            get
+            {
+                return new RelayCommand<Enums.ePage>(async (item) =>
+                {
+                    string page = item == Enums.ePage.Customer ? $"Search{item.ToString()}" : item.ToString();
+                    await NavigationService.ReplaceRoot($"{page}Page");
+                });
             }
         }
     }

@@ -36,6 +36,8 @@ namespace PoolGuy.Mobile.Data.Models
 
         public enum ePage
         {
+            Login,
+            Logout,
             Home,
             SearchCustomer,
             Customer,
@@ -45,7 +47,8 @@ namespace PoolGuy.Mobile.Data.Models
             EquipmentModel,
             Scheduler,
             WorkOrderDetails,
-            WorkOrderList
+            WorkOrderList,
+            Settings
         }
 
         public enum Units

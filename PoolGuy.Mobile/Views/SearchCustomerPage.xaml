@@ -4,7 +4,7 @@
              x:Class="PoolGuy.Mobile.Views.SearchCustomerPage"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
-             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddCommand}" />
@@ -208,9 +208,19 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-               
-        </StackLayout>
-           <!-- Busy Status -->
+            </StackLayout>
+            <AbsoluteLayout BackgroundColor="Transparent"
+                        AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
+                        Margin="-5,0"
+                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+                <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                                 AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
+                                 BackgroundColor="{StaticResource Primary}"
+                                 ColumnSpacing="25"
+                                 Command="{Binding NavigateToCommand}"
+                                 Current="Customer"/>
+            </AbsoluteLayout>
+            <!-- Busy Status -->
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All"
                         BackgroundColor="White"

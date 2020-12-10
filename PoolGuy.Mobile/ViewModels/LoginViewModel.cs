@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Ioc;
 using PoolGuy.Mobile.Data.Helpers;
 using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Services.Interface;
+using PoolGuy.Mobile.Views;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -31,7 +32,7 @@ namespace PoolGuy.Mobile.ViewModels
             try
             {
                 await Task.Delay(2000);
-                Application.Current.MainPage = new AppShell();
+                Application.Current.MainPage = new MainPage();
                 Settings.IsLoggedIn = true;
                 Notify.RaiseHomeAction(new Messages.RefreshMessage());
             }

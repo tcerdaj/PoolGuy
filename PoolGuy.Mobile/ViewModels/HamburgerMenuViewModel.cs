@@ -1,9 +1,11 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using PoolGuy.Mobile.Data.Models;
+using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
+using PoolGuy.Mobile.Extensions;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -18,13 +20,12 @@ namespace PoolGuy.Mobile.ViewModels
 
         public HamburgerMenuViewModel()
         {
-            MenuItems = new ObservableCollection<MenuItemModel>(new[]
-                {
-                    new MenuItemModel { Id = 0, Title = "Home", Icon = "dashboard_black.png", NavigateToCommand = NavigateToCommand },
-                    new MenuItemModel { Id = 1, Title = "Customer", Icon = "account_circle.png", NavigateToCommand = NavigateToCommand },
-                    new MenuItemModel { Id = 2, Title = "Scheduler", Icon = "schedule.png", NavigateToCommand = NavigateToCommand},
-                    new MenuItemModel { Id = 3, Title = "Logout", Icon = "logout.png", NavigateToCommand = NavigateToCommand },
-                    new MenuItemModel { Id = 4, Title = "Settings", Icon = "settings.png", NavigateToCommand = NavigateToCommand },
+            MenuItems = new ObservableCollection<MenuItemModel>(new[] {
+                    new MenuItemModel { Id = 0, Title = Enums.ePage.Home.ToString(), Icon = $"{Enums.ePage.Home.ToString().ToLower()}.png", NavigateToCommand = NavigateToCommand },
+                    new MenuItemModel { Id = 1, Title = Enums.ePage.SearchCustomer.ToString().SplitWord(), Icon = $"{Enums.ePage.SearchCustomer.ToString().ToLower()}.png", NavigateToCommand = NavigateToCommand },
+                    new MenuItemModel { Id = 2, Title = Enums.ePage.Scheduler.ToString(), Icon = $"{Enums.ePage.Scheduler.ToString().ToLower()}.png", NavigateToCommand = NavigateToCommand},
+                    new MenuItemModel { Id = 3, Title = Enums.ePage.Logout.ToString(), Icon = $"{Enums.ePage.Logout.ToString().ToLower()}.png", NavigateToCommand = NavigateToCommand },
+                    new MenuItemModel { Id = 4, Title = Enums.ePage.Settings.ToString(), Icon = $"{Enums.ePage.Settings.ToString().ToLower()}.png", NavigateToCommand = NavigateToCommand },
                 });
         }
 
@@ -32,11 +33,11 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get
             {
-                return new RelayCommand<string>(async(page) =>
+                return new RelayCommand<MenuItemModel>(async(item) =>
                 {
                     var masterDetailPage = ((MasterDetailPage)App.Current.MainPage);
                     masterDetailPage.IsPresented = false;
-                    await NavigationService.ReplaceRoot($"{page}Page");
+                    await NavigationService.ReplaceRoot($"{item.Title.Replace(" ","")}Page");
                 });
             }
         }

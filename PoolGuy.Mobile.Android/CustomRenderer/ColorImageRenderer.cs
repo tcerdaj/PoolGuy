@@ -54,16 +54,23 @@ namespace PoolGuy.Mobile.Droid.CustomRenderer
 
         private void UpdateBitmap(ColorImage previous = null)
         {
-            if (!_isDisposed)
+            try
             {
-                var d = ResourceManager.GetDrawable(Android.App.Application.Context, Element.Source).Mutate();
-                if (d != null)
+                if (!_isDisposed)
                 {
-                    d.SetColorFilter(new LightingColorFilter(Element.Foreground.ToAndroid(), Element.Foreground.ToAndroid()));
-                    d.Alpha = Element.Foreground.ToAndroid().A;
-                    Control.SetImageDrawable(d);
+                    var d = ResourceManager.GetDrawable(Android.App.Application.Context, Element.Source).Mutate();
+                    if (d != null)
+                    {
+                        d.SetColorFilter(new LightingColorFilter(Element.Foreground.ToAndroid(), Element.Foreground.ToAndroid()));
+                        d.Alpha = Element.Foreground.ToAndroid().A;
+                        Control.SetImageDrawable(d);
+                    }
+                        ((IVisualElementController)Element).NativeSizeChanged();
                 }
-                ((IVisualElementController)Element).NativeSizeChanged();
+            }
+            catch (System.Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
             }
         }
     }

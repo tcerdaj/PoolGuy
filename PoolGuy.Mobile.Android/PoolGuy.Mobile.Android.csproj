@@ -145,13 +145,9 @@
     <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\icon_round.xml" />
     <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
-    <AndroidResource Include="Resources\mipmap-hdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
-    <AndroidResource Include="Resources\mipmap-mdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
-    <AndroidResource Include="Resources\mipmap-xhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
-    <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\drawable\xamarin_logo.png" />
@@ -178,9 +174,6 @@
     <AndroidResource Include="Resources\drawable\account_circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\assignment_black.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\searched_black.png" />
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +183,7 @@
     <AndroidResource Include="Resources\mipmap-hdpi\account_circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\assignment_black.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\assignment.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\searched_black.png" />
@@ -202,7 +195,7 @@
     <AndroidResource Include="Resources\mipmap-mdpi\account_circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\assignment_black.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\assignment.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-mdpi\searched_black.png" />
@@ -214,7 +207,7 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\account_circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\assignment_black.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\assignment.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xhdpi\searched_black.png" />
@@ -229,7 +222,7 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\account_circle.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\assignment_black.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\assignment.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\account_black.png" />
@@ -244,19 +237,16 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\searched_black.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\dashboard_black.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\home.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\dashboard_black.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\home.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\dashboard_black.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\home.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\dashboard_black.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\dashboard_black.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\home.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\dashboard_black.png" />
@@ -648,7 +638,7 @@
     <AndroidResource Include="Resources\drawable\logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\schedule.png" />
+    <AndroidResource Include="Resources\drawable\scheduler.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\settings.png" />
@@ -657,7 +647,7 @@
     <AndroidResource Include="Resources\mipmap-hdpi\logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\schedule.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\scheduler.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\settings.png" />
@@ -666,7 +656,7 @@
     <AndroidResource Include="Resources\mipmap-mdpi\logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\schedule.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\scheduler.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-mdpi\settings.png" />
@@ -675,7 +665,7 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\schedule.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\scheduler.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xhdpi\settings.png" />
@@ -684,10 +674,46 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\logout.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\schedule.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\scheduler.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxhdpi\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\assignment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\searchcustomer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\searchcustomer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-mdpi\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-mdpi\searchcustomer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xhdpi\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xhdpi\searchcustomer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxhdpi\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxhdpi\searchcustomer.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

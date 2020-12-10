@@ -54,8 +54,12 @@ namespace PoolGuy.Mobile
             nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
             nav.Configure(Locator.Home, typeof(HomePage));
             nav.Configure(Locator.Popup.ActionSheetPopup, typeof(ActionSheetPopupPage));
-            //nav.Configure(Locator.Login, typeof(LoginPage));
-            //nav.Configure(Locator.Equipment, typeof(EquipmentPage));
+            nav.Configure(Locator.Login, typeof(LoginPage));
+            nav.Configure(Locator.Equipment, typeof(EquipmentPage));
+            nav.Configure(Locator.SearchCustomer, typeof(SearchCustomerPage));
+            nav.Configure(Locator.Customer, typeof(CustomerPage));
+            nav.Configure(Locator.Scheduler, typeof(SchedulerPage));
+            nav.Configure(Locator.CustomerScheduler, typeof(CustomerSchedulerPage));
 
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {

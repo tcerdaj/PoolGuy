@@ -305,7 +305,7 @@
     <BundleResource Include="Resources\w50n.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\assignment_black.png">
+    <AndroidResource Include="Resources\assignment.png">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -359,7 +359,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\dashboard_black.png">
+    <AndroidResource Include="Resources\home.png">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -464,7 +464,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\schedule.png" />
+    <AndroidResource Include="Resources\scheduler.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\searched_black.png">
@@ -503,10 +503,10 @@
     <BundleResource Include="Resources\account_circle%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\dashboard_black%402x.png" />
+    <BundleResource Include="Resources\home%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\dashboard_black%403x.png" />
+    <BundleResource Include="Resources\home%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\logout%402x.png" />
@@ -515,10 +515,10 @@
     <BundleResource Include="Resources\logout%403x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\schedule%402x.png" />
+    <BundleResource Include="Resources\scheduler%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\schedule%403x.png" />
+    <BundleResource Include="Resources\scheduler%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\settings%402x.png" />

@@ -217,5 +217,17 @@ namespace PoolGuy.Mobile.ViewModels
                 Debug.WriteLine(e);
             }
         }
+
+        public ICommand NavigateToCommand
+        {
+            get
+            {
+                return new RelayCommand<Enums.ePage>(async (item) =>
+                {
+                    string page = item == Enums.ePage.Customer ? $"Search{item.ToString()}" : item.ToString();
+                    await NavigationService.ReplaceRoot($"{page}Page");
+                });
+            }
+        }
     }
 }

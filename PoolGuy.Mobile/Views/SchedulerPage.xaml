@@ -207,6 +207,17 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </Grid>
+        <AbsoluteLayout BackgroundColor="Transparent"
+                        AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
+                        Margin="-5,0"
+                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+            <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                                 AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
+                                 BackgroundColor="{StaticResource Primary}"
+                                 ColumnSpacing="25"
+                                 Command="{Binding NavigateToCommand}"
+                                 Current="Scheduler"/>
+        </AbsoluteLayout>
         <!-- Busy Status -->
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All"

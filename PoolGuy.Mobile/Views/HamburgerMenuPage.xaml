@@ -6,19 +6,23 @@
              x:Name="MenuPage"
              Title="Menu">
     <ContentPage.Content>
-        <StackLayout>
-            <CollectionView x:Name="MenuItemsListView"
-              ItemsSource="{Binding MenuItems}">
+        <CollectionView x:Name="MenuItemsListView"
+                        BackgroundColor="White"
+                        ItemsSource="{Binding MenuItems}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                            <StackLayout Padding="15,10" 
-                                         Orientation="Vertical"
-                                         HorizontalOptions="FillAndExpand"
-                                         BackgroundColor="{Binding BackgroundColor}">
+                        <mr:StackLayout x:Name="ItemTemplate"
+                                        Padding="15,10" 
+                                        TappedCommand="{Binding Source={x:Reference MenuItemsListView}, Path=BindingContext.NavigateToCommand}"
+                                        TappedCommandParameter="{Binding BindingContext, Source={x:Reference ItemTemplate}}"
+                                        Orientation="Vertical"
+                                        HorizontalOptions="FillAndExpand"
+                                        BackgroundColor="{Binding BackgroundColor}">
                             <!--Line show just for third line-->
                             <BoxView IsVisible="False"
                                      Color="{StaticResource ExtraLightGray}"
                                      HeightRequest="1"
+                                     Margin="-15,0,-15,15"
                                      HorizontalOptions="FillAndExpand">
                                 <BoxView.Triggers>
                                     <DataTrigger TargetType="BoxView"
@@ -34,19 +38,16 @@
                                 <Image Source="{Binding Icon}"
                                    VerticalOptions="Center"
                                    Aspect="AspectFit"/>
-                                <mr:Label x:Name="Title"
+                                <Label x:Name="Title"
                                       VerticalOptions="FillAndExpand" 
                                       VerticalTextAlignment="Center" 
                                       FontSize="18"
                                       Text="{Binding Title}" 
-                                      TextColor="{Binding TextColor}"
-                                      TappedCommand="{Binding NavigateToCommand}"
-                                      TappedCommandParameter="{Binding Title}"/>
+                                      TextColor="{Binding TextColor}"/>
                             </StackLayout>
-                        </StackLayout>
+                        </mr:StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
