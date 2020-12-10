@@ -34,6 +34,22 @@ namespace PoolGuy.Mobile.Services
             }
         }
 
+        public Page CurrentPage 
+        {
+            get 
+            {
+                var index = _navigation.Navigation.NavigationStack.Count - 1;
+                if (index < 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return _navigation.Navigation.NavigationStack[index];
+                }
+            } 
+        }
+
         public void Configure(string pageKey, Type pageType)
         {
             try

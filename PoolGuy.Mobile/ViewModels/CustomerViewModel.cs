@@ -366,8 +366,8 @@ namespace PoolGuy.Mobile.ViewModels
                 }
             }
 
-            await NavigationService.PopPopupAsync(false);
-            Shell.Current.SendBackButtonPressed();
+            await NavigationService.CloseModal(false);
+            //Shell.Current.SendBackButtonPressed();
         });
 
         public ICommand GoToPageCommand

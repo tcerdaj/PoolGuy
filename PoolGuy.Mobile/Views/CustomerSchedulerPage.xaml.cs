@@ -7,39 +7,27 @@ using PoolGuy.Mobile.ViewModels;
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System;
-using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace PoolGuy.Mobile.Views
 {
-    [QueryProperty("SetScheduler", "schedulerid")]
     public partial class CustomerSchedulerPage : ContentPage, IContentPage
     {
         CustomerSchedulerViewModel _viewModel;
 
-        public CustomerSchedulerPage()
+        public CustomerSchedulerPage(Guid selectedSchedulerId)
         {
             try
             {
                 InitializeComponent();
-                _viewModel = new CustomerSchedulerViewModel();
+                _viewModel = new CustomerSchedulerViewModel() { 
+                    SelectedSchedulerId = selectedSchedulerId
+                };
                 BindingContext = _viewModel;
             }
             catch (Exception e)
             {
                 throw;
-            }
-        }
-
-        public string SetScheduler
-        {
-            set
-            {
-                var id = Uri.UnescapeDataString(value);
-                if (!string.IsNullOrEmpty(id))
-                {
-                    _viewModel.SelectedSchedulerId = Guid.Parse(id);
-                }
             }
         }
 

@@ -5,15 +5,11 @@ using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Services.Interface;
 using System;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
-using PoolGuy.Mobile.Data.Helpers;
-using PoolGuy.Mobile.Views;
-using GalaSoft.MvvmLight.Ioc;
 using Microcharts;
 using SkiaSharp;
 using System.Diagnostics;
@@ -30,9 +26,7 @@ namespace PoolGuy.Mobile.ViewModels
             SubscribeMessages();
         }
 
-
         private Chart _temperature;
-
         public Chart Temperature
         {
             get { return _temperature; }
@@ -53,7 +47,6 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private Chart _rain;
-
         public Chart Rain
         {
             get { return _rain; }
@@ -76,7 +69,7 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 return new RelayCommand(async () =>
                 {
-                    await Shell.Current.GoToAsync(Locator.SearchCustomer);
+                    await NavigationService.NavigateToDialog(Locator.SearchCustomer);
                 });
             } 
         }

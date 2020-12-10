@@ -40,7 +40,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally
             {
@@ -125,7 +125,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }

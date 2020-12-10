@@ -82,7 +82,7 @@ namespace PoolGuy.Mobile.Extensions
                 var current = Connectivity.NetworkAccess;
                 if (current == NetworkAccess.None)
                 {
-                    await Shell.Current.DisplayAlert("Geocode Address", "No internet connectivity is available now, check airplain mode if apply your addres is not be setted to geocode.", "Ok");
+                    await DependencyService.Get<IUserDialogs>().DisplayAlertAsync("Geocode Address", "No internet connectivity is available now, check airplain mode if apply your addres is not be setted to geocode.", "Ok");
                     return null;
                 }
 

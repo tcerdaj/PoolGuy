@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
              mc:Ignorable="d"
              x:Class="PoolGuy.Mobile.Views.LoginPage"
-             Shell.NavBarIsVisible="False"
              Title="{Binding Title}">
     <ContentPage.Content>
         <AbsoluteLayout>

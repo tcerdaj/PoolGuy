@@ -3,6 +3,7 @@ using PoolGuy.Mobile.CustomControls;
 using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.Views;
 using System;
 using System.Diagnostics;
@@ -15,8 +16,10 @@ namespace PoolGuy.Mobile.ViewModels
 {
     public class CustomerPageViewModel : BaseViewModel
     {
+        IUserDialogs userDialogs;
         public CustomerPageViewModel()
         {
+            userDialogs = DependencyService.Get<IUserDialogs>();
             SubscribeMessages();
         }
 
@@ -30,7 +33,7 @@ namespace PoolGuy.Mobile.ViewModels
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
-                    await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                    await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
                 }
             });
         }
@@ -118,12 +121,14 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await Shell.Current.Navigation.PushAsync(new EquipmentPage(new EquipmentModel { PoolId = Pool.Id, Pool = Pool }) { Title = "Select Equipment" });
+                await NavigationService.NavigateToDialog(new EquipmentPage(new EquipmentModel { PoolId = Pool.Id, Pool = Pool }) { 
+                    Title = "Select Equipment" 
+                });
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally
             {
@@ -143,12 +148,12 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await Shell.Current.Navigation.PushAsync(new EquipmentPage(model));
+                await NavigationService.NavigateToDialog(new EquipmentPage(model));
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally 
             {
@@ -168,7 +173,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                if (!await Shell.Current.DisplayAlert("Delete Confirmation", "Are you sure want to delete equipment?", "Delete", "Cancel"))
+                if (!await userDialogs.DisplayConfirmationAsync("Delete Confirmation", "Are you sure want to delete equipment?", "Delete", "Cancel"))
                 {
                     return;
                 }
@@ -181,7 +186,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally
             {

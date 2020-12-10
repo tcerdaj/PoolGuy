@@ -47,7 +47,7 @@ namespace PoolGuy.Mobile.ViewModels
 
         public Page CurrentPage
         {
-            get => (Shell.Current?.CurrentItem?.CurrentItem as IShellSectionController)?.PresentedPage;
+            get => NavigationService.CurrentPage;
         }
 
         public async Task InitializeAsync()
@@ -70,7 +70,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }
@@ -115,7 +115,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }
@@ -132,7 +132,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                if (await Shell.Current.DisplayAlert("Confirmation", $"Are you sure want to delete {scheduler.LongName} scheduler?", "Delete", "Cancel").ConfigureAwait(false))
+                if (await Message.DisplayConfirmationAsync("Confirmation", $"Are you sure want to delete {scheduler.LongName} scheduler?", "Delete", "Cancel").ConfigureAwait(false))
                 {
                     await new SchedulerController().DeleteAsync(scheduler);
                     Schedulers = new ObservableCollection<SchedulerModel>(Schedulers.Where(x => x.Id != scheduler.Id).OrderBy(x=>x.Index));
@@ -144,7 +144,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }
@@ -161,12 +161,12 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await Shell.Current.GoToAsync($"{Locator.CustomerScheduler}?schedulerid={scheduler.Id}");
+                await NavigationService.NavigateToDialog(Locator.CustomerScheduler, scheduler.Id);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }

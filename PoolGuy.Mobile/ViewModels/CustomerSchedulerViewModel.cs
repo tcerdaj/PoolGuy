@@ -60,7 +60,7 @@ namespace PoolGuy.Mobile.ViewModels
 
         public Page CurrentPage
         {
-            get => (Shell.Current?.CurrentItem?.CurrentItem as IShellSectionController)?.PresentedPage;
+            get => NavigationService.CurrentPage;
         }
 
         public async Task InitSchedulers()
@@ -110,7 +110,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }
@@ -142,7 +142,7 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 if (!Schedulers.Where(x => x.Selected).Any())
                 {
-                    await Shell.Current.DisplayAlert(Title, "Please make a selection first", "Ok");
+                    await Message.DisplayAlertAsync(Title, "Please make a selection first", "Ok");
                     return;
                 }
 
@@ -188,7 +188,7 @@ namespace PoolGuy.Mobile.ViewModels
                 }
                 
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }
@@ -205,12 +205,12 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await Shell.Current.DisplayAlert(Title, $"Go To Customers scheduler:{scheduler.LongName}", "Ok");
+                await Message.DisplayAlertAsync(Title, $"Go To Customers scheduler:{scheduler.LongName}", "Ok");
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }
@@ -240,7 +240,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (System.Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally
             {
@@ -276,7 +276,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (System.Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally
             {

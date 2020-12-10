@@ -46,7 +46,7 @@ namespace PoolGuy.Mobile.ViewModels
 
         public Page CurrentPage
         {
-            get => (Shell.Current?.CurrentItem?.CurrentItem as IShellSectionController)?.PresentedPage;
+            get => NavigationService.CurrentPage;
         }
 
         private EquipmentTypeModel _selectedEquipmentType;
@@ -92,7 +92,7 @@ namespace PoolGuy.Mobile.ViewModels
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
-                    await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                    await Message.DisplayAlertAsync(Title, e.Message, "Ok");
                 }
             });
         }
@@ -118,7 +118,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
         }
 
@@ -199,8 +199,8 @@ namespace PoolGuy.Mobile.ViewModels
                         break;
                     case Enums.ePage.SelectEquipment:
                         Globals.CurrentPage = Enums.ePage.Customer;
-                        await NavigationService.PopPopupAsync(false);
-                        Shell.Current.SendBackButtonPressed();
+                        //await NavigationService.PopPopupAsync(false);
+                        await NavigationService.CloseModal();
                         break;
                     case Enums.ePage.SelecteManufacture:
                         CurrentPage.Title = "Select Equipment";
@@ -224,8 +224,8 @@ namespace PoolGuy.Mobile.ViewModels
                         if (Equipment.Id != Guid.Empty)
                         {
                             Globals.CurrentPage = Enums.ePage.Customer;
-                            await NavigationService.PopPopupAsync(false);
-                            Shell.Current.SendBackButtonPressed();
+                            await NavigationService.CloseModal(false);
+                            //Shell.Current.SendBackButtonPressed();
                             return;
                         }
 
@@ -250,7 +250,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
         });
 
@@ -290,7 +290,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
         }
 
@@ -332,7 +332,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
         }
 
@@ -406,14 +406,14 @@ namespace PoolGuy.Mobile.ViewModels
                     await new PoolController().ModifyWithChildrenAsync(Pool);
                     Notify.RaisePoolAction(new Messages.RefreshMessage());
 
-                    await NavigationService.PopPopupAsync(false);
-                    await Shell.Current.Navigation.PopAsync(true);
+                    await NavigationService.CloseModal(false);
+                    //await Shell.Current.Navigation.PopAsync(true);
                 }
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally 
             { 
@@ -485,7 +485,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
         }
 
@@ -533,7 +533,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                if (!await Shell.Current.DisplayAlert("Delete Confirmation", "Are you sure want to delete equipment?", "Delete", "Cancel"))
+                if (!await Message.DisplayConfirmationAsync("Delete Confirmation", "Are you sure want to delete equipment?", "Delete", "Cancel"))
                 {
                     return;
                 }
@@ -550,7 +550,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally
             {

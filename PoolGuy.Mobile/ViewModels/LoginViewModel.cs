@@ -1,8 +1,5 @@
-﻿using CommonServiceLocator;
-using GalaSoft.MvvmLight.Ioc;
-using PoolGuy.Mobile.Data.Helpers;
+﻿using PoolGuy.Mobile.Data.Helpers;
 using PoolGuy.Mobile.Helpers;
-using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.Views;
 using System;
 using System.Threading.Tasks;

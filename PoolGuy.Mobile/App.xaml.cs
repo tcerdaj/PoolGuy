@@ -175,21 +175,12 @@ namespace PoolGuy.Mobile
         {
             try
             {
-                
-                if (Shell.Current != null && Shell.Current.Navigation.NavigationStack.Any() || Shell.Current.Navigation.ModalStack.Any())
+                if (((MasterDetailPage)Application.Current.MainPage).Detail is NavigationPage navigation)
                 {
+                    AppStateController.SaveViewState(navigation.Navigation.ModalStack.Any()
+                        ? ((IContentPage)navigation.Navigation.ModalStack.Last()).OnSleep()
+                        : ((IContentPage)navigation.Navigation.NavigationStack.Last()).OnSleep());
 
-                    if (Shell.Current.Navigation.ModalStack.Any())
-                    {
-                        AppStateController.SaveViewState(((IContentPage)Shell.Current.Navigation.ModalStack.Last()).OnSleep());
-                    }
-
-                    if (Shell.Current.Navigation.NavigationStack.Any())
-                    {
-
-                        var page = (IContentPage)Shell.Current.Navigation.NavigationStack.Last();
-                        AppStateController.SaveViewState(((IContentPage)Shell.Current.Navigation.NavigationStack.Last()).OnSleep());
-                    }
 
                     AppStateController.SaveFinalState();
                 }

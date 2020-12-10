@@ -80,7 +80,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }
@@ -97,12 +97,12 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await Shell.Current.Navigation.PushAsync(new WizardCustomerPage(customer) { Title = "Customer"});
+                await NavigationService.NavigateToDialog(new WizardCustomerPage(customer) { Title = "Customer"});
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally 
             {
@@ -142,7 +142,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                if (await Shell.Current.DisplayAlert("Confirmation", $"Are you sure want to delete {customer.Name} customer?", "Delete", "Cancel").ConfigureAwait(false))
+                if (await Message.DisplayConfirmationAsync("Confirmation", $"Are you sure want to delete {customer.Name} customer?", "Delete", "Cancel").ConfigureAwait(false))
                 {
                    await new CustomerController().DeleteAsync(customer);
                    Customers = Customers.Where(x => x.Id != customer.Id).ToList();
@@ -151,7 +151,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }
@@ -168,12 +168,12 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await Shell.Current.GoToAsync("WizardCustomerPage");
+                await NavigationService.PushPopupAsync(Locator.WizardCustomer);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally { IsBusy = false; }
         }
@@ -195,7 +195,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (System.Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally
             {
@@ -220,7 +220,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (System.Exception e)
             {
                 Debug.WriteLine(e);
-                await Shell.Current.DisplayAlert(Title, e.Message, "Ok");
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally
             {
