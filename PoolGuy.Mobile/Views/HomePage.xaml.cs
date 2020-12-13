@@ -13,6 +13,7 @@ namespace PoolGuy.Mobile.Views
         public HomePage()
         {
             InitializeComponent();
+            Globals.CurrentPage = Data.Models.Enums.ePage.Home;
             _viewModel = new HomeViewModel() { IsBusy = false };
             BindingContext = _viewModel;
         }
@@ -39,9 +40,10 @@ namespace PoolGuy.Mobile.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            if (!Settings.IsLoggedIn)
+            if (!Settings.IsLoggedIn && !Settings.IsLoggingIn)
             {
-                Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White };
+                await _viewModel.NavigationService.NavigateToDialog(Locator.Login);
+                await _viewModel.NavigationService.CloseModal();
                 return;
             }
             else

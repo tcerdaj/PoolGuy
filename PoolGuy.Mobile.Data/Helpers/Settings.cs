@@ -13,12 +13,15 @@ namespace PoolGuy.Mobile.Data.Helpers
         }
 
         #region Constans
-        public const string NavigationMetadataKey = "navigationMetaData_key";
+        private const string NavigationMetadataKey = "navigationMetaData_key";
         private static readonly string NavigationMetadataDefault = string.Empty;
-        public const string TabletsRegisteredKey = "tabletsRegistered_key";
+        private const string TabletsRegisteredKey = "tabletsRegistered_key";
         private static readonly string TabletsRegisteredDefault = null;
-        public const string IsLoggedInKey = "isLoggedIn_Key";
+        private const string IsLoggedInKey = "isLoggedIn_Key";
         private static readonly bool IsLoggedInDefault = false;
+        private const string IsLoggingKey = "isLogging_Key";
+        private static readonly bool IsLoggingDefault = false;
+
         #endregion
         #region Properties
         public static string NavigationMetadata
@@ -38,6 +41,12 @@ namespace PoolGuy.Mobile.Data.Helpers
         {
             get => AppSettings.GetValueOrDefault(IsLoggedInKey, IsLoggedInDefault);
             set => AppSettings.AddOrUpdateValue(IsLoggedInKey, value);
+        }
+
+        public static bool IsLoggingIn
+        {
+            get => AppSettings.GetValueOrDefault(IsLoggingKey, IsLoggedInDefault);
+            set => AppSettings.AddOrUpdateValue(IsLoggingKey, value);
         }
         #endregion
     }

@@ -32,7 +32,7 @@ namespace PoolGuy.Mobile.Data.SQLite
                 {
                     if (DatabaseAsync.TableMappings.All(m => m.MappedType.Name != typeof(T).Name))
                     {
-                        await DatabaseAsync.CreateTableAsync(typeof(T), CreateFlags.None);
+                        await DatabaseAsync.CreateTableAsync(typeof(T), CreateFlags.None).ConfigureAwait(false);
                         
                         AddRegisteredTablet(typeof(T).Name);
                     }
@@ -81,13 +81,13 @@ namespace PoolGuy.Mobile.Data.SQLite
                         model.Created = DateTime.Now.ToUniversalTime();
                     }
 
-                    await DatabaseAsync.InsertAsync(model);
+                    await DatabaseAsync.InsertAsync(model).ConfigureAwait(false);
                     return model;
                 }
                 else
                 {
                     model.Modified = DateTime.Now.ToUniversalTime();
-                    await DatabaseAsync.UpdateAsync(model);
+                    await DatabaseAsync.UpdateAsync(model).ConfigureAwait(false);
                     return (T)model;
                 }
             }
@@ -120,7 +120,7 @@ namespace PoolGuy.Mobile.Data.SQLite
             {
                 if (model != null && model.Id != Guid.Empty)
                 {
-                    await DatabaseAsync.DeleteAsync(model);
+                    await DatabaseAsync.DeleteAsync(model).ConfigureAwait(false);
                 }
             }
             catch (Exception e)
@@ -134,7 +134,7 @@ namespace PoolGuy.Mobile.Data.SQLite
         {
             try
             {
-                await DatabaseAsync.InsertAllAsync(list);
+                await DatabaseAsync.InsertAllAsync(list).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -149,7 +149,7 @@ namespace PoolGuy.Mobile.Data.SQLite
             {
                 await CreateTabletIfNotExist();
 
-                return await DatabaseAsync.Table<T>().ToListAsync();
+                return await DatabaseAsync.Table<T>().ToListAsync().ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -183,7 +183,7 @@ namespace PoolGuy.Mobile.Data.SQLite
 
                 var query = SQLQuery.BuildListQuery<T>(criteria);
 
-                return await DatabaseAsync.QueryAsync<T>(query);
+                return await DatabaseAsync.QueryAsync<T>(query).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -201,7 +201,7 @@ namespace PoolGuy.Mobile.Data.SQLite
                 
                 await CreateTabletIfNotExist();
 
-                return await DatabaseAsync.Table<T>().FirstOrDefaultAsync(x => x.Id == id);
+                return await DatabaseAsync.Table<T>().FirstOrDefaultAsync(x => x.Id == id).ConfigureAwait(false);
             }
             catch (Exception e)
             {
@@ -216,8 +216,8 @@ namespace PoolGuy.Mobile.Data.SQLite
             {
                 if (Initialized)
                 {
-                    await DatabaseAsync.DropTableAsync<T>();
-                    await DatabaseAsync.CreateTableAsync<T>();
+                    await DatabaseAsync.DropTableAsync<T>().ConfigureAwait(false);
+                    await DatabaseAsync.CreateTableAsync<T>().ConfigureAwait(false);
                 }
             }
             catch (Exception e)

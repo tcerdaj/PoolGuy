@@ -18,10 +18,10 @@ namespace PoolGuy.Mobile.TemplateSelector
                 DataTemplate result = DefaultTemplate;
                 switch (Globals.CurrentPage)
                 {
-                    case Data.Models.Enums.ePage.EquipmentModel:
+                    case Data.Models.Enums.ePage.EquipmentSelectModel:
                         result = EquipmentModelTemplate;
                         break;
-                    case Data.Models.Enums.ePage.SelecteManufacture:
+                    case Data.Models.Enums.ePage.SelectManufacture:
                         result = ManufactureTemplate;
                         break;
                     case Data.Models.Enums.ePage.Equipment:

@@ -60,5 +60,16 @@ namespace PoolGuy.Mobile.Helpers
         {
             HomeAction?.Invoke(message);
         }
+
+        private static Action<Messages.RefreshMessage> HamburgerMenuAction = null;
+        public static void SubscribeHamburgerMenuAction(Action<Messages.RefreshMessage> method)
+        {
+            HamburgerMenuAction = method;
+        }
+
+        public static void RaiseHamburgerMenuAction(Messages.RefreshMessage message)
+        {
+            HamburgerMenuAction?.Invoke(message);
+        }
     }
 }

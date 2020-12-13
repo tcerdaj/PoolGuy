@@ -8,10 +8,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 using System.Linq;
 using PoolGuy.Mobile.Helpers;
-using PoolGuy.Mobile.Data.Models.SampleData;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -19,6 +17,11 @@ namespace PoolGuy.Mobile.ViewModels
     {
         public SearchCustomerViewModel()
         {
+            if(Globals.CurrentPage != Enums.ePage.SearchCustomer)
+            {
+                Globals.CurrentPage = Enums.ePage.SearchCustomer;
+            }
+            
             Title = this.GetType().Name.Replace("ViewModel", "").Replace("Search", "");
             SubscribeMessages();
         }
@@ -168,7 +171,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await NavigationService.PushPopupAsync(Locator.WizardCustomer);
+                await NavigationService.NavigateToDialog(Locator.WizardCustomer);
             }
             catch (Exception e)
             {

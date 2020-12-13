@@ -27,6 +27,7 @@ namespace PoolGuy.Mobile.ViewModels
         public CustomerViewModel()
         {
             Title = this.GetType().Name.Replace("ViewModel", "");
+            Globals.CurrentPage = Enums.ePage.Customer;
         }
 
         public void InitPages(CustomerModel customer = null)
@@ -358,7 +359,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             if (WasModified)
             {
-                if (!await Shell.Current.DisplayAlert("Warning", "Are you sure to exit without saving the changes?", "Exit", "Cancel"))
+                if (!await Message.DisplayConfirmationAsync("Warning", "Are you sure to exit without saving the changes?", "Exit", "Cancel"))
                 {
                     // Return to last page where you can save
                     Position = 3;

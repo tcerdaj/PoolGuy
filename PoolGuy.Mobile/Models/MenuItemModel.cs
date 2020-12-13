@@ -24,20 +24,18 @@ namespace PoolGuy.Mobile.Models
 
         public string Icon { get; set; }
 
+        private Color _backGroundcolor;
         public Color BackgroundColor 
         {
-            get 
-            {
-                return Globals.CurrentPage.ToString().Contains(Title) ? (Color)Application.Current.Resources["Primary"] : Color.White;
-            }
+            get { return _backGroundcolor; }
+            set { _backGroundcolor = value; OnPropertyChanged("BackgroundColor"); }
         }
 
+        private Color _textColor;
         public Color TextColor
         {
-            get
-            {
-                return Globals.CurrentPage.ToString().Contains(Title) ? Color.White : (Color)Application.Current.Resources["Title"];
-            }
+            get { return _textColor; }
+            set { _textColor = value; OnPropertyChanged("TextColor"); }
         }
 
         public Type TargetType { get; set; }

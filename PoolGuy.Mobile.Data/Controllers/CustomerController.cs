@@ -39,7 +39,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                                                   "OR cm.Phone like '%" + criteria + "%' " +
                                                   "OR cm.CellPhone like '%" + criteria + "%' " +
                                                   "OR cm.Email like '%" + criteria + "%' " +
-                                                  "ORDER BY C.FirstName");
+                                                  "ORDER BY C.FirstName").ConfigureAwait(false);
 
                 if (!customers.Any())
                 {
@@ -50,7 +50,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                                                                       "LEFT OUTER JOIN ContactModel cm on c.ContactId = cm.Id " +
                                                                       "LEFT OUTER JOIN PoolModel pm    on c.PoolId = pm.Id " +
                                                                       "ORDER BY C.FirstName " +
-                                                                      "LIMIT 10");
+                                                                      "LIMIT 10").ConfigureAwait(false);
 
                 }
 
@@ -58,7 +58,8 @@ namespace PoolGuy.Mobile.Data.Controllers
                 {
                     await SQLiteControllerBase
                     .DatabaseAsync
-                    .GetChildrenAsync(customer, true);
+                    .GetChildrenAsync(customer, true)
+                    .ConfigureAwait(false);
                 }
 
                 return customers;
@@ -73,7 +74,7 @@ namespace PoolGuy.Mobile.Data.Controllers
         {
             try
             {
-                List<CustomerModel> list = await LocalData.List(criteria);
+                List<CustomerModel> list = await LocalData.List(criteria).ConfigureAwait(false);
 
                 foreach (var model in list)
                 {
@@ -130,7 +131,10 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.Contact.Modified = model.Contact.WasModified ? modified : model.Contact.Modified;
                 }
 
-                SQLiteNetExtensions.Extensions.WriteOperations.InsertOrReplaceWithChildren(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
+                SQLiteNetExtensions
+                    .Extensions
+                    .WriteOperations
+                    .InsertOrReplaceWithChildren(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
             }
             catch (Exception)
             {
@@ -155,7 +159,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                 else
                 {
                     var tempModel = (CustomerModel)new CustomerModel().InjectFrom(model);
-                    model = await LoadAsync(model.Id);
+                    model = await LoadAsync(model.Id).ConfigureAwait(false);
                     model.InjectFrom(tempModel);
                     model.Modified = DateTime.Now.ToUniversalTime();
                 }
@@ -179,8 +183,12 @@ namespace PoolGuy.Mobile.Data.Controllers
                     return false;
                 }
 
-                var item = await LoadAsync(model.Id);
-                SQLiteNetExtensions.Extensions.WriteOperations.Delete(SQLiteControllerBase.DatabaseAsync.GetConnection(), item, true);
+                var item = await LoadAsync(model.Id).ConfigureAwait(false);
+               
+                SQLiteNetExtensions
+                    .Extensions
+                    .WriteOperations
+                    .Delete(SQLiteControllerBase.DatabaseAsync.GetConnection(), item, true);
 
                 return true;
             }
@@ -200,10 +208,13 @@ namespace PoolGuy.Mobile.Data.Controllers
                 }
 
                 // load customer
-                var model = await LocalData.Load(id);
+                var model = await LocalData.Load(id).ConfigureAwait(false);
 
                 // load foreing key fields
-                await SQLiteControllerBase.DatabaseAsync.GetChildrenAsync<CustomerModel>(model, true);
+                await SQLiteControllerBase
+                    .DatabaseAsync
+                    .GetChildrenAsync<CustomerModel>(model, true)
+                    .ConfigureAwait(false);
 
                 return model;
             }

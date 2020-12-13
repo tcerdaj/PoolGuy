@@ -19,8 +19,12 @@ namespace PoolGuy.Mobile.ViewModels
     {
         public SchedulerViewModel()
         {
+            if (Globals.CurrentPage != Enums.ePage.Scheduler)
+            {
+                Globals.CurrentPage = Enums.ePage.Scheduler;
+            }
+
             Title = this.GetType().Name.Replace("ViewModel", "").Replace("Search", "");
-            Globals.CurrentPage = Enums.ePage.Scheduler;
         }
 
         private string _searchTerm = "";
@@ -31,7 +35,6 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private SchedulerModel _scheduler;
-
         public SchedulerModel Scheduler
         {
             get { return _scheduler; }
@@ -99,6 +102,7 @@ namespace PoolGuy.Mobile.ViewModels
                 if (!Schedulers.Any(x => x.Id == Scheduler.Id))
                 {
                     Schedulers.Insert(Scheduler.Index, Scheduler);
+                    Reset();
                     OnPropertyChanged("Schedulers");
                 }
                 else

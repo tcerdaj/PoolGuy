@@ -57,6 +57,7 @@ namespace PoolGuy.Mobile
             nav.Configure(Locator.Login, typeof(LoginPage));
             nav.Configure(Locator.Equipment, typeof(EquipmentPage));
             nav.Configure(Locator.SearchCustomer, typeof(SearchCustomerPage));
+            nav.Configure(Locator.Settings, typeof(SettingsPage));
             nav.Configure(Locator.Customer, typeof(CustomerPage));
             nav.Configure(Locator.Scheduler, typeof(SchedulerPage));
             nav.Configure(Locator.CustomerScheduler, typeof(CustomerSchedulerPage));

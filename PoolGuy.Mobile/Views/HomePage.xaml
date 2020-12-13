@@ -143,7 +143,7 @@
                 </mr:Image>
             </StackLayout>
             <ScrollView Grid.Row="3"
-                        Padding="20,10" >
+                        Padding="20,10,20,60" >
                  <Grid HorizontalOptions="FillAndExpand"
                           >
                         <Grid.ColumnDefinitions>

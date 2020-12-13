@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using PoolGuy.Mobile.Extensions;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -41,7 +42,7 @@ namespace PoolGuy.Mobile.ViewModels
 
         public bool ShowSearchTerm
         {
-            get { return Globals.CurrentPage == Enums.ePage.EquipmentModel; }
+            get { return Globals.CurrentPage == Enums.ePage.EquipmentSelectModel; }
         }
 
         public Page CurrentPage
@@ -70,10 +71,20 @@ namespace PoolGuy.Mobile.ViewModels
                 {
                     if (Equipment != null && Equipment.PoolId != Guid.Empty)
                     {
+                        
                         Pool = await new PoolController().LoadAsync(Equipment.PoolId).ConfigureAwait(false);
+                        if (Pool.Equipments.Any())
+                        {
+                            Title = "Update Equipment";
+                        }
+                        else
+                        {
+                            Title = "Select Equipment";
+                        }
                     }
                     else
                     {
+                        Title = "Select Equipment";
                         Equipment.Pool.Id = Guid.NewGuid();
                         Equipment.PoolId = Equipment.Pool.Id;
                         Pool = Equipment.Pool;
@@ -187,6 +198,11 @@ namespace PoolGuy.Mobile.ViewModels
                 }
 
                 var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                if (flexlayout == null)
+                {
+                    return;
+                }
+
                 flexlayout.Children.Clear();
 
                 switch (Globals.CurrentPage)
@@ -202,21 +218,16 @@ namespace PoolGuy.Mobile.ViewModels
                         //await NavigationService.PopPopupAsync(false);
                         await NavigationService.CloseModal();
                         break;
-                    case Enums.ePage.SelecteManufacture:
-                        CurrentPage.Title = "Select Equipment";
-                        if (flexlayout == null)
-                        {
-                            return;
-                        }
-
+                    case Enums.ePage.SelectManufacture:
                         Globals.CurrentPage = Enums.ePage.SelectEquipment;
+                        Title = Globals.CurrentPage.ToString().SplitWord();
                         BindableLayout.SetItemsSource(flexlayout, EquipmentTypes);
                         break;
                     case Enums.ePage.Equipment:
-                    case Enums.ePage.EquipmentModel:
-                        if (CurrentPage.Title == "Add Model Equipment")
+                    case Enums.ePage.EquipmentSelectModel:
+                        if (Title == "Add Model Equipment")
                         {
-                            Globals.CurrentPage = Enums.ePage.EquipmentModel;
+                            Globals.CurrentPage = Enums.ePage.EquipmentSelectModel;
                             SelectManufactureCommand.Execute(SelectedManufacture);
                             return;
                         }
@@ -225,20 +236,14 @@ namespace PoolGuy.Mobile.ViewModels
                         {
                             Globals.CurrentPage = Enums.ePage.Customer;
                             await NavigationService.CloseModal(false);
-                            //Shell.Current.SendBackButtonPressed();
-                            return;
-                        }
-
-                        CurrentPage.Title = "Select Manufacture";
-                        if (flexlayout == null)
-                        {
                             return;
                         }
 
                         CurrentPage.ToolbarItems.Clear();
                         flexlayout.Direction = FlexDirection.Row;
                         flexlayout.Wrap = FlexWrap.Wrap;
-                        Globals.CurrentPage = Enums.ePage.SelecteManufacture;
+                        Globals.CurrentPage = Enums.ePage.SelectManufacture;
+                        Title = Globals.CurrentPage.ToString().SplitWord();
                         BindableLayout.SetItemsSource(flexlayout, Manufactures);
                         break;
                     default:
@@ -283,8 +288,9 @@ namespace PoolGuy.Mobile.ViewModels
                 {
                     return;
                 }
-
-                Globals.CurrentPage = Enums.ePage.SelecteManufacture;
+                
+                Globals.CurrentPage = Enums.ePage.SelectManufacture;
+                Title = Globals.CurrentPage.ToString().SplitWord();
                 BindableLayout.SetItemsSource(flexlayout, Manufactures);
             }
             catch (Exception e)
@@ -303,30 +309,21 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                if (model == null)
+                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                if (model == null || CurrentPage == null || flexlayout == null)
                 {
                     return;
                 }
 
                 Manufactures?.ForEach(x => x.Selected = false);
                 model.Selected = !model.Selected;
-
-                if (CurrentPage == null)
-                {
-                    return;
-                }
-
                 SelectedManufacture = model;
-                CurrentPage.Title = "Add Equipment";
-                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
-                if (flexlayout == null)
-                {
-                    return;
-                }
-
+                
                 Equipment.Type = SelectedEquipmentType;
                 Equipment.Manufacture = SelectedManufacture;
                 Equipment.ImageUrl = SelectedEquipmentType.ImageUrl;
+                Globals.CurrentPage = Enums.ePage.AddEquipment;
+                Title = Globals.CurrentPage.ToString().SplitWord();
                 ApplyEquipmentModelFilterAsync();
             }
             catch (Exception e)
@@ -423,10 +420,10 @@ namespace PoolGuy.Mobile.ViewModels
 
         public ICommand ApplyFilterCommand 
         {
-            get => new RelayCommand(async() => ApplyEquipmentModelFilterAsync());
+            get => new RelayCommand(async() => ApplyEquipmentModelFilterAsync(true));
         }
 
-        private async void ApplyEquipmentModelFilterAsync()
+        private async void ApplyEquipmentModelFilterAsync(bool searchingModel = false)
         {
             try
             {
@@ -467,10 +464,10 @@ namespace PoolGuy.Mobile.ViewModels
                        Filter = criteria
                    });
 
-                Globals.CurrentPage = equipments.Any() ? Enums.ePage.EquipmentModel : Enums.ePage.Equipment;
-                if (Globals.CurrentPage == Enums.ePage.EquipmentModel)
+                if (equipments.Any() || searchingModel)
                 {
-                    CurrentPage.Title = "Select Model";
+                    Globals.CurrentPage = Enums.ePage.EquipmentSelectModel;
+                    Title = "Select Model";
                     if (!CurrentPage.ToolbarItems.Any())
                     {
                         CurrentPage.ToolbarItems.Add(new ToolbarItem { Text = "Add", Command = AddEquipmentModelCommand });
@@ -479,8 +476,12 @@ namespace PoolGuy.Mobile.ViewModels
                     flexlayout.Wrap = FlexWrap.NoWrap;
                     OnPropertyChanged("ShowSearchTerm");
                 }
+                else
+                {
+                    Globals.CurrentPage = Enums.ePage.EquipmentSelectModel;
+                }
 
-                BindableLayout.SetItemsSource(flexlayout, (Globals.CurrentPage == Enums.ePage.EquipmentModel ? equipments : new List<EquipmentModel> { Equipment }));
+                BindableLayout.SetItemsSource(flexlayout, (Globals.CurrentPage == Enums.ePage.EquipmentSelectModel ? equipments : new List<EquipmentModel> { Equipment }));
             }
             catch (Exception e)
             {

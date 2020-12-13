@@ -34,21 +34,55 @@
             <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <AbsoluteLayout VerticalOptions="FillAndExpand"
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White"
+                 Spacing="0">
+            <!--****************-->
+            <!-- Navigation Bar -->
+            <!--****************-->
+            <AbsoluteLayout BackgroundColor="{StaticResource Primary}"
+                          HeightRequest="50"
+                          MinimumHeightRequest="50"
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="Fill">
+                <mycc:AnimatedButton AbsoluteLayout.LayoutBounds="0, 0.5, .25, 1"
+                                        AbsoluteLayout.LayoutFlags="All"
+                                        TouchUpCommand="{Binding GoBackCommand}"
+                                        AutomationId="cancel_add_note">
+                    <Image AbsoluteLayout.LayoutBounds="0, 0.5, 1, 1"
+                               Aspect="AspectFit"
+                               HorizontalOptions="Start"
+                               AbsoluteLayout.LayoutFlags="All">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                  Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
+                                                  Size="40"
+                                                  Color="{StaticResource Title}" />
+                        </Image.Source>
+                    </Image>
+                </mycc:AnimatedButton>
+                <Label Text="{Binding Title}"
+                           TextColor="{StaticResource Title}"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                           AbsoluteLayout.LayoutFlags="PositionProportional" />
+            </AbsoluteLayout>
+            <AbsoluteLayout VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand">
-        <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
               Margin="15,0"
               AbsoluteLayout.LayoutFlags="All">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="60" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
                     <!--Select scheduler-->
                     <Label Grid.Row="0"
                            Margin="0,15,0,5"
@@ -71,16 +105,16 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                <StackLayout Grid.Row="0"
+                                    <StackLayout Grid.Row="0"
                                              Spacing="0">
-                                <Label Text="{Binding ShortName}"
+                                        <Label Text="{Binding ShortName}"
                                              HorizontalOptions="Center"/>
-                                <CheckBox HorizontalOptions="Center"
+                                        <CheckBox HorizontalOptions="Center"
                                           CheckedChanged="CheckBox_CheckedChanged"
                                           IsChecked="{Binding Selected}" />
-                                      
-                                </StackLayout>
-                            </Grid>
+
+                                    </StackLayout>
+                                </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
@@ -112,52 +146,52 @@
                         </Button>
                     </StackLayout>
                     <!--Search-->
-            <StackLayout Grid.Row="6"
+                    <StackLayout Grid.Row="6"
                                Margin="0,15,0,0">
-                    <SearchBar  TextChanged="SearchBar_TextChanged"
+                        <SearchBar  TextChanged="SearchBar_TextChanged"
                                HorizontalOptions="Start"
                                Placeholder="Search for a customer"
                                Text="{Binding SearchTerm}"
                                SearchCommand="{Binding SearchCustomerCommand}"
                                BackgroundColor="#f7f7f7"/>
-                    <!--Select/UnSelect All-->
-                    <StackLayout Spacing="0"
+                        <!--Select/UnSelect All-->
+                        <StackLayout Spacing="0"
                                  IsVisible="{Binding CustomerSearchResults, Converter={StaticResource IsEmptyList}}"
                                  HorizontalOptions="End"
                                  WidthRequest="60">
-                                <Label Text="Select"
+                            <Label Text="Select"
                                                HorizontalOptions="Center">
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label"
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
                                                      Binding="{Binding Source={x:Reference SelectAllck}, Path=IsChecked}"
                                                      Value="True">
-                                            <Setter Property="Text" Value="Unselect" />
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                </Label>
-                                <CheckBox x:Name="SelectAllck" 
+                                        <Setter Property="Text" Value="Unselect" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                            <CheckBox x:Name="SelectAllck" 
                                           HorizontalOptions="Center"
                                           CheckedChanged="SelectAllck_CheckedChanged"
                                           IsChecked="{Binding Selected}" />
+                        </StackLayout>
                     </StackLayout>
-            </StackLayout>
-            <!--Scheduler list-->
-            <CollectionView Grid.Row="8"
+                    <!--Scheduler list-->
+                    <CollectionView Grid.Row="8"
                             x:Name="SchedulerList"
                             BackgroundColor="#fbfbfb"
                             EmptyView="No scheduler added yet"
                             SelectionMode="None"
                             SelectedItem="{Binding Customer}"
                             ItemsSource="{Binding CustomerSearchResults}">
-                          <CollectionView.ItemTemplate>
-                              <DataTemplate>
-                                  <Grid x:Name="SchedulerItem">
-                            <StackLayout Orientation="Horizontal" 
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid x:Name="SchedulerItem">
+                                    <StackLayout Orientation="Horizontal" 
                                                 HorizontalOptions="FillAndExpand"
                                                 Spacing="15"
                                                 Padding="10,5,15,5">
-                                <!--Image Curcular-->
-                                <mr:Frame Padding="0"
+                                        <!--Image Curcular-->
+                                        <mr:Frame Padding="0"
                                           TappedCommand="{Binding Source={x:Reference SchedulerList}, Path=BindingContext.DisplayImageCommand}"
                                           TappedCommandParameter="{Binding BindingContext, Source={x:Reference SchedulerItem}}"
                                           CornerRadius="50"
@@ -166,31 +200,33 @@
                                           HasShadow="False"
                                           IsClippedToBounds="True"
                                           Margin="0">
-                                    <Image Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
+                                            <Image Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
                                            VerticalOptions="CenterAndExpand"
                                            HorizontalOptions="CenterAndExpand"/>
-                                </mr:Frame>
-                                <!--Customer Name-->
-                                <Label Text="{Binding Name}"
+                                        </mr:Frame>
+                                        <!--Customer Name-->
+                                        <Label Text="{Binding Name}"
                                             HorizontalOptions="StartAndExpand"
                                             VerticalOptions="Center"/>
-                                <CheckBox IsChecked="{Binding Selected}"/>
-                            </StackLayout>
-                        </Grid>
-                              </DataTemplate>
-                          </CollectionView.ItemTemplate>
-             </CollectionView>
-        </Grid>
-        <!-- Busy Status -->
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                        <CheckBox IsChecked="{Binding Selected}"/>
+                                    </StackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+                <!-- Busy Status -->
+                <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All"
                         BackgroundColor="White"
                         Opacity="0.5"
                         IsVisible="{Binding IsBusy}">
-            <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                    <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
                                    AbsoluteLayout.LayoutFlags="PositionProportional"
                                    IsRunning="{Binding IsBusy}"
                                    IsVisible="{Binding IsBusy}" />
-        </AbsoluteLayout>
-    </AbsoluteLayout>
+                </AbsoluteLayout>
+            </AbsoluteLayout>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

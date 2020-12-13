@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Newtonsoft.Json;
+using PoolGuy.Mobile.Extensions;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -17,7 +18,7 @@ namespace PoolGuy.Mobile.ViewModels
     {
         public CustomerSchedulerViewModel()
         {
-            Title = this.GetType().Name.Replace("ViewModel", "").Replace("Search", "");
+            Title = this.GetType().Name.Replace("ViewModel", "").Replace("Search", "").SplitWord();
             Globals.CurrentPage = Enums.ePage.Scheduler;
         }
 
@@ -281,6 +282,16 @@ namespace PoolGuy.Mobile.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public ICommand GoBackCommand
+        {
+            get 
+            {
+                return new RelayCommand(async ()=> {
+                    await NavigationService.CloseModal();
+                });
             }
         }
     }

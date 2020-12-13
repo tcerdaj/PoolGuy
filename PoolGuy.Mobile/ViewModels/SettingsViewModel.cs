@@ -9,8 +9,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
+using PoolGuy.Mobile.Extensions;
 using System.Linq;
+using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Data.SQLite;
+using System.IO;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -19,12 +22,25 @@ namespace PoolGuy.Mobile.ViewModels
         public SettingsViewModel()
         {
             Title = this.GetType().Name.Replace("ViewModel", "").Replace("Search", "");
+            OnPropertyChanged("DatabaseInfo");
         }
 
+        public string[] DatabaseInfo
+        {
+            get { return GetDatabaseInfo(); }
+        }
+        
+        private int _maxRow = 100;
+
+        public int MaxRow
+        {
+            get { return _maxRow; }
+            set { _maxRow = value; OnPropertyChanged("MaxRow"); }
+        }
 
         public ICommand LogoutCommand
         {
-            get { return new RelayCommand<CustomerModel>(async (customer) => await LogoutAsync()); }
+            get { return new RelayCommand(async () => await LogoutAsync()); }
         }
 
         private async Task LogoutAsync()
@@ -34,7 +50,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White };
+                await NavigationService.NavigateToDialog(Locator.Login);
                 Settings.IsLoggedIn = false;
             }
             catch (Exception e)
@@ -60,7 +76,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                var customers = new CustomerListSample().Customers;
+                var customers = new CustomerListSample().Customers.Take(MaxRow);
                 var customerController = new CustomerController();
 
                 foreach (var c in customers)
@@ -130,6 +146,18 @@ namespace PoolGuy.Mobile.ViewModels
             finally { IsBusy = false; }
         }
 
+        public ICommand NavigateToCommand
+        {
+            get
+            {
+                return new RelayCommand<Enums.ePage>(async (item) =>
+                {
+                    string page = item == Enums.ePage.Customer ? $"Search{item.ToString()}" : item.ToString();
+                    await NavigationService.ReplaceRoot($"{page}Page");
+                });
+            }
+        }
+
         public ICommand MangeCommand
         {
             get { return new RelayCommand<CustomerModel>(async (customer) => await Manage()); }
@@ -138,6 +166,31 @@ namespace PoolGuy.Mobile.ViewModels
         private Task Manage()
         {
             throw new NotImplementedException();
+        }
+
+        private string[] GetDatabaseInfo()
+        {
+            List<string> result = new List<string>();
+            try
+            {
+                FileInfo file = new FileInfo (SQLiteControllerBase
+                                       .DatabaseAsync
+                                       .DatabasePath);
+
+                var bytes = file.Length.BytesToString();
+                result.Add($"Database version: {SQLiteControllerBase.DatabaseAsync.LibVersionNumber}");
+                result.Add($"Database size: {bytes}");
+                result.Add($"Database tables: {SQLiteControllerBase.DatabaseAsync.TableMappings.Count()}");
+
+                return result.ToArray();
+                
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);  
+            }
+
+            return new string[] { };
         }
     }
 }

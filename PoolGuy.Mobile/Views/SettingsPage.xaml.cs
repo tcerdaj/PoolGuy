@@ -58,5 +58,16 @@ namespace PoolGuy.Mobile.Views
         {
             base.OnDisappearing();
         }
+
+        private void Entry_Completed(object sender, EventArgs e)
+        {
+            if (sender is Entry entry)
+            {
+                if (int.TryParse(entry.Text, out var rows) && rows > 100)
+                {
+                    _viewModel.MaxRow = 100;
+                }
+            }
+        }
     }
 }

@@ -42,13 +42,14 @@ namespace PoolGuy.Mobile.Data.Models
             SearchCustomer,
             Customer,
             SelectEquipment,
-            SelecteManufacture,
+            SelectManufacture,
             Equipment,
-            EquipmentModel,
+            EquipmentSelectModel,
             Scheduler,
             WorkOrderDetails,
             WorkOrderList,
-            Settings
+            Settings,
+            AddEquipment
         }
 
         public enum Units

@@ -32,9 +32,12 @@
     </ContentPage.Resources>
     <AbsoluteLayout VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand">
-        <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
               AbsoluteLayout.LayoutFlags="All">
+        <Grid >
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -52,7 +55,7 @@
                 </Label>
             <StackLayout Grid.Row="1" 
                          VerticalOptions="Center"
-                         Margin="30,20"
+                         Margin="20"
                          Spacing="20">
                 <StackLayout Orientation="Horizontal">
                 <Label Grid.Row="0"
@@ -80,7 +83,8 @@
                 </StackLayout>
                 <Button Text="Logout"
                         TextTransform="None"
-                        Command="{Binding LogoutCommand}"
+                        Command="{Binding DatabaseInfoCommand}"
+                        BackgroundColor="{StaticResource ExtraLightGray }"
                         TextColor="{StaticResource Title}">
                     <Button.ImageSource>
                         <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
@@ -96,7 +100,7 @@
                          VerticalOptions="Center"
                          Margin="0"
                          Spacing="0">
-                <Label Grid.Row="0"
+                <Label 
                        VerticalTextAlignment="Center"
                        Margin="15,5"
                        VerticalOptions="FillAndExpand"
@@ -104,13 +108,19 @@
             </StackLayout>
             <StackLayout Grid.Row="3" 
                          VerticalOptions="Center"
-                         Margin="30,20"
+                         Margin="20"
                          Spacing="20">
-                <Label Grid.Row="0"
-                       VerticalTextAlignment="Center"
+                <Label VerticalTextAlignment="Center"
                        VerticalOptions="FillAndExpand"
                        Text="Generate 100 customer records"/>
+                <Entry Text="{Binding MaxRow}" 
+                       Placeholder="Max rows: 100"
+                       ClearButtonVisibility="WhileEditing"
+                       Keyboard="Numeric"
+                       Completed="Entry_Completed"
+                       ReturnType="Done"/>
                 <Button Text="Generate"
+                        BackgroundColor="{StaticResource ExtraLightGray }"
                         TextTransform="None"
                         Command="{Binding LoadSampleCustomersCommand}"
                         TextColor="{StaticResource Title}">
@@ -122,7 +132,46 @@
                     </Button.ImageSource>
                 </Button>
             </StackLayout>
+            <!--Local database-->
+            <StackLayout Grid.Row="4"
+                         BackgroundColor="{StaticResource ExtraLightGray}"
+                         VerticalOptions="Center"
+                         Margin="0"
+                         Spacing="0">
+                <Label 
+                       VerticalTextAlignment="Center"
+                       Margin="15,5"
+                       VerticalOptions="FillAndExpand"
+                       Text="About Database"/>
+            </StackLayout>
+            <StackLayout Grid.Row="5" 
+                         VerticalOptions="Center"
+                         HorizontalOptions="FillAndExpand"
+                         Margin="20"
+                         Spacing="20">
+                <StackLayout BindableLayout.ItemsSource="{Binding DatabaseInfo}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding .}"
+                                       HorizontalOptions="Start"
+                                       HorizontalTextAlignment="Start"/>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
         </Grid>
+        </ScrollView>
+        <AbsoluteLayout BackgroundColor="Transparent"
+                        AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
+                        Margin="-5,0"
+                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+            <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                                 AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
+                                 BackgroundColor="{StaticResource Primary}"
+                                 ColumnSpacing="25"
+                                 Command="{Binding NavigateToCommand}"
+                                 Current="Settings"/>
+        </AbsoluteLayout>
         <!-- Busy Status -->
         <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All"

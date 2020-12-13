@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:ts="clr-namespace:PoolGuy.Mobile.TemplateSelector"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
-             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
              x:Class="PoolGuy.Mobile.Views.WizardCustomerPage"
              Title="{Binding Title}">
     <!--Go back command-->
@@ -24,28 +24,59 @@
         </ResourceDictionary>
     </ContentPage.Resources>
   <ContentPage.Content>
-        <AbsoluteLayout VerticalOptions="FillAndExpand"
+        <StackLayout BackgroundColor="White"
+                 Spacing="0">
+            <!--****************-->
+            <!-- Navigation Bar -->
+            <!--****************-->
+            <AbsoluteLayout BackgroundColor="{StaticResource Primary}"
+                          HeightRequest="60"
+                          MinimumHeightRequest="60"
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="Fill">
+                <mycc:AnimatedButton AbsoluteLayout.LayoutBounds="0, 0.5, .25, 1"
+                                     AbsoluteLayout.LayoutFlags="All"
+                                     TouchUpCommand="{Binding GoBackCommand}">
+                    <Image AbsoluteLayout.LayoutBounds="0, 0.5, .50, 1"
+                           Aspect="AspectFit"
+                           AbsoluteLayout.LayoutFlags="All">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                  Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
+                                                  Size="40"
+                                                  Color="{StaticResource Title}" />
+                        </Image.Source>
+                    </Image>
+                </mycc:AnimatedButton>
+                <Label Text="{Binding Title}"
+                           TextColor="{StaticResource Title}"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                           AbsoluteLayout.LayoutFlags="PositionProportional" />
+            </AbsoluteLayout>
+            <AbsoluteLayout VerticalOptions="FillAndExpand"
                         HorizontalOptions="FillAndExpand">
-            <StackLayout Padding="15,10"
+                <StackLayout Padding="15,10"
                          AbsoluteLayout.LayoutBounds="0,0,1,1"
                          AbsoluteLayout.LayoutFlags="All">
-            <Grid HorizontalOptions="FillAndExpand"
+                    <Grid HorizontalOptions="FillAndExpand"
                   VerticalOptions="Fill"
                   ColumnSpacing="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="0"
+                        <Button Grid.Row="0" Grid.Column="0"
                         Text="Customer"
                         BackgroundColor="Transparent"
                         VerticalOptions="Start"
@@ -57,7 +88,7 @@
                         x:Name="headerCustomer"
                         Command="{Binding GoToPageCommand}"
                         CommandParameter="Customer"/>
-                <Button Grid.Row="0" Grid.Column="1"
+                        <Button Grid.Row="0" Grid.Column="1"
                         Text="Address"
                         BackgroundColor="Transparent"
                         VerticalOptions="Start"
@@ -69,7 +100,7 @@
                         x:Name="headerAddress"
                         Command="{Binding GoToPageCommand}"
                         CommandParameter="Address"/>
-                <Button Grid.Row="0" Grid.Column="2"
+                        <Button Grid.Row="0" Grid.Column="2"
                         Text="Contact"
                         BackgroundColor="Transparent"
                         VerticalOptions="Start"
@@ -81,7 +112,7 @@
                         x:Name="headerContact"
                         Command="{Binding GoToPageCommand}"
                         CommandParameter="Contact"/>
-                <Button Grid.Row="0" Grid.Column="3"
+                        <Button Grid.Row="0" Grid.Column="3"
                         Text="Pool"
                         BackgroundColor="Transparent"
                         VerticalOptions="Start"
@@ -93,67 +124,67 @@
                         x:Name="headerPool"
                         Command="{Binding GoToPageCommand}"
                         CommandParameter="Pool"/>
-                <!--Progress Bar-->
-                <StackLayout Grid.Row="1" Grid.ColumnSpan="4" 
+                        <!--Progress Bar-->
+                        <StackLayout Grid.Row="1" Grid.ColumnSpan="4" 
                              HorizontalOptions="FillAndExpand"
                              VerticalOptions="Center"
                              Spacing="10"
                              Orientation="Horizontal">
-                        <ProgressBar IsVisible="True" 
+                            <ProgressBar IsVisible="True" 
                                      HorizontalOptions="FillAndExpand" 
                                      ProgressColor="{StaticResource Primary}" 
                                      Progress="{Binding Progress}"/>
-                        <Label  HorizontalOptions="Fill" TextColor="{StaticResource Primary}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                <Span Text="{Binding Percent, StringFormat='%{0:N0}'}" FontSize="20" FontAttributes="Bold"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                 </StackLayout>
-                <!--Error message-->
-                <Label Grid.Row="2"
+                            <Label  HorizontalOptions="Fill" TextColor="{StaticResource Primary}">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Percent, StringFormat='%{0:N0}'}" FontSize="20" FontAttributes="Bold"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                        <!--Error message-->
+                        <Label Grid.Row="2"
                        Grid.ColumnSpan="4"
                        Text="{Binding ErrorMessage}" 
                        IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}" 
                        TextColor="{Binding ErrorTextColor}" 
                        LineBreakMode="TailTruncation"/>
-                <Label Grid.Row="3" Grid.ColumnSpan="4" Text="{Binding Customer.Name}" TextColor="{StaticResource Title}"
+                        <Label Grid.Row="3" Grid.ColumnSpan="4" Text="{Binding Customer.Name}" TextColor="{StaticResource Title}"
                         HorizontalOptions="FillAndExpand"
                         VerticalOptions="Center"
                         FontSize="Medium"
                         IsVisible="{Binding IsVisibleName}"/>
-            </Grid>
-            <CarouselView x:Name="Carousel" ItemsSource="{Binding Pages}"
+                    </Grid>
+                    <CarouselView x:Name="Carousel" ItemsSource="{Binding Pages}"
                           ItemTemplate="{x:StaticResource CarouselSelector}" 
                           Position="{Binding Position}"
                           IsSwipeEnabled="False"
                           CurrentItemChanged="Carousel_CurrentItemChanged">
-            </CarouselView>
-          <!--Navigation Arrows-->
-            <Grid HorizontalOptions="FillAndExpand"
+                    </CarouselView>
+                    <!--Navigation Arrows-->
+                    <Grid HorizontalOptions="FillAndExpand"
                   VerticalOptions="End">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" 
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" 
                         HorizontalOptions="Start"
                         x:Name="PreviusButton"
                         Margin="0"
                         Clicked="PreviusButton_Clicked"
                         BackgroundColor="{StaticResource Title}">
-                    <Button.ImageSource>
-                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
                                          Size="40"
                                          Color="{StaticResource Primary}" />
-                    </Button.ImageSource>
-                </Button>
-                <Button Grid.Column="1" 
+                            </Button.ImageSource>
+                        </Button>
+                        <Button Grid.Column="1" 
                         HorizontalOptions="End"
                         x:Name="NextButton"
                         Margin="0"
@@ -161,26 +192,27 @@
                         VerticalOptions="Center"
                         Clicked="NextButton_Clicked"
                         BackgroundColor="{StaticResource Title}">
-                    <Button.ImageSource>
-                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                            <Button.ImageSource>
+                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.ChevronRight}"
                                          Size="40"
                                          Color="{StaticResource Primary}" />
-                    </Button.ImageSource>
-                </Button>
-            </Grid>
-        </StackLayout>
-        <!-- Busy Status -->
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                            </Button.ImageSource>
+                        </Button>
+                    </Grid>
+                </StackLayout>
+                <!-- Busy Status -->
+                <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All"
                         BackgroundColor="White"
                         Opacity="0.5"
                         IsVisible="{Binding IsBusy}">
-            <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                    <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
                                    AbsoluteLayout.LayoutFlags="PositionProportional"
                                    IsRunning="{Binding IsBusy}"
                                    IsVisible="{Binding IsBusy}" />
-        </AbsoluteLayout>
-        </AbsoluteLayout>
+                </AbsoluteLayout>
+            </AbsoluteLayout>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

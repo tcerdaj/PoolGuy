@@ -15,6 +15,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             LoginCommand = new Command(OnLoginClicked);
             Title = this.GetType().Name.Replace("ViewModel", "");
+            Settings.IsLoggedIn = false;
         }
 
         private async void OnLoginClicked(object obj)
@@ -25,13 +26,16 @@ namespace PoolGuy.Mobile.ViewModels
             }
 
             IsBusy = true;
+            Settings.IsLoggingIn = true;
 
             try
             {
                 await Task.Delay(2000);
-                Application.Current.MainPage = new MainPage();
-                Settings.IsLoggedIn = true;
+
+                await NavigationService.ReplaceRoot(Locator.Home);
+                await NavigationService.CloseModal();
                 Notify.RaiseHomeAction(new Messages.RefreshMessage());
+                Settings.IsLoggedIn = true;
             }
             catch (Exception e)
             {
@@ -40,7 +44,10 @@ namespace PoolGuy.Mobile.ViewModels
                     await Message.DisplayAlertAsync($"Unabble to navigate to {Locator.Home}", Title, "Ok");
                 }
             }
-            finally { IsBusy = false; }
+            finally { 
+                IsBusy = false;
+                Settings.IsLoggingIn = false;
+            }
         }
     }
 }

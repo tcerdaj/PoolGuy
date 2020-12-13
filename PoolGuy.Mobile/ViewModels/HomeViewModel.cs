@@ -21,6 +21,11 @@ namespace PoolGuy.Mobile.ViewModels
     {
         public HomeViewModel()
         {
+            if (Globals.CurrentPage != Enums.ePage.Home)
+            {
+                Globals.CurrentPage = Enums.ePage.Home;
+            }
+            
             Title = this.GetType().Name.Replace("ViewModel", "");
             Notify.RaiseNavigationAction(new Messages.RefreshMessage());
             SubscribeMessages();
@@ -57,6 +62,11 @@ namespace PoolGuy.Mobile.ViewModels
         {
             Notify.SubscribeHomeAction(async(sender) =>
             {
+                if (Globals.CurrentPage != Enums.ePage.Home)
+                {
+                    Globals.CurrentPage = Enums.ePage.Home;
+                }
+
                 await Initialize();
             });
         }

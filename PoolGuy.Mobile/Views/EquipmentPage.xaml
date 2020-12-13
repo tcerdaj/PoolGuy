@@ -8,13 +8,10 @@
              x:Class="PoolGuy.Mobile.Views.EquipmentPage"
              Title="{Binding Title}"
              x:Name="MainEquipmentPage">
-    <!--Go back command-->
-    <Shell.BackButtonBehavior>
-        <BackButtonBehavior Command="{Binding GoBackCommand}"/>
-    </Shell.BackButtonBehavior>
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
+            <conv:ImageUrlConverter x:Key="ImageUrlConverter" />
             <DataTemplate x:Key="EquipmentTypeTemplate">
                 <mr:Grid x:Name="CurrentTemplate" 
                                  DownCommand="{Binding Source={x:Reference mainLayout}, Path=BindingContext.SelectEquipmentTypeCommand}"
@@ -295,16 +292,40 @@
                 </ScrollView>
             </DataTemplate>
             <DataTemplate x:Key="EquipmentModelTemplate">
-                <StackLayout x:Name="EquipmentModelList"
-                             Padding="10,5"
-                             Orientation="Horizontal"
+                <Grid x:Name="EquipmentModelList"
+                             Padding="10,5,15,5"
                              HorizontalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--Image Curcular-->
+                    <mr:Frame Padding="0"
+                              Grid.Column="0"
+                              TappedCommand="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.DisplayImageCommand}"
+                              TappedCommandParameter="{Binding BindingContext, Source={x:Reference EquipmentModelList}}"
+                              CornerRadius="50"
+                              HeightRequest="40"
+                              WidthRequest="40"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Start"
+                              HasShadow="False"
+                              IsClippedToBounds="True"
+                              Margin="0">
+                        <Image Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
+                                           VerticalOptions="CenterAndExpand"
+                                           HorizontalOptions="CenterAndExpand"
+                               />
+                    </mr:Frame>
                     <mr:Label x:Name="Model"
+                              Grid.Column="1"
                               TextColor="{StaticResource LinkText}"
                               TappedCommand="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.AddEquipmentModelCommand}"
                               TappedCommandParameter="{Binding Model}"
                               FontSize="14"
-                              HorizontalOptions="FillAndExpand"
+                              LineBreakMode="WordWrap"
+                              HorizontalTextAlignment="Start"
                               VerticalOptions="Center">
                         <mr:Label.Triggers>
                             <EventTrigger Event="Down">
@@ -323,27 +344,30 @@
                                 <Span Text="{Binding Model}"/>
                             </FormattedString>
                         </Label.FormattedText>
-                        
                     </mr:Label>
-                    <mr:Label Text="{x:Static icons:MaterialDesignIcons.Delete}"
-                              FontFamily="{StaticResource MaterialFontFamily}"
-                              FontSize="20"
-                              Margin="40,0,20,0"
+                    <mr:Image Grid.Column="2"
+                              HeightRequest="20"
+                              Margin="0,0,10,0"
                               TappedCommand="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.DeleteEquipmentCommand}"
                               TappedCommandParameter="{Binding BindingContext, Source={x:Reference EquipmentModelList}}"
-                              HorizontalOptions="End"
-                              VerticalOptions="Center">
-                        <mr:Label.Triggers>
+                              VerticalOptions="Center"
+                              HorizontalOptions="End">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                  Glyph="{x:Static icons:MaterialDesignIcons.Delete}"
+                                                  Size="40"
+                                                  Color="{StaticResource Title}" />
+                        </Image.Source>
+                        <mr:Image.Triggers>
                             <EventTrigger Event="Down">
                                 <act:ScaleDownTriggerAction />
                             </EventTrigger>
                             <EventTrigger Event="Up">
                                 <act:ScaleUpTriggerAction />
                             </EventTrigger>
-                        </mr:Label.Triggers>
-                    </mr:Label>
-
-                </StackLayout>
+                        </mr:Image.Triggers>
+                    </mr:Image>
+                </Grid>
             </DataTemplate>
             <ts:EquipmentTemplateSelector x:Key="EquipmentTemplateSelector"
                                           DefaultTemplate="{StaticResource EquipmentTypeTemplate}"
@@ -368,19 +392,60 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS">0, 20, 0, 0</On>
+            <On Platform="Android">0, 0, 0, 0</On>
+            <On Platform="UWP">0, 0, 0, 0</On>
+        </OnPlatform>
+    </ContentPage.Padding>
     <ContentPage.Content>
-        <StackLayout x:Name="mainLayout">
-            <!--Equipment Types-->
-            <ScrollView Margin="10">
-                <StackLayout HorizontalOptions="FillAndExpand">
-                  <SearchBar HorizontalOptions="FillAndExpand"
+        <StackLayout BackgroundColor="White"
+                 Spacing="0">
+            <!--****************-->
+            <!-- Navigation Bar -->
+            <!--****************-->
+            <AbsoluteLayout BackgroundColor="{StaticResource Primary}"
+                          HeightRequest="60"
+                          MinimumHeightRequest="60"
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="Fill">
+                <mycc:AnimatedButton AbsoluteLayout.LayoutBounds="0, 0.5, .25, 1"
+                                     AbsoluteLayout.LayoutFlags="All"
+                                     TouchUpCommand="{Binding GoBackCommand}">
+                    <Image AbsoluteLayout.LayoutBounds="0, 0.5, .50, 1"
+                           Aspect="AspectFit"
+                           AbsoluteLayout.LayoutFlags="All">
+                        <Image.Source>
+                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                  Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
+                                                  Size="40"
+                                                  Color="{StaticResource Title}" />
+                        </Image.Source>
+                    </Image>
+                </mycc:AnimatedButton>
+                <Label Text="{Binding Title}"
+                           TextColor="{StaticResource Title}"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                           AbsoluteLayout.LayoutFlags="PositionProportional" />
+            </AbsoluteLayout>
+            <AbsoluteLayout x:Name="mainLayout"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <!--Equipment Types-->
+                <ScrollView Margin="10"
+                            AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <SearchBar HorizontalOptions="FillAndExpand"
                              IsVisible="{Binding ShowSearchTerm}"
                              Placeholder="Search for a model"
                              Text="{Binding SearchTerm}"
                              SearchCommand="{Binding ApplyFilterCommand}"
                              BackgroundColor="#f7f7f7"/>
-                  <FlexLayout x:Name="EquipmentType"
-                              
+                        <FlexLayout x:Name="EquipmentType"
                               BindableLayout.ItemsSource="{Binding EquipmentTypes}"
                               JustifyContent="SpaceBetween"
                               Direction="Row"
@@ -388,55 +453,56 @@
                               AlignItems="Start"
                               AlignContent="Start"
                               BindableLayout.ItemTemplateSelector="{StaticResource EquipmentTemplateSelector}">
-                      
-                  </FlexLayout>
-                </StackLayout>
-            </ScrollView>
-            <!--Date installed-->
-            <mycc:CustomDatePicker x:Name="DateInstalledPicker"
+
+                        </FlexLayout>
+                    </StackLayout>
+                </ScrollView>
+                <!--Date installed-->
+                <mycc:CustomDatePicker x:Name="DateInstalledPicker"
                                    IsVisible="False"
                                    VerticalOptions="CenterAndExpand"
                                    PlaceHolder="Date Installed"
                                    NullableDate="{Binding Equiopment.DateInstalled,Mode=TwoWay}">
-                <DatePicker.MinimumDate>
-                    <system:DateTime x:FactoryMethod="Parse">
-                        <x:Arguments>
-                            <x:String>Jan 1 1950</x:String>
-                        </x:Arguments>
-                    </system:DateTime>
-                </DatePicker.MinimumDate>
-                <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
-            </mycc:CustomDatePicker>
-            <!--Date WarrantyExpiration-->
-            <mycc:CustomDatePicker x:Name="WarrantyExpirationPicker"
+                    <DatePicker.MinimumDate>
+                        <system:DateTime x:FactoryMethod="Parse">
+                            <x:Arguments>
+                                <x:String>Jan 1 1950</x:String>
+                            </x:Arguments>
+                        </system:DateTime>
+                    </DatePicker.MinimumDate>
+                    <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
+                </mycc:CustomDatePicker>
+                <!--Date WarrantyExpiration-->
+                <mycc:CustomDatePicker x:Name="WarrantyExpirationPicker"
                                    IsVisible="False"
                                    VerticalOptions="CenterAndExpand"
                                    PlaceHolder="Warrant Expiration"
                                    NullableDate="{Binding Equiopment.WarrantyExpiration,Mode=TwoWay}">
-                <DatePicker.MinimumDate>
-                    <system:DateTime x:FactoryMethod="Parse">
-                        <x:Arguments>
-                            <x:String>Jan 1 1950</x:String>
-                        </x:Arguments>
-                    </system:DateTime>
-                </DatePicker.MinimumDate>
-                <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
-            </mycc:CustomDatePicker>
-            <!--Date LastMaintenance-->
-            <mycc:CustomDatePicker x:Name="LastMaintenancePicker"
+                    <DatePicker.MinimumDate>
+                        <system:DateTime x:FactoryMethod="Parse">
+                            <x:Arguments>
+                                <x:String>Jan 1 1950</x:String>
+                            </x:Arguments>
+                        </system:DateTime>
+                    </DatePicker.MinimumDate>
+                    <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
+                </mycc:CustomDatePicker>
+                <!--Date LastMaintenance-->
+                <mycc:CustomDatePicker x:Name="LastMaintenancePicker"
                                    IsVisible="False"
                                    VerticalOptions="CenterAndExpand"
                                    PlaceHolder="Last Maintenance"
                                    NullableDate="{Binding Equiopment.LastMaintenance,Mode=TwoWay}">
-                <DatePicker.MinimumDate>
-                    <system:DateTime x:FactoryMethod="Parse">
-                        <x:Arguments>
-                            <x:String>Jan 1 1950</x:String>
-                        </x:Arguments>
-                    </system:DateTime>
-                </DatePicker.MinimumDate>
-                <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
-            </mycc:CustomDatePicker>
+                    <DatePicker.MinimumDate>
+                        <system:DateTime x:FactoryMethod="Parse">
+                            <x:Arguments>
+                                <x:String>Jan 1 1950</x:String>
+                            </x:Arguments>
+                        </system:DateTime>
+                    </DatePicker.MinimumDate>
+                    <DatePicker.Format>MM/dd/yyyy</DatePicker.Format>
+                </mycc:CustomDatePicker>
+            </AbsoluteLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

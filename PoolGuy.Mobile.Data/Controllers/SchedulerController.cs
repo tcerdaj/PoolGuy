@@ -21,13 +21,16 @@ namespace PoolGuy.Mobile.Data.Controllers
         {
             try
             {
-                List<SchedulerModel> list = criteria == null? await LocalData.List() : await LocalData.List(criteria);
+                List<SchedulerModel> list = criteria == null
+                    ? await LocalData.List().ConfigureAwait(false) 
+                    : await LocalData.List(criteria).ConfigureAwait(false);
 
                 foreach (var model in list)
                 {
                     await SQLiteControllerBase
                       .DatabaseAsync
-                      .GetChildrenAsync(model, true);
+                      .GetChildrenAsync(model, true)
+                      .ConfigureAwait(false);
                 }
 
                 return list;
@@ -88,7 +91,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                 else
                 {
                     var tempModel = (SchedulerModel)new SchedulerModel().InjectFrom(model);
-                    model = await LoadAsync(model.Id);
+                    model = await LoadAsync(model.Id).ConfigureAwait(false);
                     model.InjectFrom(tempModel);
                     model.Modified = DateTime.Now.ToUniversalTime();
                 }
@@ -112,8 +115,12 @@ namespace PoolGuy.Mobile.Data.Controllers
                     return false;
                 }
 
-                var item = await LoadAsync(model.Id);
-                SQLiteNetExtensions.Extensions.WriteOperations.Delete(SQLiteControllerBase.DatabaseAsync.GetConnection(), item, true);
+                var item = await LoadAsync(model.Id).ConfigureAwait(false);
+                
+                SQLiteNetExtensions
+                    .Extensions
+                    .WriteOperations
+                    .Delete(SQLiteControllerBase.DatabaseAsync.GetConnection(), item, true);
 
                 return true;
             }
@@ -133,11 +140,13 @@ namespace PoolGuy.Mobile.Data.Controllers
                 }
 
                 // load customer
-                var model = await LocalData.Load(id);
+                var model = await LocalData.Load(id).ConfigureAwait(false);
 
                 // load foreing key fields
-                await SQLiteControllerBase.DatabaseAsync.GetChildrenAsync<SchedulerModel>(model, true);
-
+                await SQLiteControllerBase
+                    .DatabaseAsync
+                    .GetChildrenAsync<SchedulerModel>(model, true).ConfigureAwait(false);
+                
                 return model;
             }
             catch (Exception e)

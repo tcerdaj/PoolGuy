@@ -36,18 +36,7 @@ namespace PoolGuy.Mobile.Services
 
         public Page CurrentPage 
         {
-            get 
-            {
-                var index = _navigation.Navigation.NavigationStack.Count - 1;
-                if (index < 0)
-                {
-                    return null;
-                }
-                else
-                {
-                    return _navigation.Navigation.NavigationStack[index];
-                }
-            } 
+            get;set;
         }
 
         public void Configure(string pageKey, Type pageType)
@@ -108,6 +97,8 @@ namespace PoolGuy.Mobile.Services
                         var pageKey = _pagesByKey.First(p => p.Value == page.GetType()).Key;
                         Debug.WriteLine($"CloseModal():PageKey({pageKey})");
                     }
+
+                    CurrentPage = _navigation.CurrentPage;
 
                     AppStateController.PopViewState();
                 }
@@ -233,6 +224,7 @@ namespace PoolGuy.Mobile.Services
                         }
 
                         SavePreviousPageState(currentPageKey);
+                        CurrentPage = page;
                     }
                     else
                     {
@@ -287,6 +279,7 @@ namespace PoolGuy.Mobile.Services
                     }
 
                     SavePreviousPageState(currentPageKey);
+                    CurrentPage = page;
                 }
                 catch (Exception ex)
                 {
@@ -325,6 +318,8 @@ namespace PoolGuy.Mobile.Services
                         await Rg.Plugins.Popup.Services.PopupNavigation.Instance.RemovePageAsync(_popUp, animate);
                         _popUp = null;
                     }
+
+                    CurrentPage = _navigation.CurrentPage;
                 }
                 catch (Exception ex)
                 {
@@ -348,6 +343,8 @@ namespace PoolGuy.Mobile.Services
                     }
 
                     await _navigation.Navigation.PopToRootAsync(false);
+
+                    CurrentPage = _navigation.CurrentPage;
 
                     AppStateController.ClearNavigationMetaStack();
                 }
@@ -441,6 +438,7 @@ namespace PoolGuy.Mobile.Services
                             {
                                 await RemovePopupAsync(animate, _popUp);
                                 _popUp = null;
+                                CurrentPage = _navigation.CurrentPage;
                             };
                         }
 
@@ -448,9 +446,11 @@ namespace PoolGuy.Mobile.Services
                         {
                             await RemovePopupAsync(animate, _popUp);
                             _popUp = null;
+                            CurrentPage = _navigation.CurrentPage;
                         });
 
                         await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(_popUp, animate);
+                        CurrentPage = _popUp;
                     }
                     else
                     {
