@@ -258,7 +258,7 @@
                         </mr:Frame>
                         <Button Grid.Row="8"
                               Grid.Column="1"
-                              Text="Equipment"
+                              Text="Save"
                               CornerRadius="15"
                               Command="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.SaveEquipmentCommand}"
                               TextColor="{StaticResource Primary}"

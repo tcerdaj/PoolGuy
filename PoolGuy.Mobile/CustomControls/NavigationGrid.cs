@@ -149,8 +149,6 @@ namespace PoolGuy.Mobile.CustomControls
                 }
 
                 // Add stacklayout
-                
-
                 AbsoluteLayout.SetLayoutFlags(stack, AbsoluteLayoutFlags.PositionProportional);
                 AbsoluteLayout.SetLayoutBounds(stack, new Rectangle(.5f, .5f, AbsoluteLayout.AutoSize, AbsoluteLayout.AutoSize));
 
@@ -158,7 +156,7 @@ namespace PoolGuy.Mobile.CustomControls
                 ColorImage icon = new ColorImage()
                 {
                     Source = page.Value,
-                    Foreground = i == pages.ToList().FindIndex(x => x.Key == Current) ? SelectedColor : UnSelectedColor,
+                    Foreground = Current.Contains(page.Key) ? SelectedColor : UnSelectedColor,
                     HeightRequest = 30,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Start
@@ -172,7 +170,7 @@ namespace PoolGuy.Mobile.CustomControls
                     Text = page.Key,
                     FontSize = 12,
                     HorizontalOptions = LayoutOptions.Center,
-                    TextColor = i == pages.ToList().FindIndex(x => x.Key == Current) ? SelectedColor : UnSelectedColor
+                    TextColor = Current.Contains(page.Key) ? SelectedColor : UnSelectedColor
                 };
 
                 // Add heading label to stack

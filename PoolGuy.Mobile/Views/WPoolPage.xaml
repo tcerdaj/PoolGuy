@@ -143,9 +143,9 @@
                                           CommandParameter="{Binding BindingContext, Source={x:Reference DeleteEquipment}}">
                                     <ImageButton.Source>
                                         <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                                         Size="30"
-                                                         Color="Red"
-                                                         Glyph="{x:Static icons:MaterialDesignIcons.Delete}"/>
+                                                         Size="40"
+                                                         Color="{StaticResource UnselectedColor}"
+                                                         Glyph="{x:Static icons:MaterialDesignIcons.DeleteCircleOutline}"/>
                                     </ImageButton.Source>
                                 </ImageButton>
                                 <mr:Image x:Name="CurrentEquipmentTemplate" 

@@ -28,7 +28,6 @@ namespace PoolGuy.Mobile.iOS
             
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
-            global::Xamarin.FormsMaps.Init();
             var apikey = NSBundle.MainBundle.ObjectForInfoDictionary("CFGoogleApiKey");
             Xamarin.FormsGoogleMaps.Init(apikey.ToString());
             global::Xamarin.Forms.FormsMaterial.Init();

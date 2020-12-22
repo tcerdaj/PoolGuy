@@ -108,7 +108,7 @@ namespace PoolGuy.Mobile.ViewModels
             });
         }
 
-        public async void InitEquipment()
+        public async void InitEquipment(FlexLayout flexlayout)
         {
             try
             {
@@ -117,7 +117,6 @@ namespace PoolGuy.Mobile.ViewModels
                     return;
                 }
 
-                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
                 if (flexlayout == null)
                 {
                     return;
@@ -215,7 +214,7 @@ namespace PoolGuy.Mobile.ViewModels
                         break;
                     case Enums.ePage.SelectEquipment:
                         Globals.CurrentPage = Enums.ePage.Customer;
-                        //await NavigationService.PopPopupAsync(false);
+                        Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
                         await NavigationService.CloseModal();
                         break;
                     case Enums.ePage.SelectManufacture:
@@ -235,6 +234,7 @@ namespace PoolGuy.Mobile.ViewModels
                         if (Equipment.Id != Guid.Empty)
                         {
                             Globals.CurrentPage = Enums.ePage.Customer;
+                            Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
                             await NavigationService.CloseModal(false);
                             return;
                         }
@@ -478,7 +478,7 @@ namespace PoolGuy.Mobile.ViewModels
                 }
                 else
                 {
-                    Globals.CurrentPage = Enums.ePage.EquipmentSelectModel;
+                    Globals.CurrentPage = Enums.ePage.AddEquipment;
                 }
 
                 BindableLayout.SetItemsSource(flexlayout, (Globals.CurrentPage == Enums.ePage.EquipmentSelectModel ? equipments : new List<EquipmentModel> { Equipment }));

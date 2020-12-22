@@ -44,7 +44,7 @@ namespace PoolGuy.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.InitEquipment();
+            _viewModel.InitEquipment(EquipmentType);
             DateInstalledPicker.DateSelected += DateInstalledPicker_DateSelected;
             WarrantyExpirationPicker.DateSelected += DateInstalledPicker_DateSelected;
             LastMaintenancePicker.DateSelected += DateInstalledPicker_DateSelected;

@@ -25,6 +25,7 @@ namespace PoolGuy.Mobile.TemplateSelector
                         result = ManufactureTemplate;
                         break;
                     case Data.Models.Enums.ePage.Equipment:
+                    case Data.Models.Enums.ePage.AddEquipment:
                         result = EquipmentTemplate;
                         break;
                     default:
