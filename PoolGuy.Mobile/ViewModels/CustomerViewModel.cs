@@ -355,8 +355,6 @@ namespace PoolGuy.Mobile.ViewModels
 
         public ICommand GoBackCommand => new RelayCommand(async () =>
         {
-            //Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
-
             if (WasModified)
             {
                 if (!await Message.DisplayConfirmationAsync("Warning", "Are you sure to exit without saving the changes?", "Exit", "Cancel"))
@@ -367,8 +365,8 @@ namespace PoolGuy.Mobile.ViewModels
                 }
             }
 
+            Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
             await NavigationService.CloseModal(false);
-            //Shell.Current.SendBackButtonPressed();
         });
 
         public ICommand GoToPageCommand

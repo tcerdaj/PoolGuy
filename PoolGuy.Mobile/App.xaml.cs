@@ -146,7 +146,7 @@ namespace PoolGuy.Mobile
             base.OnStart();
 
             var result = await DependencyService.Get<IPermissionService>()
-                    .CheckPermissions(Permission.Storage);
+                    .CheckPermissions(Permission.Storage, Permission.Location);
 
             if (!result.Any(x => x.Value == Plugin.Permissions.Abstractions.PermissionStatus.Granted))
             {

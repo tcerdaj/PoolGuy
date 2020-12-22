@@ -223,6 +223,7 @@ namespace PoolGuy.Mobile.ViewModels
                         BindableLayout.SetItemsSource(flexlayout, EquipmentTypes);
                         break;
                     case Enums.ePage.Equipment:
+                    case Enums.ePage.AddEquipment:
                     case Enums.ePage.EquipmentSelectModel:
                         if (Title == "Add Model Equipment")
                         {

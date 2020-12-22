@@ -163,7 +163,8 @@
                     </CarouselView>
                     <!--Navigation Arrows-->
                     <Grid HorizontalOptions="FillAndExpand"
-                  VerticalOptions="End">
+                          VerticalOptions="End"
+                          Margin="0,10,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -172,11 +173,13 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0" 
-                        HorizontalOptions="Start"
-                        x:Name="PreviusButton"
-                        Margin="0"
-                        Clicked="PreviusButton_Clicked"
-                        BackgroundColor="{StaticResource Title}">
+                                HorizontalOptions="Start"
+                                HeightRequest="50"
+                                CornerRadius="6"
+                                x:Name="PreviusButton"
+                                Margin="0"
+                                Clicked="PreviusButton_Clicked"
+                                BackgroundColor="{StaticResource Title}">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
@@ -185,13 +188,15 @@
                             </Button.ImageSource>
                         </Button>
                         <Button Grid.Column="1" 
-                        HorizontalOptions="End"
-                        x:Name="NextButton"
-                        Margin="0"
-                        TextColor="{StaticResource Primary}"
-                        VerticalOptions="Center"
-                        Clicked="NextButton_Clicked"
-                        BackgroundColor="{StaticResource Title}">
+                                HorizontalOptions="End"
+                                HeightRequest="50"
+                                CornerRadius="6"
+                                x:Name="NextButton"
+                                Margin="0"
+                                TextColor="{StaticResource Primary}"
+                                VerticalOptions="Center"
+                                Clicked="NextButton_Clicked"
+                                BackgroundColor="{StaticResource Title}">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.ChevronRight}"

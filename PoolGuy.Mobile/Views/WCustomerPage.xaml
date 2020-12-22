@@ -57,8 +57,6 @@
                                      Source="{Binding Customer.ImageUrl, Converter={StaticResource ImageUrlConverter}}">
                         </ImageButton>
                     </Frame>
-                            
-
                     <!--FirstName-->
                             <Frame Grid.Row="0" 
                                    Grid.Column="1">

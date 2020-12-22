@@ -211,10 +211,13 @@ namespace PoolGuy.Mobile.Data.Controllers
                 var model = await LocalData.Load(id).ConfigureAwait(false);
 
                 // load foreing key fields
-                await SQLiteControllerBase
-                    .DatabaseAsync
-                    .GetChildrenAsync<CustomerModel>(model, true)
-                    .ConfigureAwait(false);
+                if (model != null)
+                {
+                    await SQLiteControllerBase
+                        .DatabaseAsync
+                        .GetChildrenAsync<CustomerModel>(model, true)
+                        .ConfigureAwait(false);
+                }
 
                 return model;
             }

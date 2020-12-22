@@ -137,37 +137,38 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50*"/>
-                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
                         </Grid.ColumnDefinitions>
                         <Image Grid.Row="0"
-                           Grid.Column="0"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Start"
-                           Source="{Binding ImageUrl}"/>
-                        <Frame Grid.Row="1"
-                           Grid.ColumnSpan="2"
-                           BackgroundColor="LightGray"
-                           BorderColor="DarkGray"
-                           HasShadow="False"
-                           Margin="5">
+                               Grid.Column="0"
+                               Grid.RowSpan="2"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               Source="{Binding ImageUrl}"/>
+                        <Frame Grid.Row="0"
+                               Grid.Column="1"
+                               BackgroundColor="LightGray"
+                               BorderColor="DarkGray"
+                               HasShadow="False"
+                               Margin="5">
                             <mycc:CustomEntry HorizontalOptions="FillAndExpand"
-                                          IsReadOnly="True"
-                                          Placeholder="Type"
-                                          Text="{Binding Type.Name}"/>
+                                              IsReadOnly="True"
+                                              Placeholder="Type"
+                                              Text="{Binding Type.Name}"/>
                         </Frame>
-                        <Frame Grid.Row="2"
-                           Grid.ColumnSpan="2"
-                           BackgroundColor="LightGray"
-                           BorderColor="DarkGray"
-                           HasShadow="False"
-                           Margin="5">
+                        <Frame Grid.Row="1"
+                               Grid.Column="1"
+                               BackgroundColor="LightGray"
+                               BorderColor="DarkGray"
+                               HasShadow="False"
+                               Margin="5">
                             <mycc:CustomEntry HorizontalOptions="FillAndExpand"
                                           IsReadOnly="True"
                                           Placeholder="Manufacture"
                                           Text="{Binding Manufacture.Name}"/>
                         </Frame>
-                        <Frame Grid.Row="3"
+                        <Frame Grid.Row="2"
                            Grid.ColumnSpan="2"
                            BorderColor="DarkGray"
                            HasShadow="False"
@@ -181,7 +182,7 @@
                                           NextCommand="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.NextCommand}"
                                           NextCommandParameter="SerialNumber"/>
                         </Frame>
-                        <Frame Grid.Row="4"
+                        <Frame Grid.Row="3"
                            Grid.ColumnSpan="2"
                            BorderColor="DarkGray"
                            HasShadow="False"
@@ -193,7 +194,7 @@
                                           ReturnType="Done"
                                           HasDone="True"/>
                         </Frame>
-                        <mr:Frame Grid.Row="5"
+                        <mr:Frame Grid.Row="4"
                               Grid.ColumnSpan="2"
                               BorderColor="DarkGray"
                               HasShadow="False"
@@ -214,7 +215,7 @@
                                        FontSize="30"/>
                             </StackLayout>
                         </mr:Frame>
-                        <mr:Frame Grid.Row="6"
+                        <mr:Frame Grid.Row="5"
                               Grid.ColumnSpan="2"
                               BorderColor="DarkGray"
                               HasShadow="False"
@@ -235,7 +236,7 @@
                                        FontSize="30"/>
                             </StackLayout>
                         </mr:Frame>
-                        <mr:Frame Grid.Row="7"
+                        <mr:Frame Grid.Row="6"
                               Grid.ColumnSpan="2"
                               BorderColor="DarkGray"
                               HasShadow="False"
@@ -256,15 +257,18 @@
                                        FontSize="30"/>
                             </StackLayout>
                         </mr:Frame>
-                        <Button Grid.Row="8"
-                              Grid.Column="1"
-                              Text="Save"
-                              CornerRadius="15"
-                              Command="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.SaveEquipmentCommand}"
-                              TextColor="{StaticResource Primary}"
-                              FontSize="Medium"
-                              TextTransform="None"
-                              BackgroundColor="{StaticResource Title}">
+                        <Button Grid.Row="7"
+                                Grid.Column="1"
+                                Text="Save"
+                                Margin="0,15,0,0"
+                                HeightRequest="50"
+                                CornerRadius="6"
+                                Command="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.SaveEquipmentCommand}"
+                                TextColor="{StaticResource Primary}"
+                                FontSize="Medium"
+                                HorizontalOptions="End"
+                                TextTransform="None"
+                                BackgroundColor="{StaticResource Title}">
                             <Button.ImageSource>
                                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.Plus}"
@@ -272,22 +276,18 @@
                                          Color="{StaticResource Primary}" />
                             </Button.ImageSource>
                         </Button>
-                        <Button Grid.Row="8"
+                        <Button Grid.Row="7"
                                 Grid.Column="0"
+                                Margin="0,15,0,0"
+                                HeightRequest="50"
                                 Text="Cancel"
-                                CornerRadius="15"
+                                HorizontalOptions="Start"
+                                CornerRadius="6"
                                 Command="{Binding Source={x:Reference MainEquipmentPage}, Path=BindingContext.GoBackCommand}"
                                 BorderColor="{StaticResource UnselectedColor}"
                                 FontSize="Medium"
                                 TextTransform="None"
-                                BackgroundColor="{StaticResource ExtraLightGray}">
-                            <Button.ImageSource>
-                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                         Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
-                                         Size="40"
-                                         Color="{StaticResource UnselectedColor}" />
-                            </Button.ImageSource>
-                        </Button>
+                                BackgroundColor="{StaticResource ExtraLightGray}"/>
                     </Grid>
                 </ScrollView>
             </DataTemplate>
