@@ -10,6 +10,7 @@ using Xamarin.Forms.GoogleMaps;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 namespace PoolGuy.Mobile.Extensions
 {
@@ -126,6 +127,22 @@ namespace PoolGuy.Mobile.Extensions
             int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return $"{(Math.Sign(byteCount) * num)} {suf[place]}";
+        }
+
+        public static async Task<T> WaitOrCancel<T>(this Task<T> task, CancellationToken token)
+        {
+            token.ThrowIfCancellationRequested();
+            await Task.WhenAny(task, token.WhenCanceled());
+            token.ThrowIfCancellationRequested();
+
+            return await task;
+        }
+
+        public static Task WhenCanceled(this CancellationToken cancellationToken)
+        {
+            var tcs = new TaskCompletionSource<bool>();
+            cancellationToken.Register(s => ((TaskCompletionSource<bool>)s).SetResult(true), tcs);
+            return tcs.Task;
         }
     }
 }

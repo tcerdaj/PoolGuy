@@ -1,5 +1,7 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
+using PoolGuy.Mobile.Data.Helpers;
+using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
@@ -12,15 +14,14 @@ namespace PoolGuy.Mobile.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : MasterDetailPage
     {
-        private static CustomerViewModel viewModel;
+        private static HomeViewModel _viewModel;
         public MainPage()
         {
             InitializeComponent();
 
-            viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
-
-            BindingContext = viewModel;
-
+            _viewModel = ServiceLocator.Current.GetInstance<HomeViewModel>();
+            
+            BindingContext = _viewModel;
             this.IsPresented = false;
         }
 

@@ -14,6 +14,10 @@ using Microcharts;
 using SkiaSharp;
 using System.Diagnostics;
 using PoolGuy.Mobile.Data.Models;
+using Plugin.Permissions.Abstractions;
+using PoolGuy.Mobile.Extensions;
+using Plugin.Permissions;
+using System.Threading;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -95,7 +99,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await SetWeather();
+               await SetWeather();
             }
             catch (Exception e)
             {
@@ -126,7 +130,6 @@ namespace PoolGuy.Mobile.ViewModels
             if (storagedWeather.Any())
             {
                 Weather = storagedWeather.FirstOrDefault();
-                
             }
             else
             {
@@ -140,9 +143,9 @@ namespace PoolGuy.Mobile.ViewModels
                     }
                     catch (Exception e)
                     {
-                        Weather =  (await new WeatherController().LocalData.List().ConfigureAwait(false)).LastOrDefault();
+                        Weather = (await new WeatherController().LocalData.List().ConfigureAwait(false)).LastOrDefault();
                     }
-                    
+
                     if (weather != null && Weather == null)
                     {
                         Weather = new WeatherModel
@@ -157,7 +160,7 @@ namespace PoolGuy.Mobile.ViewModels
                 }
             }
 
-            if(Weather != null)
+            if (Weather != null)
             {
                 Temperature = new LineChart
                 {
@@ -181,8 +184,6 @@ namespace PoolGuy.Mobile.ViewModels
 
                 OnPropertyChanged("TempColor");
             }
-
-            await Task.Delay(100);
         }
 
         private WeatherModel _weatherRoot;

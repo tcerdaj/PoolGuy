@@ -1,8 +1,10 @@
-﻿using PoolGuy.Mobile.Data.Helpers;
+﻿using Plugin.Permissions.Abstractions;
+using PoolGuy.Mobile.Data.Helpers;
 using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.Views
@@ -37,19 +39,10 @@ namespace PoolGuy.Mobile.Views
             };
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (!Settings.IsLoggedIn && !Settings.IsLoggingIn)
-            {
-                await _viewModel.NavigationService.NavigateToDialog(Locator.Login);
-                await _viewModel.NavigationService.CloseModal();
-                return;
-            }
-            else
-            {
-                await _viewModel.Initialize();
-            }
+           
         }
 
         protected override void OnDisappearing()

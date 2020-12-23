@@ -19,6 +19,8 @@ using PoolGuy.Mobile.Controllers;
 using System;
 using System.Diagnostics;
 using SQLite;
+using PoolGuy.Mobile.Extensions;
+using System.Threading;
 
 namespace PoolGuy.Mobile
 {
@@ -40,9 +42,9 @@ namespace PoolGuy.Mobile
                 SimpleIoc.Default.Register<IUserDialogs>(() => new UserDialogs());
             }
 
-            if (!SimpleIoc.Default.IsRegistered<CustomerViewModel>())
+            if (!SimpleIoc.Default.IsRegistered<HomeViewModel>())
             {
-                SimpleIoc.Default.Register<CustomerViewModel>(true);
+                SimpleIoc.Default.Register<HomeViewModel>(true);
             }
 
             if (!SimpleIoc.Default.IsRegistered<CustomerPageViewModel>())
@@ -70,6 +72,7 @@ namespace PoolGuy.Mobile
             if(Settings.IsLoggedIn)
             {
                 MainPage = new MainPage();
+                Notify.RaiseHomeAction(new Messages.RefreshMessage());
             }
             else
             {
@@ -112,6 +115,7 @@ namespace PoolGuy.Mobile
         {
             try
             {
+              
                 if (SQLiteControllerBase.DatabaseAsync.TableMappings.All(m => m.MappedType.Name != typeof(CustomerSchedulerModel).Name))
                 {
                     await SQLiteControllerBase.DatabaseAsync.CreateTableAsync(typeof(CustomerSchedulerModel), CreateFlags.None);
@@ -143,18 +147,15 @@ namespace PoolGuy.Mobile
 
         protected override async void OnStart()
         {
-            base.OnStart();
-
             var result = await DependencyService.Get<IPermissionService>()
-                    .CheckPermissions(Permission.Storage, Permission.Location);
+                .CheckPermissions(Permission.Storage);
 
-            if (!result.Any(x => x.Value == Plugin.Permissions.Abstractions.PermissionStatus.Granted))
+            if(!result.Any(x=>x.Value == Plugin.Permissions.Abstractions.PermissionStatus.Granted))
             {
                 return;
             }
 
             await CreateTablesAsync();
-            
             var navigationService = SimpleIoc.Default.GetInstance<INavigationService>();
             var navList = AppStateController.RestoreState();
             AppStateController.ClearNavigationMetaStack();
@@ -170,6 +171,8 @@ namespace PoolGuy.Mobile
                         break;
                 }
             }
+
+            base.OnStart();
         }
 
         protected override void OnSleep()

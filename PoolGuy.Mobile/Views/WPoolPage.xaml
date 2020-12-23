@@ -126,7 +126,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                     <DataTemplate>
-                            <Grid >
+                            <Grid Margin="0,0,20,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -173,20 +173,12 @@
                                     </mr:Image>
                                 <Label Grid.Row="1"
                                        Grid.ColumnSpan="2"
-                                       Text="{Binding Type.Name}"
-                                       Margin="0,-20,0,0"
+                                       Margin="20,0"
+                                       Text="{Binding EquipmentFullName}"
+                                       LineBreakMode="WordWrap"
                                        VerticalOptions="Center"
                                        HorizontalTextAlignment="Center"
                                        HorizontalOptions="FillAndExpand">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="{Binding Type.Name}"/>
-                                            <Span Text="/"/>
-                                            <Span Text="{Binding Manufacture.Name}"/>
-                                            <Span Text="-"/>
-                                            <Span Text="{Binding Model}"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
                                 </Label>
                             </Grid>
                         </DataTemplate>

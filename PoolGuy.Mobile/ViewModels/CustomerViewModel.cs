@@ -522,8 +522,8 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                var action = await Shell.Current.DisplayActionSheet("Select Image Source", "Cancel", null, null, "Gallery",
-                            "Camera");
+                var action = await Message.DisplayActionSheetAsync("Select Image Source", "Cancel", 
+                    "Gallery", "Camera");
                 if (string.IsNullOrEmpty(action) || action == "Cancel")
                 {
                     return;

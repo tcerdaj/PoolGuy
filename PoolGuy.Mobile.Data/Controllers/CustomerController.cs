@@ -209,6 +209,14 @@ namespace PoolGuy.Mobile.Data.Controllers
 
                 // load customer
                 var model = await LocalData.Load(id).ConfigureAwait(false);
+                var m = await LocalData.List(new SQLControllerListCriteriaModel {
+                  Filter = new List<SQLControllerListFilterField>
+                  {
+                      new SQLControllerListFilterField{
+                          FieldName = "Id",
+                          ValueLBound = id.ToString()
+                      }
+                  }});
 
                 // load foreing key fields
                 if (model != null)

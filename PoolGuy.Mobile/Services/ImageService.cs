@@ -32,7 +32,6 @@ namespace PoolGuy.Mobile.Services
                     return null;
                 }
 
-
                 if (action == "Gallery")
                 {
                     photo = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new PickMediaOptions()

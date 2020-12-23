@@ -69,5 +69,34 @@ namespace PoolGuy.Mobile.Data.Models
         public DateTime? LastMaintenance { get { return _lastMaintenance; } set { _lastMaintenance = value; OnPropertyChanged("LastMaintenance"); } }
         public string Field1 { get; set; }
         public string Field2 { get; set; }
+
+        public string EquipmentFullName
+        {
+            get 
+            {
+                try
+                {
+                    string equipmentFullName = null;
+                    if (Type != null)
+                    {
+                        equipmentFullName = Type.Name;
+                    }
+
+                    if (Manufacture != null)
+                    {
+                        equipmentFullName += $"/{Manufacture.Name}";
+                    }
+
+                    equipmentFullName += $"-{Model}";
+
+                    return equipmentFullName;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e);
+                    return null;
+                }
+            }
+        }
     }
 }
