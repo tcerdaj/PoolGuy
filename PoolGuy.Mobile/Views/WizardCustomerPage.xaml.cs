@@ -21,7 +21,7 @@ namespace PoolGuy.Mobile.Views
             try
             {
                 InitializeComponent();
-                _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
+                _viewModel = new CustomerViewModel();
                 _viewModel.InitPages();
                 BindingContext = _viewModel;
                 _primaryColor = (Color)Application.Current.Resources["Primary"];

@@ -6,7 +6,7 @@
              xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
              xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" 
-             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls" xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:ffTransformation="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              Title="{Binding Title}">
     
     <ContentPage.Resources>
@@ -200,9 +200,13 @@
                                           HasShadow="False"
                                           IsClippedToBounds="True"
                                           Margin="0">
-                                            <Image Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
-                                           VerticalOptions="CenterAndExpand"
-                                           HorizontalOptions="CenterAndExpand"/>
+                                            <ff:CachedImage Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
+                                                                HeightRequest="70"
+                                                                WidthRequest="70">
+                                                <ff:CachedImage.Transformations>
+                                                    <ffTransformation:RoundedTransformation Radius="240"/>
+                                                </ff:CachedImage.Transformations>
+                                            </ff:CachedImage>
                                         </mr:Frame>
                                         <!--Customer Name-->
                                         <Label Text="{Binding Name}"

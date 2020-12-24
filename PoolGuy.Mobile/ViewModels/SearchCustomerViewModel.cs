@@ -213,9 +213,6 @@ namespace PoolGuy.Mobile.ViewModels
 
         private async Task DisplayImage(CustomerModel customer)
         {
-            if (IsBusy) { return; }
-            IsBusy = true;
-
             try
             {
                 await Message.DisplayActionSheetCustomAsync(customer.Name, "Ok", Models.eContentType.ImageUrl, customer.ImageUrl);
@@ -224,10 +221,6 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 Debug.WriteLine(e);
                 await Message.DisplayAlertAsync(Title, e.Message, "Ok");
-            }
-            finally
-            {
-                IsBusy = false;
             }
         }
 
