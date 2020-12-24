@@ -365,8 +365,8 @@ namespace PoolGuy.Mobile.ViewModels
                 }
             }
 
-            Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
             await NavigationService.CloseModal(false);
+            Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
         });
 
         public ICommand GoToPageCommand

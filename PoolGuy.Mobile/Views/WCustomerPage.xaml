@@ -53,6 +53,7 @@
                            BorderColor="Transparent">
                         <ImageButton BackgroundColor="Transparent"
                                      Clicked="ImageButton_Clicked"
+                                     HeightRequest="60"
                                      Aspect="AspectFit"
                                      Source="{Binding Customer.ImageUrl, Converter={StaticResource ImageUrlConverter}}">
                         </ImageButton>

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
 using Plugin.Permissions;
+using FFImageLoading.Forms.Platform;
 
 namespace PoolGuy.Mobile.Droid
 {
@@ -32,6 +33,7 @@ namespace PoolGuy.Mobile.Droid
             Rg.Plugins.Popup.Popup.Init(this);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            CachedImageRenderer.Init(true);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             Xamarin.FormsMaps.Init(this, savedInstanceState);

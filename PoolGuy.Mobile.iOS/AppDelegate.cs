@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using FFImageLoading.Forms.Platform;
 using Foundation;
 using UIKit;
 
@@ -28,6 +28,7 @@ namespace PoolGuy.Mobile.iOS
             
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
+            CachedImageRenderer.Init();
             var apikey = NSBundle.MainBundle.ObjectForInfoDictionary("CFGoogleApiKey");
             Xamarin.FormsGoogleMaps.Init(apikey.ToString());
             global::Xamarin.Forms.FormsMaterial.Init();

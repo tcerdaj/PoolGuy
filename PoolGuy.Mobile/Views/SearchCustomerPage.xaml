@@ -2,9 +2,13 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.SearchCustomerPage"
-             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ffTransformation="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
-             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
+             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddCommand}" />
@@ -116,9 +120,13 @@
                                                    TappedCommandParameter="{Binding BindingContext, Source={x:Reference ListTemplate}}"
                                                    IsClippedToBounds="True"
                                                    Margin="0">
-                                                <Image Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
-                                                       VerticalOptions="CenterAndExpand"
-                                                       HorizontalOptions="CenterAndExpand"/>
+                                                <ff:CachedImage Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
+                                                                HeightRequest="70"
+                                                                WidthRequest="70">
+                                                    <ff:CachedImage.Transformations>
+                                                        <ffTransformation:RoundedTransformation Radius="240"/>
+                                                    </ff:CachedImage.Transformations>
+                                                </ff:CachedImage>
                                         </mr:Frame>
                                         <!--Personal Info-->
                                         <StackLayout Orientation="Horizontal"
@@ -127,8 +135,8 @@
                                                 <StackLayout HorizontalOptions="FillAndExpand"
                                                              Spacing="5">
                                                       <mr:StackLayout x:Name="ListTemplate" 
-                                                                DownCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToCustomerDetailsCommand}"
-                                                                DownCommandParameter="{Binding BindingContext, Source={x:Reference ListTemplate}}">
+                                                                TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToCustomerDetailsCommand}"
+                                                                TappedCommandParameter="{Binding BindingContext, Source={x:Reference ListTemplate}}">
                                                     <mr:StackLayout.Triggers>
                                                         <EventTrigger Event="Down">
                                                             <act:ScaleDownTriggerAction />
