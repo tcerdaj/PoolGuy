@@ -49,7 +49,8 @@ namespace PoolGuy.Mobile.Data.Models
             WorkOrderDetails,
             WorkOrderList,
             Settings,
-            AddEquipment
+            AddEquipment,
+            Map
         }
 
         public enum Units

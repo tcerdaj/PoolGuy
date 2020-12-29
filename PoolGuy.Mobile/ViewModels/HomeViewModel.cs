@@ -18,6 +18,7 @@ using Plugin.Permissions.Abstractions;
 using PoolGuy.Mobile.Extensions;
 using Plugin.Permissions;
 using System.Threading;
+using PoolGuy.Mobile.Data.Models.Config;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -139,7 +140,10 @@ namespace PoolGuy.Mobile.ViewModels
                     WeatherHistoryRoot weather = null;
                     try
                     {
-                        weather = await DependencyService.Get<IWeatherService>().GetOneCall(device.Latitude, device.Longitude);
+                        weather = await DependencyService.Get<IWeatherService>()
+                            .GetOneCall(device.Latitude, 
+                            device.Longitude, 
+                            Config.ApiKeys.FirstOrDefault(x=>x.ConsumerKey =="OpenWeather").ConsumerSecret);
                     }
                     catch (Exception e)
                     {

@@ -10,7 +10,7 @@
 *.userosscache
 *.sln.docstates
 *.plist
-apikeys.xml
+apikeys.*
 *.suo
 *.user
 _ReSharper.*

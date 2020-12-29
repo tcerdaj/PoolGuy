@@ -154,70 +154,102 @@
                                Text="{Binding SearchTerm}"
                                SearchCommand="{Binding SearchCustomerCommand}"
                                BackgroundColor="#f7f7f7"/>
-                        <!--Select/UnSelect All-->
-                        <StackLayout Spacing="0"
-                                 IsVisible="{Binding CustomerSearchResults, Converter={StaticResource IsEmptyList}}"
-                                 HorizontalOptions="End"
-                                 WidthRequest="60">
-                            <Label Text="Select"
-                                               HorizontalOptions="Center">
-                                <Label.Triggers>
-                                    <DataTrigger TargetType="Label"
-                                                     Binding="{Binding Source={x:Reference SelectAllck}, Path=IsChecked}"
-                                                     Value="True">
-                                        <Setter Property="Text" Value="Unselect" />
-                                    </DataTrigger>
-                                </Label.Triggers>
-                            </Label>
-                            <CheckBox x:Name="SelectAllck" 
-                                          HorizontalOptions="Center"
-                                          CheckedChanged="SelectAllck_CheckedChanged"
-                                          IsChecked="{Binding Selected}" />
+                        <StackLayout Orientation="Horizontal">
+                            <ImageButton HorizontalOptions="StartAndExpand"
+                                         IsVisible="{Binding ShowMap}"
+                                         Command="{Binding GoToMapViewCommand}"
+                                         BackgroundColor="Transparent">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                  Glyph="{x:Static icons:MaterialDesignIcons.MapMarker}"
+                                                  Size="40"
+                                                  Color="{StaticResource Title}" />
+                                </ImageButton.Source>
+                            </ImageButton>
+                            <!--Select/UnSelect All-->
+                            <StackLayout Spacing="0"
+                                     IsVisible="{Binding CustomerSearchResults, Converter={StaticResource IsEmptyList}}"
+                                     HorizontalOptions="EndAndExpand"
+                                     WidthRequest="60">
+                                <Label Text="Select"
+                                       HorizontalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                         Binding="{Binding Source={x:Reference SelectAllck}, Path=IsChecked}"
+                                                         Value="True">
+                                            <Setter Property="Text" Value="Unselect" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <CheckBox x:Name="SelectAllck" 
+                                              HorizontalOptions="Center"
+                                              CheckedChanged="SelectAllck_CheckedChanged"
+                                              IsChecked="{Binding Selected}" />
+                            </StackLayout>
                         </StackLayout>
                     </StackLayout>
                     <!--Scheduler list-->
-                    <CollectionView Grid.Row="8"
+                    <mycc:DragAndDropListView Grid.Row="8"
                             x:Name="SchedulerList"
                             BackgroundColor="#fbfbfb"
-                            EmptyView="No scheduler added yet"
-                            SelectionMode="None"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand"
+                            HasUnevenRows="True"
+                            VerticalScrollBarVisibility="Never"
+                            DragEventUsage="TriggerEventOnly"
+                            SeparatorVisibility="None"
+                            ItemSelected="DragAndDropList_ItemSelected"
+                            DragEnded="DragAndDropList_DragEnded"                  
                             SelectedItem="{Binding Customer}"
                             ItemsSource="{Binding CustomerSearchResults}">
-                        <CollectionView.ItemTemplate>
+                        <mycc:DragAndDropListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid x:Name="SchedulerItem">
-                                    <StackLayout Orientation="Horizontal" 
-                                                HorizontalOptions="FillAndExpand"
-                                                Spacing="15"
-                                                Padding="10,5,15,5">
-                                        <!--Image Curcular-->
-                                        <mr:Frame Padding="0"
-                                          TappedCommand="{Binding Source={x:Reference SchedulerList}, Path=BindingContext.DisplayImageCommand}"
-                                          TappedCommandParameter="{Binding BindingContext, Source={x:Reference SchedulerItem}}"
-                                          CornerRadius="50"
-                                          VerticalOptions="Center"
-                                          HorizontalOptions="Start"
-                                          HasShadow="False"
-                                          IsClippedToBounds="True"
-                                          Margin="0">
-                                            <ff:CachedImage Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
-                                                                HeightRequest="70"
-                                                                WidthRequest="70">
-                                                <ff:CachedImage.Transformations>
-                                                    <ffTransformation:RoundedTransformation Radius="240"/>
-                                                </ff:CachedImage.Transformations>
-                                            </ff:CachedImage>
-                                        </mr:Frame>
-                                        <!--Customer Name-->
-                                        <Label Text="{Binding Name}"
-                                            HorizontalOptions="StartAndExpand"
-                                            VerticalOptions="Center"/>
-                                        <CheckBox IsChecked="{Binding Selected}"/>
-                                    </StackLayout>
-                                </Grid>
+                                <ViewCell>
+                                    <Grid x:Name="SchedulerItem"
+                                          Margin="0,15">
+                                        <StackLayout Orientation="Horizontal" 
+                                                     HorizontalOptions="FillAndExpand"
+                                                     Spacing="15"
+                                                     Padding="10,5,15,5">
+                                            <!--Image Curcular-->
+                                            <mr:StackLayout Padding="0"
+                                               TappedCommand="{Binding Source={x:Reference SchedulerList}, Path=BindingContext.DisplayImageCommand}"
+                                               TappedCommandParameter="{Binding BindingContext, Source={x:Reference SchedulerItem}}"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Start"
+                                               IsClippedToBounds="True"
+                                               Margin="0">
+                                                <ff:CachedImage Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
+                                                                     HeightRequest="70"
+                                                                     WidthRequest="70">
+                                                    <ff:CachedImage.Transformations>
+                                                        <ffTransformation:RoundedTransformation Radius="240"/>
+                                                    </ff:CachedImage.Transformations>
+                                                </ff:CachedImage>
+                                                <!--Customer Name-->
+                                                <Label Text="{Binding Name}"
+                                                       FontSize="10"
+                                                       HorizontalOptions="StartAndExpand"
+                                                       VerticalOptions="Center"/>
+                                            </mr:StackLayout>
+                                            <Label Text="{Binding Address.FullAddress}"
+                                                       FontSize="10"
+                                                       HorizontalOptions="StartAndExpand"
+                                                       VerticalOptions="Center"/>
+                                            <!--Distance-->
+                                            <Label Text="{Binding Distance, StringFormat='{0:f2} miles'}"
+                                                   FontSize="10"
+                                                   WidthRequest="100"
+                                                   HorizontalOptions="StartAndExpand"
+                                                 VerticalOptions="Center"/>
+                                            <CheckBox IsChecked="{Binding Selected}"
+                                                      HorizontalOptions="End"/>
+                                        </StackLayout>
+                                    </Grid>
+                                </ViewCell>
                             </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                        </mycc:DragAndDropListView.ItemTemplate>
+                    </mycc:DragAndDropListView>
                 </Grid>
                 <!-- Busy Status -->
                 <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"

@@ -72,6 +72,7 @@
     <Compile Include="CustomRenderer\ColorImageRenderer.cs" />
     <Compile Include="CustomRenderer\CustomDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\CustomEntryRenderer.cs" />
+    <Compile Include="CustomRenderer\DragAndDropListViewRenderer.cs" />
     <Compile Include="CustomRenderer\RoundedBoxViewRenderer.cs" />
     <Compile Include="CustomRenderer\ZoomScrollViewRenderer.cs" />
     <Compile Include="ISQLite\SQLite_iOS.cs" />

@@ -137,6 +137,8 @@ namespace PoolGuy.Mobile.ViewModels
                         await customerController.ModifyWithChildrenAsync(customer);
                     }
                 }
+
+                Message.Toast($"Customers successfully generated", TimeSpan.FromSeconds(10));
             }
             catch (Exception e)
             {

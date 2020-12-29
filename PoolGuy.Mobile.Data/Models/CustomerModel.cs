@@ -169,5 +169,16 @@ namespace PoolGuy.Mobile.Data.Models
         {
             Index = lastIndex + 1;
         }
+
+        private double _distance;
+        public double Distance
+        {
+            get { return _distance; }
+            set
+            {
+                _distance = value;
+                OnPropertyChanged("Distance");
+            }
+        }
     }
 }

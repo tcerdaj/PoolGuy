@@ -11,6 +11,8 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Newtonsoft.Json;
 using PoolGuy.Mobile.Extensions;
+using PoolGuy.Mobile.Helpers;
+using Xamarin.Essentials;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -29,6 +31,17 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get { return _searchTerm; }
             set { _searchTerm = value; }
+        }
+
+        public bool ShowMap
+        {
+            get 
+            { 
+                return Schedulers
+                    .Where(x => x.Selected)
+                    .SelectMany(c => c.Customers.Where(p => p.Selected))
+                    .Count() > 0; 
+            }
         }
 
         private CustomerModel _customer = new CustomerModel();
@@ -77,7 +90,17 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 sch.Selected = true;
                 sch.Customers.ForEach((c) => { c.Selected = true; });
+                if (sch.Customers.All(x => x.Index == 0))
+                {
+                    sch.Customers = sch.Customers.OrderBy(x => x.Name).ToList();
+                }
+                else
+                {
+                    sch.Customers = sch.Customers.OrderBy(x => x.Index).ToList();
+                }
             }
+
+            OnPropertyChanged("ShowMap");
         }
 
         public async Task InitializeAsync()
@@ -107,6 +130,8 @@ namespace PoolGuy.Mobile.ViewModels
                     
                     CustomerSearchResults = Customers;
                 }
+
+                OnPropertyChanged("ShowMap");
             }
             catch (Exception e)
             {
@@ -155,29 +180,39 @@ namespace PoolGuy.Mobile.ViewModels
                             new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
 
                 var distinctCustomers = Customers
-                      .Where(x=>x.Selected)
+                      .Where(x => x.Selected && !selectedCustomers.Any(s => s.Id == x.Id))
                       .GroupBy(g => g.Id)
                       .Select(m => m.First());
 
                 selectedCustomers.AddRange(distinctCustomers);
+                selectedCustomers = await selectedCustomers.GetReorderedCustomers();
                 Customers.Clear();
 
-                foreach (var sch in Schedulers.Where(x=>x.Selected))
+                foreach (var sch in Schedulers.Where(x => x.Selected))
                 {
-                    
                     sch.Customers = selectedCustomers;
                     await new SchedulerController().ModifyWithChildrenAsync(sch);
-                    
-                    selectedCustomers.ForEach((c) =>
+
+                    selectedCustomers.ForEach(async (c) =>
                     {
+                     
                         if (!Customers.Any(x => x.Id == c.Id))
                             Customers.Add(c);
                     });
+
+                    foreach (var cust in sch.Customers)
+                    {
+                        await new CustomerController()
+                              .LocalData.Modify(cust);
+                    }
+
+                    Customers = new ObservableCollection<CustomerModel>(Customers.OrderBy(x => x.Index));
                 }
 
                 CustomerSearchResults = Customers;
                 OnPropertyChanged("CustomerSearchResults");
                 OnPropertyChanged("Schedulers");
+                OnPropertyChanged("ShowMap");
 
                 Message.Toast($"{selectedCustomers.Count()} Customers were added successfully!");
             }
@@ -293,6 +328,113 @@ namespace PoolGuy.Mobile.ViewModels
                     await NavigationService.CloseModal();
                 });
             }
+        }
+
+        public ICommand ReorderItemsCommand
+        {
+            get { return new RelayCommand<Tuple<int, int>>(async (indexes) => await ReorderItems(indexes.Item1, indexes.Item2)); }
+        }
+
+        private async Task ReorderItems(int originIndex, int destinyIndex)
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                var origenItem = CustomerSearchResults[originIndex];
+                Customers.Clear();
+
+                foreach (var sch in Schedulers.Where(x => x.Selected))
+                {
+                    if (sch.Customers.Any(x => x.Id == origenItem.Id))
+                    {
+                        // Moving item
+                        sch.Customers.RemoveAt(originIndex);
+                        sch.Customers.Insert(destinyIndex, origenItem);
+
+                        // Sorting remaing indexes
+                        for (int i = destinyIndex + 1; i < sch.Customers.Count; i++)
+                        {
+                            sch.Customers[i].Index = i;
+                        }
+
+                        await new SchedulerController().ModifyWithChildrenAsync(sch);
+                    }
+
+                    sch.Customers.ForEach((c) =>
+                    {
+                        if (!Customers.Any(x => x.Id == c.Id))
+                            Customers.Add(c);
+                    });
+                }
+
+                CustomerSearchResults = Customers;
+                OnPropertyChanged("CustomerSearchResults");
+                OnPropertyChanged("Schedulers");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public ICommand GoToMapViewCommand
+        {
+            get => new RelayCommand(async () => GoToMapView());
+        }
+
+        private async void GoToMapView()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+            try
+            {
+                if (Schedulers.Count(x => x.Selected) > 1)
+                {
+                    await Message.DisplayAlertAsync(Title, $"You have selected {string.Join(", ", Schedulers.Where(x=>x.Selected).Select(p=>p.LongName).ToArray())} but just one selection is allowed.", "Ok");
+                    return;
+                }
+
+                if(!Schedulers.Where(x=>x.Selected).SelectMany(p=>p.Customers).Any(h=>h.Selected))
+                {
+                    await Message.DisplayAlertAsync(Title, $"Please select at least one customer", "Ok");
+                    return;
+                }
+
+                var customers = Schedulers
+                    .Where(x => x.Selected)
+                    .SelectMany(p => p.Customers)
+                    .ToList();
+
+                await NavigationService.NavigateToDialog(Locator.Map, customers);
+            }
+            catch (System.Exception e)
+            {
+                Debug.WriteLine(e);
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public void NotifyItems()
+        {
+            OnPropertyChanged("CustomerSearchResults");
         }
     }
 }

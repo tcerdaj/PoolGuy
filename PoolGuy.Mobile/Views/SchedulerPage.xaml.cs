@@ -57,7 +57,9 @@ namespace PoolGuy.Mobile.Views
         {
             if(sender is CustomEntry customEntry)
             {
-                if(!string.IsNullOrEmpty(customEntry.Text) && string.IsNullOrEmpty(_viewModel.Scheduler.ShortName))
+                if(!string.IsNullOrEmpty(customEntry.Text) 
+                    && string.IsNullOrEmpty(_viewModel.Scheduler.ShortName)
+                    && customEntry.Text.Length > 2)
                 {
                     _viewModel.Scheduler.ShortName = customEntry.Text.Substring(0, 3);
                     _viewModel.Scheduler.NotififyShortName();

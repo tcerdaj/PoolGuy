@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using PoolGuy.Mobile.Data.Models;
 
 namespace PoolGuy.Mobile.Extensions
 {
@@ -143,6 +144,85 @@ namespace PoolGuy.Mobile.Extensions
             var tcs = new TaskCompletionSource<bool>();
             cancellationToken.Register(s => ((TaskCompletionSource<bool>)s).SetResult(true), tcs);
             return tcs.Task;
+        }
+
+        public static async Task<List<CustomerModel>> GetReorderedCustomers(this List<CustomerModel> selectedCustomers)
+        {
+            var orderedList = new List<Tuple<object, Location>>();
+
+            // Geocode address
+            foreach (var cust in selectedCustomers)
+            {
+                if (!string.IsNullOrEmpty(cust.Address?.FullAddress))
+                {
+                    var poss = await cust.Address.FullAddress.GetPositionAsync();
+                    if (poss != null)
+                    {
+                        cust.Latitude = poss.Value.Latitude;
+                        cust.Longitude = poss.Value.Longitude;
+                        orderedList.Add(new Tuple<object, Location>(cust, new Location(cust.Latitude, cust.Longitude)));
+                    }
+                }
+            }
+
+            // Reorder by distance and set distance between customers
+            var orderedResult = OrderByDistance(Globals.BranchLocation, orderedList);
+            int _ind = 0;
+            foreach (var ordered in orderedResult)
+            {
+                ((CustomerModel)ordered.Item1).Distance = ordered.Item3;
+                ((CustomerModel)ordered.Item1).Index = _ind++;
+            }
+
+            selectedCustomers = orderedResult
+                .Select(x => x.Item1)
+                .Cast<CustomerModel>()
+                .ToList<CustomerModel>();
+            return selectedCustomers;
+        }
+
+        private static List<Tuple<object, Location, double>> OrderByDistance(Location startPoint, List<Tuple<object, Location>> pointList)
+        {
+            var orderedList = new List<Tuple<object, Location, double>>();
+            LinkedList<Location> points = new LinkedList<Location>(pointList.Select(x => x.Item2).ToList());
+            var closetPointItem = GetNearestPoint(startPoint, points);
+            var currentPoint = pointList.FirstOrDefault(x => x.Item2 == closetPointItem.Item1);
+
+            while (pointList.Count > 1)
+            {
+                orderedList.Add(new Tuple<object, Location, double>(currentPoint.Item1, currentPoint.Item2, closetPointItem.Item2));
+                pointList.RemoveAt(pointList.FindIndex(x => x.Item1 == currentPoint.Item1));
+                closetPointItem = GetNearestPoint(currentPoint.Item2, new LinkedList<Location>(pointList.Select(x => x.Item2).ToList()));
+                currentPoint = pointList.FirstOrDefault(x => x.Item2 == closetPointItem.Item1);
+            }
+            // Add the last point.
+            orderedList.Add(new Tuple<object, Location, double>(currentPoint.Item1, currentPoint.Item2, closetPointItem.Item2));
+            return orderedList;
+        }
+
+
+        private static Tuple<Location, double> GetNearestPoint(Location toPoint, LinkedList<Location> points)
+        {
+            Location nearestPoint = null;
+            double minDist2 = double.MaxValue;
+            foreach (Location p in points)
+            {
+                double dist2 = Location.CalculateDistance(p.Latitude,
+                    p.Longitude, toPoint.Latitude, toPoint.Longitude, DistanceUnits.Miles);
+
+                if (dist2 > minDist2)
+                    continue;
+
+                dist2 = Location.CalculateDistance(p.Latitude,
+                    p.Longitude, toPoint.Latitude, toPoint.Longitude, DistanceUnits.Miles);
+
+                if (dist2 < minDist2)
+                {
+                    minDist2 = dist2;
+                    nearestPoint = p;
+                }
+            }
+            return new Tuple<Location, double>(nearestPoint, minDist2);
         }
     }
 }

@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Models\Config\apikeys.json" />
     <None Remove="Models\SampleData\Customers.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Models\Config\apikeys.json" />
     <EmbeddedResource Include="Models\SampleData\Customers.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

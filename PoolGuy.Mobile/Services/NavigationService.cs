@@ -34,6 +34,7 @@ namespace PoolGuy.Mobile.Services
             }
         }
 
+        Page _currentPage;
         public Page CurrentPage 
         {
             get;set;
@@ -213,6 +214,7 @@ namespace PoolGuy.Mobile.Services
                         Debug.WriteLine($"NavigateToDialog() PageKey: {pageKey}");
 
                         var page = constructor.Invoke(parameters) as Page;
+                        CurrentPage = page;
 
                         if (Device.RuntimePlatform == Device.iOS)
                         {
@@ -224,7 +226,6 @@ namespace PoolGuy.Mobile.Services
                         }
 
                         SavePreviousPageState(currentPageKey);
-                        CurrentPage = page;
                     }
                     else
                     {

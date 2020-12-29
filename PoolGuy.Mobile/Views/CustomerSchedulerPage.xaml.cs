@@ -125,5 +125,16 @@ namespace PoolGuy.Mobile.Views
                 _viewModel.SelectCommand.Execute(check.IsChecked);
             }
         }
+
+        private void DragAndDropList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+
+        }
+
+        private void DragAndDropList_DragEnded(object sender, CustomControls.DragAndDropListView.DragAndDropEventArgs e)
+        {
+            Debug.WriteLine("StartIndex: {0}, EndIndex: {1}", e.StartIndex, e.EndIndex);
+            _viewModel.ReorderItemsCommand.Execute(new Tuple<int, int>(e.StartIndex, e.EndIndex));
+        }
     }
 }

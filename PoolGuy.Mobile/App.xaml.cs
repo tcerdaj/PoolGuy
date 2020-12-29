@@ -63,6 +63,7 @@ namespace PoolGuy.Mobile
             nav.Configure(Locator.Customer, typeof(CustomerPage));
             nav.Configure(Locator.Scheduler, typeof(SchedulerPage));
             nav.Configure(Locator.CustomerScheduler, typeof(CustomerSchedulerPage));
+            nav.Configure(Locator.Map, typeof(MapPage));
 
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {
@@ -145,6 +146,37 @@ namespace PoolGuy.Mobile
             }
         }
 
+        private async Task ClearTablesAsync()
+        {
+            try
+            {
+
+                await SQLiteControllerBase.DatabaseAsync.DropTableAsync<CustomerSchedulerModel>();
+                await SQLiteControllerBase.DatabaseAsync.CreateTableAsync<CustomerSchedulerModel>();
+                await new SchedulerController().LocalData.ClearTableAsync();
+                await new CustomerController().LocalData.ClearTableAsync();
+                await new PoolController().LocalData.ClearTableAsync();
+                await new AddressController().LocalData.ClearTableAsync();
+                await new ContactInformationController().LocalData.ClearTableAsync();
+                await new EquipmentController().LocalData.ClearTableAsync();
+                await new EquipmentTypeController().LocalData.ClearTableAsync();
+                await new ManufactureController().LocalData.ClearTableAsync();
+                await new WeatherController().LocalData.ClearTableAsync();
+                await new UserController().LocalData.ClearTableAsync();
+                await new RoleController().LocalData.ClearTableAsync();
+                await new WorkOrderController().LocalData.ClearTableAsync();
+                await new WorkOrderDetailsController().LocalData.ClearTableAsync();
+                await new ItemController().LocalData.ClearTableAsync();
+                await new ReportController().LocalData.ClearTableAsync();
+                await new EquipmentIssueController().LocalData.ClearTableAsync();
+                await new ImageController().LocalData.ClearTableAsync();
+            }
+            catch (System.Exception e)
+            {
+                throw;
+            }
+        }
+
         protected override async void OnStart()
         {
             var result = await DependencyService.Get<IPermissionService>()
@@ -155,6 +187,7 @@ namespace PoolGuy.Mobile
                 return;
             }
 
+            //await ClearTablesAsync();
             await CreateTablesAsync();
             var navigationService = SimpleIoc.Default.GetInstance<INavigationService>();
             var navList = AppStateController.RestoreState();

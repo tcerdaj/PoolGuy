@@ -35,7 +35,10 @@ namespace PoolGuy.Mobile.Data.Models
         {
             Index = lastIndex + 1;
         }
-
+        public void NotififyCustomers()
+        {
+            OnPropertyChanged("Customers");
+        }
     }
 
     public class CustomerSchedulerModel 

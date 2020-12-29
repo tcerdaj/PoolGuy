@@ -10,7 +10,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using Newtonsoft.Json;
 using PoolGuy.Mobile.CustomControls;
 
 namespace PoolGuy.Mobile.ViewModels
@@ -90,13 +89,41 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                if (!FieldValidationHelper.IsFormValid(Scheduler, CurrentPage))
+                var scheduler = await new SchedulerController()
+                    .LocalData
+                    .List(new Data.Models.Query.SQLControllerListCriteriaModel
+                    {
+                        Filter = new List<Data.Models.Query.SQLControllerListFilterField> {
+                         new Data.Models.Query.SQLControllerListFilterField{
+                           FieldName = "LongName",
+                            ValueLBound = Scheduler.LongName.Trim(),
+                            ORGroup = 0
+                         },
+                         new Data.Models.Query.SQLControllerListFilterField{
+                           FieldName = "ShortName",
+                            ValueLBound = Scheduler.ShortName.Trim(),
+                            ORGroup = 0
+                         },
+                        }
+                    });
+
+                if (!FieldValidationHelper.IsFormValid(Scheduler, CurrentPage) || scheduler.Any())
                 {
                     await Message.DisplayAlertAsync("Please check your enter and try again", Title);
                     return;
                 }
 
-                await new SchedulerController().ModifyWithChildrenAsync(Scheduler);
+                Scheduler.LongName = Scheduler.LongName.Trim();
+                Scheduler.ShortName = Scheduler.ShortName.Trim();
+
+                if (Scheduler.Customers.Any())
+                {
+                    await new SchedulerController().ModifyWithChildrenAsync(Scheduler);
+                }
+                else
+                {
+                    await new SchedulerController().LocalData.Modify(Scheduler);
+                }
 
                 // Add/modify list
                 if (!Schedulers.Any(x => x.Id == Scheduler.Id))

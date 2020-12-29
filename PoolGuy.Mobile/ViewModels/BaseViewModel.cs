@@ -54,8 +54,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get { return SimpleIoc.Default.GetInstance<INavigationService>(); }
         }
-
-        
+                
         public void ToggleFocus(string controlName, ControlTypeEnum type, bool focus)
         {
             if (View == null)

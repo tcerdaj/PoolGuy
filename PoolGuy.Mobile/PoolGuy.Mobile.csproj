@@ -17,6 +17,7 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.9" />
     <PackageReference Include="SkiaSharp" Version="2.80.3-preview.18" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3-preview.18" />
+    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
     <PackageReference Include="ThriveGmbH.BottomNavigationBar.XF" Version="1.0.2" />
     <PackageReference Include="TypeSupport" Version="1.1.4" />
@@ -40,6 +41,9 @@
   <ItemGroup>
     <Compile Update="Views\ActionSheetPopupPage.xaml.cs">
       <DependentUpon>ActionSheetPopupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MapPage.xaml.cs">
+      <DependentUpon>MapPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>

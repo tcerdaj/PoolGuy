@@ -19,12 +19,13 @@ namespace PoolGuy.Mobile.Services
         /// <param name="longitude"></param>
         /// <param name="units"></param>
         /// <returns></returns>
-        public async Task<WeatherRoot> GetWeather(double latitude, double longitude, Enums.Units units = Enums.Units.Imperial)
+        public async Task<WeatherRoot> GetWeather(double latitude, double longitude, string apiKey, Enums.Units units = Enums.Units.Imperial)
         {
             try
             {
+                
                 var request = RestService.For<IWeatherService>(_baseUrl);
-                var response = await request.GetWeather(latitude, longitude).ConfigureAwait(false);
+                var response = await request.GetWeather(latitude, longitude, apiKey).ConfigureAwait(false);
                 return response;
             }
             catch (System.Exception e)
@@ -39,7 +40,7 @@ namespace PoolGuy.Mobile.Services
         /// <param name="city"></param>
         /// <param name="units"></param>
         /// <returns></returns>
-        public async Task<WeatherRoot> GetWeather(string city, Enums.Units units = Enums.Units.Imperial)
+        public async Task<WeatherRoot> GetWeather(string city, string apiKey, Enums.Units units = Enums.Units.Imperial)
         {
             if (string.IsNullOrEmpty(city))
             {
@@ -49,7 +50,7 @@ namespace PoolGuy.Mobile.Services
             try
             {
                 var request = RestService.For<IWeatherService>(_baseUrl);
-                var response = await request.GetWeather(city).ConfigureAwait(false);
+                var response = await request.GetWeather(city, apiKey).ConfigureAwait(false);
                 return response;
             }
             catch (System.Exception e)
@@ -64,12 +65,12 @@ namespace PoolGuy.Mobile.Services
         /// <param name="city"></param>
         /// <param name="units"></param>
         /// <returns></returns>
-        public async Task<WeatherHistoryRoot> GetForecast(string city, Enums.Units units = Enums.Units.Imperial)
+        public async Task<WeatherHistoryRoot> GetForecast(string city, string apiKey, Enums.Units units = Enums.Units.Imperial)
         {
             try
             {
                 var request = RestService.For<IWeatherService>(_baseUrl);
-                var response = await request.GetForecast(city).ConfigureAwait(false);
+                var response = await request.GetForecast(city, apiKey).ConfigureAwait(false);
                 return response;
             }
             catch (System.Exception e)
@@ -85,12 +86,12 @@ namespace PoolGuy.Mobile.Services
         /// <param name="longitude"></param>
         /// <param name="units"></param>
         /// <returns></returns>
-        public async Task<WeatherHistoryRoot> GetForecast(double latitude, double longitude, Enums.Units units = Enums.Units.Imperial)
+        public async Task<WeatherHistoryRoot> GetForecast(double latitude, double longitude, string apiKey, Enums.Units units = Enums.Units.Imperial)
         {
             try
             {
                 var request = RestService.For<IWeatherService>(_baseUrl);
-                var response = await request.GetForecast(latitude, longitude).ConfigureAwait(false);
+                var response = await request.GetForecast(latitude, longitude, apiKey).ConfigureAwait(false);
                 return response;
             }
             catch (System.Exception e)
@@ -112,12 +113,12 @@ namespace PoolGuy.Mobile.Services
         /// <param name="longitude"></param>
         /// <param name="units"></param>
         /// <returns></returns>
-        public async Task<WeatherHistoryRoot> GetOneCall(double latitude, double longitude, Enums.Units units = Enums.Units.Imperial)
+        public async Task<WeatherHistoryRoot> GetOneCall(double latitude, double longitude, string apiKey, Enums.Units units = Enums.Units.Imperial)
         {
             try
             {
                 var request = RestService.For<IWeatherService>(_baseUrl);
-                var response = await request.GetOneCall(latitude, longitude).ConfigureAwait(false);
+                var response = await request.GetOneCall(latitude, longitude, apiKey).ConfigureAwait(false);
                 return response;
             }
             catch (ValidationApiException validationException)
