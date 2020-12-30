@@ -12,7 +12,6 @@ using Xamarin.Forms;
 using Newtonsoft.Json;
 using PoolGuy.Mobile.Extensions;
 using PoolGuy.Mobile.Helpers;
-using Xamarin.Essentials;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -151,6 +150,8 @@ namespace PoolGuy.Mobile.ViewModels
                 .ToList();
 
             CustomerSearchResults = new ObservableCollection<CustomerModel>(customers);
+
+            OnPropertyChanged("ShowMap");
         }
 
         public ICommand SaveCommand 
@@ -293,6 +294,8 @@ namespace PoolGuy.Mobile.ViewModels
         {
             CustomerSearchResults = new ObservableCollection<CustomerModel>(
                 CustomerSearchResults.Select(x => { x.Selected = all; return x; }));
+            
+            OnPropertyChanged("ShowMap");
         }
 
         public ICommand DisplayImageCommand

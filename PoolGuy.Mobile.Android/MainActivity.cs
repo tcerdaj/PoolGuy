@@ -36,7 +36,6 @@ namespace PoolGuy.Mobile.Droid
             CachedImageRenderer.Init(true);
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
-            Xamarin.FormsMaps.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             UserDialogs.Init(() => this);
             LoadApplication(new App());

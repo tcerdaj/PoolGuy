@@ -224,5 +224,87 @@ namespace PoolGuy.Mobile.Extensions
             }
             return new Tuple<Location, double>(nearestPoint, minDist2);
         }
+
+        public static List<Position> DecodePolyline(this string encodedPoints)
+        {
+            if (string.IsNullOrWhiteSpace(encodedPoints))
+            {
+                return null;
+            }
+
+            int index = 0;
+            var polylineChars = encodedPoints.ToCharArray();
+            var poly = new List<Position>();
+            int currentLat = 0;
+            int currentLng = 0;
+            int next5Bits;
+
+            while (index < polylineChars.Length)
+            {
+                // calculate next latitude
+                int sum = 0;
+                int shifter = 0;
+
+                do
+                {
+                    next5Bits = polylineChars[index++] - 63;
+                    sum |= (next5Bits & 31) << shifter;
+                    shifter += 5;
+                }
+                while (next5Bits >= 32 && index < polylineChars.Length);
+
+                if (index >= polylineChars.Length)
+                {
+                    break;
+                }
+
+                currentLat += (sum & 1) == 1 ? ~(sum >> 1) : (sum >> 1);
+
+                // calculate next longitude
+                sum = 0;
+                shifter = 0;
+
+                do
+                {
+                    next5Bits = polylineChars[index++] - 63;
+                    sum |= (next5Bits & 31) << shifter;
+                    shifter += 5;
+                }
+                while (next5Bits >= 32 && index < polylineChars.Length);
+
+                if (index >= polylineChars.Length && next5Bits >= 32)
+                {
+                    break;
+                }
+
+                currentLng += (sum & 1) == 1 ? ~(sum >> 1) : (sum >> 1);
+
+                var mLatLng = new Position(Convert.ToDouble(currentLat) / 100000.0, Convert.ToDouble(currentLng) / 100000.0);
+                poly.Add(mLatLng);
+            }
+
+            return poly;
+        }
+
+        public static MapSpan FromPositions(this IEnumerable<Position> positions)
+        {
+            double minLat = double.MaxValue;
+            double minLon = double.MaxValue;
+            double maxLat = double.MinValue;
+            double maxLon = double.MinValue;
+
+            foreach (var p in positions)
+            {
+                minLat = Math.Min(minLat, p.Latitude);
+                minLon = Math.Min(minLon, p.Longitude);
+                maxLat = Math.Max(maxLat, p.Latitude);
+                maxLon = Math.Max(maxLon, p.Longitude);
+            }
+
+            return new MapSpan(
+                new Position((minLat + maxLat) / 2d, (minLon + maxLon) / 2d),
+                (maxLat - minLat) * 1.15,
+                (maxLon - minLon) * 1.15);
+        }
     }
 }

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using PoolGuy.Mobile.ViewModels;
 using GalaSoft.MvvmLight.Ioc;
+using Xamarin.Forms.GoogleMaps;
 
 namespace PoolGuy.Mobile.Views
 {
@@ -22,6 +23,10 @@ namespace PoolGuy.Mobile.Views
                 InitializeComponent();
                 _viewModel = new MapViewModel() { Customers = model};
                 BindingContext = _viewModel;
+
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(new Position(Globals.BranchLocation.Latitude,
+                           Globals.BranchLocation.Longitude), Distance.FromMiles(2)));
+                map.MapType = MapType.Street;
             }
             catch (Exception e)
             {

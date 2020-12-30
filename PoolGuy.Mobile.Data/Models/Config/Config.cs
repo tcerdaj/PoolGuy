@@ -15,7 +15,7 @@ namespace PoolGuy.Mobile.Data.Models.Config
                 try
                 {
                     var assembly = IntrospectionExtensions.GetTypeInfo(typeof(Config)).Assembly;
-                    var stream = assembly.GetManifestResourceStream("PoolGuy.Mobile.Data.Models.SampleData.Customers.json");
+                    var stream = assembly.GetManifestResourceStream("PoolGuy.Mobile.Data.Models.Config.apikeys.json");
                     using (var reader = new StreamReader(stream))
                     {
                         var json = reader.ReadToEnd();

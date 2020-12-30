@@ -21,6 +21,7 @@ using System.Diagnostics;
 using SQLite;
 using PoolGuy.Mobile.Extensions;
 using System.Threading;
+using PoolGuy.Mobile.Data.Models.GoogleMap;
 
 namespace PoolGuy.Mobile
 {
@@ -105,6 +106,7 @@ namespace PoolGuy.Mobile
                 DependencyService.Register<ILocalDataStore<ItemModel>, LocalDataStore<ItemModel>>();
                 DependencyService.Register<ILocalDataStore<ReportModel>, LocalDataStore<ReportModel>>();
                 DependencyService.Register<ILocalDataStore<EquipmentIssueModel>, LocalDataStore<EquipmentIssueModel>>();
+                DependencyService.Register<ILocalDataStore<DirectionHistory>, LocalDataStore<DirectionHistory>>();
             }
             catch (Exception e)
             {
@@ -139,6 +141,7 @@ namespace PoolGuy.Mobile
                 await new ReportController().LocalData.CreateTableAsync();
                 await new EquipmentIssueController().LocalData.CreateTableAsync();
                 await new ImageController().LocalData.CreateTableAsync();
+                await new DirectionController().LocalData.CreateTableAsync();
             }
             catch (System.Exception e)
             {
@@ -170,6 +173,7 @@ namespace PoolGuy.Mobile
                 await new ReportController().LocalData.ClearTableAsync();
                 await new EquipmentIssueController().LocalData.ClearTableAsync();
                 await new ImageController().LocalData.ClearTableAsync();
+                await new DirectionController().LocalData.ClearTableAsync();
             }
             catch (System.Exception e)
             {

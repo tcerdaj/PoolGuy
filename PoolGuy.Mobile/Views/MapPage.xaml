@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.MapPage"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
-             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls" xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls" 
+             xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
              Title="{Binding Title}">
     <ContentPage.Content>
         <StackLayout BackgroundColor="White"
@@ -15,28 +16,28 @@
                           HeightRequest="60"
                           MinimumHeightRequest="60"
                           HorizontalOptions="FillAndExpand"
-                          VerticalOptions="Fill">
-        <mycc:AnimatedButton AbsoluteLayout.LayoutBounds="0, 0.5, .25, 1"
-                                     AbsoluteLayout.LayoutFlags="All"
-                                     TouchUpCommand="{Binding GoBackCommand}">
-            <Image AbsoluteLayout.LayoutBounds="0, 0.5, .50, 1"
-                           Aspect="AspectFit"
-                           AbsoluteLayout.LayoutFlags="All">
-                <Image.Source>
-                    <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                                  Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
-                                                  Size="40"
-                                                  Color="{StaticResource Title}" />
-                </Image.Source>
-            </Image>
-        </mycc:AnimatedButton>
-        <Label Text="{Binding Title}"
-                           TextColor="{StaticResource Title}"
-                           FontSize="17"
-                           FontAttributes="Bold"
-                           AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
-                           AbsoluteLayout.LayoutFlags="PositionProportional" />
-    </AbsoluteLayout>
+                               VerticalOptions="Fill">
+             <mycc:AnimatedButton AbsoluteLayout.LayoutBounds="0, 0.5, .25, 1"
+                                          AbsoluteLayout.LayoutFlags="All"
+                                          TouchUpCommand="{Binding GoBackCommand}">
+                 <Image AbsoluteLayout.LayoutBounds="0, 0.5, .50, 1"
+                                Aspect="AspectFit"
+                                AbsoluteLayout.LayoutFlags="All">
+                     <Image.Source>
+                         <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                       Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
+                                                       Size="40"
+                                                       Color="{StaticResource Title}" />
+                     </Image.Source>
+                 </Image>
+             </mycc:AnimatedButton>
+             <Label Text="{Binding Title}"
+                                TextColor="{StaticResource Title}"
+                                FontSize="17"
+                                FontAttributes="Bold"
+                                AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                                AbsoluteLayout.LayoutFlags="PositionProportional" />
+         </AbsoluteLayout>
          <!--Map View-->
          <AbsoluteLayout x:Name="mainLayout"
                             VerticalOptions="FillAndExpand"
@@ -46,6 +47,20 @@
                         AbsoluteLayout.LayoutBounds="0,0,1,1"
                         AbsoluteLayout.LayoutFlags="All"/>
          </AbsoluteLayout>
+         <StackLayout VerticalOptions="End"
+                      Padding="15,5"
+                      Orientation="Horizontal"
+                      HorizontalOptions="FillAndExpand">
+                <Label Text="Route Summary:"
+                       HorizontalOptions="Start"
+                       HorizontalTextAlignment="Start"
+                       VerticalOptions="Center"/>
+                <Label Text="{Binding RouteSummary}"
+                       HorizontalOptions="StartAndExpand"
+                       HorizontalTextAlignment="Start"
+                       VerticalOptions="Center"
+                       FontSize="12"/>
+         </StackLayout>
     </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -93,7 +93,7 @@ namespace PoolGuy.Mobile.Data.Models.Weather
 
         public void RaiseFields()
         {
-            OnPropertyChanged("WeatherMain");
+            OnPropertyChanged("Main");
             OnPropertyChanged("Weather");
             OnPropertyChanged("AccumulatedRain");
             OnPropertyChanged("Icon");

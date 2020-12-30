@@ -28,8 +28,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />  
-    <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.2.0" />  
-    <PackageReference Include="Xamarin.Forms.Maps" Version="4.8.0.1687" />  
+    <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.3.0" />  
     <PackageReference Include="Xamarin.Forms.PinchZoomImage" Version="1.1.0" />  
     <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.8.0.1687" />
   </ItemGroup>
