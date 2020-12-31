@@ -1,7 +1,6 @@
 ﻿using Plugin.Permissions.Abstractions;
 using PoolGuy.Mobile.Services.Interface;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using System.Linq;
 using Xamarin.Essentials;
 using GalaSoft.MvvmLight.Ioc;
@@ -12,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using PoolGuy.Mobile.Data.Models;
+using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.Extensions
 {
@@ -146,6 +146,11 @@ namespace PoolGuy.Mobile.Extensions
             return tcs.Task;
         }
 
+        /// <summary>
+        /// Reorder the custumer list according the distance
+        /// </summary>
+        /// <param name="selectedCustomers"></param>
+        /// <returns></returns>
         public static async Task<List<CustomerModel>> GetReorderedCustomers(this List<CustomerModel> selectedCustomers)
         {
             var orderedList = new List<Tuple<object, Location>>();
@@ -181,6 +186,12 @@ namespace PoolGuy.Mobile.Extensions
             return selectedCustomers;
         }
 
+        /// <summary>
+        /// Order my points by distance from mayor to menor
+        /// </summary>
+        /// <param name="startPoint"></param>
+        /// <param name="pointList"></param>
+        /// <returns></returns>
         private static List<Tuple<object, Location, double>> OrderByDistance(Location startPoint, List<Tuple<object, Location>> pointList)
         {
             var orderedList = new List<Tuple<object, Location, double>>();
@@ -200,7 +211,12 @@ namespace PoolGuy.Mobile.Extensions
             return orderedList;
         }
 
-
+        /// <summary>
+        /// Get the nearest point from point list
+        /// </summary>
+        /// <param name="toPoint"></param>
+        /// <param name="points"></param>
+        /// <returns></returns>
         private static Tuple<Location, double> GetNearestPoint(Location toPoint, LinkedList<Location> points)
         {
             Location nearestPoint = null;
@@ -224,7 +240,12 @@ namespace PoolGuy.Mobile.Extensions
             }
             return new Tuple<Location, double>(nearestPoint, minDist2);
         }
-
+        
+        /// <summary>
+        /// Decode the google map direction polyline 
+        /// </summary>
+        /// <param name="encodedPoints"></param>
+        /// <returns></returns>
         public static List<Position> DecodePolyline(this string encodedPoints)
         {
             if (string.IsNullOrWhiteSpace(encodedPoints))
@@ -286,6 +307,11 @@ namespace PoolGuy.Mobile.Extensions
             return poly;
         }
 
+        /// <summary>
+        /// Return the center from manies points
+        /// </summary>
+        /// <param name="positions"></param>
+        /// <returns></returns>
         public static MapSpan FromPositions(this IEnumerable<Position> positions)
         {
             double minLat = double.MaxValue;
@@ -305,6 +331,26 @@ namespace PoolGuy.Mobile.Extensions
                 new Position((minLat + maxLat) / 2d, (minLon + maxLon) / 2d),
                 (maxLat - minLat) * 1.15,
                 (maxLon - minLon) * 1.15);
+        }
+
+        /// <summary>
+        /// Determine font color based on background color, if you use background color black return white for textcolor
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static Color ContrastColor(this Color color)
+        {
+            int d = 0;
+
+            // Counting the perceptive luminance - human eye favors green color... 
+            double luminance = (0.299 * color.R + 0.587 * color.G + 0.114 * color.B) / 255;
+
+            if (luminance > 0.5)
+                d = 0; // bright colors - black font
+            else
+                d = 255; // dark colors - white font
+
+            return Color.FromRgb(d, d, d);
         }
     }
 }
