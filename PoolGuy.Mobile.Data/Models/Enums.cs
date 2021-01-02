@@ -67,5 +67,15 @@ namespace PoolGuy.Mobile.Data.Models
             Equipment,
             Report
         }
+
+        public enum ePageType
+        {
+            PushPopup,
+            Dialog,
+            ReplaceRoot,
+            Popup,
+            CloseModal,
+            PopPopup
+        }
     }
 }

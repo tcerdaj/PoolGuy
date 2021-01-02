@@ -19,6 +19,7 @@ using Omu.ValueInjecter;
 using Newtonsoft.Json;
 using PoolGuy.Mobile.Extensions;
 using PoolGuy.Mobile.Services.Interface;
+using System.Collections.ObjectModel;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -28,33 +29,83 @@ namespace PoolGuy.Mobile.ViewModels
         {
             Title = this.GetType().Name.Replace("ViewModel", "");
             Globals.CurrentPage = Enums.ePage.Customer;
+            SubscribeMessage();
+        }
+
+        private void SubscribeMessage()
+        {
+            Notify.SubscribeVisitingDayActionAction(async (sender) => {
+                if (sender.Object is SchedulerModel scheduler)
+                {
+                    Pages[0].Customer.Scheduler?.Clear();
+
+                    if (scheduler.Selected)
+                    {
+                        Pages[0].Customer.Scheduler.Add(scheduler);
+                    }
+                    
+                    _wasModified = true;
+
+                    Pages[0].NotifyPropertyChanged("Customer");
+                }
+                 
+                Pages[1].Schedulers = await GetScheduler(Pages[0].Customer);
+            });
         }
 
         public void InitPages(CustomerModel customer = null)
         {
-            ErrorMessage = "";
-            OriginalCustomer = "";
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                ErrorMessage = "";
+                OriginalCustomer = "";
+                ObservableCollection<SchedulerModel> schedulers = await GetScheduler(customer);
+                
+                Pages = new List<CustomerPageViewModel> {
+                  new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage(this){ Title = "Customer" } },
+                  new CustomerPageViewModel { Title = "Address", Page =  new WAddressPage(this){ Title = "Address" }, Schedulers = schedulers },
+                  new CustomerPageViewModel { Title = "Contact", Page =  new WContactPage(this){ Title = "Contact" } },
+                  new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage(this){ Title = "Pool" } },
+                };
 
-            Pages = new List<CustomerPageViewModel> {
-              new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage(this){ Title = "Customer" } },
-              new CustomerPageViewModel { Title = "Address", Page =  new WAddressPage(this){ Title = "Address" } },
-              new CustomerPageViewModel { Title = "Contact", Page =  new WContactPage(this){ Title = "Contact" } },
-              new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage(this){ Title = "Pool" } },
-            };
+                if (customer != null)
+                {
+                    Customer = (CustomerModel)new CustomerModel().InjectFrom(customer);
+                    OriginalCustomer = JsonConvert.SerializeObject(customer,
+                                Formatting.Indented,
+                                new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
+                    Pages[0].Customer = customer;
+                    Pages[1].Address = customer.Address;
+                    Pages[1].Schedulers = schedulers;
+                    Pages[2].Contact = customer.Contact;
+                    Pages[3].Pool = customer.Pool;
+                }
+
+                Position = 0;
+            });
+        }
+
+        private async Task<ObservableCollection<SchedulerModel>> GetScheduler(CustomerModel customer)
+        {
+            var schedulers = new ObservableCollection<SchedulerModel>(await new SchedulerController()
+                    .ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel
+                    {
+                        Sort = new List<Data.Models.Query.SQLControllerListSortField> {
+                        new Data.Models.Query.SQLControllerListSortField {
+                          FieldName = "Index"
+                        }
+                     }
+                    }));
 
             if (customer != null)
             {
-                Customer = (CustomerModel)new CustomerModel().InjectFrom(customer);
-                OriginalCustomer = JsonConvert.SerializeObject(customer, 
-                            Formatting.Indented,
-                            new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
-                Pages[0].Customer = customer;
-                Pages[1].Address = customer.Address;
-                Pages[2].Contact = customer.Contact;
-                Pages[3].Pool = customer.Pool;
+                schedulers.Where(x => customer.Scheduler.Any(s => s.Id == x.Id)).ForEach((s) =>
+                {
+                    s.Selected = true;
+                });
             }
-
-            Position = 0;
+            
+            return schedulers;
         }
 
         public double Progress => (double)FieldsCompleted / (double)Fields;

@@ -43,11 +43,6 @@ namespace PoolGuy.Mobile.ViewModels
             set { _customers = value; OnPropertyChanged("Customers"); }
         }
 
-        public Page CurrentPage
-        {
-            get => NavigationService.CurrentPage;
-        }
-
         public async Task InitializeAsync()
         {
             if(IsBusy){ return; }
@@ -57,7 +52,7 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    if (CurrentPage.FindByName("map") is Map map
+                    if (CurrentPage.Page.FindByName("map") is Map map
                         && Customers.Any())
                     {
                        

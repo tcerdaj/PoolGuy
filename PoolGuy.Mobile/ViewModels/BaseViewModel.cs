@@ -30,6 +30,11 @@ namespace PoolGuy.Mobile.ViewModels
             set { SetProperty(ref title, value); }
         }
 
+        public CustomPage CurrentPage
+        {
+            get => NavigationService.CurrentPage;
+        }
+
         private ContentPage View;
 
         public void SetView(ContentPage view)

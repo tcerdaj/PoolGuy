@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using PoolGuy.Mobile.Controllers;
 using System.Reflection;
+using PoolGuy.Mobile.CustomControls;
 
 namespace PoolGuy.Mobile.Services
 {
@@ -34,8 +35,7 @@ namespace PoolGuy.Mobile.Services
             }
         }
 
-        Page _currentPage;
-        public Page CurrentPage 
+        public CustomPage CurrentPage 
         {
             get;set;
         }
@@ -99,7 +99,7 @@ namespace PoolGuy.Mobile.Services
                         Debug.WriteLine($"CloseModal():PageKey({pageKey})");
                     }
 
-                    CurrentPage = _navigation.CurrentPage;
+                    CurrentPage = new CustomPage(_navigation.CurrentPage, Data.Models.Enums.ePageType.CloseModal);
 
                     AppStateController.PopViewState();
                 }
@@ -214,7 +214,7 @@ namespace PoolGuy.Mobile.Services
                         Debug.WriteLine($"NavigateToDialog() PageKey: {pageKey}");
 
                         var page = constructor.Invoke(parameters) as Page;
-                        CurrentPage = page;
+                        CurrentPage = new CustomPage(page, Data.Models.Enums.ePageType.Dialog);
 
                         if (Device.RuntimePlatform == Device.iOS)
                         {
@@ -280,7 +280,7 @@ namespace PoolGuy.Mobile.Services
                     }
 
                     SavePreviousPageState(currentPageKey);
-                    CurrentPage = page;
+                    CurrentPage = new CustomPage(page, Data.Models.Enums.ePageType.Dialog);
                 }
                 catch (Exception ex)
                 {
@@ -320,7 +320,7 @@ namespace PoolGuy.Mobile.Services
                         _popUp = null;
                     }
 
-                    CurrentPage = _navigation.CurrentPage;
+                    CurrentPage = new CustomPage(_navigation.CurrentPage, Data.Models.Enums.ePageType.PopPopup);
                 }
                 catch (Exception ex)
                 {
@@ -345,7 +345,7 @@ namespace PoolGuy.Mobile.Services
 
                     await _navigation.Navigation.PopToRootAsync(false);
 
-                    CurrentPage = _navigation.CurrentPage;
+                    CurrentPage = new CustomPage(_navigation.CurrentPage, Data.Models.Enums.ePageType.PopPopup);
 
                     AppStateController.ClearNavigationMetaStack();
                 }
@@ -439,7 +439,7 @@ namespace PoolGuy.Mobile.Services
                             {
                                 await RemovePopupAsync(animate, _popUp);
                                 _popUp = null;
-                                CurrentPage = _navigation.CurrentPage;
+                                CurrentPage = new CustomPage(_navigation.CurrentPage, Data.Models.Enums.ePageType.PushPopup);
                             };
                         }
 
@@ -447,11 +447,11 @@ namespace PoolGuy.Mobile.Services
                         {
                             await RemovePopupAsync(animate, _popUp);
                             _popUp = null;
-                            CurrentPage = _navigation.CurrentPage;
+                            CurrentPage = (CustomPage)_navigation.CurrentPage;
                         });
 
                         await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(_popUp, animate);
-                        CurrentPage = _popUp;
+                        CurrentPage = new CustomPage(_popUp);
                     }
                     else
                     {
@@ -495,6 +495,7 @@ namespace PoolGuy.Mobile.Services
                         }
 
                         _navigation.Navigation.InsertPageBefore(page, _navigation.RootPage);
+                        CurrentPage = new CustomPage(page, Data.Models.Enums.ePageType.ReplaceRoot);
                         await PopToRootAsync();
                     }
                     else

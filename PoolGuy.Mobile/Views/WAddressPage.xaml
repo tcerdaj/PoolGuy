@@ -2,12 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
-             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" 
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
+             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
              x:Class="PoolGuy.Mobile.Views.WAddressPage"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
+             x:Name="AddressPage"
              Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
+            <conv:CollectionEmptyToBool x:Key="IsEmptyList" />
             <Style TargetType="Frame">
                 <Setter Property="BorderColor" Value="#D8D8D8"/>
                 <Setter Property="CornerRadius" Value="6"/>
@@ -18,7 +23,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <ScrollView>
-           <Grid VerticalOptions="Start">
+           <Grid VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -37,7 +42,10 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
                     <!--Address-->
                     <Frame Grid.Row="0" 
                                    Grid.Column="0">
@@ -96,7 +104,63 @@
                                           HasDone="True"/>
                     </Frame>
                     <Label Grid.Row="9" Grid.Column="0" x:Name="AddressModel_ZipError" IsVisible="False" TextColor="Red" />
-                </Grid>
+                        <StackLayout Grid.Row="10"
+                                     Margin="5,0,0,0"
+                                     Orientation="Horizontal">
+                            <Label  Text="Visiting day" 
+                                    HorizontalOptions="Start"
+                                    VerticalOptions="Center"/>
+                            <mr:Image Aspect="AspectFit" 
+                                      Margin="0,0,0,0" 
+                                      HorizontalOptions="End" 
+                                      VerticalOptions="Center"
+                                      TappedCommand="{Binding GoToSchedulerCommand}">
+                                <mr:Image.Triggers>
+                                    <EventTrigger Event="Down">
+                                        <act:ScaleDownTriggerAction />
+                                    </EventTrigger>
+                                    <EventTrigger Event="Up">
+                                        <act:ScaleUpTriggerAction />
+                                    </EventTrigger>
+                                </mr:Image.Triggers>
+                                <Image.Source>
+                                    <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                             Glyph="{x:Static icons:MaterialDesignIcons.PlusCircle}"
+                                             Size="30"
+                                             Color="{StaticResource Primary}" />
+                                </Image.Source>
+                            </mr:Image>
+                        </StackLayout>
+                        <!--Scheduler options-->
+                        <CollectionView Grid.Row="11"
+                                        x:Name="visitingDayContainer"
+                                        IsVisible="{Binding Schedulers, Converter={StaticResource IsEmptyList}}"
+                                        ItemsSource="{Binding Schedulers}"
+                                        ItemsLayout="HorizontalList">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Padding="5"
+                                          Margin="5"
+                                          x:Name="visitingDayContainer">
+                                          <Grid.RowDefinitions>
+                                              <RowDefinition Height="Auto"/>
+                                          </Grid.RowDefinitions>
+                                        <StackLayout Grid.Row="0"
+                                                     Spacing="0">
+                                            <Label Text="{Binding ShortName}"
+                                                   HorizontalOptions="Center"/>
+                                            <RadioButton HorizontalOptions="Center"
+                                                         VerticalOptions="Center"
+                                                         Command="{Binding Source={x:Reference mainContent}, Path=BindingContext.CheckVisitingDayCommand}"
+                                                         CommandParameter="{Binding BindingContext, Source={x:Reference visitingDayContainer}}"
+                                                         IsChecked="{Binding Selected}" />
+
+                                        </StackLayout>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
             </Frame>
         </Grid>
         </ScrollView>

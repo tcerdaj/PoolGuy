@@ -6,6 +6,7 @@ using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.Views;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
@@ -57,6 +58,13 @@ namespace PoolGuy.Mobile.ViewModels
             set { _address = value; OnPropertyChanged("Address"); }
         }
 
+        private ObservableCollection<SchedulerModel> _schedulers = new ObservableCollection<SchedulerModel>();
+        public ObservableCollection<SchedulerModel> Schedulers
+        {
+            get { return _schedulers; }
+            set { _schedulers = value; OnPropertyChanged("Schedulers"); }
+        }
+
         private ContactModel _contact = new ContactModel();
         public ContactModel Contact
         {
@@ -75,6 +83,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get { return Enum.GetNames(typeof(PoolType)); }
         }
+
         public Page Page { get; set; }
 
         public void NotifyPropertyChanged(string propertyName)
@@ -191,6 +200,49 @@ namespace PoolGuy.Mobile.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public ICommand GoToSchedulerCommand
+        {
+            get => new RelayCommand(() => GoToScheduler());
+        }
+
+        private async void GoToScheduler()
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                await NavigationService.NavigateToDialog(Locator.Scheduler);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public ICommand CheckVisitingDayCommand
+        {
+            get => new RelayCommand<SchedulerModel>((m) => CheckVisitingDay(m));
+        }
+
+        private async void CheckVisitingDay(SchedulerModel model)
+        {
+            try
+            {
+                Notify.RaiseVisitingDayActionAction(new Messages.RefreshMessage {Object = model});
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
             }
         }
     }

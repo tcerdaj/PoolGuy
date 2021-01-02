@@ -71,5 +71,16 @@ namespace PoolGuy.Mobile.Helpers
         {
             HamburgerMenuAction?.Invoke(message);
         }
+
+        private static Action<Messages.RefreshMessage> VisitingDayAction = null;
+        public static void SubscribeVisitingDayActionAction(Action<Messages.RefreshMessage> method)
+        {
+            VisitingDayAction = method;
+        }
+
+        public static void RaiseVisitingDayActionAction(Messages.RefreshMessage message)
+        {
+            VisitingDayAction?.Invoke(message);
+        }
     }
 }

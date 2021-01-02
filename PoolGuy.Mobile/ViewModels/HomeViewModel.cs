@@ -14,10 +14,6 @@ using Microcharts;
 using SkiaSharp;
 using System.Diagnostics;
 using PoolGuy.Mobile.Data.Models;
-using Plugin.Permissions.Abstractions;
-using PoolGuy.Mobile.Extensions;
-using Plugin.Permissions;
-using System.Threading;
 using PoolGuy.Mobile.Data.Models.Config;
 
 namespace PoolGuy.Mobile.ViewModels

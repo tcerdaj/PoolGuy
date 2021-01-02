@@ -22,10 +22,7 @@ namespace PoolGuy.Mobile.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
-            global::Xamarin.Forms.Forms.SetFlags("SwipeView_Experimental");
-            global::Xamarin.Forms.Forms.SetFlags("RadioButton_Experimental");
-            
+            global::Xamarin.Forms.Forms.SetFlags("SwipeView_Experimental", "RadioButton_Experimental", "RadioButton_Experimental");
             Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
             CachedImageRenderer.Init();

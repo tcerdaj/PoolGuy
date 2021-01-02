@@ -69,10 +69,10 @@
                            AbsoluteLayout.LayoutFlags="PositionProportional" />
             </AbsoluteLayout>
             <AbsoluteLayout VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand">
+                            HorizontalOptions="FillAndExpand">
                 <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-              Margin="15,0"
-              AbsoluteLayout.LayoutFlags="All">
+                      Margin="15,0"
+                      AbsoluteLayout.LayoutFlags="All">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -95,7 +95,6 @@
                              HorizontalOptions="FillAndExpand"/>
                     <!--Scheduler options-->
                     <CollectionView Grid.Row="2"
-                                    IsVisible="True"
                                     ItemsSource="{Binding Schedulers}"
                                     ItemsLayout="HorizontalList">
                         <CollectionView.ItemTemplate>

@@ -4,7 +4,6 @@
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              x:Class="PoolGuy.Mobile.Views.WCustomerPage"
-             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
              Title="{Binding Title}"
              x:Name="CustomerSection">
     

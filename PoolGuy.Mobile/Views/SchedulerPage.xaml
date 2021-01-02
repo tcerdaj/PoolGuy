@@ -12,6 +12,8 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:CollectionListToCount x:Key="ListToCount" />
+            <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            
             <!--  *****************************  -->
             <!--  Material Design Icon FontFamily  -->
             <!--  *****************************  -->
@@ -46,61 +48,95 @@
             <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <AbsoluteLayout VerticalOptions="FillAndExpand"
+    <StackLayout BackgroundColor="White"
+                 Spacing="0">
+        <!--****************-->
+        <!-- Navigation Bar -->
+        <!--****************-->
+        <AbsoluteLayout BackgroundColor="{StaticResource Primary}"
+                        HeightRequest="50"
+                        IsVisible="{Binding ShowModal}"
+                        MinimumHeightRequest="50"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Fill">
+            <mycc:AnimatedButton AbsoluteLayout.LayoutBounds="0, 0.5, .25, 1"
+                                        AbsoluteLayout.LayoutFlags="All"
+                                        TouchUpCommand="{Binding GoBackCommand}"
+                                        AutomationId="cancel_add_note">
+                <Image AbsoluteLayout.LayoutBounds="0, 0.5, 1, 1"
+                               Aspect="AspectFit"
+                               HorizontalOptions="Start"
+                               AbsoluteLayout.LayoutFlags="All">
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                  Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
+                                                  Size="40"
+                                                  Color="{StaticResource Title}" />
+                    </Image.Source>
+                </Image>
+            </mycc:AnimatedButton>
+            <Label Text="{Binding Title}"
+                           TextColor="{StaticResource Title}"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                           AbsoluteLayout.LayoutFlags="PositionProportional" />
+        </AbsoluteLayout>
+        <AbsoluteLayout VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand">
-        <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+            <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <!--Scheduler-->
-            <Frame  Grid.Row="0" 
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!--Scheduler-->
+                <Frame  Grid.Row="0" 
                         BorderColor="#D2C9C9"  
                         CornerRadius="6"  
                     HasShadow="False"
                     Margin="10"
                         Padding="10">
-                <Grid x:Name="mainContent" Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <!--LongName-->
-                    <Frame Grid.Row="0">
-                        <mycc:CustomEntry x:Name="LongName" Text="{Binding Scheduler.LongName}" 
+                    <Grid x:Name="mainContent" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <!--LongName-->
+                        <Frame Grid.Row="0">
+                            <mycc:CustomEntry x:Name="LongName" Text="{Binding Scheduler.LongName}" 
                                                    Placeholder="Long name" 
                                                    MaxLength="20"
                                                    ReturnType="Next"
                                                    NextCommand="{Binding NextCommand}"
                                                    NextCommandParameter="ShortName"/>
-                    </Frame>
-                    <Label Grid.Row="1" Grid.Column="0"  x:Name="SchedulerModel_LongNameError" IsVisible="False" TextColor="Red" />
-                    <!--ShortName-->
-                    <Frame Grid.Row="1" 
+                        </Frame>
+                        <Label Grid.Row="1" Grid.Column="0"  x:Name="SchedulerModel_LongNameError" IsVisible="False" TextColor="Red" />
+                        <!--ShortName-->
+                        <Frame Grid.Row="1" 
                            Grid.Column="0">
-                        <mycc:CustomEntry  x:Name="ShortName"
+                            <mycc:CustomEntry  x:Name="ShortName"
                                                    Text="{Binding Scheduler.ShortName}"  
                                                    Placeholder="Short name" 
                                                    MaxLength="20"
                                                    ReturnType="Next"
                                                    NextCommand="{Binding NextCommand}"
                                                    NextCommandParameter="Index"/>
-                    </Frame>
-                    <Label Grid.Row="2" Grid.Column="0" x:Name="SchedulerModel_ShortNameError" IsVisible="False" TextColor="Red" />
-                    <!--Index-->
-                    <Frame Grid.Row="2" 
+                        </Frame>
+                        <Label Grid.Row="2" Grid.Column="0" x:Name="SchedulerModel_ShortNameError" IsVisible="False" TextColor="Red" />
+                        <!--Index-->
+                        <Frame Grid.Row="2" 
                                    Grid.Column="0">
-                        <mycc:CustomEntry  x:Name="Index"
+                            <mycc:CustomEntry  x:Name="Index"
                                                    Text="{Binding Scheduler.Index}"  
                                                    Placeholder="Index" 
                                                    MaxLength="20"
                                                    ReturnType="Done"/>
-                    </Frame>
-                    <StackLayout Grid.Row="3" Orientation="Horizontal">
-                        <Button 
+                        </Frame>
+                        <StackLayout Grid.Row="3" Orientation="Horizontal">
+                            <Button 
                             HorizontalOptions="StartAndExpand"
                             Margin="0"
                             TextColor="{StaticResource UnselectedColor}"
@@ -109,14 +145,14 @@
                             Command="{Binding ResetCommand}"
                             CornerRadius="8"
                             BackgroundColor="{StaticResource ExtraLightGray}">
-                            <Button.ImageSource>
-                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.Autorenew}"
                                          Size="30"
                                          Color="{StaticResource Title}" />
-                            </Button.ImageSource>
-                        </Button>
-                        <Button  
+                                </Button.ImageSource>
+                            </Button>
+                            <Button  
                             HorizontalOptions="End"
                             Text="Save"
                             Margin="0"
@@ -126,108 +162,110 @@
                             Command="{Binding SaveCommand}"
                             CornerRadius="8"
                             BackgroundColor="{StaticResource Title}">
-                            <Button.ImageSource>
-                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                <Button.ImageSource>
+                                    <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                          Glyph="{x:Static icons:MaterialDesignIcons.ContentSave}"
                                          Size="30"
                                          Color="{StaticResource Primary}" />
-                            </Button.ImageSource>
-                        </Button>
-                    </StackLayout>
-                </Grid>
-            </Frame>
-            <BoxView Grid.Row="1"
+                                </Button.ImageSource>
+                            </Button>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+                <BoxView Grid.Row="1"
                      HeightRequest="1" 
                      Color="{StaticResource ExtraLightGray}" 
                      HorizontalOptions="FillAndExpand"
                      Margin="10,20,10,5"/>
-            <!--Scheduler list-->
-            <CollectionView Grid.Row="2"
+                <!--Scheduler list-->
+                <CollectionView Grid.Row="2"
                             x:Name="SchedulerList"
                             EmptyView="No scheduler added yet"
                             SelectionMode="Single"
                             Margin="15,0"
                             SelectedItem="{Binding Scheduler}"
                             ItemsSource="{Binding Schedulers}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid x:Name="SchedulerItem">
-                            <SwipeView BackgroundColor="White">
-                                <SwipeView.RightItems>
-                                    <SwipeItems>
-                                        <SwipeItemView BackgroundColor="Red"
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="SchedulerItem">
+                                <SwipeView BackgroundColor="White">
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                            <SwipeItemView BackgroundColor="Red"
                                                        Margin="10"
                                                        Command="{Binding Source={x:Reference SchedulerList}, Path=BindingContext.DeleteCommand}"
                                                        CommandParameter="{Binding}">
-                                            <StackLayout Spacing="0">
-                                                <Label Text="{x:Static icons:MaterialDesignIcons.TrashCan}"
+                                                <StackLayout Spacing="0">
+                                                    <Label Text="{x:Static icons:MaterialDesignIcons.TrashCan}"
                                                            FontFamily="{StaticResource MaterialFontFamily}"
                                                            FontSize="25"
                                                            Margin="0,5,0,0"
                                                            TextColor="White"
                                                            HorizontalOptions="Center"/>
-                                                <Label Text="Delete" 
+                                                    <Label Text="Delete" 
                                                            FontSize="10" 
                                                            HorizontalOptions="Center" 
                                                            TextColor="White"/>
-                                            </StackLayout>
-                                        </SwipeItemView>
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
-                                <StackLayout Spacing="0"
+                                                </StackLayout>
+                                            </SwipeItemView>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <StackLayout Spacing="0"
                                              Padding="10,0">
-                                    <StackLayout Orientation="Horizontal" 
+                                        <StackLayout Orientation="Horizontal" 
                                                  HorizontalOptions="FillAndExpand"
                                                  Margin="0,5">
-                                        <Label Text="{Binding LongName}"
+                                            <Label Text="{Binding LongName}"
                                                HorizontalOptions="StartAndExpand"
                                                VerticalOptions="Center"/>
-                                        <mr:Label Text="{Binding Customers, Converter={StaticResource ListToCount}, StringFormat='{0} Customers'}"
+                                            <mr:Label Text="{Binding Customers, Converter={StaticResource ListToCount}, StringFormat='{0} Customers'}"
                                                   TextColor="#2F80ED"
                                                   Padding="0,10"
                                                   FontAttributes="Bold"
                                                   VerticalOptions="Center"
                                                   TappedCommand="{Binding Source={x:Reference SchedulerList}, Path=BindingContext.GoToCustomerCommand}"
                                                   TappedCommandParameter="{Binding BindingContext, Source={x:Reference SchedulerItem}}">
-                                            <mr:Label.Triggers>
-                                                <EventTrigger Event="Down">
-                                                    <act:ScaleDownTriggerAction />
-                                                </EventTrigger>
-                                                <EventTrigger Event="Up">
-                                                    <act:ScaleUpTriggerAction />
-                                                </EventTrigger>
-                                            </mr:Label.Triggers>
-                                        </mr:Label>
+                                                <mr:Label.Triggers>
+                                                    <EventTrigger Event="Down">
+                                                        <act:ScaleDownTriggerAction />
+                                                    </EventTrigger>
+                                                    <EventTrigger Event="Up">
+                                                        <act:ScaleUpTriggerAction />
+                                                    </EventTrigger>
+                                                </mr:Label.Triggers>
+                                            </mr:Label>
+                                        </StackLayout>
+                                        <BoxView HeightRequest="1" Color="{StaticResource ExtraLightGray}" HorizontalOptions="FillAndExpand"/>
                                     </StackLayout>
-                                    <BoxView HeightRequest="1" Color="{StaticResource ExtraLightGray}" HorizontalOptions="FillAndExpand"/>
-                                </StackLayout>
-                            </SwipeView>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
-        <AbsoluteLayout BackgroundColor="Transparent"
-                        AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
-                        Margin="-5,0"
-                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
-            <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                                </SwipeView>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+            <AbsoluteLayout BackgroundColor="Transparent"
+                            AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
+                            Margin="-5,0"
+                            IsVisible="{Binding ShowModal, Converter={StaticResource InverseBooleanConverter}}"
+                            AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+                <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
                                  AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
                                  BackgroundColor="{StaticResource Primary}"
                                  ColumnSpacing="25"
                                  Command="{Binding NavigateToCommand}"
                                  Current="Scheduler"/>
-        </AbsoluteLayout>
-        <!-- Busy Status -->
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+            </AbsoluteLayout>
+            <!-- Busy Status -->
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All"
                         BackgroundColor="White"
                         Opacity="0.5"
                         IsVisible="{Binding IsBusy}">
-            <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
                                    AbsoluteLayout.LayoutFlags="PositionProportional"
                                    IsRunning="{Binding IsBusy}"
                                    IsVisible="{Binding IsBusy}" />
+            </AbsoluteLayout>
         </AbsoluteLayout>
-    </AbsoluteLayout>
+    </StackLayout>
 </ContentPage>

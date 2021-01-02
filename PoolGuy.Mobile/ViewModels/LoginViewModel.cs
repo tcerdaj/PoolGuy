@@ -31,9 +31,7 @@ namespace PoolGuy.Mobile.ViewModels
             try
             {
                 await Task.Delay(2000);
-
-                await NavigationService.ReplaceRoot(Locator.Home);
-                await NavigationService.CloseModal();
+                Application.Current.MainPage = new MainPage();
                 Notify.RaiseHomeAction(new Messages.RefreshMessage());
                 Settings.IsLoggedIn = true;
             }

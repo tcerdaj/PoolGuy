@@ -5,6 +5,7 @@ using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace PoolGuy.Mobile.Views
 {

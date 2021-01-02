@@ -47,9 +47,11 @@ namespace PoolGuy.Mobile.ViewModels
             set { _schedulers = value; OnPropertyChanged("Schedulers"); }
         }
 
-        public Page CurrentPage
+        public bool ShowModal
         {
-            get => NavigationService.CurrentPage;
+            get => CurrentPage != null 
+                && CurrentPage.PageType == Enums.ePageType.Dialog 
+                || CurrentPage.PageType == Enums.ePageType.CloseModal;
         }
 
         public async Task InitializeAsync()
@@ -68,6 +70,8 @@ namespace PoolGuy.Mobile.ViewModels
                      }}));
 
                 Reset();
+
+                OnPropertyChanged("ShowModal");
             }
             catch (Exception e)
             {
@@ -107,7 +111,7 @@ namespace PoolGuy.Mobile.ViewModels
                         }
                     });
 
-                if (!FieldValidationHelper.IsFormValid(Scheduler, CurrentPage) || scheduler.Any())
+                if (!FieldValidationHelper.IsFormValid(Scheduler, CurrentPage.Page) || scheduler.Any())
                 {
                     await Message.DisplayAlertAsync("Please check your enter and try again", Title);
                     return;
@@ -231,7 +235,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                var element = CurrentPage?.FindByName<object>(control);
+                var element = CurrentPage.Page?.FindByName<object>(control);
 
                 if (element is CustomEntry customEntry)
                 {
@@ -257,6 +261,17 @@ namespace PoolGuy.Mobile.ViewModels
                 {
                     string page = item == Enums.ePage.Customer ? $"Search{item.ToString()}" : item.ToString();
                     await NavigationService.ReplaceRoot($"{page}Page");
+                });
+            }
+        }
+
+        public ICommand GoBackCommand
+        {
+            get
+            {
+                return new RelayCommand(async () => {
+                    Notify.RaiseVisitingDayActionAction(new Messages.RefreshMessage());
+                    await NavigationService.CloseModal();
                 });
             }
         }

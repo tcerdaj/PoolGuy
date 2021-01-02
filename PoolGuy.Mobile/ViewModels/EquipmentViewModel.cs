@@ -44,12 +44,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             get { return Globals.CurrentPage == Enums.ePage.EquipmentSelectModel; }
         }
-
-        public Page CurrentPage
-        {
-            get => NavigationService.CurrentPage;
-        }
-
+     
         private EquipmentTypeModel _selectedEquipmentType;
         public EquipmentTypeModel SelectedEquipmentType
         {
@@ -196,7 +191,7 @@ namespace PoolGuy.Mobile.ViewModels
                     return;
                 }
 
-                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                var flexlayout = CurrentPage.Page.FindByName<FlexLayout>("EquipmentType");
                 if (flexlayout == null)
                 {
                     return;
@@ -240,7 +235,7 @@ namespace PoolGuy.Mobile.ViewModels
                             return;
                         }
 
-                        CurrentPage.ToolbarItems.Clear();
+                        CurrentPage.Page.ToolbarItems.Clear();
                         flexlayout.Direction = FlexDirection.Row;
                         flexlayout.Wrap = FlexWrap.Wrap;
                         Globals.CurrentPage = Enums.ePage.SelectManufacture;
@@ -283,8 +278,8 @@ namespace PoolGuy.Mobile.ViewModels
                 }
 
                 SelectedEquipmentType = model;
-                CurrentPage.Title = model.Name;
-                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                CurrentPage.Page.Title = model.Name;
+                var flexlayout = CurrentPage.Page.FindByName<FlexLayout>("EquipmentType");
                 if (flexlayout == null)
                 {
                     return;
@@ -310,7 +305,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                var flexlayout = CurrentPage.Page.FindByName<FlexLayout>("EquipmentType");
                 if (model == null || CurrentPage == null || flexlayout == null)
                 {
                     return;
@@ -358,7 +353,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                var page = CurrentPage?.FindByName<FlexLayout>("EquipmentType");
+                var page = CurrentPage?.Page.FindByName<FlexLayout>("EquipmentType");
                 if (page.Children.FirstOrDefault() is ScrollView sv)
                 {
                     var element = sv?.FindByName<object>(control);
@@ -387,7 +382,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                if (FieldValidationHelper.IsFormValid(Equipment, CurrentPage))
+                if (FieldValidationHelper.IsFormValid(Equipment, CurrentPage.Page))
                 {
                     if (Equipment.Id == Guid.Empty)
                     {
@@ -428,7 +423,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                var flexlayout = CurrentPage.Page.FindByName<FlexLayout>("EquipmentType");
                 if (flexlayout == null)
                 {
                     return;
@@ -469,9 +464,9 @@ namespace PoolGuy.Mobile.ViewModels
                 {
                     Globals.CurrentPage = Enums.ePage.EquipmentSelectModel;
                     Title = "Select Model";
-                    if (!CurrentPage.ToolbarItems.Any())
+                    if (!CurrentPage.Page.ToolbarItems.Any())
                     {
-                        CurrentPage.ToolbarItems.Add(new ToolbarItem { Text = "Add", Command = AddEquipmentModelCommand });
+                        CurrentPage.Page.ToolbarItems.Add(new ToolbarItem { Text = "Add", Command = AddEquipmentModelCommand });
                     }
                     flexlayout.Direction = FlexDirection.Column;
                     flexlayout.Wrap = FlexWrap.NoWrap;
@@ -500,7 +495,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                var flexlayout = CurrentPage.FindByName<FlexLayout>("EquipmentType");
+                var flexlayout = CurrentPage.Page.FindByName<FlexLayout>("EquipmentType");
                 if (flexlayout == null)
                 {
                     return;
@@ -511,7 +506,7 @@ namespace PoolGuy.Mobile.ViewModels
                     Equipment.Model = model;
                 }
 
-                CurrentPage.ToolbarItems.Clear();
+                CurrentPage.Page.ToolbarItems.Clear();
                 CurrentPage.Title = $"Add Model Equipment";
                 Globals.CurrentPage = Enums.ePage.Equipment;
                 OnPropertyChanged("ShowSearchTerm");
