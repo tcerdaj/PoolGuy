@@ -62,7 +62,7 @@ namespace PoolGuy.Mobile.ViewModels
                 ObservableCollection<SchedulerModel> schedulers = await GetScheduler(customer);
                 
                 Pages = new List<CustomerPageViewModel> {
-                  new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage(this){ Title = "Customer" } },
+                  new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage(this){ Title = "Customer"} },
                   new CustomerPageViewModel { Title = "Address", Page =  new WAddressPage(this){ Title = "Address" }, Schedulers = schedulers },
                   new CustomerPageViewModel { Title = "Contact", Page =  new WContactPage(this){ Title = "Contact" } },
                   new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage(this){ Title = "Pool" } },
@@ -321,6 +321,7 @@ namespace PoolGuy.Mobile.ViewModels
         private CustomerModel _customer = new CustomerModel() { 
             Contact = new ContactModel(),
             Address = new AddressModel(),
+            HomeAddress = new AddressModel(),
             Pool = new PoolModel()
         };
         public CustomerModel Customer
@@ -382,6 +383,7 @@ namespace PoolGuy.Mobile.ViewModels
                     {
                         Contact = new ContactModel(),
                         Address = new AddressModel(),
+                        HomeAddress = new AddressModel(),
                         Pool = new PoolModel()
                     };
 
@@ -391,9 +393,10 @@ namespace PoolGuy.Mobile.ViewModels
                     }
 
                     return (_originalModel.DetailedCompare(Pages[0].Customer).Any() ||
-                           _originalModel.Address.DetailedCompare(Pages[1].Address).Any() ||
-                           _originalModel.Contact.DetailedCompare(Pages[2].Contact).Any() ||
-                           _originalModel.Pool.DetailedCompare(Pages[3].Pool).Any()) 
+                            _originalModel.HomeAddress.DetailedCompare(Pages[0].Customer.HomeAddress).Any() ||
+                            _originalModel.Address.DetailedCompare(Pages[1].Address).Any() ||
+                            _originalModel.Contact.DetailedCompare(Pages[2].Contact).Any() ||
+                            _originalModel.Pool.DetailedCompare(Pages[3].Pool).Any()) 
                            || _wasModified;
                 }
                 catch (Exception)

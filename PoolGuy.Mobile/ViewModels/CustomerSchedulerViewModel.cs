@@ -71,11 +71,6 @@ namespace PoolGuy.Mobile.ViewModels
             set { _schedulers = value; OnPropertyChanged("Schedulers"); }
         }
 
-        public Page CurrentPage
-        {
-            get => NavigationService.CurrentPage;
-        }
-
         public async Task InitSchedulers()
         {
             Schedulers = new ObservableCollection<SchedulerModel>(await new SchedulerController().ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel { 

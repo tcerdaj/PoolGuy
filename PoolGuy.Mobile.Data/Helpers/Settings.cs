@@ -20,8 +20,6 @@ namespace PoolGuy.Mobile.Data.Helpers
         private const string IsLoggedInKey = "isLoggedIn_Key";
         private static readonly bool IsLoggedInDefault = false;
         private const string IsLoggingKey = "isLogging_Key";
-        private static readonly bool IsLoggingDefault = false;
-
         #endregion
         #region Properties
         public static string NavigationMetadata

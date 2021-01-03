@@ -115,6 +115,14 @@ namespace PoolGuy.Mobile.ViewModels
                                 State = c.State,
                                 Zip = c.Zip
                             },
+                            HomeAddress = new AddressModel 
+                            {
+                                Address1 = c.Address1,
+                                Address2 = c.Address2,
+                                City = c.City,
+                                State = c.State,
+                                Zip = c.Zip
+                            },
                             Contact = new ContactModel
                             {
                                 Phone = c.Phone,
@@ -138,7 +146,7 @@ namespace PoolGuy.Mobile.ViewModels
                     }
                 }
 
-                Message.Toast($"Customers successfully generated", TimeSpan.FromSeconds(10));
+                Message.Toast($"Customers successfully generated", TimeSpan.FromSeconds(3));
             }
             catch (Exception e)
             {

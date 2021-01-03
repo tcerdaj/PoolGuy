@@ -26,8 +26,30 @@ namespace PoolGuy.Mobile.Data.Controllers
             {
                 var customers =  await SQLiteControllerBase
                     .DatabaseAsync
-                    .QueryAsync<CustomerModel>("SELECT c.* FROM CustomerModel c " +
+                    .QueryAsync<CustomerModel>("SELECT " +
+                                                "c.Id, " +
+                                                "c.FirstName, " +
+                                                "c.LastName, " +
+                                                "c.ImageUrl, " +
+                                                "c.Active, " +
+                                                "c.Status, " +
+                                                "c.DateLastPaid, " +
+                                                "c.DateLastVisit, " +
+                                                "c.Balance, " +
+                                                "c.Latitude, " +
+                                                "c.Longitude, " +
+                                                "c.AdditionalInformation, " +
+                                                "c.Distance, " +
+                                                "c.Created, " +
+                                                "c.Modified, " +
+                                                "c.WasModified, " +
+                                                "c.AddressId, " +
+                                                "c.ContactId, " +
+                                                "c.PoolId, " +
+                                                "c.HomeAddressId " +
+                                                "FROM CustomerModel c " +
                                                   "LEFT OUTER JOIN AddressModel am on c.AddressId = am.Id " +
+                                                  "LEFT OUTER JOIN AddressModel ha on c.HomeAddressId = ha.Id " +
                                                   "LEFT OUTER JOIN ContactModel cm on c.ContactId = cm.Id " +
                                                   "LEFT OUTER JOIN PoolModel pm    on c.PoolId = pm.Id " +
                                                   "WHERE c.FirstName like '%" + criteria + "%' " +
@@ -45,15 +67,13 @@ namespace PoolGuy.Mobile.Data.Controllers
                 {
                     customers = await SQLiteControllerBase
                                         .DatabaseAsync
-                                        .QueryAsync<CustomerModel>("SELECT c.* FROM CustomerModel c " +
-                                                                     "LEFT OUTER JOIN AddressModel am on c.AddressId = am.Id " +
-                                                                      "LEFT OUTER JOIN ContactModel cm on c.ContactId = cm.Id " +
-                                                                      "LEFT OUTER JOIN PoolModel pm    on c.PoolId = pm.Id " +
-                                                                      "ORDER BY C.FirstName " +
-                                                                      "LIMIT 10").ConfigureAwait(false);
+                                        .QueryAsync<CustomerModel>("SELECT * " +
+                                                                   "FROM CustomerModel " +
+                                                                   "ORDER BY FirstName " +
+                                                                   "LIMIT 10").ConfigureAwait(false);
 
                 }
-
+              
                 foreach (var customer in customers)
                 {
                     await SQLiteControllerBase
@@ -106,15 +126,28 @@ namespace PoolGuy.Mobile.Data.Controllers
                 {
                     var created = DateTime.Now.ToUniversalTime();
                     model.Id = Guid.NewGuid();
-                    model.Address.Id = Guid.NewGuid();
-                    model.AddressId = model.Address.Id;
+                    if (model.Address != null)
+                    {
+                        model.Address.Id = Guid.NewGuid();
+                        model.AddressId = model.Address.Id;
+                        model.Address.Created = created;
+                        await new AddressController().LocalData.Modify(model.Address);
+                    }
+
+                    if (model.HomeAddress != null)
+                    {
+                        model.HomeAddress.Id = Guid.NewGuid();
+                        model.HomeAddressId = model.HomeAddress.Id;
+                        model.HomeAddress.Created = created;
+                        await new AddressController().LocalData.Modify(model.HomeAddress);
+                    }
+
                     model.Contact.Id = Guid.NewGuid();
                     model.ContactId = model.Contact.Id;
                     model.Pool.Id = Guid.NewGuid();
                     model.PoolId = model.Pool.Id;
                     model.Created = created;
                     model.Pool.Created = created;
-                    model.Address.Created = created;
                     model.Contact.Created = created;
                 }
                 else 
@@ -125,9 +158,18 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model = await LoadAsync(model.Id);
                     model.InjectFrom(tempModel);
 
+                    if (model.Address != null && model.Address.Id == Guid.Empty)
+                    {
+                        model.Address.Modified = model.Address.WasModified ? modified : model.Address.Modified;
+                    }
+
+                    if (model.HomeAddress != null && model.HomeAddress.Id == Guid.Empty)
+                    {
+                        model.HomeAddress.Modified = model.HomeAddress.WasModified ? modified : model.HomeAddress.Modified;
+                    }
+
                     model.Modified = modified;
                     model.Pool.Modified = model.Pool.WasModified ? modified : model.Pool.Modified;
-                    model.Address.Modified = model.Address.WasModified ? modified : model.Address.Modified;
                     model.Contact.Modified = model.Contact.WasModified ? modified : model.Contact.Modified;
                 }
 

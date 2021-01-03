@@ -6,6 +6,7 @@ namespace PoolGuy.Mobile.Data.Models
 {
     public class AddressModel : EntityBase
     {
+
         [JsonIgnore]
         public string FullAddress
         {
@@ -53,6 +54,13 @@ namespace PoolGuy.Mobile.Data.Models
         {
             get { return _state; }
             set { _state = value; OnPropertyChanged("State");  }
+        }
+
+        private bool _sameHomeAddress;
+        public bool SameHomeAddress
+        {
+            get { return _sameHomeAddress; }
+            set { _sameHomeAddress = value; OnPropertyChanged("SameHomeAddress"); }
         }
     }
 }

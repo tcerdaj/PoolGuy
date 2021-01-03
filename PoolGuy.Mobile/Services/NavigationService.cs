@@ -447,7 +447,7 @@ namespace PoolGuy.Mobile.Services
                         {
                             await RemovePopupAsync(animate, _popUp);
                             _popUp = null;
-                            CurrentPage = (CustomPage)_navigation.CurrentPage;
+                            CurrentPage = new CustomPage(_navigation.CurrentPage, Data.Models.Enums.ePageType.PushPopup);
                         });
 
                         await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(_popUp, animate);

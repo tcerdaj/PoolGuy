@@ -20,10 +20,27 @@ namespace PoolGuy.Mobile.Data.Models
         public List<SchedulerModel> Scheduler { get; set; }
 
         [ForeignKey(typeof(AddressModel))]
+        public Guid HomeAddressId { get; set; }
+
+        /// <summary>
+        /// Home Address
+        /// </summary>
+        private AddressModel _homeAddress;
+        [OneToOne("HomeAddressId", CascadeOperations = CascadeOperation.All)]
+        public AddressModel HomeAddress
+        {
+            get => _homeAddress;
+            set { _homeAddress = value; OnPropertyChanged("HomeAddress"); }
+        }
+
+        [ForeignKey(typeof(AddressModel))]
         public Guid AddressId { get; set; }
 
+        /// <summary>
+        /// Billing Address
+        /// </summary>
         private AddressModel _address;
-        [OneToOne(CascadeOperations = CascadeOperation.All)]
+        [OneToOne("AddressId", CascadeOperations = CascadeOperation.All)]
         public AddressModel Address
         {
             get => _address;

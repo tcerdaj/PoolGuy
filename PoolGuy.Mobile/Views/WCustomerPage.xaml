@@ -21,23 +21,34 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
+        <ScrollView>
          <Grid VerticalOptions="Start">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+                </Grid.RowDefinitions>
                 <Frame  Grid.Row="0" 
                         BorderColor="#D2C9C9"  
                         CornerRadius="6"  
                         Padding="5,10">
                         <Grid x:Name="mainContent" Margin="10">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                             </Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*"/>
                         <ColumnDefinition Width="7*"/>
@@ -58,7 +69,8 @@
                         </ImageButton>
                     </Frame>
                     <!--FirstName-->
-                            <Frame Grid.Row="0" 
+                    <Frame Grid.Row="0" 
+                                   Margin="10,0,0,0"
                                    Grid.Column="1">
                                 <mycc:CustomEntry  Text="{Binding Customer.FirstName}" 
                                                    Placeholder="First name" 
@@ -67,32 +79,98 @@
                                                    NextCommand="{Binding NextCommand}"
                                                    NextCommandParameter="LastName"/>
                             </Frame>
-                            <Label Grid.Row="1" 
+                    <Label Grid.Row="1" 
                                    Grid.Column="1"  
                                    x:Name="CustomerModel_FirstNameError" 
                                    IsVisible="False" 
                                    TextColor="Red" />
-                            <!--LastName-->
-                            <Frame Grid.Row="2" 
-                                   Grid.Column="1">
+                    <!--LastName-->
+                    <Frame Grid.Row="2" 
+                                   Grid.Column="1"
+                                   Margin="10,0,0,0">
                                 <mycc:CustomEntry  x:Name="LastName"
                                                    Text="{Binding Customer.LastName}"  
                                                    Placeholder="Last name" 
                                                    MaxLength="20"
                                                    ReturnType="Next"
                                                    NextCommand="{Binding NextCommand}"
-                                                   NextCommandParameter="AdditionalInformation"/>
+                                                   NextCommandParameter="Address1"/>
                             </Frame>
-                            <Label Grid.Row="3" Grid.Column="1" x:Name="CustomerModel_LastNameError" IsVisible="False" TextColor="Red" />
-                            <Frame Grid.Row="4" 
-                                           Grid.ColumnSpan="2">
-                                <Editor x:Name="AdditionalInformation" 
-                                        Text="{Binding Customer.AdditionalInformation}"  
-                                        Placeholder="Additional Information" 
-                                        MaxLength="200"
-                                        HeightRequest="100" />
-                             </Frame>
-                    <StackLayout Grid.Row="5"
+                           <Label Grid.Row="3" Grid.Column="1" x:Name="CustomerModel_LastNameError" IsVisible="False" TextColor="Red" />
+                         <!--Home Address-->
+                        <Label Grid.Row="4" Grid.ColumnSpan="2" 
+                               Text="Home Address"/>
+                        <!--Address-->
+                        <Frame Grid.Row="5"
+                               Grid.ColumnSpan="2" >
+                            <mycc:CustomEntry x:Name="Address1"  
+                                           Text="{Binding Customer.HomeAddress.Address1}" 
+                                           Placeholder="Address1" 
+                                           MaxLength="100"
+                                           ReturnType="Next"
+                                           NextCommand="{Binding NextCommand}"
+                                           NextCommandParameter="Address2"/>
+                        </Frame>
+                        <Label Grid.Row="6" Grid.ColumnSpan="2"  x:Name="AddressModel_Address1Error" IsVisible="False" TextColor="Red" />
+                        <!--Address2-->
+                        <Frame Grid.Row="7" 
+                               Grid.ColumnSpan="2" >
+                            <mycc:CustomEntry  x:Name="Address2"
+                                           Text="{Binding Customer.HomeAddress.Address2}"  
+                                           Placeholder="Address2" 
+                                           MaxLength="100"
+                                           ReturnType="Next"
+                                           NextCommand="{Binding NextCommand}"
+                                           NextCommandParameter="City"/>
+                        </Frame>
+                        <Label Grid.Row="8" Grid.ColumnSpan="2" x:Name="AddressModel_Address2Error" IsVisible="False" TextColor="Red" />
+                        <!--City-->
+                        <Frame Grid.Row="9" 
+                               Grid.ColumnSpan="2" >
+                            <mycc:CustomEntry x:Name="City"
+                                          Text="{Binding Customer.HomeAddress.City}"  
+                                          Placeholder="City" 
+                                          MaxLength="80"
+                                          ReturnType="Next"
+                                          NextCommand="{Binding NextCommand}"
+                                          NextCommandParameter="State"/>
+                        </Frame>
+                        <Label Grid.Row="10" Grid.ColumnSpan="2"  x:Name="AddressModel_CityError" IsVisible="False" TextColor="Red" />
+                        <!--State-->
+                        <Frame Grid.Row="11" 
+                               Grid.ColumnSpan="2" >
+                            <mycc:CustomEntry x:Name="State"
+                                          Text="{Binding Customer.HomeAddress.State}"  
+                                          Placeholder="State" 
+                                          MaxLength="50"
+                                          ReturnType="Next"
+                                          NextCommand="{Binding NextCommand}"
+                                          NextCommandParameter="Zip"/>
+                        </Frame>
+                        <Label Grid.Row="12" Grid.ColumnSpan="2"  x:Name="AddressModel_StateError" IsVisible="False" TextColor="Red" />
+                        <!--Zip-->
+                        <Frame Grid.Row="13" 
+                                Grid.ColumnSpan="2" >
+                            <mycc:CustomEntry x:Name="Zip"
+                                          Text="{Binding Customer.HomeAddress.Zip}"  
+                                          Placeholder="Zip" 
+                                          MaxLength="10"
+                                          ReturnType="Next"
+                                          NextCommand="{Binding NextCommand}"
+                                          NextCommandParameter="AdditionalInformation"
+                                          HasDone="True"/>
+                        </Frame>
+                        <!--Additional Information-->
+                        <Frame Grid.Row="14" 
+                           Grid.ColumnSpan="2" >
+                        <Editor x:Name="AdditionalInformation" 
+                                Text="{Binding Customer.AdditionalInformation}"  
+                                Placeholder="Additional Information" 
+                                MaxLength="200"
+                                HeightRequest="60" />
+                     </Frame>
+                         <!--Active-->
+                        <StackLayout Grid.Row="15"
                                  Grid.ColumnSpan="2"
                                  Orientation="Horizontal"
                                  Padding="10,0"
@@ -118,7 +196,8 @@
                                  OnColor="{StaticResource Primary}"
                                  ThumbColor="{StaticResource Title}"/>
                     </StackLayout>
-                    <StackLayout Grid.Row="6" 
+                        <!--Customer since/ last visit-->       
+                        <StackLayout Grid.Row="16" 
                                  Grid.ColumnSpan="2"
                                  IsVisible="{Binding Customer.NewCustomer, Converter={StaticResource InverseBoolConverter}}"
                                  HorizontalOptions="FillAndExpand"
@@ -130,7 +209,8 @@
                                 HorizontalOptions="EndAndExpand"/>
                     </StackLayout>
                 </Grid>
-                    </Frame>
+             </Frame>
         </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

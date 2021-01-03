@@ -28,7 +28,7 @@ namespace PoolGuy.Mobile.TemplateSelector
 
                 return ActionSheetTemplate;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }
