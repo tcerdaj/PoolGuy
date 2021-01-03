@@ -12,6 +12,7 @@
 *.plist
 apikeys.*
 apikeys.xml
+apikeys.json
 *.suo
 *.user
 _ReSharper.*
