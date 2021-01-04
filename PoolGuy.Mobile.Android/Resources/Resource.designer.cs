@@ -28683,109 +28683,112 @@ namespace PoolGuy.Mobile.Droid
 			public const int fallback_menu_item_share_link = 2131558454;
 			
 			// aapt resource value: 0x7F0D0037
-			public const int hide_bottom_view_on_scroll_behavior = 2131558455;
+			public const int google_maps_api_key = 2131558455;
 			
 			// aapt resource value: 0x7F0D0038
-			public const int library_name = 2131558456;
+			public const int hide_bottom_view_on_scroll_behavior = 2131558456;
 			
 			// aapt resource value: 0x7F0D0039
-			public const int mr_button_content_description = 2131558457;
+			public const int library_name = 2131558457;
 			
 			// aapt resource value: 0x7F0D003A
-			public const int mr_cast_button_connected = 2131558458;
+			public const int mr_button_content_description = 2131558458;
 			
 			// aapt resource value: 0x7F0D003B
-			public const int mr_cast_button_connecting = 2131558459;
+			public const int mr_cast_button_connected = 2131558459;
 			
 			// aapt resource value: 0x7F0D003C
-			public const int mr_cast_button_disconnected = 2131558460;
+			public const int mr_cast_button_connecting = 2131558460;
 			
 			// aapt resource value: 0x7F0D003D
-			public const int mr_cast_dialog_title_view_placeholder = 2131558461;
+			public const int mr_cast_button_disconnected = 2131558461;
 			
 			// aapt resource value: 0x7F0D003E
-			public const int mr_chooser_searching = 2131558462;
+			public const int mr_cast_dialog_title_view_placeholder = 2131558462;
 			
 			// aapt resource value: 0x7F0D003F
-			public const int mr_chooser_title = 2131558463;
+			public const int mr_chooser_searching = 2131558463;
 			
 			// aapt resource value: 0x7F0D0040
-			public const int mr_controller_album_art = 2131558464;
+			public const int mr_chooser_title = 2131558464;
 			
 			// aapt resource value: 0x7F0D0041
-			public const int mr_controller_casting_screen = 2131558465;
+			public const int mr_controller_album_art = 2131558465;
 			
 			// aapt resource value: 0x7F0D0042
-			public const int mr_controller_close_description = 2131558466;
+			public const int mr_controller_casting_screen = 2131558466;
 			
 			// aapt resource value: 0x7F0D0043
-			public const int mr_controller_collapse_group = 2131558467;
+			public const int mr_controller_close_description = 2131558467;
 			
 			// aapt resource value: 0x7F0D0044
-			public const int mr_controller_disconnect = 2131558468;
+			public const int mr_controller_collapse_group = 2131558468;
 			
 			// aapt resource value: 0x7F0D0045
-			public const int mr_controller_expand_group = 2131558469;
+			public const int mr_controller_disconnect = 2131558469;
 			
 			// aapt resource value: 0x7F0D0046
-			public const int mr_controller_no_info_available = 2131558470;
+			public const int mr_controller_expand_group = 2131558470;
 			
 			// aapt resource value: 0x7F0D0047
-			public const int mr_controller_no_media_selected = 2131558471;
+			public const int mr_controller_no_info_available = 2131558471;
 			
 			// aapt resource value: 0x7F0D0048
-			public const int mr_controller_pause = 2131558472;
+			public const int mr_controller_no_media_selected = 2131558472;
 			
 			// aapt resource value: 0x7F0D0049
-			public const int mr_controller_play = 2131558473;
+			public const int mr_controller_pause = 2131558473;
 			
 			// aapt resource value: 0x7F0D004A
-			public const int mr_controller_stop = 2131558474;
+			public const int mr_controller_play = 2131558474;
 			
 			// aapt resource value: 0x7F0D004B
-			public const int mr_controller_stop_casting = 2131558475;
+			public const int mr_controller_stop = 2131558475;
 			
 			// aapt resource value: 0x7F0D004C
-			public const int mr_controller_volume_slider = 2131558476;
+			public const int mr_controller_stop_casting = 2131558476;
 			
 			// aapt resource value: 0x7F0D004D
-			public const int mr_dialog_groupable_header = 2131558477;
+			public const int mr_controller_volume_slider = 2131558477;
 			
 			// aapt resource value: 0x7F0D004E
-			public const int mr_dialog_transferable_header = 2131558478;
+			public const int mr_dialog_groupable_header = 2131558478;
 			
 			// aapt resource value: 0x7F0D004F
-			public const int mr_system_route_name = 2131558479;
+			public const int mr_dialog_transferable_header = 2131558479;
 			
 			// aapt resource value: 0x7F0D0050
-			public const int mr_user_route_category_name = 2131558480;
+			public const int mr_system_route_name = 2131558480;
 			
 			// aapt resource value: 0x7F0D0051
-			public const int mtrl_chip_close_icon_content_description = 2131558481;
+			public const int mr_user_route_category_name = 2131558481;
 			
 			// aapt resource value: 0x7F0D0052
-			public const int overflow_tab_title = 2131558482;
+			public const int mtrl_chip_close_icon_content_description = 2131558482;
 			
 			// aapt resource value: 0x7F0D0053
-			public const int password_toggle_content_description = 2131558483;
+			public const int overflow_tab_title = 2131558483;
 			
 			// aapt resource value: 0x7F0D0054
-			public const int path_password_eye = 2131558484;
+			public const int password_toggle_content_description = 2131558484;
 			
 			// aapt resource value: 0x7F0D0055
-			public const int path_password_eye_mask_strike_through = 2131558485;
+			public const int path_password_eye = 2131558485;
 			
 			// aapt resource value: 0x7F0D0056
-			public const int path_password_eye_mask_visible = 2131558486;
+			public const int path_password_eye_mask_strike_through = 2131558486;
 			
 			// aapt resource value: 0x7F0D0057
-			public const int path_password_strike_through = 2131558487;
+			public const int path_password_eye_mask_visible = 2131558487;
 			
 			// aapt resource value: 0x7F0D0058
-			public const int search_menu_title = 2131558488;
+			public const int path_password_strike_through = 2131558488;
 			
 			// aapt resource value: 0x7F0D0059
-			public const int status_bar_notification_info_overflow = 2131558489;
+			public const int search_menu_title = 2131558489;
+			
+			// aapt resource value: 0x7F0D005A
+			public const int status_bar_notification_info_overflow = 2131558490;
 			
 			static String()
 			{

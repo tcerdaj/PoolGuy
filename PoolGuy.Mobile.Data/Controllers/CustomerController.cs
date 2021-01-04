@@ -58,7 +58,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                                                   "OR am.City like '" + criteria + "%' " +
                                                   "OR am.State like '%" + criteria + "%' " +
                                                   "OR am.Zip like '%" + criteria + "%' " +
-                                                  "OR ha.Address1 like '%" + criteria + "' " +
+                                                  "OR ha.Address1 like '%" + criteria + "%' " +
                                                   "OR ha.City like '" + criteria + "%' " +
                                                   "OR ha.State like '%" + criteria + "%' " +
                                                   "OR ha.Zip like '%" + criteria + "%' " +

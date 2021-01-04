@@ -1,4 +1,5 @@
-﻿using PoolGuy.Mobile.Droid.ISQLite;
+﻿using PoolGuy.Mobile.Data;
+using PoolGuy.Mobile.Droid.ISQLite;
 using SQLite;
 using System.IO;
 using Xamarin.Forms;
@@ -16,7 +17,7 @@ namespace PoolGuy.Mobile.Droid.ISQLite
         {
             string documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string path = Path.Combine(documentsPath, Data.Constants.DatabaseFilename);
-            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(path);
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(path, Constants.Flags);
             return connection;
         }
     }
