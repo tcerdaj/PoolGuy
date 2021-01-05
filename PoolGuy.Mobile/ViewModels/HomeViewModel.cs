@@ -32,6 +32,14 @@ namespace PoolGuy.Mobile.ViewModels
             SubscribeMessages();
         }
 
+        private bool _initialized;
+
+        public bool Initialized
+        {
+            get { return _initialized; }
+            set { _initialized = value; }
+        }
+
         private Chart _temperature;
         public Chart Temperature
         {
@@ -105,6 +113,7 @@ namespace PoolGuy.Mobile.ViewModels
             finally 
             {
                 IsBusy = false;
+                Initialized = true;
             }
         }
 

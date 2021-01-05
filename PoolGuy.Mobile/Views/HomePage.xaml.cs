@@ -1,4 +1,5 @@
-﻿using PoolGuy.Mobile.Helpers;
+﻿using PoolGuy.Mobile.Data.Helpers;
+using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
@@ -36,9 +37,19 @@ namespace PoolGuy.Mobile.Views
             };
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
+            if (!Settings.IsLoggedIn)
+            {
+                Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White };
+                return;
+            }
+
+            if (!_viewModel.Initialized)
+            {
+                await _viewModel.Initialize();
+            }
         }
 
         protected override void OnDisappearing()
