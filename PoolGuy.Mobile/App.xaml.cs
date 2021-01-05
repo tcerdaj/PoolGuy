@@ -14,13 +14,10 @@ using PoolGuy.Mobile.Data.Models.Weather;
 using System.Threading.Tasks;
 using PoolGuy.Mobile.Data.Helpers;
 using System.Linq;
-using Xamarin.Essentials;
 using PoolGuy.Mobile.Controllers;
 using System;
 using System.Diagnostics;
 using SQLite;
-using PoolGuy.Mobile.Extensions;
-using System.Threading;
 using PoolGuy.Mobile.Data.Models.GoogleMap;
 
 namespace PoolGuy.Mobile
@@ -65,6 +62,7 @@ namespace PoolGuy.Mobile
             nav.Configure(Locator.Scheduler, typeof(SchedulerPage));
             nav.Configure(Locator.CustomerScheduler, typeof(CustomerSchedulerPage));
             nav.Configure(Locator.Map, typeof(MapPage));
+            nav.Configure(Locator.Stop, typeof(StopPage));
 
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {

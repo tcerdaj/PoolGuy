@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PoolGuy.Mobile.Views.StopPage"
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
+             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" 
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
+             Title="{Binding Title}">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:CollectionListToCount x:Key="ListToCount" />
+            <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+            
+            <!--  *****************************  -->
+            <!--  Material Design Icon FontFamily  -->
+            <!--  *****************************  -->
+            <OnPlatform x:Key="FontAwesonFamily"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS"
+                    Value="Font Awesome 5 Free" />
+                <On Platform="Android"
+                    Value="fa-regular-400.ttf#Font Awesome 5 Free Regular" />
+            </OnPlatform>
+            <Style TargetType="Frame">
+                <Setter Property="BorderColor" Value="#D8D8D8"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="HasShadow" Value="False"/>
+            </Style>
+            <Style TargetType="Grid">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                        Value="{StaticResource ExtraLightGray}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout BackgroundColor="White"
+                 Spacing="0">
+        <AbsoluteLayout VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand">
+            <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <!--Scheduler-->
+                <BoxView Grid.Row="0"
+                     HeightRequest="1" 
+                     Color="{StaticResource ExtraLightGray}" 
+                     HorizontalOptions="FillAndExpand"
+                     Margin="10,20,10,5"/>
+               
+            </Grid>
+            <AbsoluteLayout BackgroundColor="Transparent"
+                            AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
+                            Margin="-5,0"
+                            IsVisible="{Binding ShowModal, Converter={StaticResource InverseBooleanConverter}}"
+                            AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+                <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                                 AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
+                                 BackgroundColor="{StaticResource Primary}"
+                                 ColumnSpacing="25"
+                                 Command="{Binding NavigateToCommand}"
+                                 Current="Stop"/>
+            </AbsoluteLayout>
+            <!-- Busy Status -->
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        BackgroundColor="White"
+                        Opacity="0.5"
+                        IsVisible="{Binding IsBusy}">
+                <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                                   IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}" />
+            </AbsoluteLayout>
+        </AbsoluteLayout>
+    </StackLayout>
+</ContentPage>

@@ -26862,82 +26862,85 @@ namespace PoolGuy.Mobile.Droid
 			public const int speckpumps = 2131165583;
 			
 			// aapt resource value: 0x7F070190
-			public const int swinpureplus = 2131165584;
+			public const int stop = 2131165584;
 			
 			// aapt resource value: 0x7F070191
-			public const int tab_about = 2131165585;
+			public const int swinpureplus = 2131165585;
 			
 			// aapt resource value: 0x7F070192
-			public const int tab_feed = 2131165586;
+			public const int tab_about = 2131165586;
 			
 			// aapt resource value: 0x7F070193
-			public const int tooltip_frame_dark = 2131165587;
+			public const int tab_feed = 2131165587;
 			
 			// aapt resource value: 0x7F070194
-			public const int tooltip_frame_light = 2131165588;
+			public const int tooltip_frame_dark = 2131165588;
 			
 			// aapt resource value: 0x7F070195
-			public const int w01d = 2131165589;
+			public const int tooltip_frame_light = 2131165589;
 			
 			// aapt resource value: 0x7F070196
-			public const int w01n = 2131165590;
+			public const int w01d = 2131165590;
 			
 			// aapt resource value: 0x7F070197
-			public const int w02d = 2131165591;
+			public const int w01n = 2131165591;
 			
 			// aapt resource value: 0x7F070198
-			public const int w02n = 2131165592;
+			public const int w02d = 2131165592;
 			
 			// aapt resource value: 0x7F070199
-			public const int w03d = 2131165593;
+			public const int w02n = 2131165593;
 			
 			// aapt resource value: 0x7F07019A
-			public const int w03n = 2131165594;
+			public const int w03d = 2131165594;
 			
 			// aapt resource value: 0x7F07019B
-			public const int w04d = 2131165595;
+			public const int w03n = 2131165595;
 			
 			// aapt resource value: 0x7F07019C
-			public const int w04n = 2131165596;
+			public const int w04d = 2131165596;
 			
 			// aapt resource value: 0x7F07019D
-			public const int w09d = 2131165597;
+			public const int w04n = 2131165597;
 			
 			// aapt resource value: 0x7F07019E
-			public const int w09n = 2131165598;
+			public const int w09d = 2131165598;
 			
 			// aapt resource value: 0x7F07019F
-			public const int w10d = 2131165599;
+			public const int w09n = 2131165599;
 			
 			// aapt resource value: 0x7F0701A0
-			public const int w10n = 2131165600;
+			public const int w10d = 2131165600;
 			
 			// aapt resource value: 0x7F0701A1
-			public const int w11d = 2131165601;
+			public const int w10n = 2131165601;
 			
 			// aapt resource value: 0x7F0701A2
-			public const int w11n = 2131165602;
+			public const int w11d = 2131165602;
 			
 			// aapt resource value: 0x7F0701A3
-			public const int w13d = 2131165603;
+			public const int w11n = 2131165603;
 			
 			// aapt resource value: 0x7F0701A4
-			public const int w13n = 2131165604;
+			public const int w13d = 2131165604;
 			
 			// aapt resource value: 0x7F0701A5
-			public const int w50d = 2131165605;
+			public const int w13n = 2131165605;
 			
 			// aapt resource value: 0x7F0701A6
-			public const int w50n = 2131165606;
+			public const int w50d = 2131165606;
 			
 			// aapt resource value: 0x7F0701A7
-			public const int waterco = 2131165607;
+			public const int w50n = 2131165607;
 			
 			// aapt resource value: 0x7F0701A8
-			public const int xamarin_logo = 2131165608;
+			public const int waterco = 2131165608;
 			
 			// aapt resource value: 0x7F0701A9
-			public const int zodiac = 2131165609;
+			public const int xamarin_logo = 2131165609;
+			
+			// aapt resource value: 0x7F0701AA
+			public const int zodiac = 2131165610;
 			
 			static Drawable()
 			{
@@ -28448,58 +28451,61 @@ namespace PoolGuy.Mobile.Droid
 			public const int settings = 2131492880;
 			
 			// aapt resource value: 0x7F0C0011
-			public const int w01d = 2131492881;
+			public const int stop = 2131492881;
 			
 			// aapt resource value: 0x7F0C0012
-			public const int w01n = 2131492882;
+			public const int w01d = 2131492882;
 			
 			// aapt resource value: 0x7F0C0013
-			public const int w02d = 2131492883;
+			public const int w01n = 2131492883;
 			
 			// aapt resource value: 0x7F0C0014
-			public const int w02n = 2131492884;
+			public const int w02d = 2131492884;
 			
 			// aapt resource value: 0x7F0C0015
-			public const int w03d = 2131492885;
+			public const int w02n = 2131492885;
 			
 			// aapt resource value: 0x7F0C0016
-			public const int w03n = 2131492886;
+			public const int w03d = 2131492886;
 			
 			// aapt resource value: 0x7F0C0017
-			public const int w04d = 2131492887;
+			public const int w03n = 2131492887;
 			
 			// aapt resource value: 0x7F0C0018
-			public const int w04n = 2131492888;
+			public const int w04d = 2131492888;
 			
 			// aapt resource value: 0x7F0C0019
-			public const int w09d = 2131492889;
+			public const int w04n = 2131492889;
 			
 			// aapt resource value: 0x7F0C001A
-			public const int w09n = 2131492890;
+			public const int w09d = 2131492890;
 			
 			// aapt resource value: 0x7F0C001B
-			public const int w10d = 2131492891;
+			public const int w09n = 2131492891;
 			
 			// aapt resource value: 0x7F0C001C
-			public const int w10n = 2131492892;
+			public const int w10d = 2131492892;
 			
 			// aapt resource value: 0x7F0C001D
-			public const int w11d = 2131492893;
+			public const int w10n = 2131492893;
 			
 			// aapt resource value: 0x7F0C001E
-			public const int w11n = 2131492894;
+			public const int w11d = 2131492894;
 			
 			// aapt resource value: 0x7F0C001F
-			public const int w13d = 2131492895;
+			public const int w11n = 2131492895;
 			
 			// aapt resource value: 0x7F0C0020
-			public const int w13n = 2131492896;
+			public const int w13d = 2131492896;
 			
 			// aapt resource value: 0x7F0C0021
-			public const int w50d = 2131492897;
+			public const int w13n = 2131492897;
 			
 			// aapt resource value: 0x7F0C0022
-			public const int w50n = 2131492898;
+			public const int w50d = 2131492898;
+			
+			// aapt resource value: 0x7F0C0023
+			public const int w50n = 2131492899;
 			
 			static Mipmap()
 			{
