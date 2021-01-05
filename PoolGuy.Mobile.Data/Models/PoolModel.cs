@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.ObjectModel;
+using SQLite;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -40,9 +41,22 @@ namespace PoolGuy.Mobile.Data.Models
             set { _equipments = value; OnPropertyChanged("Equipments"); }
         }
 
+        private ObservableCollection<EntityImageModel> _images;
+        [Ignore]
+        public ObservableCollection<EntityImageModel> Images
+        {
+            get => _images;
+            set { _images = value; OnPropertyChanged("Images"); }
+        }
+
         public void RaiseEquipmentNotification()
         {
             OnPropertyChanged("Equipments");
+        }
+
+        public void RaiseImagesNotification()
+        {
+            OnPropertyChanged("Images");
         }
 
         public void RaiseAllNotification()

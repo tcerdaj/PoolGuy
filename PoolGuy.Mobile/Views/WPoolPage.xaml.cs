@@ -1,10 +1,6 @@
 ﻿using CommonServiceLocator;
-using Omu.ValueInjecter;
-using PoolGuy.Mobile.CustomControls;
-using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.ViewModels;
 using System;
-using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static PoolGuy.Mobile.Data.Models.Enums;

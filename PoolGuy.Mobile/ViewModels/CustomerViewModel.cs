@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using PoolGuy.Mobile.Extensions;
 using PoolGuy.Mobile.Services.Interface;
 using System.Collections.ObjectModel;
+using PoolGuy.Mobile.Data.Models.Query;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -30,6 +31,7 @@ namespace PoolGuy.Mobile.ViewModels
             Title = this.GetType().Name.Replace("ViewModel", "");
             Globals.CurrentPage = Enums.ePage.Customer;
             SubscribeMessage();
+            IsBusy = true;
         }
 
         private void SubscribeMessage()
@@ -70,6 +72,17 @@ namespace PoolGuy.Mobile.ViewModels
 
                 if (customer != null)
                 {
+                    customer.Pool.Images = new System.Collections.ObjectModel.ObservableCollection<EntityImageModel>(await new ImageController().LocalData.List(new SQLControllerListCriteriaModel
+                    {
+                        Filter = new List<SQLControllerListFilterField> {
+                              new SQLControllerListFilterField
+                              {
+                                  FieldName = "EntityId",
+                                  ValueLBound = customer.Pool.Id.ToString()
+                              }
+                        }
+                    }));
+
                     Customer = (CustomerModel)new CustomerModel().InjectFrom(customer);
                     OriginalCustomer = JsonConvert.SerializeObject(customer,
                                 Formatting.Indented,

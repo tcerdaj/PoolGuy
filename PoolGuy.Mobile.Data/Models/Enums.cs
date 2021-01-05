@@ -65,7 +65,8 @@ namespace PoolGuy.Mobile.Data.Models
             User,
             WorkOrder,
             Equipment,
-            Report
+            Report,
+            Pool
         }
 
         public enum ePageType

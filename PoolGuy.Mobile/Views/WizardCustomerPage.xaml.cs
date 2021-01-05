@@ -56,6 +56,7 @@ namespace PoolGuy.Mobile.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            _viewModel.IsBusy = false;
         }
 
         private async void PreviusButton_Clicked(object sender, System.EventArgs e)

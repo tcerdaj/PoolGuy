@@ -9,6 +9,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using static PoolGuy.Mobile.Data.Models.Enums;
@@ -244,6 +245,88 @@ namespace PoolGuy.Mobile.ViewModels
                 Debug.WriteLine(e);
                 await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
             }
+        }
+
+        public ICommand TakePhotoCommand
+        {
+            get => new RelayCommand(async () => await TakePhotoAsync());
+        }
+
+        private async Task TakePhotoAsync()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                var action = await Message.DisplayActionSheetAsync("Select Image Source", "Cancel",
+                    "Gallery", "Camera");
+                if (string.IsNullOrEmpty(action) || action == "Cancel")
+                {
+                    return;
+                }
+
+                var imageService = DependencyService.Get<IImageService>();
+                var photo = await imageService.TakePhoto(action);
+
+                if (photo == null)
+                {
+                    return;
+                }
+
+                var image = new EntityImageModel
+                {
+                    EntityId = Pool.Id,
+                    ImageType = ImageType.Pool,
+                    ImageUrl = photo.Path
+                };
+
+                await new ImageController().LocalData.Modify(image);
+
+                Pool.Images.Add(image);
+                OnPropertyChanged("Pool");
+            }
+            catch (Exception e)
+            {
+                await Message.DisplayAlertAsync(e.Message, Title, "Ok");
+            }
+            finally { IsBusy = false; }
+        }
+
+        public ICommand DeleteImageCommand
+        {
+            get => new RelayCommand<EntityImageModel>(async (img) => await DeleteImageAsync(img));
+        }
+
+        private async Task DeleteImageAsync(EntityImageModel img)
+        {
+            if (IsBusy || img == null)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                if (!await userDialogs.DisplayConfirmationAsync("Delete Confirmation", "Are you sure want to delete image?", "Delete", "Cancel"))
+                {
+                    return;
+                }
+
+                await new ImageController().LocalData.Delete(img.Id);
+                Pool.Images.Remove(img);
+                OnPropertyChanged("Pool");
+            }
+            catch (Exception e)
+            {
+                await Message.DisplayAlertAsync(e.Message, Title, "Ok");
+            }
+            finally { IsBusy = false; }
         }
     }
 }

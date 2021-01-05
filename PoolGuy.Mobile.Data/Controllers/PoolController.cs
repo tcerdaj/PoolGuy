@@ -30,6 +30,20 @@ namespace PoolGuy.Mobile.Data.Controllers
                     .DatabaseAsync
                     .FindWithChildrenAsync<PoolModel>(id, true);
 
+                if (model != null)
+                {
+                    model.Images = new System.Collections.ObjectModel.ObservableCollection<EntityImageModel>( await new ImageController().LocalData.List(new Models.Query.SQLControllerListCriteriaModel
+                    {
+                        Filter = new System.Collections.Generic.List<Models.Query.SQLControllerListFilterField> {
+                              new Models.Query.SQLControllerListFilterField 
+                              {
+                                  FieldName = "EntityId",
+                                  ValueLBound = model.Id.ToString()
+                              } 
+                        }
+                    }));
+                }
+
                 return model;
             }
             catch (Exception e)
