@@ -39,7 +39,6 @@ namespace PoolGuy.Mobile.Data.Models
             Login,
             Logout,
             Home,
-            SearchCustomer,
             Customer,
             SelectEquipment,
             SelectManufacture,

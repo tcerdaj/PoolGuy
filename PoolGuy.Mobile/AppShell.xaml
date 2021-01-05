@@ -82,7 +82,7 @@
     -->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" NavigationPage.HasNavigationBar="True">
         <ShellContent Title="Home" Icon="dashboard_black.png" Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
-        <ShellContent Title="Customer" Icon="account_circle.png" Route="SearchCustomerPage" ContentTemplate="{DataTemplate local:SearchCustomerPage}" x:Name="customerPage" />
+        <ShellContent Title="Customer" Icon="account_circle.png" Route="CustomerPage" ContentTemplate="{DataTemplate local:CustomerPage}" x:Name="customerPage" />
         <ShellContent Title="Scheduler" Route="SchedulerPage"  ContentTemplate="{DataTemplate local:SchedulerPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"

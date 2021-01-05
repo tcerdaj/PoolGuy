@@ -203,13 +203,11 @@ namespace PoolGuy.Mobile.ViewModels
                 {
                     case Enums.ePage.Home:
                         break;
-                    case Enums.ePage.SearchCustomer:
-                        break;
                     case Enums.ePage.Customer:
                         break;
                     case Enums.ePage.SelectEquipment:
                         Globals.CurrentPage = Enums.ePage.Customer;
-                        Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
+                        Notify.RaiseCustomerAction(new Messages.RefreshMessage());
                         await NavigationService.CloseModal();
                         break;
                     case Enums.ePage.SelectManufacture:
@@ -230,7 +228,7 @@ namespace PoolGuy.Mobile.ViewModels
                         if (Equipment.Id != Guid.Empty)
                         {
                             Globals.CurrentPage = Enums.ePage.Customer;
-                            Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
+                            Notify.RaiseCustomerAction(new Messages.RefreshMessage());
                             await NavigationService.CloseModal(false);
                             return;
                         }

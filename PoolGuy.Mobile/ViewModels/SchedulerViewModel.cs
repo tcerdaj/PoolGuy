@@ -259,7 +259,7 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 return new RelayCommand<Enums.ePage>(async (item) =>
                 {
-                    string page = item == Enums.ePage.Customer ? $"Search{item.ToString()}" : item.ToString();
+                    string page = item.ToString();
                     await NavigationService.ReplaceRoot($"{page}Page");
                 });
             }

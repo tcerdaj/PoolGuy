@@ -227,7 +227,7 @@
     <AndroidResource Include="Resources\drawable\account_box.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\account_circle.png" />
+    <AndroidResource Include="Resources\drawable\customer.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\searched_black.png" />
@@ -236,7 +236,7 @@
     <AndroidResource Include="Resources\mipmap-hdpi\account_box_black.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-hdpi\account_circle.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\customer.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-hdpi\assignment.png" />
@@ -248,7 +248,7 @@
     <AndroidResource Include="Resources\mipmap-mdpi\account_box_black.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-mdpi\account_circle.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\customer.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-mdpi\assignment.png" />
@@ -260,7 +260,7 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\account_black.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xhdpi\account_circle.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\customer.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xhdpi\assignment.png" />
@@ -275,7 +275,7 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\account_black.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxhdpi\account_circle.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\customer.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxhdpi\assignment.png" />
@@ -284,7 +284,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\account_black.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\account_circle_black.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\customer.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\assignment_black.png" />

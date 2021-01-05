@@ -1,57 +1,39 @@
-﻿using PoolGuy.Mobile.Helpers;
+﻿using PoolGuy.Mobile.Data.Helpers;
+using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
-using System;
 using Xamarin.Forms;
-using static PoolGuy.Mobile.Data.Models.Enums;
+using Xamarin.Forms.Xaml;
 
 namespace PoolGuy.Mobile.Views
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CustomerPage : ContentPage, IContentPage
     {
-        CustomerViewModel _viewModel;
+        SearchCustomerViewModel _viewModel;
         public CustomerPage()
         {
             InitializeComponent();
-            _viewModel = new CustomerViewModel();
+            _viewModel = new SearchCustomerViewModel();
             BindingContext = _viewModel;
         }
 
-        private void PoolType_OnTapped(object sender, MR.Gestures.TapEventArgs e)
+        public void CleanUp()
         {
-            poolTypePicker.Focus();
-            poolTypePicker.SelectedIndexChanged += PoolTypePicker_SelectedIndexChanged;
-            poolTypePicker.Unfocused -= PoolTypePicker_Unfocused;
-            poolTypePicker.Unfocused += PoolTypePicker_Unfocused;
-        }
-
-        private void PoolTypePicker_Unfocused(object sender, FocusEventArgs e)
-        {
-            poolTypePicker.SelectedIndexChanged -= PoolTypePicker_SelectedIndexChanged;
-        }
-
-        private void PoolTypePicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var picker = sender as Xamarin.Forms.Picker;
-
-            if (picker != null && picker.SelectedItem != null)
-            {
-                try
-                {
-                    CustomerModel_Pool_TypeError.IsVisible = false;
-                    _viewModel.Customer.Pool.Type = (PoolType)Enum.Parse(typeof(PoolType), picker.SelectedItem.ToString()); ;
-                    _viewModel.OnPoolChanged();
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex);
-                }
-            }
         }
 
         public void Initialize()
         {
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (!Settings.IsLoggedIn)
+            {
+                Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White };
+            }
         }
 
         public MobileNavigationModel OnSleep()
@@ -62,10 +44,6 @@ namespace PoolGuy.Mobile.Views
                 PageViewModel = _viewModel,
                 IsModal = true
             };
-        }
-
-        public void CleanUp()
-        {
         }
     }
 }

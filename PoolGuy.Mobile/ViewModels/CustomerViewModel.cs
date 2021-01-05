@@ -433,7 +433,7 @@ namespace PoolGuy.Mobile.ViewModels
             }
 
             await NavigationService.CloseModal(false);
-            Notify.RaiseSearchCustomerAction(new Messages.RefreshMessage());
+            Notify.RaiseCustomerAction(new Messages.RefreshMessage());
         });
 
         public ICommand GoToPageCommand

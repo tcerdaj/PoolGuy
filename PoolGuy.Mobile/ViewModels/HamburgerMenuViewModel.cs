@@ -30,8 +30,8 @@ namespace PoolGuy.Mobile.ViewModels
                         NavigateToCommand = NavigateToCommand
                     },
                     new MenuItemModel { Id = 1, 
-                        Title = Enums.ePage.SearchCustomer.ToString().SplitWord(), 
-                        Icon = $"{Enums.ePage.SearchCustomer.ToString().ToLower()}.png", 
+                        Title = Enums.ePage.Customer.ToString().SplitWord(), 
+                        Icon = $"{Enums.ePage.Customer.ToString().ToLower()}.png", 
                         NavigateToCommand = NavigateToCommand 
                     },
                     new MenuItemModel { Id = 2, 

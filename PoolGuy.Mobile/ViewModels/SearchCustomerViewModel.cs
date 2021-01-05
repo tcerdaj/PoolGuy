@@ -17,9 +17,9 @@ namespace PoolGuy.Mobile.ViewModels
     {
         public SearchCustomerViewModel()
         {
-            if(Globals.CurrentPage != Enums.ePage.SearchCustomer)
+            if(Globals.CurrentPage != Enums.ePage.Customer)
             {
-                Globals.CurrentPage = Enums.ePage.SearchCustomer;
+                Globals.CurrentPage = Enums.ePage.Customer;
             }
             
             Title = this.GetType().Name.Replace("ViewModel", "").Replace("Search", "");
@@ -28,7 +28,7 @@ namespace PoolGuy.Mobile.ViewModels
 
         private void SubscribeMessages()
         {
-            Notify.SubscribeSearchCustomerAction((sender) => {
+            Notify.SubscribeCustomerAction((sender) => {
                 SearchCustomerCommand.Execute(null);
             });
         }
@@ -230,7 +230,7 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 return new RelayCommand<Enums.ePage>(async (item) =>
                 {
-                    string page = item == Enums.ePage.Customer ? $"Search{item.ToString()}" : item.ToString();
+                    string page = item.ToString();
                     await NavigationService.ReplaceRoot($"{page}Page");
                 });
             }

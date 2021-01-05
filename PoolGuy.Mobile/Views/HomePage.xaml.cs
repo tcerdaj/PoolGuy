@@ -1,10 +1,7 @@
-﻿using Plugin.Permissions.Abstractions;
-using PoolGuy.Mobile.Data.Helpers;
-using PoolGuy.Mobile.Helpers;
+﻿using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
-using System.Linq;
 using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.Views

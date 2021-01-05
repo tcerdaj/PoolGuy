@@ -2,249 +2,243 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.CustomerPage"
-             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls;assembly=PoolGuy.Mobile"
-             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
-             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
-             Title="{Binding Title}"
-             x:Name="Customer">
-   
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:ffTransformation="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
+             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
+             xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
+             Title="{Binding Title}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
-            <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
-            <!--  *****************************  -->
-            <!--  Material Design Icon FontFamily  -->
-            <!--  *****************************  -->
-            <OnPlatform x:Key="MaterialFontFamily"
-                        x:TypeArguments="x:String">
-                <On Platform="iOS"
-                    Value="Material Design Icons" />
-                <On Platform="Android"
-                    Value="materialdesignicons.ttf#Material Design Icons" />
-            </OnPlatform>
-            
-            <OnPlatform x:Key="FontAwesonFamily"
-                        x:TypeArguments="x:String">
-                <On Platform="iOS"
-                    Value="Font Awesome 5 Free" />
-                <On Platform="Android"
-                    Value="fa-regular-400.ttf#Font Awesome 5 Free Regular" />
-            </OnPlatform>
-            <Style TargetType="Label" x:Key="field-header-regular">
-                <Setter Property="TextColor" Value="#B6B6B6"/>
-                <Setter Property="FontSize" Value="12"/>
-            </Style>
-            <Style TargetType="Label" x:Key="field-details-regular">
-                <Setter Property="TextColor" Value="#7B7575"/>
-                <Setter Property="FontSize" Value="12"/>
-            </Style>
-            <Style TargetType="Label" x:Key="field-details-large">
-                <Setter Property="TextColor" Value="#7B7575"/>
-                <Setter Property="FontSize" Value="18"/>
-            </Style>
-            <Style TargetType="mycc:CustomEntry" >
-                <Setter Property="TextColor" Value="{StaticResource UnselectedColor}"/>
-                <Setter Property="PlaceholderColor" Value="{StaticResource PlaceHolder}"/>
-            </Style>
-            <Style TargetType="Frame" >
-                <Setter Property="Visual" Value="Material"/>
-                <Setter Property="Background" Value="White"/>
+            <conv:ImageUrlConverter x:Key="ImageUrlConverter" />
+            <Style TargetType="Frame">
                 <Setter Property="BorderColor" Value="#D8D8D8"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Padding" Value="10,0"/>
+                <Setter Property="HasShadow" Value="False"/>
             </Style>
-            <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ScrollView>
-       <Grid Padding="20,10">
-           <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-           </Grid.RowDefinitions>
-            <!--Customer-->
-            <Label Grid.Row ="0" Text="Customer"/>
-           <!--Error message-->
-            <Label Grid.Row="1" Text="{Binding ErrorMessage}" IsVisible="{Binding ErrorMessage, Converter={StaticResource StringToBoolConverter}}" TextColor="{Binding ErrorTextColor}" LineBreakMode="TailTruncation"/>
-            <Frame  Grid.Row="2" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <!--FirstName-->
-                    <Frame Grid.Row="0" Grid.Column="0" 
-                           Padding="10,0" 
-                           BorderColor="#D8D8D8" 
-                           CornerRadius="6">
-                        <mycc:CustomEntry  Text="{Binding Customer.FirstName}" Placeholder="First name" MaxLength="20"/>
-                     </Frame>
-                     <Label Grid.Row="1" Grid.Column="0"  x:Name="CustomerModel_FirstNameError" IsVisible="False" TextColor="Red" />
-                        <!--LastName-->
-                    <Frame Grid.Row="2" Grid.Column="0" 
-                           Padding="10,0" 
-                           CornerRadius="6">
-                        <mycc:CustomEntry  Text="{Binding Customer.LastName}"  Placeholder="Last name" MaxLength="20"/>
-                     </Frame>
-                    <Label Grid.Row="3" Grid.Column="0" x:Name="CustomerModel_LastNameError" IsVisible="False" TextColor="Red" />
-                </Grid>
-           </Frame>
-            <!--Address--> 
-            <Label Grid.Row ="3" Text="Address"/>
-            <Frame  Grid.Row="4" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
-                <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                          <Frame Grid.Row="0" Grid.ColumnSpan="2" 
-                                   Padding="10,0" 
-                                   CornerRadius="6">
-                                  <mycc:CustomEntry  Text="{Binding Customer.Address1}"  Placeholder="Address1" MaxLength="80"/>
-                            </Frame>
-                            <Label Grid.Row="1" Grid.ColumnSpan="2"  x:Name="CustomerModel_Address1Error" IsVisible="False" TextColor="Red" />
-                            <Frame Grid.Row="2" 
-                                   Grid.ColumnSpan="2" 
-                                   Padding="10,0"
-                                   CornerRadius="6">
-                                    <mycc:CustomEntry  Text="{Binding Customer.Address2}"  Placeholder="Address2" MaxLength="80"/>
-                            </Frame>
-                            <Label Grid.Row="3" Grid.ColumnSpan="2"  x:Name="CustomerModel_Address2Error" IsVisible="False" TextColor="Red" />
-                            <Frame Grid.Row="4" Grid.ColumnSpan="2" 
-                                   Padding="10,0" 
-                                   CornerRadius="6">
-                                     <mycc:CustomEntry  Text="{Binding Customer.City}"  Placeholder="City" MaxLength="50"/>
-                            </Frame>
-                            <Label Grid.Row="5" Grid.ColumnSpan="2" x:Name="CustomerModel_CityError" IsVisible="False" TextColor="Red" />
-                            <Frame Grid.Row="6" Grid.Column="0"
-                                   Padding="10,0" 
-                                   HorizontalOptions="FillAndExpand"
-                                   CornerRadius="6">
-                                        <mycc:CustomEntry  Text="{Binding Customer.State}"  Placeholder="State" MaxLength="50"/>
-                                </Frame>
-                            <Label Grid.Row="7" Grid.Column="0" x:Name="CustomerModel_StateError" IsVisible="False" TextColor="Red" />
-                            <Frame Grid.Row="6" Grid.Column="1" 
-                                   Padding="10,0" 
-                                   WidthRequest="90"
-                                   CornerRadius="6">
-                                        <mycc:CustomEntry  Text="{Binding Customer.Zip}"  Placeholder="Zip" MaxLength="15"/>
-                             </Frame>
-                            <Label Grid.Row="7" Grid.Column="1"  x:Name="CustomerModel_ZipError" IsVisible="False" TextColor="Red" />
-                        </Grid>
-           </Frame>
-            <!--Contact Information-->
-            <Label Grid.Row ="5" Text="Contact Information"/>
-            <Frame  Grid.Row="6" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
-                 <Grid Margin="10">
-                       <Grid.RowDefinitions>
-                           <RowDefinition Height="Auto"/>
-                           <RowDefinition Height="Auto"/>
-                           <RowDefinition Height="Auto"/>
-                           <RowDefinition Height="*"/>
-                       </Grid.RowDefinitions>
-                       <Frame Grid.Row="0" Grid.Column="0" Padding="10,0" 
-                                  HorizontalOptions="FillAndExpand"
-                                  CornerRadius="6">
-                           <mycc:CustomEntry  Text="{Binding Customer.Phone}"  Placeholder="Phone" MaxLength="10" Keyboard="Numeric"/>
-                       </Frame>
-                       <Label Grid.Row="1" Grid.Column="0" x:Name="CustomerModel_PhoneError" IsVisible="False" TextColor="Red" />
-                       <Frame Grid.Row="0" Grid.Column="1" Padding="10,0" 
-                                  HorizontalOptions="FillAndExpand"
-                                  CornerRadius="6">
-                           <mycc:CustomEntry  Text="{Binding Customer.CellPhone}"  Placeholder="Cell Phone" MaxLength="10" Keyboard="Numeric"/>
-                       </Frame>
-                       <Label Grid.Row="1" Grid.Column="1" x:Name="CustomerModel_CellPhoneError" IsVisible="False" TextColor="Red" />
-                       <Frame Grid.Row="2" Grid.ColumnSpan="2"
-                              Padding="10,0" 
-                              CornerRadius="6">
-                               <mycc:CustomEntry  Text="{Binding Customer.Email}"  Placeholder="Email" MaxLength="200"/>
-                       </Frame>
-                       <Label Grid.Row="3" x:Name="CustomerModel_EmailError" IsVisible="False" TextColor="Red" />
-                  </Grid>
-            </Frame>
-            <!--Aditional Information-->
-            <Label Grid.Row ="7" Text="Aditional Information"/>
-            <Frame  Grid.Row="8" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
-                <Grid Margin="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Frame Grid.Row="1" Grid.Column="0" 
-                           Padding="10,0" 
-                           CornerRadius="6">
-                        <mycc:CustomEntry  Text="{Binding Customer.AdditionalInformation}"  Placeholder="Aditional information" MaxLength="200"/>
-                    </Frame>
-                    <Label Grid.Row="2" Grid.Column="0" x:Name="CustomerModel_AdditionalInformationError" IsVisible="False" TextColor="Red" />
-                </Grid>
-            </Frame>
-            <!--Pool Information-->
-            <Label Grid.Row ="9" Text="Pool Information"/>
-            <Frame  Grid.Row="10" HasShadow="False" BorderColor="#D2C9C9"  CornerRadius="6"  Padding="5">
-                 <Grid Margin="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <mr:Frame Grid.Row="0" Grid.Column="0" Padding="10,0" 
-                                       HorizontalOptions="FillAndExpand"
-                                       CornerRadius="6"
-                                       Tapped="PoolType_OnTapped">
-                                           <mycc:CustomEntry x:Name="CustomerModel_Pool_TypeEntry" 
-                                                             Placeholder="Type" 
-                                                             IsReadOnly="True" 
-                                                             Text="{Binding Customer.Pool.Type}"/>
-                            </mr:Frame>
-                            <Frame Grid.Row="0" Grid.Column="1"
-                                       Padding="10,0" 
-                                       HorizontalOptions="FillAndExpand"
-                                       CornerRadius="6">
-                                    <mycc:CustomEntry x:Name="CustomerModel_Pool_SurfaceEntry" Placeholder="Surface" Keyboard="Numeric" Text="{Binding Customer.Pool.Surface}"/>
-                            </Frame>
-                            <Label Grid.Row="1" Grid.Column="0" x:Name="CustomerModel_Pool_TypeError" IsVisible="False" TextColor="Red" />
-                            <Label Grid.Row="1" Grid.Column="1" x:Name="CustomerModel_Pool_SurfaceError" IsVisible="False" TextColor="Red" />
-                            <Frame Grid.Row="2" Grid.Column="0" 
-                                   CornerRadius="6">
-                                <StackLayout>
-                                    <mycc:CustomEntry Placeholder="Capacity" 
-                                                      x:Name="CustomerModel_Pool_CapacityEntry" 
-                                                      Text="{Binding Customer.Pool.Capacity}"
-                                                      Keyboard="Numeric"/>
+    <ContentPage.Content>
+        <AbsoluteLayout VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand">
+           <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All">
+            <SearchBar HorizontalOptions="FillAndExpand"
+                       Placeholder="Search for a customer"
+                       Text="{Binding SearchTerm}"
+                       SearchCommand="{Binding SearchCustomerCommand}"
+                       BackgroundColor="#f7f7f7"/>
+                <CollectionView x:Name="SearchResults"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="StartAndExpand"
+                                ItemsSource="{Binding Customers}"
+                                ItemSizingStrategy="MeasureFirstItem"
+                                SelectionMode="None"
+                                EmptyView="No Customers to display">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="20,0,0,0">
+                            <SwipeView BackgroundColor="White"
+                                           Margin="0,5">
+                                    <SwipeView.RightItems>
+                                        <SwipeItems>
+                                        <SwipeItemView Margin="10"
+                                                       BackgroundColor="{StaticResource Primary}"
+                                                       Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.ScheduleCustomerCommand}"
+                                                       CommandParameter="{Binding}">
+                                            <StackLayout Spacing="0">
+                                                <Label Text="{x:Static icons:MaterialDesignIcons.CalendarAccount}"
+                                                       FontFamily="{StaticResource MaterialFontFamily}"
+                                                       FontSize="35"
+                                                       Margin="0,5,0,0"
+                                                       TextColor="White"
+                                                       HorizontalOptions="Center"/>
+                                                <Label Text="Schedule" 
+                                                       FontSize="10" 
+                                                       HorizontalOptions="Center" 
+                                                       TextColor="White"/>
+                                            </StackLayout>
+                                        </SwipeItemView>
+                                        <SwipeItemView BackgroundColor="{StaticResource Title}"
+                                                       VerticalOptions="Center"
+                                                       Margin="10"
+                                                       Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.AddWorkCommand}"
+                                                       CommandParameter="{Binding}">
+                                            <StackLayout Spacing="0">
+                                                <Label Text="{x:Static icons:MaterialDesignIcons.Truck}"
+                                                       FontFamily="{StaticResource MaterialFontFamily}"
+                                                       FontSize="35"
+                                                       Margin="0,5,0,0"
+                                                       TextColor="White"
+                                                       VerticalOptions="Center"
+                                                       HorizontalOptions="Center"/>
+                                                <Label Text="Add Work"
+                                                       FontSize="10" 
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center"
+                                                       TextColor="White"/>
+                                            </StackLayout>
+                                        </SwipeItemView>
+                                        <SwipeItemView BackgroundColor="Red"
+                                                       Margin="10"
+                                                       Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.DeleteCustomerCommand}"
+                                                       CommandParameter="{Binding}">
+                                                <StackLayout Spacing="0">
+                                                    <Label Text="{x:Static icons:MaterialDesignIcons.TrashCan}"
+                                                           FontFamily="{StaticResource MaterialFontFamily}"
+                                                           FontSize="35"
+                                                           Margin="0,5,0,0"
+                                                           TextColor="White"
+                                                           HorizontalOptions="Center"/>
+                                                    <Label Text="Delete" 
+                                                           FontSize="10" 
+                                                           HorizontalOptions="Center" 
+                                                           TextColor="White"/>
+                                                </StackLayout>
+                                            </SwipeItemView>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                <StackLayout >
+                                    <BoxView HeightRequest=".5" 
+                                             Color="{StaticResource ExtraLightGray}" 
+                                             HorizontalOptions="FillAndExpand"
+                                             Margin="0,0,0,5"/>
+                                    <StackLayout Orientation="Horizontal">
+                                        <!--Circular Image-->
+                                        <mr:Frame Padding="0"
+                                                   CornerRadius="50"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="Start"
+                                                   HasShadow="False"
+                                                   TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.DisplayImageCommand}"
+                                                   TappedCommandParameter="{Binding BindingContext, Source={x:Reference ListTemplate}}"
+                                                   IsClippedToBounds="True"
+                                                   Margin="0">
+                                                <ff:CachedImage Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
+                                                                HeightRequest="70"
+                                                                WidthRequest="70">
+                                                    <ff:CachedImage.Transformations>
+                                                        <ffTransformation:RoundedTransformation Radius="240"/>
+                                                    </ff:CachedImage.Transformations>
+                                                </ff:CachedImage>
+                                        </mr:Frame>
+                                        <!--Personal Info-->
+                                        <StackLayout Orientation="Horizontal"
+                                                         Margin="10,0,0,0"
+                                                         HorizontalOptions="EndAndExpand">
+                                                <StackLayout HorizontalOptions="FillAndExpand"
+                                                             Spacing="5">
+                                                      <mr:StackLayout x:Name="ListTemplate" 
+                                                                TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToCustomerDetailsCommand}"
+                                                                TappedCommandParameter="{Binding BindingContext, Source={x:Reference ListTemplate}}">
+                                                    <mr:StackLayout.Triggers>
+                                                        <EventTrigger Event="Down">
+                                                            <act:ScaleDownTriggerAction />
+                                                        </EventTrigger>
+                                                        <EventTrigger Event="Up">
+                                                            <act:ScaleUpTriggerAction />
+                                                        </EventTrigger>
+                                                    </mr:StackLayout.Triggers>
+                                                    <!--Customer FullName-->
+                                                    <Label Text="{Binding Name}"
+                                                           LineBreakMode="TailTruncation"
+                                                           HorizontalOptions="FillAndExpand"
+                                                           VerticalOptions="Center"
+                                                           FontSize="14">
+                                                         <Label.FontFamily>
+                                                             <OnPlatform x:TypeArguments="x:String">
+                                                                 <On Platform="iOS">Roboto</On>
+                                                                 <On Platform="Android">Roboto-Bold.ttf#Roboto-Bold</On>
+                                                             </OnPlatform>
+                                                         </Label.FontFamily>
+                                                     </Label>
+                                                    <!--Full Address-->
+                                                    <Label Text="{Binding Address.FullAddress}" 
+                                                           HorizontalOptions="FillAndExpand"
+                                                           VerticalOptions="Center"
+                                                           LineBreakMode="TailTruncation"
+                                                           FontSize="12"/>
+                                            </mr:StackLayout>
+                                                    <!--Phone/Email-->
+                                                    <StackLayout Orientation="Horizontal"
+                                                         Spacing="10"
+                                                         HorizontalOptions="Start">
+                                                <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+                                                      <mr:Label x:Name="Phone"
+                                                                Grid.Column="0"
+                                                                Text="{Binding Contact.Phone}" 
+                                                                TextColor="#2F80ED"
+                                                                VerticalOptions="Center"
+                                                                HorizontalOptions="Start"
+                                                                FontSize="12"
+                                                                FontAttributes="Bold"
+                                                                TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
+                                                                TappedCommandParameter="{Binding }"
+                                                                PinchedCommandParameter="Phone">
+                                                       </mr:Label>
+                                                      <mr:Label x:Name="Email"
+                                                                Grid.Column="1"
+                                                                HorizontalOptions="Fill"
+                                                                VerticalOptions="Center"
+                                                                FontSize="12"
+                                                                FontAttributes="Bold"
+                                                                TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
+                                                                TappedCommandParameter="{Binding }"
+                                                                PinchedCommandParameter="Phone"
+                                                                LineBreakMode="TailTruncation"
+                                                                Text="{Binding Contact.Email}" TextColor="#2F80ED"/>
+                                              </Grid>
+                                           </StackLayout>
+                                                </StackLayout>
+                                                <!--Right Arrow-->
+                                                <Label Text="{x:Static icons:MaterialDesignIcons.ChevronRight}" 
+                                               FontFamily="{StaticResource MaterialFontFamily}"
+                                               FontSize="25"
+                                               Margin="0,0,5,0"
+                                               TextColor="{StaticResource ExtraLightGray}"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="Start"/>
+                                            </StackLayout>
+                                    </StackLayout>
                                 </StackLayout>
-                            </Frame>
-                            <Label Grid.Row="2" Grid.Column="1" 
-                                   Text="Equipments" 
-                                   FontAttributes="Bold"
-                                   FontSize="16"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"/>
-                            <Label Grid.Row="3" Grid.Column="0" x:Name="CustomerModel_Pool_CapacityError" IsVisible="False" TextColor="Red" />
-                        </Grid>
-            </Frame>
-            <Button Grid.Row="11" Text="Save" Command="{Binding SaveCommand}" BackgroundColor="{StaticResource Title}"/>
-            <Picker x:Name="poolTypePicker"
-                    Title="Pool Type"
-                    ItemsSource="{Binding PoolTypes}"
-                    IsVisible="False"/>
-        </Grid>
-    </ScrollView>
+                            </SwipeView>
+                        </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+            <AbsoluteLayout BackgroundColor="Transparent"
+                        AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
+                        Margin="-5,0"
+                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+                <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                                 AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
+                                 BackgroundColor="{StaticResource Primary}"
+                                 ColumnSpacing="25"
+                                 Command="{Binding NavigateToCommand}"
+                                 Current="Customer"/>
+            </AbsoluteLayout>
+            <!-- Busy Status -->
+            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        BackgroundColor="White"
+                        Opacity="0.5"
+                        IsVisible="{Binding IsBusy}">
+                <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                                   IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}" />
+            </AbsoluteLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
 </ContentPage>

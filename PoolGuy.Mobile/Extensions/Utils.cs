@@ -102,7 +102,7 @@ namespace PoolGuy.Mobile.Extensions
         }
 
         /// <summary>
-        /// Split the word SearchCustomer by Search Customer
+        /// Split the word Customer by Search Customer
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
