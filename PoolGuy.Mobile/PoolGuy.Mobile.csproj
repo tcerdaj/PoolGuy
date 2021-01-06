@@ -44,8 +44,11 @@
     <Compile Update="Views\MapPage.xaml.cs">
       <DependentUpon>MapPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\StopPage.xaml.cs">
-      <DependentUpon>StopPage.xaml</DependentUpon>
+    <Compile Update="Views\StopDetailsPage.xaml.cs">
+      <DependentUpon>StopDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\StopsPage.xaml.cs">
+      <DependentUpon>StopsPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>

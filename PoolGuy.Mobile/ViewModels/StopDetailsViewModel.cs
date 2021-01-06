@@ -1,12 +1,13 @@
 ﻿using PoolGuy.Mobile.Data.Models;
+using PoolGuy.Mobile.Extensions;
 
 namespace PoolGuy.Mobile.ViewModels
 {
-    public class StopViewModel : BaseViewModel
+    public class StopDetailsViewModel : BaseViewModel
     {
-        public StopViewModel()
+        public StopDetailsViewModel()
         {
-            Title = this.GetType().Name.Replace("ViewModel", "");
+            Title = this.GetType().Name.Replace("ViewModel", "").SplitWord();
             Globals.CurrentPage = Enums.ePage.Customer;
             SubscribeMessage();
             IsBusy = true;

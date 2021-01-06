@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PoolGuy.Mobile.Views.StopPage"
+             x:Class="PoolGuy.Mobile.Views.StopsPage"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
              xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
              xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
@@ -56,26 +56,55 @@
                         AbsoluteLayout.LayoutFlags="All">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <!--Scheduler-->
-                <BoxView Grid.Row="0"
-                     HeightRequest="1" 
-                     Color="{StaticResource ExtraLightGray}" 
-                     HorizontalOptions="FillAndExpand"
-                     Margin="10,20,10,5"/>
-               
+                <StackLayout Grid.Row="0"
+                             Orientation="Horizontal"
+                             Padding="15,0"
+                             BackgroundColor="{StaticResource ExtraLightGray}">
+                    <Label Text="{Binding DayOfWeek}"
+                      
+                       Padding="0,10"
+                       TextColor="Black"
+                       HorizontalOptions="StartAndExpand"/>
+                    <ImageButton HorizontalOptions="End"
+                                         IsVisible="{Binding ShowMap}"
+                                         Command="{Binding GoToMapViewCommand}"
+                                         BackgroundColor="Transparent">
+                        <ImageButton.Source>
+                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                  Glyph="{x:Static icons:MaterialDesignIcons.MapMarker}"
+                                                  Size="30"
+                                                  Color="{StaticResource Title}" />
+                        </ImageButton.Source>
+                    </ImageButton>
+                </StackLayout>
+                
+                <BoxView Grid.Row="1"
+                         HeightRequest="1" 
+                         Color="{StaticResource ExtraLightGray}" 
+                         HorizontalOptions="FillAndExpand"
+                         Margin="10,20,10,5"/>
+                <CollectionView Grid.Row="2"
+                                EmptyView="Not stops for today"
+                                ItemsSource="{Binding Stops}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Customer.Name}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
-            <AbsoluteLayout BackgroundColor="Transparent"
+            <AbsoluteLayout BackgroundColor="Yellow"
                             AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
-                            Margin="-5,0"
-                            IsVisible="{Binding ShowModal, Converter={StaticResource InverseBooleanConverter}}"
-                            AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
-                <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
-                                 AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
-                                 BackgroundColor="{StaticResource Primary}"
-                                 ColumnSpacing="25"
-                                 Command="{Binding NavigateToCommand}"
-                                 Current="Stop"/>
+                            AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
+                <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                                     AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                     BackgroundColor="{StaticResource Primary}"
+                                     ColumnSpacing="25"
+                                     Command="{Binding NavigateToCommand}"
+                                     Current="Stops"/>
             </AbsoluteLayout>
             <!-- Busy Status -->
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"

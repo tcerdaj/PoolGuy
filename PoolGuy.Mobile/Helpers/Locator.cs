@@ -14,7 +14,8 @@ namespace PoolGuy.Mobile.Helpers
         public static string CustomerScheduler = "CustomerSchedulerPage";
         public static string Settings = "SettingsPage";
         public static string Map = "MapPage";
-        public static string Stop = "StopPage";
+        public static string Stops = "StopsPage";
+        public static string StopDetails = "StopDetailsPage";
         public class Popup
         {
             public static string ActionSheetPopup = "ActionSheetPopupPage";

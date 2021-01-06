@@ -29,22 +29,27 @@ namespace PoolGuy.Mobile.ViewModels
                         Icon = $"{Enums.ePage.Home.ToString().ToLower()}.png", 
                         NavigateToCommand = NavigateToCommand
                     },
-                    new MenuItemModel { Id = 1, 
+                    new MenuItemModel { Id = 1,
+                        Title = Enums.ePage.Stops.ToString(),
+                        Icon = "stop.png",
+                        NavigateToCommand = NavigateToCommand
+                    },
+                    new MenuItemModel { Id = 2, 
                         Title = Enums.ePage.Customer.ToString().SplitWord(), 
                         Icon = $"{Enums.ePage.Customer.ToString().ToLower()}.png", 
                         NavigateToCommand = NavigateToCommand 
                     },
-                    new MenuItemModel { Id = 2, 
+                    new MenuItemModel { Id = 3, 
                         Title = Enums.ePage.Scheduler.ToString(), 
                         Icon = $"{Enums.ePage.Scheduler.ToString().ToLower()}.png", 
                         NavigateToCommand = NavigateToCommand
                     },
-                    new MenuItemModel { Id = 3, 
+                    new MenuItemModel { Id = 4, 
                         Title = Enums.ePage.Logout.ToString(), 
                         Icon = $"{Enums.ePage.Logout.ToString().ToLower()}.png", 
                         NavigateToCommand = NavigateToCommand 
                     },
-                    new MenuItemModel { Id = 4, 
+                    new MenuItemModel { Id = 5, 
                         Title = Enums.ePage.Settings.ToString(), 
                         Icon = $"{Enums.ePage.Settings.ToString().ToLower()}.png", 
                         NavigateToCommand = NavigateToCommand 

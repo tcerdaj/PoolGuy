@@ -16,7 +16,7 @@ namespace PoolGuy.Mobile.CustomControls
         Dictionary<string, string> pages =
             new Dictionary<string, string> {
                 { "Home", "home.png" },
-                { "Stop", "stop.png" },
+                { "Stops", "stop.png" },
                 { "Customer", "customer.png" },
                 { "Scheduler", "scheduler.png" },
             };
@@ -73,7 +73,7 @@ namespace PoolGuy.Mobile.CustomControls
                 return;
             }
 
-            if (propertyName == CommandProperty.PropertyName && Children != null)
+            if (Children != null)
             {
                 Initialize();
             }
@@ -145,8 +145,8 @@ namespace PoolGuy.Mobile.CustomControls
                     case "Scheduler":
                         animatedButton.TouchUpCommandParameter = Enums.ePage.Scheduler;
                         break;
-                    case "Stop":
-                        animatedButton.TouchUpCommandParameter = Enums.ePage.Stop;
+                    case "Stops":
+                        animatedButton.TouchUpCommandParameter = Enums.ePage.Stops;
                         break;
                     default:
                         break;

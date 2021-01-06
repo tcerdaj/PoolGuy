@@ -50,7 +50,8 @@ namespace PoolGuy.Mobile.Data.Models
             Settings,
             AddEquipment,
             Map,
-            Stop
+            Stops,
+            StopDetails
         }
 
         public enum Units

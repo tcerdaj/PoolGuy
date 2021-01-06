@@ -62,7 +62,8 @@ namespace PoolGuy.Mobile
             nav.Configure(Locator.Scheduler, typeof(SchedulerPage));
             nav.Configure(Locator.CustomerScheduler, typeof(CustomerSchedulerPage));
             nav.Configure(Locator.Map, typeof(MapPage));
-            nav.Configure(Locator.Stop, typeof(StopPage));
+            nav.Configure(Locator.Stops, typeof(StopsPage));
+            nav.Configure(Locator.StopDetails, typeof(StopDetailsPage));
 
             if (!SimpleIoc.Default.IsRegistered<INavigationService>())
             {

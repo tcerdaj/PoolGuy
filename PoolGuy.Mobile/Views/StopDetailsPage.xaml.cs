@@ -1,21 +1,19 @@
-﻿using PoolGuy.Mobile.CustomControls;
-using PoolGuy.Mobile.Data.Helpers;
+﻿using PoolGuy.Mobile.Data.Helpers;
 using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
 using Xamarin.Forms;
-using System.Linq;
 
 namespace PoolGuy.Mobile.Views
 {
-    public partial class StopPage : ContentPage, IContentPage
+    public partial class StopDetailsPage : ContentPage, IContentPage
     {
-        StopViewModel _viewModel;
-        public StopPage()
+        StopDetailsViewModel _viewModel;
+        public StopDetailsPage()
         {
             InitializeComponent();
-            _viewModel = new StopViewModel();
+            _viewModel = new StopDetailsViewModel();
             BindingContext = _viewModel;
         }
 
@@ -32,7 +30,7 @@ namespace PoolGuy.Mobile.Views
         {
             return new MobileNavigationModel
             {
-                CurrentPage = Locator.Scheduler,
+                CurrentPage = Locator.StopDetails,
                 PageViewModel = _viewModel,
                 IsModal = true
             };
