@@ -153,6 +153,12 @@ namespace PoolGuy.Mobile.Extensions
         /// <returns></returns>
         public static async Task<List<CustomerModel>> GetReorderedCustomers(this List<CustomerModel> selectedCustomers)
         {
+            if (selectedCustomers == null 
+                || ( selectedCustomers != null && !selectedCustomers.Any()))
+            {
+                return new List<CustomerModel>();
+            }
+            
             var orderedList = new List<Tuple<object, Location>>();
 
             // Geocode address

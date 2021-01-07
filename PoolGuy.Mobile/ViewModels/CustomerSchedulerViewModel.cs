@@ -210,7 +210,10 @@ namespace PoolGuy.Mobile.ViewModels
                 OnPropertyChanged("Schedulers");
                 OnPropertyChanged("ShowMap");
 
-                Message.Toast($"{selectedCustomers.Count()} Customers were added successfully!");
+                if (selectedCustomers.Any())
+                {
+                    Message.Toast($"{selectedCustomers.Count()} Customers were added successfully!");
+                }
             }
             catch (Exception e)
             {

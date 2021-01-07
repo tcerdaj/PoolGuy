@@ -12,6 +12,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:CollectionListToCount x:Key="ListToCount" />
+            <conv:CollectionEmptyToBool x:Key="ListToBoolConverter"/>
             <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
             
             <!--  *****************************  -->
@@ -48,75 +49,152 @@
             <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <StackLayout BackgroundColor="White"
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White"
                  Spacing="0">
-        <AbsoluteLayout VerticalOptions="FillAndExpand"
+            <AbsoluteLayout VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand">
-            <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                    <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <StackLayout Grid.Row="0"
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0"
                              Orientation="Horizontal"
                              Padding="15,0"
                              BackgroundColor="{StaticResource ExtraLightGray}">
-                    <Label Text="{Binding DayOfWeek}"
-                      
-                       Padding="0,10"
-                       TextColor="Black"
-                       HorizontalOptions="StartAndExpand"/>
-                    <ImageButton HorizontalOptions="End"
-                                         IsVisible="{Binding ShowMap}"
+                        <StackLayout Orientation="Horizontal"
+                                     HorizontalOptions="CenterAndExpand">
+                                 <ImageButton HorizontalOptions="Start"
+                                              Command="{Binding GoToWeekDay}"
+                                              CommandParameter="Previus">
+                                     <ImageButton.Source>
+                                         <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                           Glyph="{x:Static icons:MaterialDesignIcons.ChevronDoubleLeft}"
+                                                           Size="30"
+                                                           Color="{StaticResource Title}" />
+                                     </ImageButton.Source>
+                                 </ImageButton>
+                                 <Label Text="{Binding DayOfWeek}"
+                                        Padding="0,10"
+                                        FontSize="16"
+                                        TextColor="Black"
+                                        FontFamily="{StaticResource RobotoFontFamily}"
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Center"/>
+                                 <ImageButton HorizontalOptions="End"
+                                              Command="{Binding GoToWeekDay}"
+                                              CommandParameter="Next">
+                                     <ImageButton.Source>
+                                         <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                       Glyph="{x:Static icons:MaterialDesignIcons.ChevronDoubleRight}"
+                                                       Size="30"
+                                                       Color="{StaticResource Title}" />
+                                     </ImageButton.Source>
+                                 </ImageButton>
+                        </StackLayout>
+                        <ImageButton HorizontalOptions="End"
+                                         IsVisible="{Binding Stops, Converter={StaticResource ListToBoolConverter}}"
                                          Command="{Binding GoToMapViewCommand}"
                                          BackgroundColor="Transparent">
-                        <ImageButton.Source>
-                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                            <ImageButton.Source>
+                                <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
                                                   Glyph="{x:Static icons:MaterialDesignIcons.MapMarker}"
                                                   Size="30"
                                                   Color="{StaticResource Title}" />
-                        </ImageButton.Source>
-                    </ImageButton>
-                </StackLayout>
-                
-                <BoxView Grid.Row="1"
-                         HeightRequest="1" 
-                         Color="{StaticResource ExtraLightGray}" 
-                         HorizontalOptions="FillAndExpand"
-                         Margin="10,20,10,5"/>
-                <CollectionView Grid.Row="2"
-                                EmptyView="Not stops for today"
-                                ItemsSource="{Binding Stops}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Label Text="{Binding Customer.Name}"/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
-            <AbsoluteLayout BackgroundColor="Yellow"
-                            AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
-                            AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional">
-                <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
-                                     AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                                     BackgroundColor="{StaticResource Primary}"
-                                     ColumnSpacing="25"
-                                     Command="{Binding NavigateToCommand}"
-                                     Current="Stops"/>
-            </AbsoluteLayout>
-            <!-- Busy Status -->
-            <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                            </ImageButton.Source>
+                        </ImageButton>
+                    </StackLayout>
+                    <CollectionView Grid.Row="1"
+                                    Margin="0,0,0,65"
+                                    EmptyView="Not stops for today"
+                                    ItemsSource="{Binding Stops}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout  BackgroundColor="Transparent"       
+                                        Padding="10">
+                                    <Frame BackgroundColor="{Binding StatusColor}">
+                                    <StackLayout Margin="0,0,0,20" >
+                                        <StackLayout Orientation="Horizontal"
+                                                     HorizontalOptions="FillAndExpand"
+                                                     Padding="10,10,10,0">
+                                            <Label Text="{Binding Index}"
+                                                   TextColor="Black"
+                                                   VerticalOptions="Center"
+                                                   FontSize="25"
+                                                   FontFamily="{StaticResource RobotoFontFamily}"/>
+                                            <Label Text="{Binding Name}"
+                                                   TextColor="Black"
+                                                   LineBreakMode="TailTruncation"
+                                                   VerticalOptions="Center"
+                                                   HorizontalOptions="FillAndExpand"
+                                                   FontSize="25"
+                                                   FontFamily="{StaticResource RobotoFontFamily}"/>
+                                                <Label FontFamily="{StaticResource MaterialFontFamily}"
+                                                   HorizontalOptions="End"
+                                                  Text="{x:Static icons:MaterialDesignIcons.CheckboxMarked}"
+                                                       TextColor="{StaticResource Title}"
+                                                   FontSize="20"/>
+                                            </StackLayout>
+                                            
+                                        <Grid Margin="10,0" ColumnDefinitions="*, Auto"
+                                                        RowDefinitions="Auto, Auto">
+                                        <Label Grid.Row="0"
+                                               Grid.Column="0"
+                                               Text="{Binding Address.Address1}"
+                                               LineBreakMode="TailTruncation"/>
+                                        <Label Grid.Row="1"
+                                               Grid.Column="0"
+                                               LineBreakMode="TailTruncation">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Address.City}"/>
+                                                    <Span Text=","/>
+                                                    <Span Text="{Binding Address.State}"/>
+                                                    <Span Text=" "/>
+                                                    <Span Text="{Binding Address.Zip}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                               
+                                        <Label Grid.Row="0"
+                                               Grid.Column="1" 
+                                               Text="{Binding Distance, StringFormat='Distance: {0:f2} mi'}"/>
+                                        <Label Grid.Row="1"
+                                               Grid.Column="1" 
+                                               Text="{Binding Status, StringFormat='Status: {0}'}"/>
+                                    </Grid>
+                                    </StackLayout>
+                                    </Frame>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+                <AbsoluteLayout BackgroundColor="Transparent"
+                        AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
+                        Margin="-5,0"
+                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+                    <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                                 AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
+                                 BackgroundColor="{StaticResource Primary}"
+                                 ColumnSpacing="25"
+                                 Command="{Binding NavigateToCommand}"
+                                 Current="Stops"/>
+                </AbsoluteLayout>
+                <!-- Busy Status -->
+                <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All"
                         BackgroundColor="White"
                         Opacity="0.5"
                         IsVisible="{Binding IsBusy}">
-                <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                    <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
                                    AbsoluteLayout.LayoutFlags="PositionProportional"
                                    IsRunning="{Binding IsBusy}"
                                    IsVisible="{Binding IsBusy}" />
+                </AbsoluteLayout>
             </AbsoluteLayout>
-        </AbsoluteLayout>
-    </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

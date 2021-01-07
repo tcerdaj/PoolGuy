@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -195,6 +196,35 @@ namespace PoolGuy.Mobile.Data.Models
             {
                 _distance = value;
                 OnPropertyChanged("Distance");
+            }
+        }
+
+        [Ignore]
+        public Color StatusColor
+        {
+            get 
+            {
+                Color color;
+                switch (Status)
+                {
+                    case WorkStatus.None:
+                        color = Color.White;
+                        break;
+                    case WorkStatus.Pending:
+                        color = Color.LightGray;
+                        break;
+                    case WorkStatus.Working:
+                        color = Color.Orange;
+                        break;
+                    case WorkStatus.Completed:
+                        color = Color.LightGreen;
+                        break;
+                    default:
+                        color = Color.Red;
+                        break;
+                }
+
+                return color;
             }
         }
     }

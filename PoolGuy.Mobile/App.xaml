@@ -30,6 +30,13 @@
                 <On Platform="Android"
                     Value="materialdesignicons.ttf#Material Design Icons" />
             </OnPlatform>
+            <OnPlatform x:Key="RobotoFontFamily"
+                        x:TypeArguments="x:String">
+                <On Platform="iOS"
+                    Value="Roboto" />
+                <On Platform="Android"
+                    Value="Roboto-Regular.ttf#Roboto-Regular" />
+            </OnPlatform>
             <Style TargetType="NavigationPage">
                 <Setter Property="BackgroundColor" Value="White"/>
             </Style>

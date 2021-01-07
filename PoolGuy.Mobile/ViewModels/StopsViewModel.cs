@@ -6,6 +6,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -55,13 +57,28 @@ namespace PoolGuy.Mobile.ViewModels
 
                 if (sch != null && sch.Any())
                 {
-                    Stops = sch.FirstOrDefault().Customers;
+                    Stops = sch.FirstOrDefault()
+                        .Customers
+                        .OrderBy(x=>x.Index)
+                        .ToList();
                 }
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
                 await Message.DisplayAlertAsync(e.Message, Title, "Ok");
+            }
+        }
+
+        public ICommand NavigateToCommand
+        {
+            get
+            {
+                return new RelayCommand<Enums.ePage>(async (item) =>
+                {
+                    string page = item.ToString();
+                    await NavigationService.ReplaceRoot($"{page}Page");
+                });
             }
         }
     }

@@ -5,10 +5,11 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using PoolGuy.Mobile.Data.Models;
 using System.Runtime.CompilerServices;
+using GalaSoft.MvvmLight.Command;
 
 namespace PoolGuy.Mobile.CustomControls
 {
-    public class NavigationGrid : Grid
+    public class NavigationGrid : Grid, IDisposable
     {
         #region Constans
         // Page/icon
@@ -32,7 +33,7 @@ namespace PoolGuy.Mobile.CustomControls
         }
 
         public static BindableProperty CommandProperty =
-           BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(NavigationGrid), null);
+           BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(NavigationGrid), default(ICommand) , BindingMode.OneWay);
 
         public ICommand Command
         {
@@ -66,17 +67,17 @@ namespace PoolGuy.Mobile.CustomControls
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            base.OnPropertyChanged(propertyName);
-
             if (string.IsNullOrEmpty(propertyName))
             {
                 return;
             }
 
-            if (Children != null)
+            if (Children != null && propertyName == CommandProperty.PropertyName)
             {
                 Initialize();
             }
+
+            base.OnPropertyChanged(propertyName);
         }
 
         private void Initialize()
@@ -115,6 +116,7 @@ namespace PoolGuy.Mobile.CustomControls
 
             this.ColumnDefinitions = cd;
         }
+
 
         private void AddCells(int columns)
         {
@@ -185,6 +187,14 @@ namespace PoolGuy.Mobile.CustomControls
 
                 // Add animate button to grid
                 Children?.Add(animatedButton, i , 0);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (Children != null)
+            {
+                Children.Clear();
             }
         }
     }
