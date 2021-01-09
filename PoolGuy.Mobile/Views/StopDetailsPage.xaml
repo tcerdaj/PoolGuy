@@ -50,6 +50,37 @@
     </ContentPage.Resources>
     <StackLayout BackgroundColor="White"
                  Spacing="0">
+        <!--****************-->
+        <!-- Navigation Bar -->
+        <!--****************-->
+        <AbsoluteLayout BackgroundColor="{StaticResource Primary}"
+                          HeightRequest="50"
+                          MinimumHeightRequest="50"
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="Fill">
+            <mycc:AnimatedButton AbsoluteLayout.LayoutBounds="0, 0.5, .25, 1"
+                                        AbsoluteLayout.LayoutFlags="All"
+                                        TouchUpCommand="{Binding GoBackCommand}"
+                                        AutomationId="cancel_add_note">
+                <Image AbsoluteLayout.LayoutBounds="0, 0.5, 1, 1"
+                               Aspect="AspectFit"
+                               HorizontalOptions="Start"
+                               AbsoluteLayout.LayoutFlags="All">
+                    <Image.Source>
+                        <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                                  Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
+                                                  Size="40"
+                                                  Color="{StaticResource Title}" />
+                    </Image.Source>
+                </Image>
+            </mycc:AnimatedButton>
+            <Label Text="{Binding Title}"
+                           TextColor="{StaticResource Title}"
+                           FontSize="17"
+                           FontAttributes="Bold"
+                           AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                           AbsoluteLayout.LayoutFlags="PositionProportional" />
+        </AbsoluteLayout>
         <AbsoluteLayout VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand">
             <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
@@ -63,20 +94,9 @@
                      Color="{StaticResource ExtraLightGray}" 
                      HorizontalOptions="FillAndExpand"
                      Margin="10,20,10,5"/>
-               
+                <Label Text="{Binding Customer.Name}"/>
+
             </Grid>
-            <AbsoluteLayout BackgroundColor="Transparent"
-                            AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
-                            Margin="-5,0"
-                            IsVisible="{Binding ShowModal, Converter={StaticResource InverseBooleanConverter}}"
-                            AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
-                <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
-                                 AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
-                                 BackgroundColor="{StaticResource Primary}"
-                                 ColumnSpacing="25"
-                                 Command="{Binding NavigateToCommand}"
-                                 Current="Stops"/>
-            </AbsoluteLayout>
             <!-- Busy Status -->
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All"

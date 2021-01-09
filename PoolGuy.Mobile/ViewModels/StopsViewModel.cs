@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using PoolGuy.Mobile.Helpers;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -121,6 +122,17 @@ namespace PoolGuy.Mobile.ViewModels
                         await RefreshStopsAsync(eDirection.Next);
                         OnPropertyChanged("DayOfWeek");
                     }
+                });
+            }
+        }
+
+        public ICommand GoToStopDetailsCommand
+        {
+            get 
+            {
+                return new RelayCommand<CustomerModel>(async (customer) =>
+                {
+                    await NavigationService.NavigateToDialog(Locator.StopDetails, customer);
                 });
             }
         }

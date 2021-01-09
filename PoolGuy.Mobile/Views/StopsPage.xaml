@@ -109,15 +109,27 @@
                         </ImageButton>
                     </StackLayout>
                     <CollectionView Grid.Row="1"
+                                    x:Name="Stops"
                                     Margin="0,0,0,65"
                                     EmptyView="Not stops for today"
                                     ItemsSource="{Binding Stops}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout  BackgroundColor="Transparent"       
-                                        Padding="10">
+                                <mr:StackLayout x:Name="StopRow"
+                                                BackgroundColor="Transparent"       
+                                                Padding="10"
+                                                TappedCommand="{Binding Source={x:Reference Stops}, Path=BindingContext.GoToStopDetailsCommand}"
+                                                TappedCommandParameter="{Binding BindingContext, Source={x:Reference StopRow}}">
+                                    <mr:StackLayout.Triggers>
+                                        <EventTrigger Event="Down">
+                                            <act:ScaleDownTriggerAction />
+                                        </EventTrigger>
+                                        <EventTrigger Event="Up">
+                                            <act:ScaleUpTriggerAction />
+                                        </EventTrigger>
+                                    </mr:StackLayout.Triggers>
                                     <Frame BackgroundColor="{Binding StatusColor}">
-                                    <StackLayout Margin="0,0,0,20" >
+                                    <StackLayout Margin="0,0,0,20">
                                         <StackLayout Orientation="Horizontal"
                                                      HorizontalOptions="FillAndExpand"
                                                      Padding="10,10,10,0">
@@ -169,7 +181,7 @@
                                     </Grid>
                                     </StackLayout>
                                     </Frame>
-                                </StackLayout>
+                                </mr:StackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
