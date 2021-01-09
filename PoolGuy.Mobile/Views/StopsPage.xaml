@@ -67,7 +67,7 @@
                         <StackLayout Orientation="Horizontal"
                                      HorizontalOptions="CenterAndExpand">
                                  <ImageButton HorizontalOptions="Start"
-                                              Command="{Binding GoToWeekDay}"
+                                              Command="{Binding GoToWeekDayCommand}"
                                               CommandParameter="Previus">
                                      <ImageButton.Source>
                                          <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
@@ -79,12 +79,14 @@
                                  <Label Text="{Binding DayOfWeek}"
                                         Padding="0,10"
                                         FontSize="16"
+                                        WidthRequest="120"
                                         TextColor="Black"
                                         FontFamily="{StaticResource RobotoFontFamily}"
                                         FontAttributes="Bold"
-                                        HorizontalOptions="Center"/>
+                                        HorizontalTextAlignment="Center"
+                                        HorizontalOptions="Fill"/>
                                  <ImageButton HorizontalOptions="End"
-                                              Command="{Binding GoToWeekDay}"
+                                              Command="{Binding GoToWeekDayCommand}"
                                               CommandParameter="Next">
                                      <ImageButton.Source>
                                          <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"

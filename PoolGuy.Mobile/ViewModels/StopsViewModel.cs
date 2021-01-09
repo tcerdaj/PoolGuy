@@ -26,11 +26,13 @@ namespace PoolGuy.Mobile.ViewModels
          
         }
 
+        private DateTime currentDate = DateTime.Now;
+
         public string DayOfWeek
         {
             get 
             {
-                return DateTime.Now.DayOfWeek.ToString();
+                return currentDate.DayOfWeek.ToString();
             }
         }
 
@@ -41,26 +43,45 @@ namespace PoolGuy.Mobile.ViewModels
             set { _stops = value; OnPropertyChanged("Stops"); }
         }
 
-        public async Task RefreshStopsAsync()
+        private SchedulerModel _sch;
+
+        public async Task RefreshStopsAsync(eDirection direction = eDirection.None)
         {
             try
             {
-                var sch = await new SchedulerController().ListWithChildrenAsync(
-                    new SQLControllerListCriteriaModel
-                    {
-                        Filter = new List<SQLControllerListFilterField> {
-                        new SQLControllerListFilterField {
-                            FieldName = "LongName",
-                            ValueLBound = DayOfWeek
-                        }}
-                    });
+                if (string.IsNullOrEmpty(DayOfWeek))
+                {
+                    return;
+                }
+
+                var schs = await new SchedulerController().ListWithChildrenAsync();
+                var sch = schs.Where(x => x.LongName == DayOfWeek);
 
                 if (sch != null && sch.Any())
                 {
+                    _sch = sch.FirstOrDefault();
                     Stops = sch.FirstOrDefault()
                         .Customers
-                        .OrderBy(x=>x.Index)
+                        .OrderBy(x => x.Index)
                         .ToList();
+                }
+                else if(_sch != null)
+                {
+                    int goTo = direction == eDirection.Next? 1: direction == eDirection.Previus? -1: 0;
+                    var ind = schs.IndexOf(_sch) + goTo;
+                    if (ind > 0)
+                    {
+                        _sch = schs[schs.IndexOf(_sch) + goTo];
+
+                        Stops = _sch
+                            .Customers
+                            .OrderBy(x => x.Index)
+                            .ToList();
+                    }
+                    else
+                    {
+                        Stops = new List<CustomerModel>();
+                    }
                 }
             }
             catch (Exception e)
@@ -80,6 +101,35 @@ namespace PoolGuy.Mobile.ViewModels
                     await NavigationService.ReplaceRoot($"{page}Page");
                 });
             }
+        }
+
+        public ICommand GoToWeekDayCommand
+        {
+            get
+            {
+                return new RelayCommand<string>(async (direction) =>
+                {
+                    if (direction == "Previus")
+                    {
+                        currentDate = currentDate.AddDays(-1);
+                        await RefreshStopsAsync(eDirection.Previus);
+                        OnPropertyChanged("DayOfWeek");
+                    }
+                    else if (direction == "Next")
+                    {
+                        currentDate = currentDate.AddDays(1);
+                        await RefreshStopsAsync(eDirection.Next);
+                        OnPropertyChanged("DayOfWeek");
+                    }
+                });
+            }
+        }
+
+        public enum eDirection
+        {
+            None,
+            Next,
+            Previus
         }
     }
 }
