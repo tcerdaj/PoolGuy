@@ -88,17 +88,43 @@
                         AbsoluteLayout.LayoutFlags="All">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-              
-                <Label Text="{Binding Customer.Name}"/>
+                <Frame Margin="15,10"
+                       Padding="5"
+                       HasShadow="False"
+                       BorderColor="LightGray"
+                       Grid.Row="0">
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding Customer.Name}"
+                               FontSize="16"
+                               TextColor="Black"
+                               FontAttributes="Bold"/>
+                        <Label Text="{Binding Customer.Address.FullAddress}"
+                               FontSize="12"
+                               FontAttributes="Bold"/>
+                        <Label 
+                               FontSize="12"
+                               FontAttributes="Bold">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Last Visit:"/>
+                                    <Span Text=" "/>
+                                    <Span Text="{Binding DateLastVisit, StringFormat='{0:MM/dd/yy}'}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </Frame>
                 <!--Scheduler-->
-                <BoxView Grid.Row="0"
+                <BoxView Grid.Row="1"
                      HeightRequest="1" 
                      Color="{StaticResource ExtraLightGray}" 
                      HorizontalOptions="FillAndExpand"
-                     Margin="10,20,10,5"/>
+                     Margin="10"/>
                 <CollectionView x:Name="Stops"
-                                Grid.Row="1"
+                                Grid.Row="2"
                                 Margin="0,0,0,65"
                                 EmptyView="Not stops for today"
                                 ItemsSource="{Binding StopHistory}">

@@ -32,6 +32,14 @@ namespace PoolGuy.Mobile.ViewModels
             IsBusy = true;
         }
 
+        public DateTime? DateLastVisit
+        {
+            get 
+            {
+                return Customer.DateLastVisit.Value.ToLocalTime();
+            }
+        }
+
         private DateTime _selectedDate;
         public DateTime SelectedDate 
         {
@@ -135,6 +143,30 @@ namespace PoolGuy.Mobile.ViewModels
             get
             {
                 return new RelayCommand(async () => {
+                    
+                    if (Customer.Status != Enums.WorkStatus.Completed)
+                    {
+                        Customer.Status = Enums.WorkStatus.Pending;
+                    }
+
+                    await NavigationService.CloseModal();
+                });
+            }
+        }
+
+        public ICommand CompleteStopCommand
+        {
+            get
+            {
+                return new RelayCommand(async () => {
+                    // TODO:
+                    // Validate required fields
+
+                    if (Customer.Status != Enums.WorkStatus.Completed)
+                    {
+                        Customer.Status = Enums.WorkStatus.Pending;
+                    }
+
                     await NavigationService.CloseModal();
                 });
             }
