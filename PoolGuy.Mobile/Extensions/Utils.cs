@@ -12,6 +12,7 @@ using System.IO;
 using System.Threading;
 using PoolGuy.Mobile.Data.Models;
 using Xamarin.Forms;
+using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.Extensions
 {
@@ -357,6 +358,118 @@ namespace PoolGuy.Mobile.Extensions
                 d = 255; // dark colors - white font
 
             return Color.FromRgb(d, d, d);
+        }
+
+        /// <summary>
+        /// Convert Volumen unit type
+        /// </summary>
+        /// <param name="units"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public static double ConvertUnits(this int units, eVolumeType from, eVolumeType to)
+        {
+            double[][] factor =
+                {
+                new double[] {1, 2, 0.25},
+                new double[] {0.5, 1, 0.125},
+                new double[] {4, 8, 1}
+            };
+
+            return units * factor[(int)from][(int)to];
+        }
+
+        /// <summary>
+        /// Convert mass unit type
+        /// </summary>
+        /// <param name="units"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public static double ConvertUnits(this double units, eMassUnit from, eMassUnit to)
+        {
+            double results = units;
+
+            switch (from)
+            {
+                case eMassUnit.Grams:
+                    switch (to)
+                    {
+                        case eMassUnit.Grams:
+                            break;
+                        case eMassUnit.Kilograms:
+                            results = units * 0.001;
+                            break;
+                        case eMassUnit.Ounces:
+                            results = units * 0.035274;
+                            break;
+                        case eMassUnit.Pounds:
+                            results = units * 0.00220462;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case eMassUnit.Kilograms:
+                    switch (to)
+                    {
+                        case eMassUnit.Grams:
+                            results =   units * 1000;
+                            break;
+                        case eMassUnit.Kilograms:
+                            break;
+                        case eMassUnit.Ounces:
+                            results = units * 35.274;
+                            break;
+                        case eMassUnit.Pounds:
+                            results = units * 2.20462;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case eMassUnit.Ounces:
+                    switch (to)
+                    {
+                        case eMassUnit.Grams:
+                            results = units * 28.3495;
+                            break;
+                        case eMassUnit.Kilograms:
+                            results = units * 0.0283495;
+                            break;
+                        case eMassUnit.Ounces:
+                            break;
+                        case eMassUnit.Pounds:
+                            results = units * 0.0625;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case eMassUnit.Pounds:
+                    switch (to)
+                    {
+                        case eMassUnit.Grams:
+                            results = units * 453.592;
+                            break;
+                        case eMassUnit.Kilograms:
+                            results = units * 0.453592;
+                            break;
+                        case eMassUnit.Ounces:
+                            results = units * 16;
+                            break;
+                        case eMassUnit.Pounds:
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+
+            return results;
         }
     }
 }

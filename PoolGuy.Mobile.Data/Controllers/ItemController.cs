@@ -2,7 +2,7 @@
 
 namespace PoolGuy.Mobile.Data.Controllers
 {
-    public class ItemController : BaseController<ItemModel>
+    public class ItemController : BaseController<StopItemModel>
     {
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Models;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -132,7 +133,8 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 return new RelayCommand<CustomerModel>(async (customer) =>
                 {
-                    await NavigationService.NavigateToDialog(Locator.StopDetails, customer);
+                    await NavigationService.NavigateToDialog(Locator.StopDetails, 
+                        new MobileCustomerModel { Customer = customer, SelectedDate = currentDate });
                 });
             }
         }

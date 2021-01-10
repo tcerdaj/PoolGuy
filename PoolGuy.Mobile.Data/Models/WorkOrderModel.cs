@@ -1,6 +1,9 @@
 ﻿using System;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using SQLite;
+using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.Data.Models
 {
@@ -14,37 +17,29 @@ namespace PoolGuy.Mobile.Data.Models
         public Guid UserId { get; set; }
         [OneToOne(CascadeOperations = CascadeOperation.CascadeRead)]
         public UserModel User { get; set; }
-        public int TotalItems { get; set; }
-        [OneToMany(CascadeOperations = CascadeOperation.All)]
-        public List<WorkOrderDetailsModel> WorkOrderDetails { get; set; }
-    }
-    
-    public class WorkOrderDetailsModel : EntityBase
-    {
-        public int Index { get; set; }
-
-        [ForeignKey(typeof(WorkOrderModel))]
-        public Guid WorkOrderId { get; set; }
-        [ManyToOne]
-        public WorkOrderModel WorkOrder { get; set; }
-
-        [ForeignKey(typeof(ItemModel))]
-        public Guid ItemId { get; set; }
-        [OneToOne(CascadeOperations = CascadeOperation.CascadeRead)]
-        public ItemModel Item { get; set; }
-        public string TestValue { get; set; }
-        public string OptimalValue { get; set; }
-        public string FinalValue { get; set; }
-        public void IncreaseIndex(int lastIndex)
+        private string _additionalInformation;
+        public string AdditionalInformation
         {
-            Index = lastIndex + 1;
+            get { return _additionalInformation; }
+            set { _additionalInformation = value; OnPropertyChanged("AdditionalInformation"); }
         }
-    }
 
-    public class ItemModel : EntityBase
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public bool IsCheckField { get; set; }
+        private ObservableCollection<WorkOrderItemModel> _items;
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public ObservableCollection<WorkOrderItemModel> Items
+        {
+            get => _items;
+            set { _items = value; OnPropertyChanged("Items"); }
+        }
+
+        [Ignore]
+        public List<EntityImageModel> Images { get; set; }
+      
+        WorkStatus _status;
+        public WorkStatus Status
+        {
+            get { return _status; }
+            set { _status = value; OnPropertyChanged("Status"); }
+        }
     }
 }

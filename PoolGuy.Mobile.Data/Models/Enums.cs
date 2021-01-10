@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace PoolGuy.Mobile.Data.Models
 {
     public class Enums
@@ -78,6 +75,21 @@ namespace PoolGuy.Mobile.Data.Models
             Popup,
             CloseModal,
             PopPopup
+        }
+
+        public enum eVolumeType
+        {
+            Litre = 0,
+            Pint = 1,
+            Gallon = 2
+        }
+
+        public enum eMassUnit
+        {
+            Grams,
+            Kilograms,
+            Ounces,
+            Pounds
         }
     }
 }

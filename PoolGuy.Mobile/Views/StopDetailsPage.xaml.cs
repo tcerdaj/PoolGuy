@@ -11,7 +11,7 @@ namespace PoolGuy.Mobile.Views
     public partial class StopDetailsPage : ContentPage, IContentPage
     {
         StopDetailsViewModel _viewModel;
-        public StopDetailsPage(CustomerModel customer)
+        public StopDetailsPage(MobileCustomerModel customer)
         {
             InitializeComponent();
             _viewModel = new StopDetailsViewModel(customer);
@@ -37,7 +37,7 @@ namespace PoolGuy.Mobile.Views
             };
         }
 
-        protected override async void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
             if (!Settings.IsLoggedIn)
@@ -45,6 +45,8 @@ namespace PoolGuy.Mobile.Views
                 Application.Current.MainPage = new LoginPage() { BackgroundColor = Color.White };
                 return;
             }
+
+            await _viewModel.InitializeAsync();
 
             _viewModel.IsBusy = false;
         }

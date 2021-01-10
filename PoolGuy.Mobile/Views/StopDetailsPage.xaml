@@ -7,6 +7,7 @@
              xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" 
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              Title="{Binding Title}">
     
     <ContentPage.Resources>
@@ -88,13 +89,41 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+              
+                <Label Text="{Binding Customer.Name}"/>
                 <!--Scheduler-->
                 <BoxView Grid.Row="0"
                      HeightRequest="1" 
                      Color="{StaticResource ExtraLightGray}" 
                      HorizontalOptions="FillAndExpand"
                      Margin="10,20,10,5"/>
-                <Label Text="{Binding Customer.Name}"/>
+                <CollectionView x:Name="Stops"
+                                Grid.Row="1"
+                                Margin="0,0,0,65"
+                                EmptyView="Not stops for today"
+                                ItemsSource="{Binding StopHistory}">
+                    <CollectionView.Header>
+                        <Grid ColumnDefinitions="30,Auto"
+                              Padding="15,0">
+                            <Label Grid.Column="0" Text="W"
+                                   FontAttributes="Bold"
+                                   FontFamily="{StaticResource RobotoFontFamily}"/>
+                            <Label Grid.Column="1" Text="{Binding Year}"
+                                   FontAttributes="Bold"
+                                   FontFamily="{StaticResource RobotoFontFamily}"/>
+                        </Grid>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="30,Auto"
+                                         Padding="15,0">
+                                <Label Grid.Column="0" Text="{Binding WeekOfYear}"
+                                       HorizontalTextAlignment="Start"/>
+                                <Label Grid.Column="1" Text="{Binding Created, StringFormat='{0:MM/dd}'}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
             </Grid>
             <!-- Busy Status -->

@@ -101,8 +101,9 @@ namespace PoolGuy.Mobile
                 DependencyService.Register<ILocalDataStore<UserModel>, LocalDataStore<UserModel>>();
                 DependencyService.Register<ILocalDataStore<RoleModel>, LocalDataStore<RoleModel>>();
                 DependencyService.Register<ILocalDataStore<WorkOrderModel>, LocalDataStore<WorkOrderModel>>();
-                DependencyService.Register<ILocalDataStore<WorkOrderDetailsModel>, LocalDataStore<WorkOrderDetailsModel>>();
-                DependencyService.Register<ILocalDataStore<ItemModel>, LocalDataStore<ItemModel>>();
+                DependencyService.Register<ILocalDataStore<WorkOrderItemModel>, LocalDataStore<WorkOrderItemModel>>();
+                DependencyService.Register<ILocalDataStore<StopItemModel>, LocalDataStore<StopItemModel>>();
+                DependencyService.Register<ILocalDataStore<StopModel>, LocalDataStore<StopModel>>();
                 DependencyService.Register<ILocalDataStore<ReportModel>, LocalDataStore<ReportModel>>();
                 DependencyService.Register<ILocalDataStore<EquipmentIssueModel>, LocalDataStore<EquipmentIssueModel>>();
                 DependencyService.Register<ILocalDataStore<DirectionHistory>, LocalDataStore<DirectionHistory>>();
@@ -117,12 +118,7 @@ namespace PoolGuy.Mobile
         {
             try
             {
-              
-                if (SQLiteControllerBase.DatabaseAsync.TableMappings.All(m => m.MappedType.Name != typeof(CustomerSchedulerModel).Name))
-                {
-                    await SQLiteControllerBase.DatabaseAsync.CreateTableAsync(typeof(CustomerSchedulerModel), CreateFlags.None);
-                }
-
+                await CreateLinkTables();
                 await new SchedulerController().LocalData.CreateTableAsync();
                 await new CustomerController().LocalData.CreateTableAsync();
                 await new PoolController().LocalData.CreateTableAsync();
@@ -135,7 +131,8 @@ namespace PoolGuy.Mobile
                 await new UserController().LocalData.CreateTableAsync();
                 await new RoleController().LocalData.CreateTableAsync();
                 await new WorkOrderController().LocalData.CreateTableAsync();
-                await new WorkOrderDetailsController().LocalData.CreateTableAsync();
+                await new WorkOrderItemController().LocalData.CreateTableAsync();
+                await new StopController().LocalData.CreateTableAsync();
                 await new ItemController().LocalData.CreateTableAsync();
                 await new ReportController().LocalData.CreateTableAsync();
                 await new EquipmentIssueController().LocalData.CreateTableAsync();
@@ -145,6 +142,19 @@ namespace PoolGuy.Mobile
             catch (System.Exception e)
             {
                 throw;
+            }
+        }
+
+        private static async Task CreateLinkTables()
+        {
+            if (SQLiteControllerBase.DatabaseAsync.TableMappings.All(m => m.MappedType.Name != typeof(CustomerSchedulerModel).Name))
+            {
+                await SQLiteControllerBase.DatabaseAsync.CreateTableAsync(typeof(CustomerSchedulerModel), CreateFlags.None);
+            }
+
+            if (SQLiteControllerBase.DatabaseAsync.TableMappings.All(m => m.MappedType.Name != typeof(UserRoleModel).Name))
+            {
+                await SQLiteControllerBase.DatabaseAsync.CreateTableAsync(typeof(UserRoleModel), CreateFlags.None);
             }
         }
 
@@ -167,7 +177,8 @@ namespace PoolGuy.Mobile
                 await new UserController().LocalData.ClearTableAsync();
                 await new RoleController().LocalData.ClearTableAsync();
                 await new WorkOrderController().LocalData.ClearTableAsync();
-                await new WorkOrderDetailsController().LocalData.ClearTableAsync();
+                await new WorkOrderItemController().LocalData.ClearTableAsync();
+                await new StopController().LocalData.ClearTableAsync();
                 await new ItemController().LocalData.ClearTableAsync();
                 await new ReportController().LocalData.ClearTableAsync();
                 await new EquipmentIssueController().LocalData.ClearTableAsync();
