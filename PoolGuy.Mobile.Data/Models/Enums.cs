@@ -20,6 +20,7 @@ namespace PoolGuy.Mobile.Data.Models
 
         public enum PoolType
         {
+            None,
             SweetPool,
             SaltPool
         }
@@ -53,12 +54,14 @@ namespace PoolGuy.Mobile.Data.Models
 
         public enum Units
         {
+            None,
             Imperial,
             Metric
         }
 
         public enum ImageType
         {
+            None,
             Customer,
             User,
             WorkOrder,
@@ -69,6 +72,7 @@ namespace PoolGuy.Mobile.Data.Models
 
         public enum ePageType
         {
+            None,
             PushPopup,
             Dialog,
             ReplaceRoot,
@@ -79,17 +83,38 @@ namespace PoolGuy.Mobile.Data.Models
 
         public enum eVolumeType
         {
+            None,
             Litre = 0,
             Pint = 1,
-            Gallon = 2
+            Gallon = 2,
+            VPM,
+            Unit,
+            Temperature,
+            Device
         }
 
         public enum eMassUnit
         {
+            None,
             Grams,
             Kilograms,
             Ounces,
             Pounds
+        }
+
+        public enum eItemType
+        {
+            Normal,
+            Stop,
+            PartRequest
+        }
+
+        public enum eFrequencyType
+        {
+            Daily,
+            Weekly,
+            Monthly,
+            Annually
         }
     }
 }

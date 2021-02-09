@@ -13,8 +13,11 @@ namespace PoolGuy.Mobile.Data.Models
         public bool IsCheckField { get; set; }
         public eVolumeType VolumeType { get; set; }
         public eMassUnit MassUnit { get; set; }
+        public eItemType ItemType { get; set; }
         public string Value { get; set; }
         public decimal Price { get; set; }
+        public int Frequency { get; set; }
+        public eFrequencyType FrequencyType { get; set; }
         [ForeignKey(typeof(StopModel))]
         public Guid StopId { get; set; }
         private StopModel _stop;

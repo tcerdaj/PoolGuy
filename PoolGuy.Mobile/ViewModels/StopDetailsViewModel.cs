@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -85,9 +86,51 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
+                StopModel stopDetails = null;
+
+                if (Customer.CurrentStop != null && Customer.CurrentStop.Id == Guid.Empty)
+                {
+                    var items = await new StopItemController().LocalData.List(new SQLControllerListCriteriaModel
+                    {
+                        Filter = new List<SQLControllerListFilterField> {
+                         new SQLControllerListFilterField {
+                             FieldName = "ItemType",
+                             ValueLBound = ((int)eItemType.Stop).ToString()
+                         }}
+                    });
+
+                    stopDetails = new StopModel
+                    {
+                        CustimerId = Customer.Id,
+                        Customer = Customer,
+                        Created = DateTime.Now,
+                        Items = new ObservableCollection<StopItemModel>(items),
+                        Status = Enums.WorkStatus.Working,
+                        User = new UserModel
+                        {
+                            Id = Guid.Parse("a3dab4d2-81d6-40a9-a63e-a013f825ba71"),
+                            FirstName = "Teo",
+                            LastName = "Cerda",
+                            Password = "123",
+                            UserName = "tcerdaj@hotmail.com",
+                            Roles = new List<RoleModel> {
+                                new RoleModel
+                                {
+                                    Id = Guid.Parse("247e4561-1c3d-49da-aa2d-dd55902ade73"),
+                                    Name = "Admin"
+                                }
+                            }
+                        }
+                    };
+                }
+                else
+                {
+                    stopDetails = await new StopController().LoadAsync(Customer.CurrentStop.Id);
+                }
+
                 int weeks = 4;
                 var weeksToRetrieve = DateTime.Now.AddDays(-(int)SelectedDate.DayOfWeek -(6 * weeks));
-                var stops = await new StopController().LocalData.List(new SQLControllerListCriteriaModel
+                var stopHistory = await new StopController().LocalData.List(new SQLControllerListCriteriaModel
                 {
                     Filter = new List<SQLControllerListFilterField>
                     {
@@ -100,36 +143,12 @@ namespace PoolGuy.Mobile.ViewModels
                     }
                 });
 
-                if (!stops.Any())
+                if (!stopHistory.Any())
                 {
-                    stops.Add(new StopModel
-                    {
-                        CustimerId = Customer.Id,
-                        Customer = Customer,
-                        Created = DateTime.Now,
-                        Items = new ObservableCollection<StopItemModel>() { 
-                        
-                        },
-                        Status = Enums.WorkStatus.Working,
-                        User = new UserModel 
-                        { 
-                            Id = Guid.Parse("a3dab4d2-81d6-40a9-a63e-a013f825ba71"),
-                            FirstName = "Teo",
-                            LastName = "Cerda",
-                            Password = "123",
-                            UserName = "tcerdaj@hotmail.com",
-                            Roles = new List<RoleModel> { 
-                                new RoleModel 
-                                { 
-                                    Id = Guid.Parse("247e4561-1c3d-49da-aa2d-dd55902ade73"),
-                                    Name = "Admin"
-                                } 
-                            }
-                        }
-                    });
+                    stopHistory.Add(stopDetails);
                 }
 
-                StopHistory = stops;
+                StopHistory = stopHistory;
             }
             catch (System.Exception e)
             {

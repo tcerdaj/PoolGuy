@@ -114,6 +114,13 @@ namespace PoolGuy.Mobile.Data.Models
             set { _active = value; OnPropertyChanged("Active"); }
         }
 
+        private StopModel _currentStop;
+        public StopModel CurrentStop
+        {
+            get { return _currentStop; }
+            set { _currentStop = value; OnPropertyChanged("CurrentStop"); }
+        }
+
         WorkStatus _status;
         public WorkStatus Status
         {

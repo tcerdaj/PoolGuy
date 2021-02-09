@@ -134,6 +134,23 @@ namespace PoolGuy.Mobile.Data.SQLite
         {
             try
             {
+                foreach (var model in list)
+                {
+                    if (model.Id == Guid.Empty)
+                    {
+                        model.Id = Guid.NewGuid();
+
+                        if (model.Created == null || model.Created == DateTime.MinValue)
+                        {
+                            model.Created = DateTime.Now.ToUniversalTime();
+                        }
+                    }
+                    else
+                    {
+                        model.Modified = DateTime.Now.ToUniversalTime();
+                    }
+                }
+
                 await DatabaseAsync.InsertAllAsync(list).ConfigureAwait(false);
             }
             catch (Exception e)

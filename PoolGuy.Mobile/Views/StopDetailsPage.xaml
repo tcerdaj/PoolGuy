@@ -123,10 +123,37 @@
                      Color="{StaticResource ExtraLightGray}" 
                      HorizontalOptions="FillAndExpand"
                      Margin="10"/>
+                <!--<CollectionView x:Name="Stops"
+                                Grid.Row="2"
+                                Margin="0,0,0,65"
+                                EmptyView="Not items found"
+                                ItemsSource="{Binding StopHistory}">
+                    <CollectionView.Header>
+                        <Grid ColumnDefinitions="30,Auto"
+                              Padding="15,0">
+                            <Label Grid.Column="0" Text="W"
+                                   FontAttributes="Bold"
+                                   FontFamily="{StaticResource RobotoFontFamily}"/>
+                            <Label Grid.Column="1" Text="{Binding Year}"
+                                   FontAttributes="Bold"
+                                   FontFamily="{StaticResource RobotoFontFamily}"/>
+                        </Grid>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="30,Auto"
+                                         Padding="15,0">
+                                <Label Grid.Column="0" Text="{Binding WeekOfYear}"
+                                       HorizontalTextAlignment="Start"/>
+                                <Label Grid.Column="1" Text="{Binding Created, StringFormat='{0:MM/dd}'}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>-->
                 <CollectionView x:Name="Stops"
                                 Grid.Row="2"
                                 Margin="0,0,0,65"
-                                EmptyView="Not stops for today"
+                                EmptyView="Not items found"
                                 ItemsSource="{Binding StopHistory}">
                     <CollectionView.Header>
                         <Grid ColumnDefinitions="30,Auto"
