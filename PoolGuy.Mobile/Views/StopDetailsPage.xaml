@@ -161,53 +161,111 @@
                                 EmptyView="Not items found"
                                 ItemsSource="{Binding Stop.Items}">
                     <CollectionView.Header>
-                        <Grid ColumnDefinitions="50,80, 80, *"
-                              Padding="15,10">
-                            <Label Grid.Column="0" Text="COD"
-                                   FontAttributes="Bold"
-                                   TextColor="Black"
+                            <StackLayout Margin="0"
+                                         Spacing="0">
+                            <BoxView  HeightRequest="1" 
+                                      Margin="15,0"
+                                      VerticalOptions="End"
+                                      HorizontalOptions="FillAndExpand" Color="LightGray"/>
+                                <Grid ColumnDefinitions="80,80, 80, *"
+                                         Padding="15,0" >
+                                <BoxView Grid.Column="0" Grid.ColumnSpan="4" HeightRequest="1" 
+                                                 VerticalOptions="End"
+                                                 HorizontalOptions="FillAndExpand" Color="LightGray"/>
+                                <BoxView Grid.Column="0" 
+                                         WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
+                                         HorizontalOptions="End" Color="LightGray"/>
+
+                                <BoxView Grid.Column="0" 
+                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="Start" Color="LightGray"/>
+
+                                <BoxView Grid.Column="1" 
+                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End" Color="LightGray"/>
+                                <BoxView Grid.Column="2" 
+                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End" Color="LightGray"/>
+                                <BoxView Grid.Column="3" 
+                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End" Color="LightGray"/>
+
+                                <Label Grid.Column="0" Text="COD"
+                                       FontAttributes="Bold"
+                                       Margin="5"
+                                       VerticalOptions="FillAndExpand"
+                                       TextColor="Black"
+                                       FontSize="12"
                                    FontFamily="{StaticResource RobotoFontFamily}"/>
                             <Label Grid.Column="1" Text="Test"
                                    FontAttributes="Bold"
+                                   Margin="5"
+                                   VerticalOptions="FillAndExpand"
+                                   FontSize="12"
                                    TextColor="Black"
                                    FontFamily="{StaticResource RobotoFontFamily}"/>
                             <Label Grid.Column="2" Text="Appliyed"
                                    FontAttributes="Bold"
+                                   Margin="5"
+                                   FontSize="12"
+                                   VerticalOptions="FillAndExpand"
                                    TextColor="Black"
                                    FontFamily="{StaticResource RobotoFontFamily}"/>
                             <Label Grid.Column="3" Text="Suggested"
                                    FontAttributes="Bold"
+                                   Margin="5"
+                                   FontSize="12"
+                                   VerticalOptions="FillAndExpand"
                                    TextColor="Black"
                                    FontFamily="{StaticResource RobotoFontFamily}"/>
                         </Grid>
-                    </CollectionView.Header>
+                            </StackLayout>
+                        </CollectionView.Header>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout>
-                            <Grid ColumnDefinitions="50,80, 80, *"
+                                <StackLayout>
+                                    
+                                    <Grid ColumnDefinitions="80,80, 80, *"
                                          Padding="15,0" >
-                                <Label Grid.Column="0" Text="{Binding Name}"
-                                       VerticalOptions="Center"
-                                       HorizontalTextAlignment="Start" />
-                                <mycc:CustomEntry Grid.Column="1" 
-                                                  FontSize="12"
-                                                  Margin="0,-15,0,-20"
-                                                  VerticalOptions="Center"/>
-                                <mycc:CustomEntry Grid.Column="2"
-                                                  FontSize="12"
-                                                  Margin="0,-15,0,-20"
-                                                  VerticalOptions="Center"/>
-                                <mycc:CustomEntry Grid.Column="3"
-                                                  Margin="0,-15,0,-20"
-                                                  FontSize="12"
-                                                  VerticalOptions="Center"/>
-                             
+                                        <BoxView Grid.Column="0" Grid.ColumnSpan="4" HeightRequest="1" 
+                                                 VerticalOptions="End"
+                                                 HorizontalOptions="FillAndExpand" Color="LightGray" />
+                                        <BoxView Grid.Column="0" 
+                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="Start" Color="LightGray"/>
 
-                            </Grid>
-                                <BoxView Margin="15,0" 
-                                    BackgroundColor="LightGray" HeightRequest="1" />
-                            </StackLayout>
-                        </DataTemplate>
+                                        <BoxView Grid.Column="0" 
+                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End" Color="LightGray"/>
+
+                                        <BoxView Grid.Column="1" 
+                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End" Color="LightGray"/>
+                                        <BoxView Grid.Column="2" 
+                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End" Color="LightGray"/>
+                                        <BoxView Grid.Column="3" 
+                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End"  Color="LightGray"/>
+
+                                        <Label Grid.Column="0" 
+                                               Margin="5"
+                                               Text="{Binding Name}"
+                                               VerticalOptions="Center"
+                                               HorizontalTextAlignment="Start" />
+                                        <mycc:CustomEntry Grid.Column="1" 
+                                                  FontSize="12"
+                                                  VerticalOptions="Center"/>
+                                        <mycc:CustomEntry Grid.Column="2"
+                                                  Grid.Row="0"
+                                                  FontSize="12"
+                                                  VerticalOptions="Center"/>
+                                         <mycc:CustomEntry Grid.Column="3"
+                                                  FontSize="12"
+                                                  VerticalOptions="Center"/>
+                                    </Grid>
+                                </StackLayout>
+                            </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
                 <Frame Grid.Row="3"

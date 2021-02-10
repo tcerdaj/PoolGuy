@@ -27,7 +27,7 @@ namespace PoolGuy.Mobile.Droid
             TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
             base.OnCreate(savedInstanceState);
-            global::Xamarin.Forms.Forms.SetFlags("SwipeView_Experimental", "RadioButton_Experimental", "RadioButton_Experimental");
+            global::Xamarin.Forms.Forms.SetFlags("SwipeView_Experimental", "RadioButton_Experimental", "Brush_Experimental", "Shapes_Experimental");
             Rg.Plugins.Popup.Popup.Init(this);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
