@@ -202,5 +202,188 @@ namespace PoolGuy.Mobile.ViewModels
 
             return new string[] { };
         }
+
+        public ICommand AddStopItemsCommand
+        {
+            get { return new RelayCommand(() => AddStopItemsAsync()); }
+        }
+
+        private async void AddStopItemsAsync()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                var stopItemController = new StopItemController().LocalData;
+                var stopItems = await stopItemController.List(new Data.Models.Query.SQLControllerListCriteriaModel
+                {
+                    Filter = new System.Collections.Generic.List<Data.Models.Query.SQLControllerListFilterField> {
+               new Data.Models.Query.SQLControllerListFilterField {
+                    FieldName = "ItemType",
+                    ValueLBound = ((int)Enums.eItemType.Stop).ToString()
+               }}
+                });
+
+                if (!stopItems.Any())
+                {
+                    var items = new List<StopItemModel> {
+                 new StopItemModel {
+                   Index = 0,
+                   Name = "CHL",
+                   Description ="Chlorine is a chemical element with the symbol Cl and atomic number 17. The second-lightest of the halogens, it appears between fluorine and bromine in the periodic table and its properties are mostly intermediate between them",
+                   ImageUrl = "https://www.istockphoto.com/photo/swimming-pool-water-treatment-with-chlorine-tablets-gm182174385-10189979",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.Gallon,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Weekly,
+                   Price = 69.99m,
+                 },
+                 new StopItemModel {
+                   Index = 1,
+                   Name = "pH",
+                   Description ="pH is a measure of hydrogen ion concentration, a measure of the acidity or alkalinity of a solution. The pH scale usually ranges from 0 to 14. Aqueous solutions at 25°C with a pH less than 7 are acidic, while those with a pH greater than 7 are basic or alkaline. A pH level of 7.0 at 25°C is defined as neutral because the concentration of H3O+ equals the concentration of OH− in pure water. Very strong acids might have a negative pH, while very strong bases might have a pH greater than 14.",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.VPM,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Weekly,
+                   Price = 0m,
+                 },
+                 new StopItemModel {
+                   Index = 2,
+                   Name = "ALK",
+                   Description ="Alkalinity The buffering capacity of a water body; a measure of the ability of the water body to neutralize acids and bases and thus maintain a fairly stable pH leve",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.VPM,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Weekly,
+                   Price = 0m,
+                 },
+                  new StopItemModel {
+                   Index = 3,
+                   Name = "CAL",
+                   Description ="Calcium contribute to the physiology and biochemistry of organisms cell",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.VPM,
+                   Frequency = 3,
+                   FrequencyType = Enums.eFrequencyType.Monthly,
+                   Price = 0m,
+                 },
+                  new StopItemModel {
+                   Index = 4,
+                   Name = "CY",
+                   Description ="Cyanuric Acid One of the most common chemicals used for the prevention of chlorine loss in swimming pools is Cyanuric Acid (also called CYA, Conditioner, or Stabilizer) it protects the free chlorine from being destroyed by the sun ultraviolet rays",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.VPM,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Monthly,
+                   Price = 0m,
+                 },
+                 new StopItemModel {
+                   Index = 5,
+                   Name = "WT",
+                   Description ="Water Temperature",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.Temperature,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Weekly,
+                   Price = 0m,
+                 },
+                 new StopItemModel {
+                   Index = 6,
+                   Name = "L-CHLO",
+                   Description ="Liquid bleach",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.Gallon,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Weekly,
+                   Price = 20m,
+                 },
+                 new StopItemModel {
+                   Index = 7,
+                   Name = "Tbts",
+                   Description ="Tablets Triclor",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.Unit,
+                   Price = 20m,
+                 },
+                 new StopItemModel {
+                   Index = 8,
+                   Name = "Skim",
+                   Description ="Surface cleaner",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.Device,
+                   IsCheckField = true,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Weekly,
+                   Price = 20m,
+                 },
+                 new StopItemModel {
+                   Index = 9,
+                   Name = "Pump",
+                   Description ="Water pump",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.Device,
+                   IsCheckField = true,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Weekly,
+                 },
+                 new StopItemModel {
+                   Index = 10,
+                   Name = "Filter",
+                   Description ="Pool filter",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.Device,
+                   IsCheckField = true,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Monthly,
+                 },
+                 new StopItemModel {
+                   Index = 11,
+                   Name = "H2o",
+                   Description ="Water check",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.Gallon,
+                   IsCheckField = true,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Monthly,
+                 },
+                 new StopItemModel {
+                   Index = 12,
+                   Name = "Vac-p",
+                   Description ="Vacuum pool",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.Device,
+                   IsCheckField = true,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Weekly,
+                 },
+                 new StopItemModel {
+                   Index = 13,
+                   Name = "#S-Alk",
+                   Description ="Scoop",
+                   ItemType = Enums.eItemType.Stop,
+                   VolumeType = Enums.eVolumeType.Device,
+                   IsCheckField = true,
+                   Frequency = 1,
+                   FrequencyType = Enums.eFrequencyType.Weekly,
+                 }
+                };
+
+                    await stopItemController.InsertAll(items);
+                    Message.Toast($"{items.Count} Items successfully generated", TimeSpan.FromSeconds(3));
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await Message.DisplayAlertAsync(Title, e.Message, "Ok");
+            }
+            finally { IsBusy = false; }
+        }
     }
 }

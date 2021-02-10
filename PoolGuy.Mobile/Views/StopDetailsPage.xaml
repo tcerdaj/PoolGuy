@@ -84,9 +84,13 @@
         </AbsoluteLayout>
         <AbsoluteLayout VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand">
-            <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+            <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All">
+            <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -152,33 +156,77 @@
                 </CollectionView>-->
                 <CollectionView x:Name="Stops"
                                 Grid.Row="2"
-                                Margin="0,0,0,65"
+                                VerticalOptions="Fill"
+                                Margin="0,0,0,10"
                                 EmptyView="Not items found"
-                                ItemsSource="{Binding StopHistory}">
+                                ItemsSource="{Binding Stop.Items}">
                     <CollectionView.Header>
-                        <Grid ColumnDefinitions="30,Auto"
-                              Padding="15,0">
-                            <Label Grid.Column="0" Text="W"
+                        <Grid ColumnDefinitions="50,80, 80, *"
+                              Padding="15,10">
+                            <Label Grid.Column="0" Text="COD"
                                    FontAttributes="Bold"
+                                   TextColor="Black"
                                    FontFamily="{StaticResource RobotoFontFamily}"/>
-                            <Label Grid.Column="1" Text="{Binding Year}"
+                            <Label Grid.Column="1" Text="Test"
                                    FontAttributes="Bold"
+                                   TextColor="Black"
+                                   FontFamily="{StaticResource RobotoFontFamily}"/>
+                            <Label Grid.Column="2" Text="Appliyed"
+                                   FontAttributes="Bold"
+                                   TextColor="Black"
+                                   FontFamily="{StaticResource RobotoFontFamily}"/>
+                            <Label Grid.Column="3" Text="Suggested"
+                                   FontAttributes="Bold"
+                                   TextColor="Black"
                                    FontFamily="{StaticResource RobotoFontFamily}"/>
                         </Grid>
                     </CollectionView.Header>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid ColumnDefinitions="30,Auto"
-                                         Padding="15,0">
-                                <Label Grid.Column="0" Text="{Binding WeekOfYear}"
-                                       HorizontalTextAlignment="Start"/>
-                                <Label Grid.Column="1" Text="{Binding Created, StringFormat='{0:MM/dd}'}"/>
+                            <StackLayout>
+                            <Grid ColumnDefinitions="50,80, 80, *"
+                                         Padding="15,0" >
+                                <Label Grid.Column="0" Text="{Binding Name}"
+                                       VerticalOptions="Center"
+                                       HorizontalTextAlignment="Start" />
+                                <mycc:CustomEntry Grid.Column="1" 
+                                                  FontSize="12"
+                                                  Margin="0,-15,0,-20"
+                                                  VerticalOptions="Center"/>
+                                <mycc:CustomEntry Grid.Column="2"
+                                                  FontSize="12"
+                                                  Margin="0,-15,0,-20"
+                                                  VerticalOptions="Center"/>
+                                <mycc:CustomEntry Grid.Column="3"
+                                                  Margin="0,-15,0,-20"
+                                                  FontSize="12"
+                                                  VerticalOptions="Center"/>
+                             
+
                             </Grid>
+                                <BoxView Margin="15,0" 
+                                    BackgroundColor="LightGray" HeightRequest="1" />
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                <Frame Grid.Row="3"
+                       BorderColor="Gray"
+                       Margin="15,0"
+                       HeightRequest="80"
+                       Padding="5"
+                       HasShadow="False">
+                    <Editor Placeholder="Notes"/>
+                </Frame>
+                    <Button Text="Complete Stop"
+                            Grid.Row="4"
+                           Margin="15,10"
+                            CornerRadius="6"
+                        HorizontalOptions="End"
+                        VerticalOptions="Fill"/>
 
-            </Grid>
+                </Grid>
+            </ScrollView>
             <!-- Busy Status -->
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All"

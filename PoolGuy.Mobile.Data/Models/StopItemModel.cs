@@ -21,7 +21,7 @@ namespace PoolGuy.Mobile.Data.Models
         [ForeignKey(typeof(StopModel))]
         public Guid StopId { get; set; }
         private StopModel _stop;
-        [ManyToOne(CascadeOperations = CascadeOperation.CascadeRead)]
+        [ManyToOne]
         public StopModel Stop
         {
             get { return _stop; }

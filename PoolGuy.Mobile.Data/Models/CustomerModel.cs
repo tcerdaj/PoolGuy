@@ -114,12 +114,16 @@ namespace PoolGuy.Mobile.Data.Models
             set { _active = value; OnPropertyChanged("Active"); }
         }
 
-        private StopModel _currentStop;
-        public StopModel CurrentStop
-        {
-            get { return _currentStop; }
-            set { _currentStop = value; OnPropertyChanged("CurrentStop"); }
-        }
+        //[ForeignKey(typeof(StopModel))]
+        public Guid StopId { get; set; }
+
+        //private StopModel _currentStop;
+        //[OneToOne(CascadeOperations = CascadeOperation.All)]
+        //public StopModel CurrentStop
+        //{
+        //    get { return _currentStop; }
+        //    set { _currentStop = value; OnPropertyChanged("CurrentStop"); }
+        //}
 
         WorkStatus _status;
         public WorkStatus Status

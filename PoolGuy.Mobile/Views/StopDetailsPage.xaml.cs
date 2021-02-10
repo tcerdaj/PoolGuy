@@ -47,7 +47,7 @@ namespace PoolGuy.Mobile.Views
             }
 
             await _viewModel.InitializeAsync();
-
+            Stops.HeightRequest = _viewModel.Stop.Items.Count * 30 ;
             _viewModel.IsBusy = false;
         }
     }

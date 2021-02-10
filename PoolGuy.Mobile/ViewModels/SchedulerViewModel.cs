@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using PoolGuy.Mobile.CustomControls;
+using System.Xml.Serialization;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -34,6 +35,7 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private SchedulerModel _scheduler;
+        [XmlIgnore]
         public SchedulerModel Scheduler
         {
             get { return _scheduler; }
@@ -41,6 +43,7 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private ObservableCollection<SchedulerModel> _schedulers = new ObservableCollection<SchedulerModel>();
+        [XmlIgnore]
         public ObservableCollection<SchedulerModel> Schedulers
         {
             get { return _schedulers; }

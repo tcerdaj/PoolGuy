@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml.Serialization;
 using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.ViewModels
@@ -64,6 +65,7 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private CustomerModel _customer;
+        [XmlIgnore]
         public CustomerModel Customer
         {
             get { return _customer; }
@@ -71,10 +73,19 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private List<StopModel> _stopHistory;
+        [XmlIgnore]
         public List<StopModel> StopHistory
         {
             get { return _stopHistory; }
             set { _stopHistory = value; OnPropertyChanged("StopHistory"); }
+        }
+
+        private StopModel _stop;
+        [XmlIgnore]
+        public StopModel Stop
+        {
+            get { return _stop; }
+            set { _stop = value; OnPropertyChanged("Stop"); }
         }
 
         private void SubscribeMessage()
@@ -86,9 +97,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                StopModel stopDetails = null;
-
-                if (Customer.CurrentStop != null && Customer.CurrentStop.Id == Guid.Empty)
+                if (Customer.StopId == Guid.Empty )
                 {
                     var items = await new StopItemController().LocalData.List(new SQLControllerListCriteriaModel
                     {
@@ -99,7 +108,7 @@ namespace PoolGuy.Mobile.ViewModels
                          }}
                     });
 
-                    stopDetails = new StopModel
+                    Stop = new StopModel
                     {
                         CustimerId = Customer.Id,
                         Customer = Customer,
@@ -125,12 +134,13 @@ namespace PoolGuy.Mobile.ViewModels
                 }
                 else
                 {
-                    stopDetails = await new StopController().LoadAsync(Customer.CurrentStop.Id);
+                    Stop = await new StopController().LoadAsync(Customer.StopId);
                 }
 
                 int weeks = 4;
                 var weeksToRetrieve = DateTime.Now.AddDays(-(int)SelectedDate.DayOfWeek -(6 * weeks));
-                var stopHistory = await new StopController().LocalData.List(new SQLControllerListCriteriaModel
+                List<StopModel> stopHistory = new List<StopModel>();
+                stopHistory = await new StopController().LocalData.List(new SQLControllerListCriteriaModel
                 {
                     Filter = new List<SQLControllerListFilterField>
                     {
@@ -145,7 +155,7 @@ namespace PoolGuy.Mobile.ViewModels
 
                 if (!stopHistory.Any())
                 {
-                    stopHistory.Add(stopDetails);
+                    stopHistory.Add(Stop);
                 }
 
                 StopHistory = stopHistory;

@@ -46,7 +46,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                     throw new Exception("Model can't bee null");
                 }
 
-                if (model.Customer == null)
+               // if (model.Customer == null)
                 {
                     throw new Exception("Customer can't bee null");
                 }
@@ -60,8 +60,8 @@ namespace PoolGuy.Mobile.Data.Controllers
                 {
                     var created = DateTime.Now.ToUniversalTime();
                     model.Id = Guid.NewGuid();
-                    model.Customer.DateLastVisit = created;
-                    model.Customer.Modified = created;
+                    //model.Customer.DateLastVisit = created;
+                    //model.Customer.Modified = created;
                 }
                 else
                 {
@@ -72,8 +72,8 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.InjectFrom(tempModel);
 
                     model.Modified = modified;
-                    model.Customer.DateLastVisit = modified;
-                    model.Customer.Modified = modified;
+                   // model.Customer.DateLastVisit = modified;
+                   // model.Customer.Modified = modified;
                 }
 
                 SQLiteNetExtensions

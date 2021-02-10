@@ -14,7 +14,7 @@ namespace PoolGuy.Mobile.Data.Models
         public Guid CustimerId { get; set; }
 
         private CustomerModel _customer;
-        [OneToOne("CustimerId", CascadeOperations = CascadeOperation.All)]
+        [OneToOne("CustimerId", CascadeOperations = CascadeOperation.CascadeRead)]
         public CustomerModel Customer
         {
             get { return _customer; }

@@ -33,7 +33,8 @@
     <AbsoluteLayout VerticalOptions="FillAndExpand"
                     HorizontalOptions="FillAndExpand">
         <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-              AbsoluteLayout.LayoutFlags="All">
+              AbsoluteLayout.LayoutFlags="All"
+                    Margin="0,0,0,60">
         <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -42,8 +43,10 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-             <!--Account Head-->
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+             </Grid.RowDefinitions>
+                <!--Account Head-->
                 <Label Grid.Row="0"
                        BackgroundColor="{StaticResource ExtraLightGray}"
                        VerticalTextAlignment="Center"
@@ -53,9 +56,9 @@
                         <Thickness>15,5</Thickness>
                     </Label.Padding>
                 </Label>
-            <StackLayout Grid.Row="1" 
+                <StackLayout Grid.Row="1" 
                          VerticalOptions="Center"
-                         Margin="20"
+                         Margin="20,5"
                          Spacing="20">
                 <StackLayout Orientation="Horizontal">
                 <Label Grid.Row="0"
@@ -83,6 +86,8 @@
                 </StackLayout>
                 <Button Text="Logout"
                         TextTransform="None"
+                        HeightRequest="35"
+                        HorizontalOptions="Center"
                         Command="{Binding DatabaseInfoCommand}"
                         BackgroundColor="{StaticResource ExtraLightGray }"
                         TextColor="{StaticResource Title}">
@@ -94,8 +99,8 @@
                     </Button.ImageSource>
                 </Button>
             </StackLayout>
-           <!--Generate sample customers data-->
-            <StackLayout Grid.Row="2"
+                <!--Generate sample customers data-->
+                <StackLayout Grid.Row="2"
                          BackgroundColor="{StaticResource ExtraLightGray}"
                          VerticalOptions="Center"
                          Margin="0"
@@ -106,9 +111,9 @@
                        VerticalOptions="FillAndExpand"
                        Text="Generate data"/>
             </StackLayout>
-            <StackLayout Grid.Row="3" 
+                <StackLayout Grid.Row="3" 
                          VerticalOptions="Center"
-                         Margin="20"
+                         Margin="20,5"
                          Spacing="20">
                 <Label VerticalTextAlignment="Center"
                        VerticalOptions="FillAndExpand"
@@ -120,6 +125,8 @@
                        Completed="Entry_Completed"
                        ReturnType="Done"/>
                 <Button Text="Generate"
+                        HeightRequest="35"
+                        HorizontalOptions="Center"
                         BackgroundColor="{StaticResource ExtraLightGray }"
                         TextTransform="None"
                         Command="{Binding LoadSampleCustomersCommand}"
@@ -132,8 +139,8 @@
                     </Button.ImageSource>
                 </Button>
             </StackLayout>
-            <!--Local database-->
-            <StackLayout Grid.Row="4"
+                <!--Local database-->
+                <StackLayout Grid.Row="4"
                          BackgroundColor="{StaticResource ExtraLightGray}"
                          VerticalOptions="Center"
                          Margin="0"
@@ -144,10 +151,10 @@
                        VerticalOptions="FillAndExpand"
                        Text="About Database"/>
             </StackLayout>
-            <StackLayout Grid.Row="5" 
+                <StackLayout Grid.Row="5" 
                          VerticalOptions="Center"
                          HorizontalOptions="FillAndExpand"
-                         Margin="20"
+                         Margin="20,5"
                          Spacing="20">
                 <StackLayout BindableLayout.ItemsSource="{Binding DatabaseInfo}">
                         <BindableLayout.ItemTemplate>
@@ -159,7 +166,39 @@
                         </BindableLayout.ItemTemplate>
                 </StackLayout>
             </StackLayout>
-        </Grid>
+                <!--Stop Items-->
+                <StackLayout Grid.Row="6"
+                         BackgroundColor="{StaticResource ExtraLightGray}"
+                         VerticalOptions="Center"
+                         Margin="0"
+                         Spacing="0">
+                    <Label 
+                       VerticalTextAlignment="Center"
+                       Margin="15,5"
+                       VerticalOptions="FillAndExpand"
+                       Text="Generate Stop Items"/>
+                </StackLayout>
+                <StackLayout Grid.Row="7" 
+                         VerticalOptions="Center"
+                         HorizontalOptions="FillAndExpand"
+                         Margin="20,5"
+                         Spacing="20">
+                    <Button Text="Generate Items"
+                        BackgroundColor="{StaticResource ExtraLightGray }"
+                        TextTransform="None"
+                            HeightRequest="35"
+                        HorizontalOptions="Center"
+                        Command="{Binding AddStopItemsCommand}"
+                        TextColor="{StaticResource Title}">
+                        <Button.ImageSource>
+                            <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
+                                 Glyph="{x:Static icons:MaterialDesignIcons.Logout}"
+                                 Size="30"
+                                 Color="{StaticResource Title}"/>
+                        </Button.ImageSource>
+                    </Button>
+                </StackLayout>
+            </Grid>
         </ScrollView>
         <AbsoluteLayout BackgroundColor="Transparent"
                         AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
