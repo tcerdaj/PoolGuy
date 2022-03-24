@@ -77,7 +77,7 @@ namespace PoolGuy.Mobile.Data.Models
         
         private string _firstName;
         [Unique(Name = "UniqueName", Order = 0, Unique = true)]
-        [DataAnnotation.Required, DataAnnotation.MaxLength(20)]
+        [Required, DataAnnotation.MaxLength(20)]
         public string FirstName 
         {
             get { return _firstName; }
@@ -88,7 +88,7 @@ namespace PoolGuy.Mobile.Data.Models
         }
         
         private string _lastName;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(20)]
+        [Required, DataAnnotation.MaxLength(20)]
         [Display(Name = "Last Name")]
         [Unique(Name = "UniqueName", Order = 1, Unique = true)]
         public string LastName 
@@ -208,6 +208,13 @@ namespace PoolGuy.Mobile.Data.Models
                 _distance = value;
                 OnPropertyChanged("Distance");
             }
+        }
+
+        private bool _sameHomeAddress = true;
+        public bool SameHomeAddress
+        {
+            get { return _sameHomeAddress; }
+            set { _sameHomeAddress = value; OnPropertyChanged("SameHomeAddress"); }
         }
 
         [Ignore]

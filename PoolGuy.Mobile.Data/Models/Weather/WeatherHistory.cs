@@ -6,7 +6,7 @@ namespace PoolGuy.Mobile.Data.Models.Weather
     public class WeatherHistoryRoot 
     {
         public float lat { get; set; }
-        public int lon { get; set; }
+        public float lon { get; set; }
         public string timezone { get; set; }
         public int timezone_offset { get; set; }
         public Current current { get; set; }

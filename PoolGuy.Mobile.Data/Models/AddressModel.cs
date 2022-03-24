@@ -12,6 +12,15 @@ namespace PoolGuy.Mobile.Data.Models
         {
             get 
             {
+                if (string.IsNullOrEmpty(Address1)
+                    && string.IsNullOrEmpty(City)
+                      && string.IsNullOrEmpty(State)
+                        && string.IsNullOrEmpty(Zip))
+                {
+                    return string.Empty;
+                }
+
+
                 return $"{Address1} {Address2}, {City}, {State}, {Zip}".Trim();
             }
         }
@@ -61,6 +70,38 @@ namespace PoolGuy.Mobile.Data.Models
         {
             get { return _sameHomeAddress; }
             set { _sameHomeAddress = value; OnPropertyChanged("SameHomeAddress"); }
+        }
+
+        public void NotififyAll()
+        {
+            try
+            {
+                foreach (var prop in this.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+                {
+                    OnPropertyChanged(prop.Name);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        public void ClearAll()
+        {
+            try
+            {
+                foreach (var prop in this.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance))
+                {
+                     prop.SetValue(this, null);
+                }
+
+                NotififyAll();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

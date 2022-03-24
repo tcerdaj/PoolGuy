@@ -33,7 +33,7 @@ namespace PoolGuy.Mobile.Data.Models
             set { _capacity = value; OnPropertyChanged("Capacity"); }
         }
 
-        private ObservableCollection<EquipmentModel> _equipments;
+        private ObservableCollection<EquipmentModel> _equipments = new ObservableCollection<EquipmentModel>();
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public ObservableCollection<EquipmentModel> Equipments
         {
@@ -41,7 +41,7 @@ namespace PoolGuy.Mobile.Data.Models
             set { _equipments = value; OnPropertyChanged("Equipments"); }
         }
 
-        private ObservableCollection<EntityImageModel> _images;
+        private ObservableCollection<EntityImageModel> _images = new ObservableCollection<EntityImageModel>();
         [Ignore]
         public ObservableCollection<EntityImageModel> Images
         {

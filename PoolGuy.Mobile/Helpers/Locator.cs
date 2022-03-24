@@ -3,8 +3,8 @@ namespace PoolGuy.Mobile.Helpers
 {
     public class Locator
     {
-        public static string WizardCustomer = "WizardCustomerPage";
         public static string Customer = "CustomerPage";
+        public static string SearchCustomer = "SearchCustomerPage";
         public static string Home = "HomePage";
         public static string Equipment = "EquipmentPage";
         public static string Login = "LoginPage";
@@ -19,6 +19,7 @@ namespace PoolGuy.Mobile.Helpers
         public class Popup
         {
             public static string ActionSheetPopup = "ActionSheetPopupPage";
+            public static string ImageViewerPopup = "ImageViewerPopupPage";
         }
     }
 }

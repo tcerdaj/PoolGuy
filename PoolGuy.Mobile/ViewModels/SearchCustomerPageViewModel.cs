@@ -16,28 +16,12 @@ using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.ViewModels
 {
-    public class CustomerPageViewModel : BaseViewModel
+    public class SearchCustomerPageViewModel : BaseViewModel
     {
         IUserDialogs userDialogs;
-        public CustomerPageViewModel()
+        public SearchCustomerPageViewModel()
         {
             userDialogs = DependencyService.Get<IUserDialogs>();
-            SubscribeMessages();
-        }
-
-        private void SubscribeMessages()
-        {
-            Notify.SubscribePoolAction(async (sender) => {
-                try
-                {
-                    Pool = await new PoolController().LoadAsync(Pool.Id);
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
-                    await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
-                }
-            });
         }
 
         public bool ShowAddEquipment
@@ -119,91 +103,6 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
-        public ICommand GoToAddEquipmentCommand
-        {
-            get => new RelayCommand(() => GoToAddEquipment());
-        }
-
-        private async void GoToAddEquipment()
-        {
-            if (IsBusy) { return; }
-            IsBusy = true;
-
-            try
-            {
-                await NavigationService.NavigateToDialog(new EquipmentPage(new EquipmentModel { PoolId = Pool.Id, Pool = Pool }) { 
-                    Title = "Select Equipment" 
-                });
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        public ICommand SelectEquipmentCommand
-        {
-            get => new RelayCommand<EquipmentModel>(async (model) => SelecteEquipment(model));
-        }
-
-        private async void SelecteEquipment(EquipmentModel model)
-        {
-            if (IsBusy) { return; }
-            IsBusy = true;
-
-            try
-            {
-                await NavigationService.NavigateToDialog(new EquipmentPage(model));
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
-            }
-            finally 
-            {
-                IsBusy = false; 
-            }
-        }
-
-        public ICommand DeleteEquipmentCommand
-        {
-            get => new RelayCommand<EquipmentModel>(async (model) => DeleteEquipment(model));
-        }
-
-        private async void DeleteEquipment(EquipmentModel model)
-        {
-            if (IsBusy) { return; }
-            IsBusy = true;
-
-            try
-            {
-                if (!await userDialogs.DisplayConfirmationAsync("Delete Confirmation", "Are you sure want to delete equipment?", "Delete", "Cancel"))
-                {
-                    return;
-                }
-
-                var obj = Pool.Equipments.FirstOrDefault(x=>x.Id == model.Id);
-                Pool.Equipments.Remove(obj);
-                await new PoolController().ModifyWithChildrenAsync(Pool);
-                Pool.RaiseEquipmentNotification();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
         public ICommand GoToSchedulerCommand
         {
             get => new RelayCommand(() => GoToScheduler());
@@ -238,7 +137,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                Notify.RaiseVisitingDayActionAction(new Messages.RefreshMessage {Object = model});
+                Notify.RaiseVisitingDayActionAction(new Messages.RefreshMessage { Object = model });
             }
             catch (Exception e)
             {
@@ -297,36 +196,5 @@ namespace PoolGuy.Mobile.ViewModels
             finally { IsBusy = false; }
         }
 
-        public ICommand DeleteImageCommand
-        {
-            get => new RelayCommand<EntityImageModel>(async (img) => await DeleteImageAsync(img));
-        }
-
-        private async Task DeleteImageAsync(EntityImageModel img)
-        {
-            if (IsBusy || img == null)
-            {
-                return;
-            }
-
-            IsBusy = true;
-
-            try
-            {
-                if (!await userDialogs.DisplayConfirmationAsync("Delete Confirmation", "Are you sure want to delete image?", "Delete", "Cancel"))
-                {
-                    return;
-                }
-
-                await new ImageController().LocalData.Delete(img.Id);
-                Pool.Images.Remove(img);
-                OnPropertyChanged("Pool");
-            }
-            catch (Exception e)
-            {
-                await Message.DisplayAlertAsync(e.Message, Title, "Ok");
-            }
-            finally { IsBusy = false; }
-        }
     }
 }

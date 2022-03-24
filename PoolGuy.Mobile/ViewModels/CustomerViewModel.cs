@@ -13,7 +13,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 using PoolGuy.Mobile.Views;
 using System.Reflection;
-using System.ComponentModel.DataAnnotations;
+using Xamarin.Essentials;
 using Xamarin.Forms.Internals;
 using Omu.ValueInjecter;
 using Newtonsoft.Json;
@@ -21,6 +21,7 @@ using PoolGuy.Mobile.Extensions;
 using PoolGuy.Mobile.Services.Interface;
 using System.Collections.ObjectModel;
 using PoolGuy.Mobile.Data.Models.Query;
+using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -29,305 +30,35 @@ namespace PoolGuy.Mobile.ViewModels
         public CustomerViewModel()
         {
             Title = this.GetType().Name.Replace("ViewModel", "");
-            Globals.CurrentPage = Enums.ePage.Customer;
+            Globals.CurrentPage = Enums.ePage.SearchCustomer;
             SubscribeMessage();
             IsBusy = true;
+            userDialogs = DependencyService.Get<IUserDialogs>();
+            SubscribeMessages();
         }
 
-        private void SubscribeMessage()
+        private void SubscribeMessages()
         {
-            Notify.SubscribeVisitingDayActionAction(async (sender) => {
-                if (sender.Object is SchedulerModel scheduler)
-                {
-                    Pages[0].Customer.Scheduler?.Clear();
-
-                    if (scheduler.Selected)
-                    {
-                        Pages[0].Customer.Scheduler.Add(scheduler);
-                    }
-                    
-                    _wasModified = true;
-
-                    Pages[0].NotifyPropertyChanged("Customer");
-                }
-                 
-                Pages[1].Schedulers = await GetScheduler(Pages[0].Customer);
-            });
-        }
-
-        public void InitPages(CustomerModel customer = null)
-        {
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                ErrorMessage = "";
-                OriginalCustomer = "";
-                ObservableCollection<SchedulerModel> schedulers = await GetScheduler(customer);
-                
-                Pages = new List<CustomerPageViewModel> {
-                  new CustomerPageViewModel { Title = "Customer", Page =  new WCustomerPage(this){ Title = "Customer"} },
-                  new CustomerPageViewModel { Title = "Address", Page =  new WAddressPage(this){ Title = "Address" }, Schedulers = schedulers },
-                  new CustomerPageViewModel { Title = "Contact", Page =  new WContactPage(this){ Title = "Contact" } },
-                  new CustomerPageViewModel { Title = "Pool", Page =  new WPoolPage(this){ Title = "Pool" } },
-                };
-
-                if (customer != null)
-                {
-                    customer.Pool.Images = new System.Collections.ObjectModel.ObservableCollection<EntityImageModel>(await new ImageController().LocalData.List(new SQLControllerListCriteriaModel
-                    {
-                        Filter = new List<SQLControllerListFilterField> {
-                              new SQLControllerListFilterField
-                              {
-                                  FieldName = "EntityId",
-                                  ValueLBound = customer.Pool.Id.ToString()
-                              }
-                        }
-                    }));
-
-                    Customer = (CustomerModel)new CustomerModel().InjectFrom(customer);
-                    OriginalCustomer = JsonConvert.SerializeObject(customer,
-                                Formatting.Indented,
-                                new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
-                    Pages[0].Customer = customer;
-                    Pages[1].Address = customer.Address;
-                    Pages[1].Schedulers = schedulers;
-                    Pages[2].Contact = customer.Contact;
-                    Pages[3].Pool = customer.Pool;
-                }
-
-                Position = 0;
-            });
-        }
-
-        private async Task<ObservableCollection<SchedulerModel>> GetScheduler(CustomerModel customer)
-        {
-            var schedulers = new ObservableCollection<SchedulerModel>(await new SchedulerController()
-                    .ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel
-                    {
-                        Sort = new List<Data.Models.Query.SQLControllerListSortField> {
-                        new Data.Models.Query.SQLControllerListSortField {
-                          FieldName = "Index"
-                        }
-                     }
-                    }));
-
-            if (customer != null)
-            {
-                schedulers.Where(x => customer.Scheduler.Any(s => s.Id == x.Id)).ForEach((s) =>
-                {
-                    s.Selected = true;
-                });
-            }
-            
-            return schedulers;
-        }
-
-        public double Progress => (double)FieldsCompleted / (double)Fields;
-
-        public double Percent
-        {
-            get
-            {
-                var percent = (double)Progress * 100;
-                return percent;
-            }
-        }
-
-        public int Fields
-        {
-            get
-            {
-                int count = 0;
-
+            Notify.SubscribePoolAction(async (sender) => {
                 try
                 {
-                    count =
-                                (from c in typeof(CustomerModel).GetProperties()
-                                 where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                                 c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                                 c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                                 select c).Count() +
-                             (from c in typeof(AddressModel).GetProperties()
-                              where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                                   c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                                   c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                              select c).Count() +
-                             (from c in typeof(ContactModel).GetProperties()
-                              where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                                   c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                                   c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                              select c).Count() +
-                             (from c in typeof(PoolModel).GetProperties()
-                              where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                                   c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                                   c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                              select c).Count();
+                    if (string.IsNullOrEmpty(sender.ID))
+                    {
+                        return;
+                    }
+
+                    Customer.Pool = await new PoolController().LoadAsync(Guid.Parse(sender.ID));
+                    IsEditing = true;
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
+                    await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
                 }
-
-                return count;
-            }
+            });
         }
-
-        Dictionary<string, PropertyInfo> Properties
-        {
-            get
-            {
-                Dictionary<string, PropertyInfo> result = new Dictionary<string, PropertyInfo>();
-
-                try
-                {
-                    (from c in typeof(CustomerModel).GetProperties()
-                     where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                           c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                           c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                     select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
-                     {
-                         result.Add(e.Key, e.Value);
-
-                     });
-
-                    (from c in typeof(AddressModel).GetProperties()
-                     where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                          c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                          c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                     select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
-                     {
-                         result.Add(e.Key, e.Value);
-
-                     });
-
-                    (from c in typeof(ContactModel).GetProperties()
-                     where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                          c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                          c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                     select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
-                     {
-                         result.Add(e.Key, e.Value);
-
-                     });
-
-                    (from c in typeof(PoolModel).GetProperties()
-                     where c.GetCustomAttributes(typeof(DisplayAttribute), false).Count() > 0 ||
-                          c.GetCustomAttributes(typeof(RequiredAttribute), false).Count() > 0 ||
-                          c.GetCustomAttributes(typeof(MaxLengthAttribute), false).Count() > 0
-                     select new KeyValuePair<string, PropertyInfo>(c.Name, c)).ToDictionary(x => x.Key, y => y.Value).ForEach((e) =>
-                     {
-                         result.Add(e.Key, e.Value);
-
-                     });
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e);
-                }
-
-                return result;
-            }
-        }
-
-        public int FieldsCompleted
-        {
-            get
-            {
-                int count = 0;
-
-                try
-                {
-                    foreach (var page in Pages)
-                    {
-                        Type type;
-                        IList<PropertyInfo> props;
-
-                        switch (page.Title)
-                        {
-                            case "Customer":
-                                if (page?.Customer != null)
-                                {
-                                    type = page.Customer.GetType();
-                                    props = new List<PropertyInfo>(type.GetProperties());
-                                    foreach (PropertyInfo prop in props)
-                                    {
-                                        if (Properties.ContainsValue(prop))
-                                        {
-                                            object propValue = prop.GetValue(page.Customer, null);
-                                            if (propValue != null)
-                                            {
-                                                count++;
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            case "Address":
-                                if (page?.Address != null)
-                                {
-                                    type = page.Address.GetType();
-                                    props = new List<PropertyInfo>(type.GetProperties());
-                                    foreach (PropertyInfo prop in props)
-                                    {
-                                        if (Properties.ContainsValue(prop))
-                                        {
-                                            object propValue = prop.GetValue(page.Address, null);
-                                            if (propValue != null)
-                                            {
-                                                count++;
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            case "Contact":
-                                if (page?.Contact != null)
-                                {
-                                    type = page.Contact.GetType();
-                                    props = new List<PropertyInfo>(type.GetProperties());
-                                    foreach (PropertyInfo prop in props)
-                                    {
-                                        if (Properties.ContainsValue(prop))
-                                        {
-                                            object propValue = prop.GetValue(page.Contact, null);
-                                            if (propValue != null)
-                                            {
-                                                count++;
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            case "Pool":
-                                if (page?.Pool != null)
-                                {
-                                    type = page.Pool.GetType();
-                                    props = new List<PropertyInfo>(type.GetProperties());
-                                    foreach (PropertyInfo prop in props)
-                                    {
-                                        if (Properties.ContainsValue(prop))
-                                        {
-                                            object propValue = prop.GetValue(page.Pool, null);
-                                            if (propValue != null)
-                                            {
-                                                count++;
-                                            }
-                                        }
-                                    }
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                   Debug.WriteLine(e);
-                }
-
-                return count;
-            }
-        }
+        #region Properties
+        IUserDialogs userDialogs;
 
         public string OriginalCustomer { get; set; }
 
@@ -337,6 +68,7 @@ namespace PoolGuy.Mobile.ViewModels
             HomeAddress = new AddressModel(),
             Pool = new PoolModel()
         };
+        
         public CustomerModel Customer
         {
             get { return _customer; }
@@ -356,78 +88,28 @@ namespace PoolGuy.Mobile.ViewModels
             get { return ErrorMessage.Contains("Unable") || ErrorMessage.Contains("Error") ? "Red" : "#009d00"; }
         }
 
-        private List<CustomerPageViewModel> _pages;
+        private bool _isEditing;
 
-        public List<CustomerPageViewModel> Pages
+        public bool IsEditing
         {
-            get { return _pages; }
-            set { _pages = value; OnPropertyChanged("Pages"); }
+            get { return _isEditing; }
+            set { _isEditing = value; OnPropertyChanged("IsEditing"); }
         }
 
-        private int _position = 0;
+        public List<PoolType> PoolTypes => new List<PoolType> { Enums.PoolType.None, Enums.PoolType.SweetPool, Enums.PoolType.SaltPool };
 
-        public int Position
-        {
-            get { return _position; }
-            set
-            {
-                _position = value;
-                OnPropertyChanged("Position");
-                OnPropertyChanged("Progress");
-                OnPropertyChanged("Percent");
-                OnPropertyChanged("IsVisibleName");
-            }
-        }
+        public CustomerPage Page { get; set; }
+        #endregion
 
-        public bool IsVisibleName
-        {
-            get { return Position > 0; }
-        }
+        #region Commands
 
-        private bool _wasModified = false;
-        public bool WasModified 
-        { 
-            get 
-            {
-
-                try
-                {
-                    CustomerModel _originalModel = new CustomerModel()
-                    {
-                        Contact = new ContactModel(),
-                        Address = new AddressModel(),
-                        HomeAddress = new AddressModel(),
-                        Pool = new PoolModel()
-                    };
-
-                    if (!string.IsNullOrEmpty(OriginalCustomer))
-                    {
-                        _originalModel = JsonConvert.DeserializeObject<CustomerModel>(OriginalCustomer);
-                    }
-
-                    return (_originalModel.DetailedCompare(Pages[0].Customer).Any() ||
-                            _originalModel.HomeAddress.DetailedCompare(Pages[0].Customer.HomeAddress).Any() ||
-                            _originalModel.Address.DetailedCompare(Pages[1].Address).Any() ||
-                            _originalModel.Contact.DetailedCompare(Pages[2].Contact).Any() ||
-                            _originalModel.Pool.DetailedCompare(Pages[3].Pool).Any()) 
-                           || _wasModified;
-                }
-                catch (Exception)
-                {
-                    return true;
-                }
-            }
-            set { _wasModified = value; }
-        }
 
         public ICommand GoBackCommand => new RelayCommand(async () =>
         {
-            if (WasModified)
+            if (IsEditing)
             {
                 if (!await Message.DisplayConfirmationAsync("Warning", "Are you sure to exit without saving the changes?", "Exit", "Cancel"))
                 {
-                    // Return to last page where you can save
-                    Position = 3;
                     return;
                 }
             }
@@ -435,44 +117,6 @@ namespace PoolGuy.Mobile.ViewModels
             await NavigationService.CloseModal(false);
             Notify.RaiseCustomerAction(new Messages.RefreshMessage());
         });
-
-        public ICommand GoToPageCommand
-        {
-            get { return new RelayCommand<string>((page) => GoToPage(page)); }
-        }
-
-        private void GoToPage(string page)
-        {
-            switch (page)
-            {
-                case "Customer":
-                    if (Position != 0 && IsValid(Pages[Position]))
-                    {
-                        Position = 0;
-                    }
-                    break;
-                case "Address":
-                    if (Position != 1 && IsValid(Pages[Position]))
-                    {
-                        Position = 1;
-                    }
-                    break;
-                case "Contact":
-                    if (Position != 2 && IsValid(Pages[Position]))
-                    {
-                        Position = 2;
-                    }
-                    break;
-                case "Pool":
-                    if (Position != 3 && IsValid(Pages[Position]))
-                    {
-                        Position = 3;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
 
         public ICommand SaveCommand
         {
@@ -486,23 +130,20 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                if (!WasModified)
+                if (!IsEditing)
                 {
                     GoBackCommand.Execute(null);
                     return;
                 }
-                
-                if (!Pages.Any(p => IsValid(p)))
+
+
+                var validationResult = IsValid();
+
+                if (!validationResult.Key)
                 {
-                    ErrorMessage = "Unable to save customer";
+                    Message.Toast($"Unable to save Customer. {validationResult.Value}", TimeSpan.FromSeconds(5));
                     return;
                 }
-
-                ErrorMessage = "";
-                Customer = Pages[0].Customer;
-                Customer.Address = Pages[1].Address;
-                Customer.Contact = Pages[2].Contact;
-                Customer.Pool = Pages[3].Pool;
 
                 Position? position = await Customer.Address.FullAddress.GetPositionAsync();
                 if (position.HasValue)
@@ -513,14 +154,19 @@ namespace PoolGuy.Mobile.ViewModels
 
                 var customerController = new CustomerController();
                 await customerController.ModifyWithChildrenAsync(Customer);
+               
                 OnPropertyChanged("Progress");
                 OnPropertyChanged("Percent");
-                Pages[3].NotifyPropertyChanged("ShowAddEquipment");
-                WasModified = false;
+                OnPropertyChanged("ShowAddEquipment");
+                
                 ErrorMessage = "Save Customer Success";
                 OriginalCustomer = JsonConvert.SerializeObject(Customer,
                             Formatting.Indented,
                             new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
+                
+                IsEditing = false;
+
+                GoBackCommand.Execute(null);
             }
             catch (Exception e)
             {
@@ -529,37 +175,33 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
-        public bool IsValid(CustomerPageViewModel page)
+        public KeyValuePair<bool, string> IsValid()
         {
             try
             {
-                bool isValid = false;
-                var controller = new CustomerController();
+                var result = new List<KeyValuePair<bool, string>>();
 
-                switch (page.Title)
+                result.Add(FieldValidationHelper.IsFormValid(Customer, Page));
+                result.Add(FieldValidationHelper.IsFormValid(Customer.Address, Page));
+                result.Add(FieldValidationHelper.IsFormValid(Customer.HomeAddress, Page));
+                result.Add(FieldValidationHelper.IsFormValid(Customer.Pool, Page));
+                result.Add(FieldValidationHelper.IsFormValid(Customer.Contact, Page));
+
+                var success = !result.Any(x => x.Key == false);
+
+                if (success)
                 {
-                    case "Customer":
-                        isValid = FieldValidationHelper.IsFormValid(page.Customer, page.Page);
-                        break;
-                    case "Address":
-                        isValid = FieldValidationHelper.IsFormValid(page.Address, page.Page);
-                        break;
-                    case "Contact":
-                        isValid = FieldValidationHelper.IsFormValid(page.Contact, page.Page);
-                        break;
-                    case "Pool":
-                        isValid = FieldValidationHelper.IsFormValid(page.Pool, page.Page);
-                        break;
-                    default:
-                        break;
+                    return new KeyValuePair<bool, string>(success, null);
                 }
 
-                return isValid;
+                var error = string.Join(",", result.Where(x => x.Key == false).Select(k => k.Value).ToArray<string>());
+
+                return new KeyValuePair<bool, string>(success, error);
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                return false;
+                return new KeyValuePair<bool, string>(false, e.Message);
             }
         }
 
@@ -575,10 +217,10 @@ namespace PoolGuy.Mobile.ViewModels
 
         public ICommand TakePhotoCommand
         {
-            get => new RelayCommand(async () => await TakePhotoAsync());
+            get => new RelayCommand(async () => await TakePoolPhotoAsync());
         }
 
-        private async Task TakePhotoAsync()
+        private async Task TakeCustomerPhotoAsync()
         {
             if (IsBusy)
             {
@@ -604,8 +246,8 @@ namespace PoolGuy.Mobile.ViewModels
                     return;
                 }
 
-                Pages[0].Customer.ImageUrl = photo.Path;
-                Pages[0].Customer.NotififyImageUrl();
+                Customer.ImageUrl = photo.Path;
+                Customer.NotififyImageUrl();
             }
             catch (Exception e)
             {
@@ -613,7 +255,339 @@ namespace PoolGuy.Mobile.ViewModels
             }
             finally { IsBusy = false; }
         }
+
+        private async Task TakePoolPhotoAsync()
+        {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                var action = await Message.DisplayActionSheetAsync("Select Image Source", "Cancel",
+                    "Gallery", "Camera");
+                if (string.IsNullOrEmpty(action) || action == "Cancel")
+                {
+                    return;
+                }
+
+                var imageService = DependencyService.Get<IImageService>();
+                var photo = await imageService.TakePhoto(action);
+
+                if (photo == null)
+                {
+                    return;
+                }
+
+                var image = new EntityImageModel
+                {
+                    EntityId = Customer.Pool.Id,
+                    ImageType = ImageType.Pool,
+                    ImageUrl = photo.Path
+                };
+
+                await new ImageController().LocalData.Modify(image);
+
+                Customer.Pool.Images.Add(image);
+                OnPropertyChanged("Customer");
+                IsEditing = true;
+            }
+            catch (Exception e)
+            {
+                await Message.DisplayAlertAsync(e.Message, Title, "Ok");
+            }
+            finally 
+            { 
+                IsBusy = false; 
+            }
+        }
+
+        public ICommand ToggleSameAddressCommand 
+        {
+            get => new RelayCommand(() => ToggleSameAddress());
+        }
+
+        private void ToggleSameAddress()
+        {
+            Customer.SameHomeAddress = !Customer.SameHomeAddress;
+
+            MakeBillingAddressSameHomeAddress();
+        }
+
+        public ICommand DeleteImageCommand
+        {
+            get => new RelayCommand<EntityImageModel>(async (img) => await DeleteImageAsync(img));
+        }
+
+        private async Task DeleteImageAsync(EntityImageModel img)
+        {
+            if (IsBusy || img == null)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                if (!await userDialogs.DisplayConfirmationAsync("Delete Confirmation", "Are you sure want to delete image?", "Delete", "Cancel"))
+                {
+                    return;
+                }
+
+                await new ImageController().LocalData.Delete(img.Id);
+                Customer.Pool.Images.Remove(img);
+                OnPropertyChanged("Customer");
+                IsEditing = true;
+            }
+            catch (Exception e)
+            {
+                await Message.DisplayAlertAsync(e.Message, Title, "Ok");
+            }
+            finally { IsBusy = false; }
+        }
+
+        public ICommand SelectEquipmentCommand
+        {
+            get => new RelayCommand<EquipmentModel>(async (model) => SelecteEquipment(model));
+        }
+
+        private async void SelecteEquipment(EquipmentModel model)
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                await NavigationService.NavigateToDialog(new EquipmentPage(model));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public ICommand DeleteEquipmentCommand
+        {
+            get => new RelayCommand<EquipmentModel>(async (model) => DeleteEquipment(model));
+        }
+
+        private async void DeleteEquipment(EquipmentModel model)
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                if (!await userDialogs.DisplayConfirmationAsync("Delete Confirmation", "Are you sure want to delete equipment?", "Delete", "Cancel"))
+                {
+                    return;
+                }
+
+                var obj = Customer.Pool.Equipments.FirstOrDefault(x => x.Id == model.Id);
+                Customer.Pool.Equipments.Remove(obj);
+                await new PoolController().ModifyWithChildrenAsync(Customer.Pool);
+                Customer.Pool.RaiseEquipmentNotification();
+                IsEditing = true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public ICommand GoToAddEquipmentCommand
+        {
+            get => new RelayCommand(() => GoToAddEquipment());
+        }
+
+        private async void GoToAddEquipment()
+        {
+            if (IsBusy) { return; }
+            IsBusy = true;
+
+            try
+            {
+                await NavigationService.NavigateToDialog(new EquipmentPage(new EquipmentModel { PoolId = Customer.Pool.Id, Pool = Customer.Pool })
+                {
+                    Title = "Select Equipment"
+                });
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public ICommand SelectImageCommand
+        {
+            get => new RelayCommand<EntityImageModel>(async (img) => await SelectImageAsync(img));
+        }
+
+        private async Task SelectImageAsync(EntityImageModel img)
+        {
+            if (IsBusy || img == null)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                if (string.IsNullOrEmpty(img.ImageUrl))
+                {
+                    return;
+                }
+
+                await DependencyService.Get<IImageService>().DisplayImage(img.ImageUrl);
+            }
+            catch (Exception e)
+            {
+                await Message.DisplayAlertAsync(e.Message, Title, "Ok");
+            }
+            finally { IsBusy = false; }
+        }
+
+        public ICommand CancelCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    GoBackCommand.Execute(null);
+                });
+            }
+        }
+        #endregion
+
+        #region Methods 
+        private void MakeBillingAddressSameHomeAddress()
+        {
+            if (Customer.SameHomeAddress
+                && !string.IsNullOrEmpty(Customer?.HomeAddress?.FullAddress))
+            {
+
+                var cloned = (AddressModel)new AddressModel().InjectFrom(Customer.HomeAddress);
+                Customer.Address = cloned;
+                Customer.Address.NotififyAll();
+
+                if (InitCompleted)
+                {
+                    IsEditing = true;
+                }
+            }
+            else if(!Customer.SameHomeAddress)
+            {
+                var customer = JsonConvert.DeserializeObject<CustomerModel>(OriginalCustomer);
+                if (customer != null)
+                {
+                    Customer.Address = customer.Address;
+                    Customer.Address.NotififyAll();
+                }
+            }
+        }
+
+        private void SubscribeMessage()
+        {
+            Notify.SubscribeVisitingDayActionAction(async (sender) => {
+                if (sender.Object is SchedulerModel scheduler)
+                {
+                    Customer.Scheduler?.Clear();
+
+                    if (scheduler.Selected)
+                    {
+                        Customer.Scheduler.Add(scheduler);
+                    }
+                    
+                    IsEditing = true;
+
+                    OnPropertyChanged("Customer");
+                }
+
+                Customer.Scheduler = new List<SchedulerModel>(await GetScheduler(Customer));
+            });
+        }
+
+        public bool InitCompleted { get; set; } = false;
+        public void Init(CustomerModel customer = null)
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                InitCompleted = false;
+                IsEditing = false;
+                ErrorMessage = "";
+                OriginalCustomer = "";
+                ObservableCollection<SchedulerModel> schedulers = await GetScheduler(customer);
+
+                if (customer != null)
+                {
+                    customer.Pool.Images = new System.Collections.ObjectModel.ObservableCollection<EntityImageModel>(await new ImageController().LocalData.List(new SQLControllerListCriteriaModel
+                    {
+                        Filter = new List<SQLControllerListFilterField> {
+                              new SQLControllerListFilterField
+                              {
+                                  FieldName = "EntityId",
+                                  ValueLBound = customer.Pool.Id.ToString()
+                              }
+                        }
+                    }));
+
+                    Customer = (CustomerModel)new CustomerModel().InjectFrom(customer);
+                    OriginalCustomer = JsonConvert.SerializeObject(customer,
+                                Formatting.Indented,
+                                new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
+
+                    MakeBillingAddressSameHomeAddress();
+                }
+
+                InitCompleted = true;
+            });
+        }
+
+        private async Task<ObservableCollection<SchedulerModel>> GetScheduler(CustomerModel customer)
+        {
+            var schedulers = new ObservableCollection<SchedulerModel>(await new SchedulerController()
+                    .ListWithChildrenAsync(new Data.Models.Query.SQLControllerListCriteriaModel
+                    {
+                        Sort = new List<Data.Models.Query.SQLControllerListSortField> {
+                        new Data.Models.Query.SQLControllerListSortField {
+                          FieldName = "Index"
+                        }
+                     }
+                    }));
+
+            if (customer != null && customer.Scheduler != null)
+            {
+                schedulers.Where(x => customer.Scheduler.Any(s => s.Id == x.Id)).ForEach((s) =>
+                {
+                    s.Selected = true;
+                });
+            }
+
+            return schedulers;
+        }
+        #endregion
     }
+
     static class extentions
     {
         public static List<Variance> DetailedCompare<T>(this T val1, T val2)

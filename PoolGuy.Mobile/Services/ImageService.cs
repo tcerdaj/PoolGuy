@@ -7,12 +7,49 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System;
 using PoolGuy.Mobile.Services;
+using PoolGuy.Mobile.Helpers;
+using System.Diagnostics;
+using System.Threading;
 
 [assembly: Dependency(typeof(ImageService))]
 namespace PoolGuy.Mobile.Services
 {
     public class ImageService : IImageService
     {
+        private CancellationTokenSource _cancellationToken;
+        private static readonly EventWaitHandle WaitHandle = new EventWaitHandle(false, EventResetMode.AutoReset);
+        public async Task DisplayImage(string imageUrl)
+        {
+            if(string.IsNullOrEmpty(imageUrl))
+            {
+                return;
+            }
+
+            _cancellationToken?.Cancel();
+            _cancellationToken = new CancellationTokenSource();
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                await Task.Delay(500);
+            }
+
+            try
+            {
+                Notify.SubscribeImageViewerPopup((sender) =>
+                {
+                    WaitHandle.Set();
+                });
+
+                await SimpleIoc.Default.GetInstance<INavigationService>().PushPopupAsync(Locator.Popup.ImageViewerPopup, imageUrl);
+
+                await Task.Run(() => WaitHandle.WaitOne());
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+        }
+
         public async Task<MediaFile> TakePhoto(string action)
         {
             MediaFile photo = null;
@@ -57,7 +94,6 @@ namespace PoolGuy.Mobile.Services
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
-                throw;
             }
 
             return photo;

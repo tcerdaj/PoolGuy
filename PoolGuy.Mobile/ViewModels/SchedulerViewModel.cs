@@ -114,7 +114,14 @@ namespace PoolGuy.Mobile.ViewModels
                         }
                     });
 
-                if (!FieldValidationHelper.IsFormValid(Scheduler, CurrentPage.Page) || scheduler.Any())
+                var validationResult = FieldValidationHelper.IsFormValid(Scheduler, CurrentPage.Page);
+                if (!validationResult.Key)
+                {
+                    Message.Toast($"Unable to save scheduler. {validationResult.Value}");
+                    return;
+                }
+
+                if (scheduler.Any())
                 {
                     await Message.DisplayAlertAsync("Please check your enter and try again", Title);
                     return;

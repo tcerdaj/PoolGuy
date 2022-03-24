@@ -82,5 +82,17 @@ namespace PoolGuy.Mobile.Helpers
         {
             VisitingDayAction?.Invoke(message);
         }
+
+        private static Action<Messages.RefreshMessage> ImageViewerPopupAction = null;
+
+        public static void SubscribeImageViewerPopup(Action<Messages.RefreshMessage> method)
+        {
+            ImageViewerPopupAction = method;
+        }
+
+        public static void RaiseImageViewerPopup(Messages.RefreshMessage message)
+        {
+            ImageViewerPopupAction?.Invoke(message);
+        }
     }
 }

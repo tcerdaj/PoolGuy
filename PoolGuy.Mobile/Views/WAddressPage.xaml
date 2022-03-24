@@ -22,7 +22,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <ScrollView>
+        <ScrollView x:Name="addressFrame">
            <Grid VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -51,8 +51,14 @@
                         <StackLayout Orientation="Horizontal"
                                      Grid.Row="0">
                            <Label Text="Billing Address" HorizontalOptions="StartAndExpand"/>
-                           <Label Text="Same Home Address " HorizontalOptions="End"/>
-                           <CheckBox HorizontalOptions="End" />
+                           <Label Text="Same Home Address " HorizontalOptions="End"
+                                  VerticalOptions="Center"/>
+                            <CheckBox HorizontalOptions="End" IsChecked="{Binding Address.SameHomeAddress}"
+                                      VerticalOptions="Center">
+                                <CheckBox.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.ToggleSameAddressCommand, Source={x:Reference addressFrame}}"/>
+                                </CheckBox.GestureRecognizers>
+                            </CheckBox>
                         </StackLayout>
                         <Frame Grid.Row="1" 
                                    Grid.Column="0">
@@ -158,8 +164,7 @@
                                                    HorizontalOptions="Center"/>
                                             <RadioButton HorizontalOptions="Center"
                                                          VerticalOptions="Center"
-                                                         Command="{Binding Source={x:Reference mainContent}, Path=BindingContext.CheckVisitingDayCommand}"
-                                                         CommandParameter="{Binding BindingContext, Source={x:Reference visitingDayContainer}}"
+                                                         
                                                          IsChecked="{Binding Selected}" />
 
                                         </StackLayout>

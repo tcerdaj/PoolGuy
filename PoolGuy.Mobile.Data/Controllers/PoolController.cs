@@ -72,7 +72,13 @@ namespace PoolGuy.Mobile.Data.Controllers
                 else
                 {
                     var tempModel = (PoolModel)new PoolModel().InjectFrom(model);
-                    model = await LoadAsync(model.Id);
+                    var poolModel = await LoadAsync(model.Id);
+                    
+                    if (poolModel != null)
+                    {
+                        model = poolModel;
+                    }
+
                     model.InjectFrom(tempModel);
                     model.Modified = DateTime.Now.ToUniversalTime();
                 }

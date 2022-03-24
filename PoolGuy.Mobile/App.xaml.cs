@@ -19,7 +19,6 @@ using System;
 using System.Diagnostics;
 using SQLite;
 using PoolGuy.Mobile.Data.Models.GoogleMap;
-using System.Collections.Generic;
 
 namespace PoolGuy.Mobile
 {
@@ -44,20 +43,20 @@ namespace PoolGuy.Mobile
                 SimpleIoc.Default.Register<HomeViewModel>(true);
             }
 
-            if (!SimpleIoc.Default.IsRegistered<CustomerPageViewModel>())
+            if (!SimpleIoc.Default.IsRegistered<SearchCustomerPageViewModel>())
             {
-                SimpleIoc.Default.Register<CustomerPageViewModel>(true);
+                SimpleIoc.Default.Register<SearchCustomerPageViewModel>(true);
             }
 
             var nav = new NavigationService();
-            nav.Configure(Locator.WizardCustomer, typeof(WizardCustomerPage));
             nav.Configure(Locator.Home, typeof(HomePage));
             nav.Configure(Locator.Popup.ActionSheetPopup, typeof(ActionSheetPopupPage));
+            nav.Configure(Locator.Popup.ImageViewerPopup, typeof(ImageViewerPopupPage));
             nav.Configure(Locator.Login, typeof(LoginPage));
+            nav.Configure(Locator.Customer, typeof(CustomerPage));
             nav.Configure(Locator.Equipment, typeof(EquipmentPage));
-            nav.Configure(Locator.Customer, typeof(CustomerPage));
+            nav.Configure(Locator.SearchCustomer, typeof(SearchCustomerPage));
             nav.Configure(Locator.Settings, typeof(SettingsPage));
-            nav.Configure(Locator.Customer, typeof(CustomerPage));
             nav.Configure(Locator.Scheduler, typeof(SchedulerPage));
             nav.Configure(Locator.CustomerScheduler, typeof(CustomerSchedulerPage));
             nav.Configure(Locator.Map, typeof(MapPage));

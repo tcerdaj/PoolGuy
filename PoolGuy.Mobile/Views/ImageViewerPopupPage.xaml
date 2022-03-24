@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 x:Class="PoolGuy.Mobile.Views.ImageViewerPopupPage"
+                 xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter"
+                 xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
+                 Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:InverseBooleanConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+        <!--Image-->
+        <Image Source="{Binding ImageUrl}"
+               AbsoluteLayout.LayoutBounds="0,0,1,1"
+               AbsoluteLayout.LayoutFlags="All"
+               Aspect="Fill" />
+        <!--Close Icon-->
+        <mycc:AnimatedButton AbsoluteLayout.LayoutBounds="0.98,0.02,20,20"
+                             AbsoluteLayout.LayoutFlags="PositionProportional"
+                             TappedCommand="{Binding CloseCommand}">
+            <Ellipse AbsoluteLayout.LayoutBounds="0,0,17,17"
+                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                     Fill="White"
+                     StrokeThickness="0" />
+            <Path Data="M8.99961 1.64961C4.94032 1.64961 1.64961 4.94032 1.64961 8.99961C1.64961 13.0589 4.94032 16.3496 8.99961 16.3496C13.0589 16.3496 16.3496 13.0589 16.3496 8.99961C16.3496 4.94032 13.0589 1.64961 8.99961 1.64961ZM0.349609 8.99961C0.349609 4.22235 4.22235 0.349609 8.99961 0.349609C13.7769 0.349609 17.6496 4.22235 17.6496 8.99961C17.6496 13.7769 13.7769 17.6496 8.99961 17.6496C4.22235 17.6496 0.349609 13.7769 0.349609 8.99961Z"
+                  Fill="#7B7B7B"
+                  StrokeThickness="0" />
+            <Path Data="M12.0669 5.92476C12.3207 6.1786 12.3207 6.59016 12.0669 6.844L6.84399 12.0668C6.59015 12.3206 6.17859 12.3206 5.92475 12.0668C5.67091 11.8129 5.67092 11.4013 5.92476 11.1475L11.1476 5.92475C11.4015 5.67091 11.813 5.67092 12.0669 5.92476Z"
+                  Fill="#7B7B7B"
+                  StrokeThickness="0" />
+            <Path Data="M5.92475 5.92476C6.17859 5.67092 6.59015 5.67091 6.84399 5.92475L12.0669 11.1475C12.3207 11.4013 12.3207 11.8129 12.0669 12.0668C11.813 12.3206 11.4015 12.3206 11.1476 12.0668L5.92476 6.844C5.67092 6.59016 5.67091 6.1786 5.92475 5.92476Z"
+                  Fill="#7B7B7B"
+                  StrokeThickness="0" />
+        </mycc:AnimatedButton>
+     
+    </AbsoluteLayout>
+</pages:PopupPage>

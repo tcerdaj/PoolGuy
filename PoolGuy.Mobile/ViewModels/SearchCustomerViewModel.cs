@@ -17,9 +17,9 @@ namespace PoolGuy.Mobile.ViewModels
     {
         public SearchCustomerViewModel()
         {
-            if(Globals.CurrentPage != Enums.ePage.Customer)
+            if(Globals.CurrentPage != Enums.ePage.SearchCustomer)
             {
-                Globals.CurrentPage = Enums.ePage.Customer;
+                Globals.CurrentPage = Enums.ePage.SearchCustomer;
             }
             
             Title = this.GetType().Name.Replace("ViewModel", "").Replace("Search", "");
@@ -100,7 +100,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await NavigationService.NavigateToDialog(new WizardCustomerPage(customer) { Title = "Customer"});
+                await NavigationService.NavigateToDialog(Locator.Customer, customer);
             }
             catch (Exception e)
             {
@@ -171,7 +171,7 @@ namespace PoolGuy.Mobile.ViewModels
 
             try
             {
-                await NavigationService.NavigateToDialog(Locator.WizardCustomer);
+                await NavigationService.NavigateToDialog(Locator.Customer);
             }
             catch (Exception e)
             {

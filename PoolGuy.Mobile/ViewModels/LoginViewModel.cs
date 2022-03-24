@@ -31,9 +31,12 @@ namespace PoolGuy.Mobile.ViewModels
             try
             {
                 await Task.Delay(2000);
-                Application.Current.MainPage = new MainPage();
-                Notify.RaiseHomeAction(new Messages.RefreshMessage());
+                
                 Settings.IsLoggedIn = true;
+
+                Application.Current.MainPage = new MainPage();
+                
+                Notify.RaiseHomeAction(new Messages.RefreshMessage());
             }
             catch (Exception e)
             {

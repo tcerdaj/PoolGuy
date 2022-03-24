@@ -6,6 +6,50 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Fonts\materialdesignicons.ttf" />
+    <None Remove="Assets\Fonts\Roboto-Black.ttf" />
+    <None Remove="Assets\Fonts\Roboto-BlackItalic.ttf" />
+    <None Remove="Assets\Fonts\Roboto-Bold.ttf" />
+    <None Remove="Assets\Fonts\Roboto-BoldItalic.ttf" />
+    <None Remove="Assets\Fonts\Roboto-Italic.ttf" />
+    <None Remove="Assets\Fonts\Roboto-Light.ttf" />
+    <None Remove="Assets\Fonts\Roboto-LightItalic.ttf" />
+    <None Remove="Assets\Fonts\Roboto-Medium.ttf" />
+    <None Remove="Assets\Fonts\Roboto-MediumItalic.ttf" />
+    <None Remove="Assets\Fonts\Roboto-Regular.ttf" />
+    <None Remove="Assets\Fonts\Roboto-Thin.ttf" />
+    <None Remove="Assets\Fonts\Roboto-ThinItalic.ttf" />
+    <None Remove="Assets\Fonts\RobotoCondensed-Bold.ttf" />
+    <None Remove="Assets\Fonts\RobotoCondensed-BoldItalic.ttf" />
+    <None Remove="Assets\Fonts\RobotoCondensed-Italic.ttf" />
+    <None Remove="Assets\Fonts\RobotoCondensed-Light.ttf" />
+    <None Remove="Assets\Fonts\RobotoCondensed-LightItalic.ttf" />
+    <None Remove="Assets\Fonts\RobotoCondensed-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Fonts\materialdesignicons.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-Black.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-BlackItalic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-Bold.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-BoldItalic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-Italic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-Light.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-LightItalic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-Medium.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-MediumItalic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-Regular.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-Thin.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Roboto-ThinItalic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\RobotoCondensed-Bold.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\RobotoCondensed-BoldItalic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\RobotoCondensed-Italic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\RobotoCondensed-Light.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\RobotoCondensed-LightItalic.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\RobotoCondensed-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.470" />
     <PackageReference Include="CommonServiceLocator" Version="2.0.5" />
     <PackageReference Include="Microcharts.Forms" Version="0.9.5.9" />
@@ -24,10 +68,13 @@
     <PackageReference Include="ValueInjecter" Version="3.2.0" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
+    <PackageReference Include="Xamarin.Build.Download" Version="0.11.0" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.1" />
+    <PackageReference Include="Xamarin.CommunityToolkit.Markup" Version="2.0.1" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0-rc1" />
     <PackageReference Include="Xamarin.FFImageLoading.Svg.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />  
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />  
     <PackageReference Include="Xamarin.Forms.GoogleMaps" Version="3.3.0" />  
     <PackageReference Include="Xamarin.Forms.PinchZoomImage" Version="1.1.0" />  
     <PackageReference Include="Xamarin.Forms.Visual.Material" Version="4.8.0.1687" />
@@ -38,6 +85,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\ImageViewerPopupPage.xaml.cs">
+      <DependentUpon>ImageViewerPopupPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\ActionSheetPopupPage.xaml.cs">
       <DependentUpon>ActionSheetPopupPage.xaml</DependentUpon>
     </Compile>
@@ -71,14 +121,14 @@
     <Compile Update="Views\WPoolPage.xaml.cs">
       <DependentUpon>WPoolPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\WizardCustomerPage.xaml.cs">
-      <DependentUpon>WizardCustomerPage.xaml</DependentUpon>
+    <Compile Update="Views\CustomerPage.xaml.cs">
+      <DependentUpon>CustomerPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\CustomerPage.xaml.cs">
-      <DependentUpon>CustomerPage.xaml</DependentUpon>
+    <Compile Update="Views\SearchCustomerPage.xaml.cs">
+      <DependentUpon>SearchCustomerPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\WAddressPage.xaml.cs">
       <DependentUpon>WAddressPage.xaml</DependentUpon>
@@ -98,7 +148,7 @@
     <EmbeddedResource Update="Views\WPoolPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\WizardCustomerPage.xaml">
+    <EmbeddedResource Update="Views\CustomerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\HamburgerMenuPage.xaml">
@@ -107,7 +157,7 @@
     <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\CustomerPage.xaml">
+    <EmbeddedResource Update="Views\SearchCustomerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SearchEquipmentPage.xaml">

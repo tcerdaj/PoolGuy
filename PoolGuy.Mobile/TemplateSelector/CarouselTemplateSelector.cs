@@ -11,7 +11,7 @@ namespace PoolGuy.Mobile.TemplateSelector
         {
             try
             {
-                if (item is CustomerPageViewModel page)
+                if (item is SearchCustomerPageViewModel page)
                 {
                     return new DataTemplate(() => {
                         return ((ContentPage)page.Page).Content;

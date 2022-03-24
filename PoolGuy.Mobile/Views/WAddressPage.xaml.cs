@@ -15,6 +15,12 @@ namespace PoolGuy.Mobile.Views
             InitializeComponent();
         }
 
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            _viewModel = (CustomerViewModel)BindingContext;
+        }
+
         public WAddressPage(CustomerViewModel viewModel)
         {
             InitializeComponent();

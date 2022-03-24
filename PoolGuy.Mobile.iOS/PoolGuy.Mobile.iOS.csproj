@@ -69,6 +69,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderer\AdjustableEditorRenderer.cs" />
     <Compile Include="CustomRenderer\ColorImageRenderer.cs" />
     <Compile Include="CustomRenderer\CustomDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\CustomEntryRenderer.cs" />
@@ -86,6 +87,20 @@
     <BundleResource Include="Resources\FontIcons\Roboto-Light.ttf" />
     <BundleResource Include="Resources\FontIcons\Roboto-Regular.ttf" />
     <BundleResource Include="Resources\FontIcons\Roboto-Thin.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-BlackItalic.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-Bold.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-BoldItalic.ttf" />
+    <BundleResource Include="Resources\FontIcons\RobotoCondensed-Bold.ttf" />
+    <BundleResource Include="Resources\FontIcons\RobotoCondensed-BoldItalic.ttf" />
+    <BundleResource Include="Resources\FontIcons\RobotoCondensed-Italic.ttf" />
+    <BundleResource Include="Resources\FontIcons\RobotoCondensed-Light.ttf" />
+    <BundleResource Include="Resources\FontIcons\RobotoCondensed-LightItalic.ttf" />
+    <BundleResource Include="Resources\FontIcons\RobotoCondensed-Regular.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-Italic.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-LightItalic.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-Medium.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-MediumItalic.ttf" />
+    <BundleResource Include="Resources\FontIcons\Roboto-ThinItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -177,6 +192,9 @@
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.7.335</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Build.Download">
+      <Version>0.11.0</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.6.0-rc1</Version>
     </PackageReference>
@@ -186,7 +204,7 @@
     <PackageReference Include="Xamarin.FFImageLoading.Transformations">
       <Version>2.4.11.982</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
     <PackageReference Include="Xamarin.Forms.GoogleMaps">
       <Version>3.3.0</Version>
     </PackageReference>

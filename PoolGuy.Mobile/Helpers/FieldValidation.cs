@@ -13,7 +13,7 @@ namespace PoolGuy.Mobile.Helpers
 {
     public static class FieldValidationHelper
     {
-        public static bool IsFormValid(object model, Page page)
+        public static KeyValuePair<bool, string> IsFormValid(object model, Page page)
         {
             HideValidationFields(model, page);
             var errors = new List<ValidationResult>();
@@ -23,7 +23,10 @@ namespace PoolGuy.Mobile.Helpers
             {
                 ShowValidationFields(errors, model, page);
             }
-            return errors.Count() == 0;
+
+            string error = string.Join(",", errors.Select(x => x.ErrorMessage).ToArray<string>());
+
+            return new KeyValuePair<bool, string>(isValid, error);
         }
         private static void HideValidationFields
             (object model, Page page, string validationLabelSuffix = "Error")

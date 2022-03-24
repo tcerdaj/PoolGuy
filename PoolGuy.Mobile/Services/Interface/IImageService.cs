@@ -6,5 +6,6 @@ namespace PoolGuy.Mobile.Services.Interface
     public interface IImageService
     {
         Task<MediaFile> TakePhoto(string action);
+        Task DisplayImage(string imageUrl);
     }
 }

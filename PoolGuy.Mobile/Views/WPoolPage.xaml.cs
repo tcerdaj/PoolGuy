@@ -51,9 +51,7 @@ namespace PoolGuy.Mobile.Views
                 try
                 {
                     PoolModel_TypeError.IsVisible = false;
-                    _viewModel.WasModified = true;
-                    _viewModel.Pages[3].Pool.Type = (PoolType)Enum.Parse(typeof(PoolType), picker.SelectedItem.ToString());
-                    _viewModel.Pages[3].NotifyPropertyChanged("Pool");
+                    _viewModel.IsEditing = true;
                     Surface.Focus();
                 }
                 catch (Exception ex)

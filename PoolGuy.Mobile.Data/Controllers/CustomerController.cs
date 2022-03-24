@@ -84,6 +84,16 @@ namespace PoolGuy.Mobile.Data.Controllers
                     .DatabaseAsync
                     .GetChildrenAsync(customer, true)
                     .ConfigureAwait(false);
+
+                    if (customer.Address == null)
+                    {
+                        customer.Address = new AddressModel();
+                    }
+
+                    if (customer.HomeAddress == null)
+                    {
+                        customer.HomeAddress = new AddressModel();
+                    }
                 }
 
                 return customers;
@@ -106,6 +116,16 @@ namespace PoolGuy.Mobile.Data.Controllers
                    .Extensions
                    .ReadOperations
                    .GetWithChildren<List<CustomerModel>>(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
+
+                    if (model.Address == null)
+                    {
+                        model.Address = new AddressModel();
+                    }
+
+                    if (model.HomeAddress == null)
+                    {
+                        model.HomeAddress = new AddressModel();
+                    }
                 }
                 
                 return list;

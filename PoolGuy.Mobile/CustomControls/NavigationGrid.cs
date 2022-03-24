@@ -142,7 +142,7 @@ namespace PoolGuy.Mobile.CustomControls
                         animatedButton.TouchUpCommandParameter = Enums.ePage.Home;
                         break;
                     case "Customer":
-                        animatedButton.TouchUpCommandParameter = Enums.ePage.Customer;
+                        animatedButton.TouchUpCommandParameter = Enums.ePage.SearchCustomer;
                         break;
                     case "Scheduler":
                         animatedButton.TouchUpCommandParameter = Enums.ePage.Scheduler;
