@@ -152,24 +152,21 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.Id = Guid.NewGuid();
                     if (model.Address != null)
                     {
-                        model.Address.Id = Guid.NewGuid();
-                        model.AddressId = model.Address.Id;
+                        model.Address.Id = model.AddressId = Guid.NewGuid();
                         model.Address.Created = created;
                         await new AddressController().LocalData.Modify(model.Address);
                     }
 
                     if (model.HomeAddress != null)
                     {
-                        model.HomeAddress.Id = Guid.NewGuid();
-                        model.HomeAddressId = model.HomeAddress.Id;
+                        model.HomeAddress.Id = model.HomeAddressId = Guid.NewGuid();
                         model.HomeAddress.Created = created;
                         await new AddressController().LocalData.Modify(model.HomeAddress);
                     }
 
-                    model.Contact.Id = Guid.NewGuid();
-                    model.ContactId = model.Contact.Id;
-                    model.Pool.Id = Guid.NewGuid();
-                    model.PoolId = model.Pool.Id;
+                    model.Contact.Id = model.ContactId = Guid.NewGuid(); 
+                    model.Contact.CustomerId = model.Id;
+                    model.Pool.Id =  model.PoolId = Guid.NewGuid();
                     model.Created = created;
                     model.Pool.Created = created;
                     model.Contact.Created = created;
@@ -177,10 +174,10 @@ namespace PoolGuy.Mobile.Data.Controllers
                 else 
                 {
                     var modified = DateTime.Now.ToUniversalTime();
-                    var tempModel = (CustomerModel)new CustomerModel().InjectFrom(model);
+                    //var tempModel = (CustomerModel)new CustomerModel().InjectFrom(model);
                     
-                    model = await LoadAsync(model.Id);
-                    model.InjectFrom(tempModel);
+                    //model = await LoadAsync(model.Id);
+                    //model.InjectFrom(tempModel);
 
                     if (model.Address != null && model.Address.Id == Guid.Empty)
                     {
@@ -191,6 +188,18 @@ namespace PoolGuy.Mobile.Data.Controllers
                     {
                         model.HomeAddress.Modified = model.HomeAddress.WasModified ? modified : model.HomeAddress.Modified;
                     }
+
+                    var contact = await new ContactInformationController().LocalData.List(new SQLControllerListCriteriaModel
+                    {
+                        Filter = new List<SQLControllerListFilterField> { new SQLControllerListFilterField { FieldName = "CustomerId", ValueLBound = model.Id.ToString() } }
+                    });
+
+                    //if (contact != null)
+                    //{
+                    //    model.Contact = contact.FirstOrDefault();
+                    //    model.ContactId = model.Contact.Id;
+                    //    model.Contact.CustomerId = model.Id;
+                    //}
 
                     model.Modified = modified;
                     model.Pool.Modified = model.Pool.WasModified ? modified : model.Pool.Modified;

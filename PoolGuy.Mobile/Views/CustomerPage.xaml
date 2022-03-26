@@ -7,7 +7,9 @@
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
              x:Class="PoolGuy.Mobile.Views.CustomerPage"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:cbh="clr-namespace:PoolGuy.Mobile.Behaviors;assembly=PoolGuy.Mobile"
              xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              Title="{Binding Title}">
     <!--Go back command-->
     <Shell.BackButtonBehavior>
@@ -48,6 +50,18 @@
                         Value="10,0" />
                 <Setter Property="HasShadow"
                         Value="False" />
+            </Style>
+            <Style TargetType="mycc:CustomEntry"
+                   x:Key="InvalidEntryStyle" >
+                <Setter Property="TextColor"
+                        Value="Red" />
+            </Style>
+            <Style TargetType="mycc:CustomEntry"
+                   x:Key="RequiredInputStyle">
+                <Setter Property="Placeholder"
+                        Value="Field Required" />
+                <Setter Property="PlaceholderColor"
+                        Value="Red" />
             </Style>
             <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
             <conv:InverseBooleanConverter x:Key="InverseBoolConverter" />
@@ -109,7 +123,8 @@
                         <!--Customer Info-->
                         <xct:Expander Grid.Row="0"
                                       x:Name="customerInfoExpander"
-                                      Margin="0,20,0,0">
+                                      Margin="0,20,0,0"
+                                      IsExpanded="True">
                             <xct:Expander.Header>
                                 <StackLayout Orientation="Horizontal"
                                              Spacing="5"
@@ -167,7 +182,11 @@
                                                                   ReturnType="Next"
                                                                   NextCommand="{Binding NextCommand}"
                                                                   NextCommandParameter="LastName"
-                                                                  TextChanged="CustomEntry_TextChanged"/>
+                                                                  TextChanged="CustomEntry_TextChanged">
+                                                    <mycc:CustomEntry.Behaviors>
+                                                        <cbh:RequiredInputValidationBehavior InvalidStyle="{StaticResource RequiredInputStyle}" />
+                                                    </mycc:CustomEntry.Behaviors>
+                                                </mycc:CustomEntry>
                                             </Frame>
                                             <Label x:Name="CustomerModel_FirstNameError"
                                                    IsVisible="False"
@@ -185,7 +204,11 @@
                                                                   ReturnType="Next"
                                                                   NextCommand="{Binding NextCommand}"
                                                                   NextCommandParameter="Address1"
-                                                                  TextChanged="CustomEntry_TextChanged"/>
+                                                                  TextChanged="CustomEntry_TextChanged">
+                                                    <mycc:CustomEntry.Behaviors>
+                                                        <cbh:RequiredInputValidationBehavior InvalidStyle="{StaticResource RequiredInputStyle}" />
+                                                    </mycc:CustomEntry.Behaviors>
+                                                </mycc:CustomEntry>
                                             </Frame>
                                             <Label x:Name="CustomerModel_LastNameError"
                                                    IsVisible="False"
@@ -197,7 +220,8 @@
                         </xct:Expander>
                         <!--Physical Address-->
                         <xct:Expander Grid.Row="1"
-                                      x:Name="physicalAddresExpander">
+                                      x:Name="physicalAddresExpander"
+                                      IsExpanded="True">
                             <xct:Expander.Header>
                                 <StackLayout Orientation="Horizontal" Spacing="5"
                                              HorizontalOptions="FillAndExpand">
@@ -243,8 +267,39 @@
                                 <DataTemplate>
                                     <Grid Margin="0,24,0,0"
                                           RowSpacing="24">
+                                        <!--Use Device Current Address-->
+                                        <mr:StackLayout Grid.Row="0"
+                                                        Orientation="Horizontal"
+                                                        TappedCommand="{Binding ToggleDeviceAddress}">
+                                            <!--Checked-->
+                                            <AbsoluteLayout IsVisible="{Binding UseDeviceLocation}"
+                                                            VerticalOptions="Center"
+                                                            HeightRequest="24"
+                                                            WidthRequest="24">
+                                                <Path Data="M0 1.44C0 0.644711 0.64471 0 1.44 0H22.56C23.3553 0 24 0.64471 24 1.44V22.56C24 23.3553 23.3553 24 22.56 24H1.44C0.644711 24 0 23.3553 0 22.56V1.44Z"
+                                                      Fill="#2C842E"
+                                                      StrokeThickness="0" />
+                                                <Path Data="M20.7343 3.85166C21.341 4.28502 21.4815 5.12817 21.0482 5.73487L10.3339 20.7349C10.0927 21.0726 9.70957 21.2806 9.29498 21.2989C8.8804 21.3172 8.48042 21.1439 8.21035 20.8288L3.92464 15.8288C3.43942 15.2627 3.50498 14.4104 4.07107 13.9252C4.63716 13.44 5.48941 13.5055 5.97463 14.0716L9.13863 17.763L18.8511 4.16553C19.2845 3.55882 20.1276 3.4183 20.7343 3.85166Z"
+                                                      Fill="white"
+                                                      StrokeThickness="0" />
+                                            </AbsoluteLayout>
+                                            <!--UnChecked-->
+                                            <AbsoluteLayout IsVisible="{Binding UseDeviceLocation,Converter={StaticResource InverseBoolConverter}}"
+                                                            VerticalOptions="Center">
+                                                <Path Data="M1 2.44C1 1.64471 1.64471 1 2.44 1H23.56C24.3553 1 25 1.64471 25 2.44V23.56C25 24.3553 24.3553 25 23.56 25H2.44C1.64471 25 1 24.3553 1 23.56V2.44Z"
+                                                      Fill="white"
+                                                      Stroke="#D8D8D8"
+                                                      StrokeThickness="1"
+                                                      HeightRequest="24"
+                                                      WidthRequest="24" />
+                                            </AbsoluteLayout>
+                                            <!--Physical Address-->
+                                            <Label Grid.Row="3"
+                                                   VerticalOptions="Center"
+                                                   Text="Use device location to get address" />
+                                        </mr:StackLayout>
                                         <!--Address 1-->
-                                        <StackLayout Grid.Row="0">
+                                        <StackLayout Grid.Row="1">
                                             <Label Text="Address Line 1" />
                                             <Frame>
                                                 <mycc:CustomEntry x:Name="Address1"
@@ -261,7 +316,7 @@
                                                    TextColor="Red" />
                                         </StackLayout>
                                         <!--Address2-->
-                                        <StackLayout Grid.Row="1">
+                                        <StackLayout Grid.Row="2">
                                             <Label Text="Address Line 2" />
                                             <Frame>
                                                 <mycc:CustomEntry x:Name="Address2"
@@ -278,7 +333,7 @@
                                                    TextColor="Red" />
                                         </StackLayout>
                                         <!--City-->
-                                        <StackLayout Grid.Row="2">
+                                        <StackLayout Grid.Row="3">
                                             <Label Text="City" />
                                             <Frame>
                                                 <mycc:CustomEntry x:Name="City"
@@ -294,9 +349,8 @@
                                                    IsVisible="False"
                                                    TextColor="Red" />
                                         </StackLayout>
-
                                         <!--State-->
-                                        <StackLayout Grid.Row="3">
+                                        <StackLayout Grid.Row="4">
                                             <Label Text="State" />
                                             <Frame>
                                                 <mycc:CustomEntry x:Name="State"
@@ -313,7 +367,7 @@
                                                    TextColor="Red" />
                                         </StackLayout>
                                         <!--Zip-->
-                                        <StackLayout Grid.Row="4">
+                                        <StackLayout Grid.Row="5">
                                             <Label Text="Zip" />
                                             <Frame>
                                                 <mycc:CustomEntry x:Name="Zip"
@@ -380,7 +434,7 @@
                                 <DataTemplate>
                                     <Grid Margin="0,24,0,0"
                                           RowSpacing="24">
-                                        <!--Same Home Address CheckBox-->
+                                        <!--Same Physical Address CheckBox-->
                                         <mr:StackLayout Grid.Row="0"
                                                         Orientation="Horizontal"
                                                         TappedCommand="{Binding ToggleSameAddressCommand}">
@@ -409,7 +463,7 @@
                                             <!--Physical Address-->
                                             <Label Grid.Row="3"
                                                    VerticalOptions="Center"
-                                                   Text="Same Home Address" />
+                                                   Text="Same Physical Address" />
                                         </mr:StackLayout>
                                         <!--Address 1-->
                                         <StackLayout Grid.Row="1">
@@ -595,7 +649,12 @@
                                                                   ReturnType="Next"
                                                                   NextCommand="{Binding NextCommand}"
                                                                   NextCommandParameter="Address2"
-                                                                  TextChanged="CustomEntry_TextChanged" />
+                                                                  TextChanged="CustomEntry_TextChanged">
+                                                    <mycc:CustomEntry.Behaviors>
+                                                        <xct:EmailValidationBehavior DecorationFlags="Trim"
+                                                                                     InvalidStyle="{StaticResource InvalidEntryStyle}" />
+                                                    </mycc:CustomEntry.Behaviors>
+                                                </mycc:CustomEntry>
                                             </Frame>
                                             <Label x:Name="ContactModel_EmailError"
                                                    IsVisible="False"
@@ -658,57 +717,65 @@
                                           RowSpacing="24"
                                           RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,*">
                                         <!--Type-->
-                                        <mr:Frame Grid.Row="0"
-                                                  BorderColor="#D8D8D8"
-                                                  Padding="12,7"
-                                                  Margin="0"
-                                                  CornerRadius="6"
-                                                  HasShadow="False"
-                                                  Tapped="PoolType_OnTapped">
-                                            <StackLayout Orientation="Horizontal"
-                                                         VerticalOptions="Fill">
-                                                <Label  Text="{Binding Customer.Pool.Type}"
-                                                        VerticalOptions="Center"
-                                                        FontSize="16"
-                                                        HorizontalOptions="FillAndExpand" />
-                                                <Label Text="{x:Static icons:MaterialDesignIcons.ChevronDown}"
-                                                       FontFamily="{StaticResource MaterialFontFamily}"
-                                                       FontSize="30"
-                                                       HorizontalOptions="End"
-                                                       VerticalOptions="Center" />
-                                            </StackLayout>
-                                        </mr:Frame>
+                                        <StackLayout Grid.Row="0">
+                                            <Label Text="Type" />
+                                            <mr:Frame BorderColor="#D8D8D8"
+                                                      Padding="12,7"
+                                                      Margin="0"
+                                                      CornerRadius="6"
+                                                      HasShadow="False"
+                                                      Tapped="PoolType_OnTapped">
+                                                <StackLayout Orientation="Horizontal"
+                                                             VerticalOptions="Fill">
+                                                    <Label  Text="{Binding Customer.Pool.Type}"
+                                                            VerticalOptions="Center"
+                                                            FontSize="16"
+                                                            HorizontalOptions="FillAndExpand" />
+                                                    <Label Text="{x:Static icons:MaterialDesignIcons.ChevronDown}"
+                                                           FontFamily="{StaticResource MaterialFontFamily}"
+                                                           FontSize="30"
+                                                           HorizontalOptions="End"
+                                                           VerticalOptions="Center" />
+                                                </StackLayout>
+                                            </mr:Frame>
+                                        </StackLayout>
                                         <Label Grid.Row="1"
                                                x:Name="PoolModel_TypeError"
                                                IsVisible="False"
                                                TextColor="Red" />
                                         <!--Surface-->
-                                        <Frame Grid.Row="1">
-                                            <mycc:CustomEntry x:Name="Surface"
-                                                              Text="{Binding Customer.Pool.Surface}"
-                                                              Placeholder="Type Here"
-                                                              MaxLength="200"
-                                                              Keyboard="Numeric"
-                                                              ReturnType="Next"
-                                                              NextCommand="{Binding NextCommand}"
-                                                              NextCommandParameter="Capacity"
-                                                              TextChanged="CustomEntry_TextChanged"/>
-                                        </Frame>
+                                        <StackLayout  Grid.Row="1">
+                                            <Label Text="Surface" />
+                                            <Frame>
+                                                <mycc:CustomEntry x:Name="Surface"
+                                                                  Text="{Binding Customer.Pool.Surface}"
+                                                                  Placeholder="Type Here"
+                                                                  MaxLength="200"
+                                                                  Keyboard="Numeric"
+                                                                  ReturnType="Next"
+                                                                  NextCommand="{Binding NextCommand}"
+                                                                  NextCommandParameter="Capacity"
+                                                                  TextChanged="CustomEntry_TextChanged" />
+                                            </Frame>
+                                        </StackLayout>
                                         <Label Grid.Row="3"
                                                x:Name="PoolModel_SurfaceError"
                                                IsVisible="False"
                                                TextColor="Red" />
                                         <!--Capacity-->
-                                        <Frame Grid.Row="2">
-                                            <mycc:CustomEntry x:Name="Capacity"
-                                                              Text="{Binding Customer.Pool.Capacity}"
-                                                              Placeholder="Type Here"
-                                                              MaxLength="200"
-                                                              Keyboard="Numeric"
-                                                              ReturnType="Done"
-                                                              HasDone="True"
-                                                              TextChanged="CustomEntry_TextChanged" />
-                                        </Frame>
+                                        <StackLayout Grid.Row="2">
+                                            <Label Text="Capacity" />
+                                            <Frame>
+                                                <mycc:CustomEntry x:Name="Capacity"
+                                                                  Text="{Binding Customer.Pool.Capacity}"
+                                                                  Placeholder="Type Here"
+                                                                  MaxLength="200"
+                                                                  Keyboard="Numeric"
+                                                                  ReturnType="Done"
+                                                                  HasDone="True"
+                                                                  TextChanged="CustomEntry_TextChanged" />
+                                            </Frame>
+                                        </StackLayout>
                                         <Label Grid.Row="5"
                                                x:Name="PoolModel_CapacityError"
                                                IsVisible="False"
@@ -911,63 +978,144 @@
                                                        TextChanged="CustomEntry_TextChanged"/>
                             </Frame>
                         </StackLayout>
+                        <!--Scheduler-->
+                        <StackLayout Grid.Row="6">
+                            <StackLayout.Triggers>
+                                <DataTrigger TargetType="StackLayout"
+                                             Binding="{Binding Customer.Id}"
+                                             Value="{x:Static sys:Guid.Empty}">
+                                    <Setter Property="IsVisible"
+                                            Value="False" />
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                            <mr:StackLayout Orientation="Horizontal"
+                                            TappedCommand="{Binding GoToSchedulerCommand}">
+                                <Label Text="Scheduler"
+                                       VerticalOptions="Center">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Scheduler, Converter={StaticResource ListToBoolConverter}}"
+                                                     Value="False">
+                                            <Setter Property="TextColor"
+                                                    Value="#0E64D8" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <!--Arrow Icon-->
+                                <AbsoluteLayout VerticalOptions="Center"
+                                                HeightRequest="24"
+                                                WidthRequest="24">
+                                    <AbsoluteLayout.Triggers>
+                                        <DataTrigger TargetType="AbsoluteLayout"
+                                                     Binding="{Binding Scheduler, Converter={StaticResource ListToBoolConverter}}"
+                                                     Value="True">
+                                            <Setter Property="IsVisible"
+                                                    Value="False" />
+                                        </DataTrigger>
+                                    </AbsoluteLayout.Triggers>
+                                    <Path Data="M0.292893 0.292893C0.683418 -0.0976311 1.31658 -0.0976311 1.70711 0.292893L5 3.58579L8.29289 0.292893C8.68342 -0.0976311 9.31658 -0.0976311 9.70711 0.292893C10.0976 0.683417 10.0976 1.31658 9.70711 1.70711L5.77782 5.6364C5.34824 6.06598 4.65176 6.06597 4.22218 5.6364L0.292893 1.70711C-0.0976311 1.31658 -0.0976311 0.683417 0.292893 0.292893Z"
+                                          Fill="#0E64D8"
+                                          Rotation="270"
+                                          StrokeThickness="0"
+                                          AbsoluteLayout.LayoutBounds="0,.5,-1,-1"
+                                          AbsoluteLayout.LayoutFlags="PositionProportional" />
+                                </AbsoluteLayout>
+                            </mr:StackLayout>
+                            <FlexLayout x:Name="scheduler"
+                                        Wrap="Wrap"
+                                        JustifyContent="Start"
+                                        HorizontalOptions="FillAndExpand"
+                                        VerticalOptions="Fill"
+                                        BindableLayout.ItemsSource="{Binding Scheduler}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout x:Name="ImageLayout"
+                                                     Margin="0,0,20,0"
+                                                     VerticalOptions="Fill">
+                                            <!--CheckBox-->
+                                            <Label Text="{Binding ShortName}"
+                                                   VerticalOptions="Fill"
+                                                   HorizontalOptions="Center"/>
+                                            <!--Select-->
+                                            <CheckBox IsChecked="{Binding Selected}" 
+                                                      CheckedChanged="Scheduler_On_Day_Checked"
+                                                      VerticalOptions="Fill"
+                                                      HorizontalOptions="Center"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </FlexLayout>
+                        </StackLayout>
                         <!--Active-->
-                        <StackLayout Grid.Row="6"
-                                     Orientation="Horizontal"
-                                     Padding="10,0"
-                                     IsVisible="{Binding Customer.NewCustomer, Converter={StaticResource InverseBoolConverter}}">
-                            <Label Text="Off"
-                                   HorizontalOptions="Start">
+                        <StackLayout Grid.Row="7"
+                                     Padding="10,0">
+                            
+                            <StackLayout.Triggers>
+                                <DataTrigger TargetType="StackLayout"
+                                             Binding="{Binding Customer.Id}"
+                                             Value="{x:Static sys:Guid.Empty}">
+                                    <Setter Property="IsVisible"
+                                            Value="False" />
+                                </DataTrigger>
+                            </StackLayout.Triggers>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Off"
+                                       HorizontalOptions="Start">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding Customer.Active}"
+                                                     Value="true">
+                                            <Setter Property="Text"
+                                                    Value="On" />
+                                            <Setter Property="FontAttributes"
+                                                    Value="Italic, Bold" />
+                                            <Setter Property="FontSize"
+                                                    Value="Medium" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Switch x:Name="styleSwitch"
+                                        HorizontalOptions="StartAndExpand"
+                                        IsToggled="{Binding Customer.Active}"
+                                        OnColor="{StaticResource Primary}"
+                                        ThumbColor="{StaticResource Title}" />
+                            </StackLayout>
+                            <!--Customer since/ last visit-->
+                            <Label Text="{Binding Customer.Created, StringFormat='Since: {0:MM-dd-yyyy}'}" />
+                            <Label Text="{Binding Customer.DateLastVisit, StringFormat='Last visit: {0:MM-dd-yyyy}'}">
                                 <Label.Triggers>
                                     <DataTrigger TargetType="Label"
-                                                 Binding="{Binding Customer.Active}"
-                                                 Value="true">
-                                        <Setter Property="Text"
-                                                Value="On" />
-                                        <Setter Property="FontAttributes"
-                                                Value="Italic, Bold" />
-                                        <Setter Property="FontSize"
-                                                Value="Medium" />
+                                                 Binding="{Binding Customer.DateLastVisit}"
+                                                 Value="null">
+                                        <Setter Property="IsVisible"
+                                                Value="False" />
                                     </DataTrigger>
                                 </Label.Triggers>
                             </Label>
-                            <Switch x:Name="styleSwitch"
-                                    HorizontalOptions="StartAndExpand"
-                                    IsToggled="{Binding Customer.Active}"
-                                    OnColor="{StaticResource Primary}"
-                                    ThumbColor="{StaticResource Title}" />
                         </StackLayout>
-                        <!--Customer since/ last visit-->
-                        <StackLayout Grid.Row="7"
-                                     IsVisible="{Binding Customer.NewCustomer, Converter={StaticResource InverseBoolConverter}}"
-                                     HorizontalOptions="FillAndExpand"
-                                     Padding="10,0">
-                            <Label Text="{Binding Customer.Created, StringFormat='Since: {0:MM-dd-yy}'}"/>
-                            <Label Text="{Binding Customer.DateLastVisit, StringFormat='Last visit: {0:MM-dd-yy}'}"/>
-                        </StackLayout>
+                        
                         <!--Cancel/Save Buttons-->
-                        <AbsoluteLayout Grid.Row="8"
-                                        VerticalOptions="End"
-                                        Margin="60,0">
+                        <StackLayout Grid.Row="9"
+                                     VerticalOptions="End"
+                                     Margin="60,0,60,60"
+                                     HorizontalOptions="CenterAndExpand"
+                                     Orientation="Horizontal"
+                                     Spacing="20">
                             <!--Cancel Button-->
                             <mycc:AnimatedButton TouchUpCommand="{Binding CancelCommand}"
                                                  AutomationId="cancel_button"
-                                                 Margin="0,40,0,20"
-                                                 AbsoluteLayout.LayoutBounds="0,0.5,-1,-1"
-                                                 AbsoluteLayout.LayoutFlags="PositionProportional">
-                                    <Label Text="Cancel"
-                                           TextColor="Gray"
-                                           FontSize="16"
-                                           VerticalTextAlignment="Center"
-                                           HorizontalTextAlignment="Center" />
+                                                 VerticalOptions="Center">
+                                <Label Text="Cancel"
+                                       TextColor="Gray"
+                                       FontSize="16"
+                                       Margin="12,0"
+                                       AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                                       AbsoluteLayout.LayoutFlags="PositionProportional" />
                             </mycc:AnimatedButton>
                             <!--Save Button-->
                             <mycc:AnimatedButton TouchUpCommand="{Binding SaveCommand}"
                                                  AutomationId="save_button"
-                                                 IsEnabled="{Binding IsEditing}"
-                                                 Margin="0,40,0,20"
-                                                 AbsoluteLayout.LayoutBounds="1,0.5,-1,-1"
-                                                 AbsoluteLayout.LayoutFlags="PositionProportional">
+                                                 IsEnabled="{Binding IsEditing}">
                                 <Frame AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
                                        AbsoluteLayout.LayoutFlags="PositionProportional"
                                        BackgroundColor="#98CB99"
@@ -988,7 +1136,7 @@
                                            HorizontalTextAlignment="Center" />
                                 </Frame>
                             </mycc:AnimatedButton>
-                        </AbsoluteLayout>
+                        </StackLayout>
                     </Grid>
                 </ScrollView>
                 <!-- Busy Status -->

@@ -1,39 +1,48 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.SearchCustomerPage"
              xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:ffTransformation="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
-             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
-             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
+             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
              Title="{Binding Title}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddCommand}" />
+        <ToolbarItem Text="Add"
+                     Command="{Binding AddCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:ImageUrlConverter x:Key="ImageUrlConverter" />
             <Style TargetType="Frame">
-                <Setter Property="BorderColor" Value="#D8D8D8"/>
-                <Setter Property="CornerRadius" Value="6"/>
-                <Setter Property="Padding" Value="10,0"/>
-                <Setter Property="HasShadow" Value="False"/>
+                <Setter Property="BorderColor"
+                        Value="#D8D8D8" />
+                <Setter Property="CornerRadius"
+                        Value="6" />
+                <Setter Property="Padding"
+                        Value="10,0" />
+                <Setter Property="HasShadow"
+                        Value="False" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily"
+                        Value="RobotoRegular" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <AbsoluteLayout VerticalOptions="FillAndExpand"
                         HorizontalOptions="FillAndExpand">
-           <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
-                        AbsoluteLayout.LayoutFlags="All">
-            <SearchBar HorizontalOptions="FillAndExpand"
-                       Placeholder="Search for a customer"
-                       Text="{Binding SearchTerm}"
-                       SearchCommand="{Binding SearchCustomerCommand}"
-                       BackgroundColor="#f7f7f7"/>
+            <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1"
+                         AbsoluteLayout.LayoutFlags="All">
+                <SearchBar HorizontalOptions="FillAndExpand"
+                           Placeholder="Search for a customer"
+                           Text="{Binding SearchTerm}"
+                           SearchCommand="{Binding SearchCustomerCommand}"
+                           BackgroundColor="#f7f7f7" />
                 <CollectionView x:Name="SearchResults"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="StartAndExpand"
@@ -43,98 +52,69 @@
                                 EmptyView="No Customers to display">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Padding="20,0,0,0">
-                            <SwipeView BackgroundColor="White"
-                                           Margin="0,5">
+                            <StackLayout Padding="0"
+                                         Margin="0"
+                                         HorizontalOptions="FillAndExpand">
+                                <SwipeView HorizontalOptions="FillAndExpand">
+                                   <!--Swipe Items-->
                                     <SwipeView.RightItems>
                                         <SwipeItems>
-                                        <SwipeItemView Margin="10"
-                                                       BackgroundColor="{StaticResource Primary}"
-                                                       Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.ScheduleCustomerCommand}"
-                                                       CommandParameter="{Binding}">
-                                            <StackLayout Spacing="0">
-                                                <Label Text="{x:Static icons:MaterialDesignIcons.CalendarAccount}"
-                                                       FontFamily="{StaticResource MaterialFontFamily}"
-                                                       FontSize="35"
-                                                       Margin="0,5,0,0"
-                                                       TextColor="White"
-                                                       HorizontalOptions="Center"/>
-                                                <Label Text="Schedule" 
-                                                       FontSize="10" 
-                                                       HorizontalOptions="Center" 
-                                                       TextColor="White"/>
-                                            </StackLayout>
-                                        </SwipeItemView>
-                                        <SwipeItemView BackgroundColor="{StaticResource Title}"
-                                                       VerticalOptions="Center"
-                                                       Margin="10"
-                                                       Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.AddWorkCommand}"
-                                                       CommandParameter="{Binding}">
-                                            <StackLayout Spacing="0">
-                                                <Label Text="{x:Static icons:MaterialDesignIcons.Truck}"
-                                                       FontFamily="{StaticResource MaterialFontFamily}"
-                                                       FontSize="35"
-                                                       Margin="0,5,0,0"
-                                                       TextColor="White"
-                                                       VerticalOptions="Center"
-                                                       HorizontalOptions="Center"/>
-                                                <Label Text="Add Work"
-                                                       FontSize="10" 
-                                                       HorizontalOptions="Center"
-                                                       VerticalOptions="Center"
-                                                       TextColor="White"/>
-                                            </StackLayout>
-                                        </SwipeItemView>
-                                        <SwipeItemView BackgroundColor="Red"
-                                                       Margin="10"
-                                                       Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.DeleteCustomerCommand}"
-                                                       CommandParameter="{Binding}">
-                                                <StackLayout Spacing="0">
-                                                    <Label Text="{x:Static icons:MaterialDesignIcons.TrashCan}"
+                                            <!--Scheduler-->
+                                            <SwipeItemView Margin="10"
+                                                           BackgroundColor="{StaticResource Primary}"
+                                                           Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.AddCustomerToSchedulerCommand}"
+                                                           CommandParameter="{Binding}"
+                                                           VerticalOptions="Center">
+                                                    <Label Text="{x:Static icons:MaterialDesignIcons.CalendarAccount}"
                                                            FontFamily="{StaticResource MaterialFontFamily}"
                                                            FontSize="35"
-                                                           Margin="0,5,0,0"
+                                                           Margin="0"
                                                            TextColor="White"
-                                                           HorizontalOptions="Center"/>
-                                                    <Label Text="Delete" 
-                                                           FontSize="10" 
-                                                           HorizontalOptions="Center" 
-                                                           TextColor="White"/>
-                                                </StackLayout>
+                                                           VerticalOptions="Center"
+                                                           HorizontalOptions="Center" />
+                                            </SwipeItemView>
+                                            <!--Add Stop-->
+                                            <SwipeItemView Margin="10"
+                                                           BackgroundColor="{StaticResource Title}"
+                                                           VerticalOptions="Center"
+                                                           Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.AddCustomerStopCommand}"
+                                                           CommandParameter="{Binding}">
+                                                    <Label Text="{x:Static icons:MaterialDesignIcons.Truck}"
+                                                           FontFamily="{StaticResource MaterialFontFamily}"
+                                                           FontSize="35"
+                                                           TextColor="White"
+                                                           VerticalOptions="Center"
+                                                           HorizontalOptions="Center" />
+                                            </SwipeItemView>
+                                            <!--Delete-->
+                                            <SwipeItemView Margin="10"
+                                                           BackgroundColor="Red"
+                                                           Command="{Binding Source={x:Reference SearchResults}, Path=BindingContext.DeleteCustomerCommand}"
+                                                           CommandParameter="{Binding}"
+                                                           VerticalOptions="Center">
+                                                <Label Text="{x:Static icons:MaterialDesignIcons.TrashCan}"
+                                                       FontFamily="{StaticResource MaterialFontFamily}"
+                                                       FontSize="35"
+                                                       TextColor="White"
+                                                       VerticalOptions="Center"
+                                                       HorizontalOptions="Center" />
                                             </SwipeItemView>
                                         </SwipeItems>
                                     </SwipeView.RightItems>
-                                <StackLayout >
-                                    <BoxView HeightRequest=".5" 
-                                             Color="{StaticResource ExtraLightGray}" 
-                                             HorizontalOptions="FillAndExpand"
-                                             Margin="0,0,0,5"/>
-                                    <StackLayout Orientation="Horizontal">
-                                        <!--Circular Image-->
-                                        <mr:Frame Padding="0"
-                                                   CornerRadius="50"
-                                                   VerticalOptions="Center"
-                                                   HorizontalOptions="Start"
-                                                   HasShadow="False"
-                                                   TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.DisplayImageCommand}"
-                                                   TappedCommandParameter="{Binding BindingContext, Source={x:Reference ListTemplate}}"
-                                                   IsClippedToBounds="True"
-                                                   Margin="0">
-                                                <ff:CachedImage Source="{Binding ImageUrl,Converter={StaticResource ImageUrlConverter}}"
-                                                                HeightRequest="70"
-                                                                WidthRequest="70">
-                                                    <ff:CachedImage.Transformations>
-                                                        <ffTransformation:RoundedTransformation Radius="240"/>
-                                                    </ff:CachedImage.Transformations>
-                                                </ff:CachedImage>
-                                        </mr:Frame>
+                                    <!--Content-->
+                                    <StackLayout HorizontalOptions="FillAndExpand"
+                                                 Spacing="0"
+                                                 Margin="0,5">
+                                        <BoxView HeightRequest=".5"
+                                                 Color="{StaticResource ExtraLightGray}"
+                                                 HorizontalOptions="FillAndExpand"/>
                                         <!--Personal Info-->
                                         <StackLayout Orientation="Horizontal"
-                                                         Margin="10,0,0,0"
-                                                         HorizontalOptions="EndAndExpand">
-                                                <StackLayout HorizontalOptions="FillAndExpand"
-                                                             Spacing="5">
-                                                      <mr:StackLayout x:Name="ListTemplate" 
+                                                     HorizontalOptions="FillAndExpand"
+                                                     Margin="12,0">
+                                            <StackLayout HorizontalOptions="FillAndExpand"
+                                                         Spacing="5">
+                                                <mr:StackLayout x:Name="ListTemplate"
                                                                 TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToCustomerDetailsCommand}"
                                                                 TappedCommandParameter="{Binding BindingContext, Source={x:Reference ListTemplate}}">
                                                     <mr:StackLayout.Triggers>
@@ -151,89 +131,88 @@
                                                            HorizontalOptions="FillAndExpand"
                                                            VerticalOptions="Center"
                                                            FontSize="14">
-                                                         <Label.FontFamily>
-                                                             <OnPlatform x:TypeArguments="x:String">
-                                                                 <On Platform="iOS">Roboto</On>
-                                                                 <On Platform="Android">Roboto-Bold.ttf#Roboto-Bold</On>
-                                                             </OnPlatform>
-                                                         </Label.FontFamily>
-                                                     </Label>
+                                                        <Label.FontFamily>
+                                                            <OnPlatform x:TypeArguments="x:String">
+                                                                <On Platform="iOS">Roboto</On>
+                                                                <On Platform="Android">Roboto-Bold.ttf#Roboto-Bold</On>
+                                                            </OnPlatform>
+                                                        </Label.FontFamily>
+                                                    </Label>
                                                     <!--Full Address-->
-                                                    <Label Text="{Binding Address.FullAddress}" 
+                                                    <Label Text="{Binding Address.FullAddress}"
                                                            HorizontalOptions="FillAndExpand"
                                                            VerticalOptions="Center"
                                                            LineBreakMode="TailTruncation"
-                                                           FontSize="12"/>
-                                            </mr:StackLayout>
-                                                    <!--Phone/Email-->
-                                                    <StackLayout Orientation="Horizontal"
-                                                         Spacing="10"
-                                                         HorizontalOptions="Start">
-                                                <Grid>
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                            </Grid.ColumnDefinitions>
-                                                      <mr:Label x:Name="Phone"
-                                                                Grid.Column="0"
-                                                                Text="{Binding Contact.Phone}" 
-                                                                TextColor="#2F80ED"
-                                                                VerticalOptions="Center"
-                                                                HorizontalOptions="Start"
-                                                                FontSize="12"
-                                                                FontAttributes="Bold"
-                                                                TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
-                                                                TappedCommandParameter="{Binding }"
-                                                                PinchedCommandParameter="Phone">
-                                                       </mr:Label>
-                                                      <mr:Label x:Name="Email"
-                                                                Grid.Column="1"
-                                                                HorizontalOptions="Fill"
-                                                                VerticalOptions="Center"
-                                                                FontSize="12"
-                                                                FontAttributes="Bold"
-                                                                TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
-                                                                TappedCommandParameter="{Binding }"
-                                                                PinchedCommandParameter="Phone"
-                                                                LineBreakMode="TailTruncation"
-                                                                Text="{Binding Contact.Email}" TextColor="#2F80ED"/>
-                                              </Grid>
-                                           </StackLayout>
+                                                           FontSize="12" />
+                                                </mr:StackLayout>
+                                                <!--Phone/Email-->
+                                                <StackLayout Orientation="Horizontal"
+                                                             Spacing="10"
+                                                             HorizontalOptions="Start">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <mr:Label x:Name="Phone"
+                                                                  Grid.Column="0"
+                                                                  Text="{Binding Contact.Phone}"
+                                                                  TextColor="#2F80ED"
+                                                                  VerticalOptions="Center"
+                                                                  HorizontalOptions="Start"
+                                                                  FontSize="12"
+                                                                  FontAttributes="Bold"
+                                                                  TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
+                                                                  TappedCommandParameter="{Binding }"
+                                                                  PinchedCommandParameter="Phone">
+                                                        </mr:Label>
+                                                        <mr:Label x:Name="Email"
+                                                                  Grid.Column="1"
+                                                                  HorizontalOptions="Fill"
+                                                                  VerticalOptions="Center"
+                                                                  FontSize="12"
+                                                                  FontAttributes="Bold"
+                                                                  TappedCommand="{Binding Source={x:Reference SearchResults}, Path=BindingContext.GoToContactCommand}"
+                                                                  TappedCommandParameter="{Binding }"
+                                                                  PinchedCommandParameter="Phone"
+                                                                  LineBreakMode="TailTruncation"
+                                                                  Text="{Binding Contact.Email}"
+                                                                  TextColor="#2F80ED" />
+                                                    </Grid>
                                                 </StackLayout>
-                                                <!--Right Arrow-->
-                                                <Label Text="{x:Static icons:MaterialDesignIcons.ChevronRight}" 
-                                               FontFamily="{StaticResource MaterialFontFamily}"
-                                               FontSize="25"
-                                               Margin="0,0,5,0"
-                                               TextColor="{StaticResource ExtraLightGray}"
-                                               HorizontalOptions="End"
-                                               VerticalOptions="Start"/>
                                             </StackLayout>
+                                            <!--Right Arrow-->
+                                            <Label Text="{x:Static icons:MaterialDesignIcons.ChevronRight}"
+                                                   FontFamily="{StaticResource MaterialFontFamily}"
+                                                   FontSize="25"
+                                                   TextColor="{StaticResource ExtraLightGray}"
+                                                   HorizontalOptions="End"
+                                                   VerticalOptions="Start" />
+                                        </StackLayout>
                                     </StackLayout>
-                                </StackLayout>
-                            </SwipeView>
-                        </StackLayout>
+                                </SwipeView>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </StackLayout>
             <AbsoluteLayout BackgroundColor="Transparent"
-                        AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
-                        Margin="-5,0"
-                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+                            AbsoluteLayout.LayoutBounds="0, 1, 1, -1"
+                            Margin="-5,0"
+                            AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
                 <mycc:NavigationGrid AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
-                                 AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
-                                 BackgroundColor="{StaticResource Primary}"
-                                 ColumnSpacing="25"
-                                 Command="{Binding NavigateToCommand}"
-                                 Current="SearchCustomer"/>
+                                     AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, -1"
+                                     BackgroundColor="{StaticResource Primary}"
+                                     ColumnSpacing="25"
+                                     Command="{Binding NavigateToCommand}"
+                                     Current="SearchCustomer" />
             </AbsoluteLayout>
             <!-- Busy Status -->
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                        AbsoluteLayout.LayoutFlags="All"
-                        BackgroundColor="White"
-                        Opacity="0.5"
-                        IsVisible="{Binding IsBusy}">
+                            AbsoluteLayout.LayoutFlags="All"
+                            BackgroundColor="White"
+                            Opacity="0.5"
+                            IsVisible="{Binding IsBusy}">
                 <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
                                    AbsoluteLayout.LayoutFlags="PositionProportional"
                                    IsRunning="{Binding IsBusy}"

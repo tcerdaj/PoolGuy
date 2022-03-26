@@ -47,7 +47,8 @@ namespace PoolGuy.Mobile.ViewModels
                         return;
                     }
 
-                    Customer.Pool = await new PoolController().LoadAsync(Guid.Parse(sender.ID));
+                    var pool  = await new PoolController().LoadAsync(Guid.Parse(sender.ID));
+                    Customer.Pool.Equipments = pool.Equipments;
                     IsEditing = true;
                 }
                 catch (Exception e)
@@ -66,7 +67,8 @@ namespace PoolGuy.Mobile.ViewModels
             Contact = new ContactModel(),
             Address = new AddressModel(),
             HomeAddress = new AddressModel(),
-            Pool = new PoolModel()
+            Pool = new PoolModel() { Type = PoolType.None },
+            SameHomeAddress = false
         };
         
         public CustomerModel Customer
@@ -99,6 +101,22 @@ namespace PoolGuy.Mobile.ViewModels
         public List<PoolType> PoolTypes => new List<PoolType> { Enums.PoolType.None, Enums.PoolType.SweetPool, Enums.PoolType.SaltPool };
 
         public CustomerPage Page { get; set; }
+
+        ObservableCollection<SchedulerModel> _scheduler = new ObservableCollection<SchedulerModel>();
+        public ObservableCollection<SchedulerModel> Scheduler 
+        {
+            get { return _scheduler; }
+            set { _scheduler = value; OnPropertyChanged(nameof(Scheduler)); } 
+        }
+
+        private bool _useDeviceLocation;
+
+        public bool UseDeviceLocation
+        {
+            get { return _useDeviceLocation; }
+            set { _useDeviceLocation = value;OnPropertyChanged(nameof(UseDeviceLocation)); }
+        }
+
         #endregion
 
         #region Commands
@@ -128,15 +146,19 @@ namespace PoolGuy.Mobile.ViewModels
 
         private async Task SaveCustomerAsync()
         {
+            if (IsBusy)
+            {
+                return;
+            }
+
+            if (!IsEditing)
+            {
+                GoBackCommand.Execute(null);
+                return;
+            }
+
             try
             {
-                if (!IsEditing)
-                {
-                    GoBackCommand.Execute(null);
-                    return;
-                }
-
-
                 var validationResult = IsValid();
 
                 if (!validationResult.Key)
@@ -144,6 +166,8 @@ namespace PoolGuy.Mobile.ViewModels
                     Message.Toast($"Unable to save Customer. {validationResult.Value}", TimeSpan.FromSeconds(5));
                     return;
                 }
+
+                IsBusy = true;
 
                 Position? position = await Customer.Address.FullAddress.GetPositionAsync();
                 if (position.HasValue)
@@ -172,6 +196,10 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 Debug.WriteLine(e);
                 ErrorMessage = $"Error: {e.Message}";
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -477,6 +505,73 @@ namespace PoolGuy.Mobile.ViewModels
                 });
             }
         }
+
+        public ICommand ToggleDeviceAddress
+        {
+            get {
+                return new RelayCommand(async () =>
+                {
+                    UseDeviceLocation = !UseDeviceLocation;
+
+                    if (UseDeviceLocation)
+                    {
+                        try
+                        {
+                            var addressList = await Utils.GetDeviceAddressAsync();
+                            if (addressList != null)
+                            {
+                                var address = addressList.FirstOrDefault().Split(',');
+                                if (address.Length == 4)
+                                {
+                                    var stateZip = address[2].Trim().Split(' ');
+                                    Customer.HomeAddress.Address1 = address[0].Trim();
+                                    Customer.HomeAddress.Address2 = string.Empty;
+                                    Customer.HomeAddress.City = address[1].Trim();
+                                    Customer.HomeAddress.State = stateZip[0].Trim();
+                                    Customer.HomeAddress.Zip = stateZip[1].Trim();
+                                    Customer.HomeAddress.NotififyAll();
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Message.Toast($"Unable to get device address: {ex.Message}");
+                        }
+                    }
+                    else
+                    {
+                        var customer = JsonConvert.DeserializeObject<CustomerModel>(OriginalCustomer);
+                        Customer.HomeAddress = customer.Address;
+                        Customer.HomeAddress.NotififyAll();
+                    }
+                });
+            }
+        }
+
+        public ICommand GoToSchedulerCommand
+        {
+            get => new RelayCommand(() => GoToScheduler());
+        }
+
+        private async void GoToScheduler()
+        {
+            if (IsBusy || Scheduler.Any()) { return; }
+            IsBusy = true;
+
+            try
+            {
+                await NavigationService.NavigateToDialog(Locator.Scheduler);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
         #endregion
 
         #region Methods 
@@ -536,7 +631,7 @@ namespace PoolGuy.Mobile.ViewModels
                 IsEditing = false;
                 ErrorMessage = "";
                 OriginalCustomer = "";
-                ObservableCollection<SchedulerModel> schedulers = await GetScheduler(customer);
+                Scheduler = await GetScheduler(customer);
 
                 if (customer != null)
                 {
@@ -552,6 +647,12 @@ namespace PoolGuy.Mobile.ViewModels
                     }));
 
                     Customer = (CustomerModel)new CustomerModel().InjectFrom(customer);
+
+                    if (Customer.Contact == null)
+                    {
+                        Customer.Contact = new ContactModel();
+                    }
+
                     OriginalCustomer = JsonConvert.SerializeObject(customer,
                                 Formatting.Indented,
                                 new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });

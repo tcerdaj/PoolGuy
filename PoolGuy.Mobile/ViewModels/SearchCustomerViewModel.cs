@@ -10,6 +10,7 @@ using System.Windows.Input;
 using Xamarin.Essentials;
 using System.Linq;
 using PoolGuy.Mobile.Helpers;
+using PoolGuy.Mobile.Models;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -234,6 +235,23 @@ namespace PoolGuy.Mobile.ViewModels
                     await NavigationService.ReplaceRoot($"{page}Page");
                 });
             }
+        }
+
+        public ICommand AddCustomerToSchedulerCommand
+        {
+            get => new RelayCommand<CustomerModel>(async (customer) =>
+            {
+                await NavigationService.NavigateToDialog(Locator.CustomerScheduler, customer);
+            });
+        }
+
+        public ICommand AddCustomerStopCommand
+        {
+            get => new RelayCommand<CustomerModel>(async (cust) =>
+            {
+                var customer = new MobileCustomerModel() { Customer = cust, SelectedDate = DateTime.Now.Date };
+                await NavigationService.NavigateToDialog(Locator.StopDetails, customer);
+            });
         }
     }
 }

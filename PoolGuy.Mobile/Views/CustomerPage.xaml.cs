@@ -1,8 +1,6 @@
-﻿using CommonServiceLocator;
-using PoolGuy.Mobile.Data.Models;
+﻿using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
-using PoolGuy.Mobile.Resources;
 using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
 using System;
@@ -112,6 +110,30 @@ namespace PoolGuy.Mobile.Views
             if (e.OldTextValue != null && e.NewTextValue != e.OldTextValue && _viewModel.InitCompleted)
             {
                 _viewModel.IsEditing = true;
+            }
+        }
+
+        private void Scheduler_On_Day_Checked(object sender, CheckedChangedEventArgs e)
+        {
+            if (sender is CheckBox checkBox)
+            {
+                if (checkBox.BindingContext is SchedulerModel scheduler && _viewModel.Customer?.Scheduler != null)
+                {
+                    if (e.Value)
+                    {
+                        _viewModel.Customer.Scheduler.Add(scheduler);
+                    }
+                    else
+                    {
+                        var index = _viewModel.Customer.Scheduler.FindIndex(x => x.Id == scheduler.Id);
+                        if (index > -1)
+                        {
+                            _viewModel.Customer.Scheduler.RemoveAt(index);
+                        }
+                    }
+
+                    _viewModel.IsEditing = true;
+                }
             }
         }
 

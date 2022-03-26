@@ -11,6 +11,13 @@ namespace PoolGuy.Mobile.Views
     public partial class StopDetailsPage : ContentPage, IContentPage
     {
         StopDetailsViewModel _viewModel;
+        public StopDetailsPage()
+        {
+            InitializeComponent();
+            _viewModel = new StopDetailsViewModel(new MobileCustomerModel());
+            BindingContext = _viewModel;
+        }
+
         public StopDetailsPage(MobileCustomerModel customer)
         {
             InitializeComponent();

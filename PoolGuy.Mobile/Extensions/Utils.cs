@@ -85,7 +85,7 @@ namespace PoolGuy.Mobile.Extensions
                 var current = Connectivity.NetworkAccess;
                 if (current == NetworkAccess.None)
                 {
-                    await DependencyService.Get<IUserDialogs>().DisplayAlertAsync("Geocode Address", "No internet connectivity is available now, check airplain mode if apply your addres is not be setted to geocode.", "Ok");
+                    DependencyService.Get<IUserDialogs>().Toast("Geocode Address, no internet connectivity is available now, check airplain mode if apply your addres is not be setted to geocode.", TimeSpan.FromSeconds(5));
                     return null;
                 }
 
@@ -94,6 +94,40 @@ namespace PoolGuy.Mobile.Extensions
                 Position position = approximateLocations.FirstOrDefault();
 
                 return position;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get device current address geocode position
+        /// </summary>
+        /// <param name="fullAddress"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<string>> GetDeviceAddressAsync()
+        {
+            try
+            {
+                var current = Connectivity.NetworkAccess;
+                if (current == NetworkAccess.None)
+                {
+                    DependencyService.Get<IUserDialogs>().Toast("Geocode Address, no internet connectivity is available now, check airplain mode if apply your addres is not be setted to geocode.", TimeSpan.FromSeconds(5));
+                    return null;
+                }
+
+                var device = await GetPositionAsync();
+
+                if (device != null)
+                {
+                    Geocoder geoCoder = new Geocoder();
+                    var approximateLocations = await geoCoder.GetAddressesForPositionAsync(new Position(device.Latitude, device.Longitude));
+                    return approximateLocations;
+                }
+
+                return null;
             }
             catch (Exception e)
             {

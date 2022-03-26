@@ -195,6 +195,5 @@ namespace PoolGuy.Mobile.ViewModels
             }
             finally { IsBusy = false; }
         }
-
     }
 }

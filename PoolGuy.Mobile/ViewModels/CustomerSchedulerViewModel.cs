@@ -326,7 +326,7 @@ namespace PoolGuy.Mobile.ViewModels
             get 
             {
                 return new RelayCommand(async ()=> {
-                    await NavigationService.CloseModal();
+                    await NavigationService.PopToRootAsync();
                 });
             }
         }

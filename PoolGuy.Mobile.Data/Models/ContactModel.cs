@@ -29,5 +29,7 @@ namespace PoolGuy.Mobile.Data.Models
             get { return _email; }
             set { _email = value; OnPropertyChanged("Email");  }
         }
+
+        public Guid CustomerId { get; set; }
     }
 }
