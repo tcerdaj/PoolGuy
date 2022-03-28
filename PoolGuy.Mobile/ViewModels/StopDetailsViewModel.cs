@@ -102,11 +102,28 @@ namespace PoolGuy.Mobile.ViewModels
                     var items = await new StopItemController().LocalData.List(new SQLControllerListCriteriaModel
                     {
                         Filter = new List<SQLControllerListFilterField> {
-                         new SQLControllerListFilterField {
-                             FieldName = "ItemType",
-                             ValueLBound = ((int)eItemType.Stop).ToString()
-                         }}
+                             new SQLControllerListFilterField {
+                                 FieldName = "ItemType",
+                                 ValueLBound = ((int)eItemType.Stop).ToString()
+                             }}
                     });
+
+                    if (!items.Any())
+                    {
+                        var result = await Message.DisplayConfirmationAsync("There is not items yet added to the stop, do you want to added now", "Yes", "Cancel");
+                        if (result)
+                        {
+                            await Utils.AddStopDetaultItemsAsync();
+                            items = await new StopItemController().LocalData.List(new SQLControllerListCriteriaModel
+                            {
+                                Filter = new List<SQLControllerListFilterField> {
+                                     new SQLControllerListFilterField {
+                                         FieldName = "ItemType",
+                                         ValueLBound = ((int)eItemType.Stop).ToString()
+                                     }}
+                            });
+                        }
+                    }
 
                     Stop = new StopModel
                     {
@@ -191,10 +208,14 @@ namespace PoolGuy.Mobile.ViewModels
                     // TODO:
                     // Validate required fields
 
-                    if (Customer.Status != Enums.WorkStatus.Completed)
+                    if (Stop.Items == null)
                     {
-                        Customer.Status = Enums.WorkStatus.Pending;
+                        return;
                     }
+
+                    Stop.Status = WorkStatus.Completed;
+
+                    await new StopController().ModifyWithChildrenAsync(Stop);
 
                     await NavigationService.CloseModal();
                 });

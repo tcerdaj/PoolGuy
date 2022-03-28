@@ -2,19 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PoolGuy.Mobile.Views.StopDetailsPage"
-             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile" 
-             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures" 
-             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers" 
-             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile" 
+             xmlns:icons="clr-namespace:PoolGuy.Mobile.Resources;assembly=PoolGuy.Mobile"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
+             xmlns:act="clr-namespace:PoolGuy.Mobile.Triggers"
+             xmlns:conv="clr-namespace:PoolGuy.Mobile.Converter;assembly=PoolGuy.Mobile"
              xmlns:mycc="clr-namespace:PoolGuy.Mobile.CustomControls"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              Title="{Binding Title}">
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:CollectionListToCount x:Key="ListToCount" />
             <conv:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-            
+
             <!--  *****************************  -->
             <!--  Material Design Icon FontFamily  -->
             <!--  *****************************  -->
@@ -26,10 +26,14 @@
                     Value="fa-regular-400.ttf#Font Awesome 5 Free Regular" />
             </OnPlatform>
             <Style TargetType="Frame">
-                <Setter Property="BorderColor" Value="#D8D8D8"/>
-                <Setter Property="CornerRadius" Value="6"/>
-                <Setter Property="Padding" Value="10,0"/>
-                <Setter Property="HasShadow" Value="False"/>
+                <Setter Property="BorderColor"
+                        Value="#D8D8D8" />
+                <Setter Property="CornerRadius"
+                        Value="6" />
+                <Setter Property="Padding"
+                        Value="10,0" />
+                <Setter Property="HasShadow"
+                        Value="False" />
             </Style>
             <Style TargetType="Grid">
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -39,7 +43,7 @@
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor"
-                                        Value="{StaticResource ExtraLightGray}" />
+                                            Value="{StaticResource ExtraLightGray}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -55,79 +59,78 @@
         <!-- Navigation Bar -->
         <!--****************-->
         <AbsoluteLayout BackgroundColor="{StaticResource Primary}"
-                          HeightRequest="50"
-                          MinimumHeightRequest="50"
-                          HorizontalOptions="FillAndExpand"
-                          VerticalOptions="Fill">
+                        HeightRequest="50"
+                        MinimumHeightRequest="50"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Fill">
             <mycc:AnimatedButton AbsoluteLayout.LayoutBounds="0, 0.5, .25, 1"
-                                        AbsoluteLayout.LayoutFlags="All"
-                                        TouchUpCommand="{Binding GoBackCommand}"
-                                        AutomationId="cancel_add_note">
+                                 AbsoluteLayout.LayoutFlags="All"
+                                 TouchUpCommand="{Binding GoBackCommand}"
+                                 AutomationId="cancel_add_note">
                 <Image AbsoluteLayout.LayoutBounds="0, 0.5, 1, 1"
-                               Aspect="AspectFit"
-                               HorizontalOptions="Start"
-                               AbsoluteLayout.LayoutFlags="All">
+                       Aspect="AspectFit"
+                       HorizontalOptions="Start"
+                       AbsoluteLayout.LayoutFlags="All">
                     <Image.Source>
                         <FontImageSource FontFamily="{StaticResource MaterialFontFamily}"
-                                                  Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
-                                                  Size="40"
-                                                  Color="{StaticResource Title}" />
+                                         Glyph="{x:Static icons:MaterialDesignIcons.ChevronLeft}"
+                                         Size="40"
+                                         Color="{StaticResource Title}" />
                     </Image.Source>
                 </Image>
             </mycc:AnimatedButton>
             <Label Text="{Binding Title}"
-                           TextColor="{StaticResource Title}"
-                           FontSize="17"
-                           FontAttributes="Bold"
-                           AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
-                           AbsoluteLayout.LayoutFlags="PositionProportional" />
+                   TextColor="{StaticResource Title}"
+                   FontSize="17"
+                   FontAttributes="Bold"
+                   AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
+                   AbsoluteLayout.LayoutFlags="PositionProportional" />
         </AbsoluteLayout>
         <AbsoluteLayout VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand">
+                        HorizontalOptions="FillAndExpand">
             <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                         AbsoluteLayout.LayoutFlags="All">
-            <Grid HorizontalOptions="FillAndExpand"
-                  VerticalOptions="FillAndExpand">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Frame Margin="15,10"
-                       Padding="5"
-                       HasShadow="False"
-                       BorderColor="LightGray"
-                       Grid.Row="0">
-                    <StackLayout Padding="10">
-                        <Label Text="{Binding Customer.Name}"
-                               FontSize="16"
-                               TextColor="Black"
-                               FontAttributes="Bold"/>
-                        <Label Text="{Binding Customer.Address.FullAddress}"
-                               FontSize="12"
-                               FontAttributes="Bold"/>
-                        <Label 
-                               FontSize="12"
-                               FontAttributes="Bold">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Last Visit:"/>
-                                    <Span Text=" "/>
-                                    <Span Text="{Binding DateLastVisit, StringFormat='{0:MM/dd/yy}'}"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </StackLayout>
-                </Frame>
-                <!--Scheduler-->
-                <BoxView Grid.Row="1"
-                     HeightRequest="1" 
-                     Color="{StaticResource ExtraLightGray}" 
-                     HorizontalOptions="FillAndExpand"
-                     Margin="10"/>
-                <!--<CollectionView x:Name="Stops"
+                <Grid HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Frame Margin="15,10"
+                           Padding="5"
+                           HasShadow="False"
+                           BorderColor="LightGray"
+                           Grid.Row="0">
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding Customer.Name}"
+                                   FontSize="16"
+                                   TextColor="Black"
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding Customer.Address.FullAddress}"
+                                   FontSize="12"
+                                   FontAttributes="Bold" />
+                            <Label FontSize="12"
+                                   FontAttributes="Bold">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Last Visit:" />
+                                        <Span Text=" " />
+                                        <Span Text="{Binding DateLastVisit, StringFormat='{0:MM/dd/yy}'}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </Frame>
+                    <!--Scheduler-->
+                    <BoxView Grid.Row="1"
+                             HeightRequest="1"
+                             Color="{StaticResource ExtraLightGray}"
+                             HorizontalOptions="FillAndExpand"
+                             Margin="10" />
+                    <!--<CollectionView x:Name="Stops"
                                 Grid.Row="2"
                                 Margin="0,0,0,65"
                                 EmptyView="Not items found"
@@ -154,143 +157,187 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>-->
-                <CollectionView x:Name="Stops"
-                                Grid.Row="2"
-                                VerticalOptions="Fill"
-                                Margin="0,0,0,10"
-                                EmptyView="Not items found"
-                                ItemsSource="{Binding Stop.Items}">
-                    <CollectionView.Header>
+                    <CollectionView x:Name="Stops"
+                                    Grid.Row="2"
+                                    VerticalOptions="Fill"
+                                    Margin="0,0,0,10"
+                                    EmptyView="Not items found"
+                                    ItemsSource="{Binding Stop.Items}">
+                        <CollectionView.Header>
                             <StackLayout Margin="0"
                                          Spacing="0">
-                            <BoxView  HeightRequest="1" 
-                                      Margin="15,0"
-                                      VerticalOptions="End"
-                                      HorizontalOptions="FillAndExpand" Color="LightGray"/>
+                                <BoxView  HeightRequest="1"
+                                          Margin="15,0"
+                                          VerticalOptions="End"
+                                          HorizontalOptions="FillAndExpand"
+                                          Color="LightGray" />
                                 <Grid ColumnDefinitions="80,80, 80, *"
-                                         Padding="15,0" >
-                                <BoxView Grid.Column="0" Grid.ColumnSpan="4" HeightRequest="1" 
-                                                 VerticalOptions="End"
-                                                 HorizontalOptions="FillAndExpand" Color="LightGray"/>
-                                <BoxView Grid.Column="0" 
-                                         WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
-                                         HorizontalOptions="End" Color="LightGray"/>
+                                      Padding="15,0">
+                                    <BoxView Grid.Column="0"
+                                             Grid.ColumnSpan="4"
+                                             HeightRequest="1"
+                                             VerticalOptions="End"
+                                             HorizontalOptions="FillAndExpand"
+                                             Color="LightGray" />
+                                    <BoxView Grid.Column="0"
+                                             WidthRequest="1"
+                                             HeightRequest="1"
+                                             VerticalOptions="FillAndExpand"
+                                             HorizontalOptions="End"
+                                             Color="LightGray" />
 
-                                <BoxView Grid.Column="0" 
-                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
-                                                 HorizontalOptions="Start" Color="LightGray"/>
+                                    <BoxView Grid.Column="0"
+                                             WidthRequest="1"
+                                             HeightRequest="1"
+                                             VerticalOptions="FillAndExpand"
+                                             HorizontalOptions="Start"
+                                             Color="LightGray" />
 
-                                <BoxView Grid.Column="1" 
-                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
-                                                 HorizontalOptions="End" Color="LightGray"/>
-                                <BoxView Grid.Column="2" 
-                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
-                                                 HorizontalOptions="End" Color="LightGray"/>
-                                <BoxView Grid.Column="3" 
-                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
-                                                 HorizontalOptions="End" Color="LightGray"/>
+                                    <BoxView Grid.Column="1"
+                                             WidthRequest="1"
+                                             HeightRequest="1"
+                                             VerticalOptions="FillAndExpand"
+                                             HorizontalOptions="End"
+                                             Color="LightGray" />
+                                    <BoxView Grid.Column="2"
+                                             WidthRequest="1"
+                                             HeightRequest="1"
+                                             VerticalOptions="FillAndExpand"
+                                             HorizontalOptions="End"
+                                             Color="LightGray" />
+                                    <BoxView Grid.Column="3"
+                                             WidthRequest="1"
+                                             HeightRequest="1"
+                                             VerticalOptions="FillAndExpand"
+                                             HorizontalOptions="End"
+                                             Color="LightGray" />
 
-                                <Label Grid.Column="0" Text="COD"
-                                       FontAttributes="Bold"
-                                       Margin="5"
-                                       VerticalOptions="FillAndExpand"
-                                       TextColor="Black"
-                                       FontSize="12"
-                                   FontFamily="{StaticResource RobotoFontFamily}"/>
-                            <Label Grid.Column="1" Text="Test"
-                                   FontAttributes="Bold"
-                                   Margin="5"
-                                   VerticalOptions="FillAndExpand"
-                                   FontSize="12"
-                                   TextColor="Black"
-                                   FontFamily="{StaticResource RobotoFontFamily}"/>
-                            <Label Grid.Column="2" Text="Appliyed"
-                                   FontAttributes="Bold"
-                                   Margin="5"
-                                   FontSize="12"
-                                   VerticalOptions="FillAndExpand"
-                                   TextColor="Black"
-                                   FontFamily="{StaticResource RobotoFontFamily}"/>
-                            <Label Grid.Column="3" Text="Suggested"
-                                   FontAttributes="Bold"
-                                   Margin="5"
-                                   FontSize="12"
-                                   VerticalOptions="FillAndExpand"
-                                   TextColor="Black"
-                                   FontFamily="{StaticResource RobotoFontFamily}"/>
-                        </Grid>
+                                    <Label Grid.Column="0"
+                                           Text="COD"
+                                           FontAttributes="Bold"
+                                           Margin="5"
+                                           VerticalOptions="FillAndExpand"
+                                           TextColor="Black"
+                                           FontSize="12"
+                                           FontFamily="{StaticResource RobotoFontFamily}" />
+                                    <Label Grid.Column="1"
+                                           Text="Test"
+                                           FontAttributes="Bold"
+                                           Margin="5"
+                                           VerticalOptions="FillAndExpand"
+                                           FontSize="12"
+                                           TextColor="Black"
+                                           FontFamily="{StaticResource RobotoFontFamily}" />
+                                    <Label Grid.Column="2"
+                                           Text="Appliyed"
+                                           FontAttributes="Bold"
+                                           Margin="5"
+                                           FontSize="12"
+                                           VerticalOptions="FillAndExpand"
+                                           TextColor="Black"
+                                           FontFamily="{StaticResource RobotoFontFamily}" />
+                                    <Label Grid.Column="3"
+                                           Text="Suggested"
+                                           FontAttributes="Bold"
+                                           Margin="5"
+                                           FontSize="12"
+                                           VerticalOptions="FillAndExpand"
+                                           TextColor="Black"
+                                           FontFamily="{StaticResource RobotoFontFamily}" />
+                                </Grid>
                             </StackLayout>
                         </CollectionView.Header>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
                                 <StackLayout>
-                                    
+
                                     <Grid ColumnDefinitions="80,80, 80, *"
-                                         Padding="15,0" >
-                                        <BoxView Grid.Column="0" Grid.ColumnSpan="4" HeightRequest="1" 
+                                          Padding="15,0">
+                                        <BoxView Grid.Column="0"
+                                                 Grid.ColumnSpan="4"
+                                                 HeightRequest="1"
                                                  VerticalOptions="End"
-                                                 HorizontalOptions="FillAndExpand" Color="LightGray" />
-                                        <BoxView Grid.Column="0" 
-                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
-                                                 HorizontalOptions="Start" Color="LightGray"/>
+                                                 HorizontalOptions="FillAndExpand"
+                                                 Color="LightGray" />
+                                        <BoxView Grid.Column="0"
+                                                 WidthRequest="1"
+                                                 HeightRequest="1"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="Start"
+                                                 Color="LightGray" />
 
-                                        <BoxView Grid.Column="0" 
-                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
-                                                 HorizontalOptions="End" Color="LightGray"/>
+                                        <BoxView Grid.Column="0"
+                                                 WidthRequest="1"
+                                                 HeightRequest="1"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End"
+                                                 Color="LightGray" />
 
-                                        <BoxView Grid.Column="1" 
-                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
-                                                 HorizontalOptions="End" Color="LightGray"/>
-                                        <BoxView Grid.Column="2" 
-                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
-                                                 HorizontalOptions="End" Color="LightGray"/>
-                                        <BoxView Grid.Column="3" 
-                                                WidthRequest="1" HeightRequest="1" VerticalOptions="FillAndExpand"
-                                                 HorizontalOptions="End"  Color="LightGray"/>
+                                        <BoxView Grid.Column="1"
+                                                 WidthRequest="1"
+                                                 HeightRequest="1"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End"
+                                                 Color="LightGray" />
+                                        <BoxView Grid.Column="2"
+                                                 WidthRequest="1"
+                                                 HeightRequest="1"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End"
+                                                 Color="LightGray" />
+                                        <BoxView Grid.Column="3"
+                                                 WidthRequest="1"
+                                                 HeightRequest="1"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="End"
+                                                 Color="LightGray" />
 
-                                        <Label Grid.Column="0" 
+                                        <Label Grid.Column="0"
                                                Margin="5"
                                                Text="{Binding Name}"
                                                VerticalOptions="Center"
                                                HorizontalTextAlignment="Start" />
-                                        <mycc:CustomEntry Grid.Column="1" 
-                                                  FontSize="12"
-                                                  VerticalOptions="Center"/>
+                                        <mycc:CustomEntry Grid.Column="1"
+                                                          FontSize="12"
+                                                          VerticalOptions="Center"
+                                                          Text="{Binding Test}"/>
                                         <mycc:CustomEntry Grid.Column="2"
-                                                  Grid.Row="0"
-                                                  FontSize="12"
-                                                  VerticalOptions="Center"/>
-                                         <mycc:CustomEntry Grid.Column="3"
-                                                  FontSize="12"
-                                                  VerticalOptions="Center"/>
+                                                          Grid.Row="0"
+                                                          FontSize="12"
+                                                          VerticalOptions="Center"
+                                                          Text="{Binding Appliyed}"/>
+                                        <mycc:CustomEntry Grid.Column="3"
+                                                          FontSize="12"
+                                                          VerticalOptions="Center"
+                                                          Text="{Binding Suggested}"/>
                                     </Grid>
                                 </StackLayout>
                             </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-                <Frame Grid.Row="3"
-                       BorderColor="Gray"
-                       Margin="15,0"
-                       HeightRequest="80"
-                       Padding="5"
-                       HasShadow="False">
-                    <Editor Placeholder="Notes"/>
-                </Frame>
-                    <Button Text="Complete Stop"
-                            Grid.Row="4"
-                           Margin="15,10"
-                            CornerRadius="6"
-                        HorizontalOptions="End"
-                        VerticalOptions="Fill"/>
-
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <Frame Grid.Row="3"
+                           BorderColor="Gray"
+                           Margin="15,0"
+                           HeightRequest="80"
+                           Padding="5"
+                           HasShadow="False">
+                        <Editor Placeholder="Notes" />
+                    </Frame>
+                    <mycc:AnimatedButton Grid.Row="4"
+                                         Margin="15,10"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="Fill"
+                                         TappedCommand="{Binding CompleteStopCommand}">
+                        <Label Text="Complete" />
+                    </mycc:AnimatedButton>
                 </Grid>
             </ScrollView>
             <!-- Busy Status -->
             <AbsoluteLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                        AbsoluteLayout.LayoutFlags="All"
-                        BackgroundColor="White"
-                        Opacity="0.5"
-                        IsVisible="{Binding IsBusy}">
+                            AbsoluteLayout.LayoutFlags="All"
+                            BackgroundColor="White"
+                            Opacity="0.5"
+                            IsVisible="{Binding IsBusy}">
                 <ActivityIndicator AbsoluteLayout.LayoutBounds="0.5, 0.5, -1, -1"
                                    AbsoluteLayout.LayoutFlags="PositionProportional"
                                    IsRunning="{Binding IsBusy}"

@@ -15,8 +15,12 @@ namespace PoolGuy.Mobile.Data.Models
         public eMassUnit MassUnit { get; set; }
         public eItemType ItemType { get; set; }
         public string Value { get; set; }
+        public string Test { get; set; }
+        public string Appliyed { get; set; }
+        public string Suggested { get; set; }
         public decimal Price { get; set; }
         public int Frequency { get; set; }
+        public bool IsRequired { get; set; }
         public eFrequencyType FrequencyType { get; set; }
         [ForeignKey(typeof(StopModel))]
         public Guid StopId { get; set; }

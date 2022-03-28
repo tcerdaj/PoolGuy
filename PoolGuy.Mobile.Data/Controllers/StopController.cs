@@ -46,7 +46,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                     throw new Exception("Model can't bee null");
                 }
 
-               // if (model.Customer == null)
+                if (model.Customer == null)
                 {
                     throw new Exception("Customer can't bee null");
                 }
