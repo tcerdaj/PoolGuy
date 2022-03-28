@@ -49,7 +49,20 @@ namespace PoolGuy.Mobile.ViewModels
 
                     var pool  = await new PoolController().LoadAsync(Guid.Parse(sender.ID));
                     Customer.Pool.Equipments = pool.Equipments;
+                    Scheduler = await GetScheduler(Customer);
                     IsEditing = true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                    await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
+                }
+            });
+
+            Notify.SubscribeVisitingDayActionAction(async (sender) => {
+                try
+                {
+                    Scheduler = await GetScheduler(Customer);
                 }
                 catch (Exception e)
                 {

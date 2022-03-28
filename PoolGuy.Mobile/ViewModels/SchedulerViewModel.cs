@@ -52,9 +52,8 @@ namespace PoolGuy.Mobile.ViewModels
 
         public bool ShowModal
         {
-            get => CurrentPage != null 
-                && CurrentPage.PageType == Enums.ePageType.Dialog 
-                || CurrentPage.PageType == Enums.ePageType.CloseModal;
+            get => CurrentPage != null && (CurrentPage.PageType == Enums.ePageType.Dialog 
+                || CurrentPage.PageType == Enums.ePageType.CloseModal);
         }
 
         public async Task InitializeAsync()
