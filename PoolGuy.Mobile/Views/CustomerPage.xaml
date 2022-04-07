@@ -1086,7 +1086,7 @@
                                 <Label.Triggers>
                                     <DataTrigger TargetType="Label"
                                                  Binding="{Binding Customer.DateLastVisit}"
-                                                 Value="null">
+                                                 Value="{x:Null}">
                                         <Setter Property="IsVisible"
                                                 Value="False" />
                                     </DataTrigger>
