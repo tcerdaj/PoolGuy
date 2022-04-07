@@ -121,7 +121,7 @@ namespace PoolGuy.Mobile.Data.Models.Query
 
                 if (fieldType == null)
                 {
-                    throw new Exception("Field " + filter.FieldName + " could not be found in the model " + fieldType.Name);
+                    throw new Exception("Field " + filter.FieldName + " could not be found in the model " + fieldType?.Name);
                 }
 
                 if (fieldType == typeof(string))
@@ -294,7 +294,7 @@ namespace PoolGuy.Mobile.Data.Models.Query
 
                 if (fieldType == null)
                 {
-                    throw new Exception("Field " + order.FieldName + " could not be found in the model " + fieldType.Name);
+                    throw new Exception("Field " + order.FieldName + " could not be found in the model " + fieldType?.Name);
                 }
 
                 if (fieldType == typeof(string))

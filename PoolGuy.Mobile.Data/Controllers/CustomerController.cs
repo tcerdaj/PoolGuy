@@ -173,37 +173,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                 }
                 else 
                 {
-                    var modified = DateTime.Now.ToUniversalTime();
-                    //var tempModel = (CustomerModel)new CustomerModel().InjectFrom(model);
-                    
-                    //model = await LoadAsync(model.Id);
-                    //model.InjectFrom(tempModel);
-
-                    if (model.Address != null && model.Address.Id == Guid.Empty)
-                    {
-                        model.Address.Modified = model.Address.WasModified ? modified : model.Address.Modified;
-                    }
-
-                    if (model.HomeAddress != null && model.HomeAddress.Id == Guid.Empty)
-                    {
-                        model.HomeAddress.Modified = model.HomeAddress.WasModified ? modified : model.HomeAddress.Modified;
-                    }
-
-                    var contact = await new ContactInformationController().LocalData.List(new SQLControllerListCriteriaModel
-                    {
-                        Filter = new List<SQLControllerListFilterField> { new SQLControllerListFilterField { FieldName = "CustomerId", ValueLBound = model.Id.ToString() } }
-                    });
-
-                    //if (contact != null)
-                    //{
-                    //    model.Contact = contact.FirstOrDefault();
-                    //    model.ContactId = model.Contact.Id;
-                    //    model.Contact.CustomerId = model.Id;
-                    //}
-
-                    model.Modified = modified;
-                    model.Pool.Modified = model.Pool.WasModified ? modified : model.Pool.Modified;
-                    model.Contact.Modified = model.Contact.WasModified ? modified : model.Contact.Modified;
+                    model.Modified = DateTime.Now.ToUniversalTime(); ;
                 }
 
                 SQLiteNetExtensions
