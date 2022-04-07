@@ -114,7 +114,6 @@ namespace PoolGuy.Mobile.Data.Models
             set { _active = value; OnPropertyChanged("Active"); }
         }
 
-
         WorkStatus _status;
         public WorkStatus Status
         {
