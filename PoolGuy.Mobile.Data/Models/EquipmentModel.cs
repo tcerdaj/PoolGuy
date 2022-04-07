@@ -59,7 +59,7 @@ namespace PoolGuy.Mobile.Data.Models
         public string Model { get { return _model; } set { _model = value; OnPropertyChanged("Model"); } }
 
         private string _serialNumber;
-        [Unique(Name = "UniqueSerialNumber", Order = 0, Unique = true)]
+        [Unique(Name = "UniqueModel", Order = 3, Unique = true)]
         public string SerialNumber { get { return _serialNumber; } set { _serialNumber = value; OnPropertyChanged("SerialNumber"); } }
         private DateTime? _dateInstalled;
         public DateTime? DateInstalled { get { return _dateInstalled; } set { _dateInstalled = value; OnPropertyChanged("DateInstalled"); } }
