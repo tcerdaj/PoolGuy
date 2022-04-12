@@ -68,6 +68,18 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.Equipments.LastOrDefault().Id = Guid.NewGuid();
                     model.Equipments.LastOrDefault().Created = created;
                     model.Equipments.LastOrDefault().PoolId = model.Id;
+
+                    // Add pool images
+                    if (model.Images != null && model.Images.Any())
+                    {
+                        await new ImageController().LocalData.InsertAll(model.Images.Select(x => new EntityImageModel
+                        {
+                            EntityId = model.Id,
+                            ImageUrl = x.ImageUrl,
+                            ImageType = Enums.ImageType.Pool
+
+                        }).ToList());
+                    }
                 }
                 else
                 {
@@ -79,6 +91,21 @@ namespace PoolGuy.Mobile.Data.Controllers
                         model = poolModel;
                     }
 
+                    // Delete current images
+                    await new ImageController().DeleteAllImagesAsync(model.Id, Enums.ImageType.Pool);
+
+                    // Add new images
+                    if (model.Images != null && model.Images.Any())
+                    {
+                        await new ImageController().LocalData.InsertAll(model.Images.Select(x => new EntityImageModel
+                        {
+                            EntityId = model.Id,
+                            ImageUrl = x.ImageUrl,
+                            ImageType = Enums.ImageType.Pool
+
+                        }).ToList());
+                    }
+                    
                     model.InjectFrom(tempModel);
                     model.Modified = DateTime.Now.ToUniversalTime();
                 }

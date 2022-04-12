@@ -1,14 +1,16 @@
-﻿using PoolGuy.Mobile.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Xml.Serialization;
 using Xamarin.Forms;
 using PoolGuy.Mobile.Services.Interface;
-using System.Diagnostics;
 using PoolGuy.Mobile.Data.Helpers;
-using System.IO;
 using PoolGuy.Mobile.ViewModels;
+using PoolGuy.Mobile.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
+using System.Diagnostics;
+using PoolGuy.Mobile.Extensions;
+using Newtonsoft.Json;
 
 namespace PoolGuy.Mobile.Controllers
 {
@@ -32,7 +34,11 @@ namespace PoolGuy.Mobile.Controllers
                     return false;
                 }
 
-                _navigationMetaStack.Push(mobileNavigationModel);
+                if (!_navigationMetaStack
+                    .Any(x => x.CurrentPage == mobileNavigationModel.CurrentPage ))
+                {
+                    _navigationMetaStack.Push(mobileNavigationModel);
+                }
 
                 success = true;
             }
@@ -68,9 +74,12 @@ namespace PoolGuy.Mobile.Controllers
 
             try
             {
-                Settings.NavigationMetadata = SerializeNavigationMetaStack(_navigationMetaStack.ToList());
-                cache.Set<int>(DidSleepKey, 6);
-                success = true;
+                if (_navigationMetaStack != null)
+                {
+                    Settings.NavigationMetadata = SerializeNavigationMetaStack(_navigationMetaStack.ToList());
+                    cache.Set<int>(DidSleepKey, 6);
+                    success = true;
+                }
             }
             catch (Exception ex)
             {
@@ -125,9 +134,18 @@ namespace PoolGuy.Mobile.Controllers
         {
             try
             {
+
+                //var json = JsonConvert.SerializeObject(navigationMetaStack, new JsonSerializerSettings
+                //{
+                //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                //    NullValueHandling = NullValueHandling.Ignore,
+                //    CheckAdditionalContent = false
+                //});,,
+
                 if (_serializer == null)
                 {
-                    _serializer = new XmlSerializer(typeof(List<MobileNavigationModel>), Types.ToArray());
+                     var types = typeof(BaseViewModel).GetAllSubTypes();
+                    _serializer = new XmlSerializer(typeof(List<MobileNavigationModel>), Types );
                 }
 
                 using (var writer = new StringWriter())
@@ -154,7 +172,7 @@ namespace PoolGuy.Mobile.Controllers
 
                 if (_serializer == null)
                 {
-                    _serializer = new XmlSerializer(typeof(List<MobileNavigationModel>), Types.ToArray());
+                    _serializer = new XmlSerializer(typeof(List<MobileNavigationModel>), new Type[] { typeof(BaseViewModel)});
                 }
 
                 using (var reader = new StringReader(serializedNavigationMetaStack))
@@ -183,11 +201,17 @@ namespace PoolGuy.Mobile.Controllers
             }
         }
 
-        public static List<Type> Types = new List<Type>
+        public static Type[] Types = new Type[]
         {
             typeof(BaseViewModel),
-            typeof(HomeViewModel),
-            typeof(CustomerViewModel)
+            //typeof(HomeViewModel),
+            //typeof(LoginViewModel),
+            typeof(SearchCustomerViewModel),
+            typeof(CustomerViewModel),
+            //typeof(EquipmentViewModel),
+            //typeof(SettingsViewModel),
+            //typeof(StopsViewModel),
+            //typeof(StopDetailsViewModel)
         };
     }
 }

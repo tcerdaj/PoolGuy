@@ -7,7 +7,6 @@ using Xamarin.Forms;
 using System;
 using System.Collections.Generic;
 using PoolGuy.Mobile.ViewModels;
-using GalaSoft.MvvmLight.Ioc;
 using Xamarin.Forms.GoogleMaps;
 
 namespace PoolGuy.Mobile.Views
@@ -48,7 +47,7 @@ namespace PoolGuy.Mobile.Views
             return new MobileNavigationModel
             {
                 CurrentPage = Locator.Map,
-                PageViewModel = _viewModel,
+               // PageViewModel = _viewModel,
                 IsModal = true
             };
         }

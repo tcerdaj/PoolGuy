@@ -106,17 +106,8 @@
     <Compile Update="Views\CustomerSchedulerPage.xaml.cs">
       <DependentUpon>CustomerSchedulerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\WorkOrderDetailsPage.xaml.cs">
-      <DependentUpon>WorkOrderDetailsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\WorkOrderListPage.xaml.cs">
-      <DependentUpon>WorkOrderListPage.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Views\SchedulerPage.xaml.cs">
       <DependentUpon>SchedulerPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\WCustomerPage.xaml.cs">
-      <DependentUpon>WCustomerPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\WPoolPage.xaml.cs">
       <DependentUpon>WPoolPage.xaml</DependentUpon>
@@ -130,19 +121,10 @@
     <Compile Update="Views\SearchCustomerPage.xaml.cs">
       <DependentUpon>SearchCustomerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\WAddressPage.xaml.cs">
-      <DependentUpon>WAddressPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\WContactPage.xaml.cs">
-      <DependentUpon>WContactPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Views\EquipmentPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\WCustomerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\WPoolPage.xaml">
@@ -161,12 +143,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\SearchEquipmentPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\WAddressPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\WContactPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

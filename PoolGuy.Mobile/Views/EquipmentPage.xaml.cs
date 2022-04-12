@@ -17,7 +17,6 @@ namespace PoolGuy.Mobile.Views
         {
             InitializeComponent();
             _viewModel = new EquipmentViewModel(equipment) { Title = equipment.Id == Guid.Empty && Globals.CurrentPage == Enums.ePage.Equipment? "Select Equipment": "Update Equipment" };
-            _viewModel.SetView(this);
             BindingContext = _viewModel;
         }
 
@@ -36,7 +35,7 @@ namespace PoolGuy.Mobile.Views
             return new MobileNavigationModel
             {
                 CurrentPage = Locator.Equipment,
-                PageViewModel = _viewModel,
+               // PageViewModel = _viewModel,
                 IsModal = true
             };
         }

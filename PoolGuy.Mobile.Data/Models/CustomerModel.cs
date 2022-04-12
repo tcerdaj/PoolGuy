@@ -20,6 +20,14 @@ namespace PoolGuy.Mobile.Data.Models
         [ManyToMany(typeof(CustomerSchedulerModel), "SchedulerId", "Customers", CascadeOperations = CascadeOperation.All)]
         public List<SchedulerModel> Scheduler { get; set; }
 
+        private List<StopModel> _stops;
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public List<StopModel> Stops 
+        {
+            get { return _stops; }
+            set { _stops = value; OnPropertyChanged(nameof(Stops)); } 
+        }
+
         [ForeignKey(typeof(AddressModel))]
         public Guid HomeAddressId { get; set; }
 

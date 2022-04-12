@@ -15,14 +15,14 @@ namespace PoolGuy.Mobile.Views
         {
             InitializeComponent();
             _viewModel = ServiceLocator.Current.GetInstance<CustomerViewModel>();
-            _viewModel.SetView(this);
+            //_viewModel.SetView(this);
         }
 
         public WPoolPage(CustomerViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
-            _viewModel.SetView(this);
+           // _viewModel.SetView(this);
         }
 
         private void PoolType_OnTapped(object sender, MR.Gestures.TapEventArgs e)

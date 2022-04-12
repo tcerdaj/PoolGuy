@@ -16,7 +16,6 @@ namespace PoolGuy.Mobile.CustomControls
             get => _page;
         }
         
-
         public CustomPage()
         {
 

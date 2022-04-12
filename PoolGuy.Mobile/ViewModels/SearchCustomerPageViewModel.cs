@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml.Serialization;
 using Xamarin.Forms;
 using static PoolGuy.Mobile.Data.Models.Enums;
 
@@ -18,10 +19,10 @@ namespace PoolGuy.Mobile.ViewModels
 {
     public class SearchCustomerPageViewModel : BaseViewModel
     {
-        IUserDialogs userDialogs;
+        IUserDialogs _userDialogs;
         public SearchCustomerPageViewModel()
         {
-            userDialogs = DependencyService.Get<IUserDialogs>();
+            _userDialogs = DependencyService.Get<IUserDialogs>();
         }
 
         public bool ShowAddEquipment
@@ -30,6 +31,7 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private CustomerModel _customer = new CustomerModel() { };
+        [XmlIgnore]
         public CustomerModel Customer
         {
             get { return _customer; }
@@ -37,6 +39,7 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private AddressModel _address = new AddressModel();
+        [XmlIgnore]
         public AddressModel Address
         {
             get { return _address; }
@@ -44,6 +47,7 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private ObservableCollection<SchedulerModel> _schedulers = new ObservableCollection<SchedulerModel>();
+        [XmlIgnore]
         public ObservableCollection<SchedulerModel> Schedulers
         {
             get { return _schedulers; }
@@ -51,6 +55,7 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private ContactModel _contact = new ContactModel();
+        [XmlIgnore]
         public ContactModel Contact
         {
             get { return _contact; }
@@ -58,6 +63,7 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private PoolModel _pool = new PoolModel();
+        [XmlIgnore]
         public PoolModel Pool
         {
             get { return _pool; }
@@ -69,6 +75,7 @@ namespace PoolGuy.Mobile.ViewModels
             get { return Enum.GetNames(typeof(PoolType)); }
         }
 
+        [XmlIgnore]
         public Page Page { get; set; }
 
         public void NotifyPropertyChanged(string propertyName)
@@ -120,7 +127,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
+                await _userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
             }
             finally
             {
@@ -142,7 +149,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                await userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
+                await _userDialogs.DisplayAlertAsync(Title, e.Message, "Ok");
             }
         }
 

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Schema;
-using Omu.ValueInjecter;
+﻿using Omu.ValueInjecter;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Data.Models.Query;
 using PoolGuy.Mobile.Data.SQLite;
@@ -7,7 +6,6 @@ using SQLiteNetExtensionsAsync.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace PoolGuy.Mobile.Data.Controllers
@@ -18,6 +16,28 @@ namespace PoolGuy.Mobile.Data.Controllers
             :base()
         {
             
+        }
+
+        public async Task<List<CustomerModel>> GetCustomersBySchedulerAsync(Guid schedulerId)
+        {
+            try
+            {
+                var customers = await SQLiteControllerBase
+                    .DatabaseAsync
+                    .QueryAsync<CustomerModel>("SELECT " +
+                                                "c.* " +
+                                                "FROM CustomerModel c JOIN CustomerSchedulerModel csch " +
+                                                  "on c.Id = csch.CustomerId " +
+                                                  "WHERE csch.SchedulerId = '" + schedulerId + "' " +
+                                                  "ORDER BY c.Index").ConfigureAwait(false);
+
+                return customers;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
         }
 
         public async Task<List<CustomerModel>> SearchCustomer(string criteria)
@@ -170,9 +190,36 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model.Created = created;
                     model.Pool.Created = created;
                     model.Contact.Created = created;
+
+                    // Add pool images
+                    if (model?.Pool?.Images != null && model.Pool.Images.Any())
+                    {
+                        await new ImageController().LocalData.InsertAll(model.Pool.Images.Select(x => new EntityImageModel
+                        {
+                            EntityId = model.Pool.Id,
+                            ImageUrl = x.ImageUrl,
+                            ImageType = Enums.ImageType.Pool
+
+                        }).ToList());
+                    }
                 }
                 else 
                 {
+                    // Delete current images
+                    await new ImageController().DeleteAllImagesAsync(model.Pool.Id, Enums.ImageType.Pool);
+
+                    // Add new images
+                    if (model?.Pool?.Images != null && model.Pool.Images.Any())
+                    {
+                        await new ImageController().LocalData.InsertAll(model.Pool.Images.Select(x => new EntityImageModel
+                        {
+                            EntityId = model.Pool.Id,
+                            ImageUrl = x.ImageUrl,
+                            ImageType = Enums.ImageType.Pool
+
+                        }).ToList());
+                    }
+
                     model.Modified = DateTime.Now.ToUniversalTime(); ;
                 }
 

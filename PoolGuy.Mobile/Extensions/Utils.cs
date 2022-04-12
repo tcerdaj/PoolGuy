@@ -14,11 +14,29 @@ using PoolGuy.Mobile.Data.Models;
 using Xamarin.Forms;
 using static PoolGuy.Mobile.Data.Models.Enums;
 using PoolGuy.Mobile.Data.Controllers;
+using System.Reflection;
+using System.Xml.Serialization;
 
 namespace PoolGuy.Mobile.Extensions
 {
     public static class Utils
     {
+        public static Type[] GetAllSubTypes(this Type baseViewModel)
+        {
+            List<Type> result = new List<Type>();
+            Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+            foreach (Assembly a in assemblies)
+            {
+                Type[] types = a.GetTypes();
+                foreach (Type t in types)
+                {
+                    if (t.IsSubclassOf(baseViewModel) && !t.Name.Contains("Popup"))
+                        result.Add(t);
+                }
+            }
+            return result.ToArray();
+        }
+
         public static byte[] ToByteArray(this Stream input)
         {
             byte[] buffer = new byte[16 * 1024];
@@ -675,6 +693,156 @@ namespace PoolGuy.Mobile.Extensions
 
 
             return results;
+        }
+    }
+    public static class XmlSerializerWithKnownTypeCreator<T>
+    {
+        static Dictionary<HashSet<Type>, XmlSerializer> table = new Dictionary<HashSet<Type>, XmlSerializer>(HashSet<Type>.CreateSetComparer());
+
+        public static XmlSerializer CreateKnownTypeSerializer<TRoot>()
+        {
+            return CreateKnownTypeSerializer(new Type[] { typeof(TRoot) });
+        }
+
+        public static XmlSerializer CreateKnownTypeSerializer(IEnumerable<Type> baseTypes)
+        {
+            var set = new HashSet<Type>(
+                AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .Where(t => baseTypes.Any(baseType => baseType.IsAssignableFrom(t))));
+            lock (table)
+            {
+                XmlSerializer serializer;
+                if (table.TryGetValue(set, out serializer))
+                    return serializer;
+
+                table[set] = serializer = new XmlSerializer(typeof(T), set.ToArray());
+                return serializer;
+            }
+        }
+    }
+
+    public static class XmlSerializerWithKnownTypeCreator
+    {
+        public static XmlSerializer CreateKnownTypeSerializer(Type type, IEnumerable<Type> extraTypes)
+        {
+            var allExtraTypes =
+                AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .Where(t => extraTypes.Any(extraType => extraType.IsAssignableFrom(t)));
+            var key = new XmlSerializerKeyWithKnownTypes(type, allExtraTypes);
+            return XmlSerializerHashTable.DemandSerializer(key, k => ((XmlSerializerKeyWithKnownTypes)k).CreateSerializer());
+        }
+
+        public sealed class XmlSerializerKeyWithKnownTypes : XmlserializerKeyWithExtraTypes
+        {
+            public XmlSerializerKeyWithKnownTypes(Type serializerType, IEnumerable<Type> otherTypes)
+                : base(serializerType, otherTypes)
+            {
+            }
+
+            public XmlSerializer CreateSerializer()
+            {
+                return new XmlSerializer(SerializerType, MoreTypes);
+            }
+        }
+
+        public abstract class XmlserializerKeyWithExtraTypes : XmlserializerKey
+        {
+            static IEqualityComparer<HashSet<Type>> comparer;
+
+            readonly HashSet<Type> moreTypes = new HashSet<Type>();
+
+            static XmlserializerKeyWithExtraTypes()
+            {
+                comparer = HashSet<Type>.CreateSetComparer();
+            }
+
+            public XmlserializerKeyWithExtraTypes(Type serializerType, IEnumerable<Type> extraTypes)
+                : base(serializerType)
+            {
+                if (extraTypes != null)
+                    foreach (var type in extraTypes)
+                        moreTypes.Add(type);
+            }
+
+            protected Type[] MoreTypes { get { return moreTypes.ToArray(); } }
+
+            public override bool Equals(object obj)
+            {
+                if (!base.Equals(obj))
+                    return false;
+                XmlserializerKeyWithExtraTypes other = (XmlserializerKeyWithExtraTypes)obj;
+                return comparer.Equals(moreTypes, other.moreTypes);
+            }
+
+            public override int GetHashCode()
+            {
+                int code = base.GetHashCode();
+                if (moreTypes != null)
+                    code ^= comparer.GetHashCode(moreTypes);
+                return code;
+            }
+        }
+
+        public abstract class XmlserializerKey
+        {
+            readonly Type serializerType;
+
+            public XmlserializerKey(Type serializerType)
+            {
+                this.serializerType = serializerType;
+            }
+
+            protected Type SerializerType { get { return serializerType; } }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(this, obj))
+                    return true;
+                else if (ReferenceEquals(null, obj))
+                    return false;
+                if (GetType() != obj.GetType())
+                    return false;
+                XmlserializerKey other = (XmlserializerKey)obj;
+                if (other.serializerType != serializerType)
+                    return false;
+                return true;
+            }
+
+            public override int GetHashCode()
+            {
+                int code = 0;
+                if (serializerType != null)
+                    code ^= serializerType.GetHashCode();
+                return code;
+            }
+
+            public override string ToString()
+            {
+                return string.Format("Serializer type: " + serializerType.ToString());
+            }
+        }
+
+        public static class XmlSerializerHashTable
+        {
+            static Dictionary<object, XmlSerializer> dict;
+
+            static XmlSerializerHashTable()
+            {
+                dict = new Dictionary<object, XmlSerializer>();
+            }
+
+            public static XmlSerializer DemandSerializer(object key, Func<object, XmlSerializer> factory)
+            {
+                lock (dict)
+                {
+                    XmlSerializer value;
+                    if (!dict.TryGetValue(key, out value))
+                        dict[key] = value = factory(key);
+                    return value;
+                }
+            }
         }
     }
 }

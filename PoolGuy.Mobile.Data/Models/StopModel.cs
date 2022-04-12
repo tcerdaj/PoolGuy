@@ -14,7 +14,7 @@ namespace PoolGuy.Mobile.Data.Models
         public Guid CustimerId { get; set; }
 
         private CustomerModel _customer;
-        [OneToOne("CustimerId", CascadeOperations = CascadeOperation.CascadeRead)]
+        [ManyToOne("CustimerId", CascadeOperations = CascadeOperation.CascadeRead)]
         public CustomerModel Customer
         {
             get { return _customer; }
@@ -75,5 +75,14 @@ namespace PoolGuy.Mobile.Data.Models
                 return 0;
             }
         }
+
+        private DateTime dateTime;
+
+        public DateTime SelectedDate
+        {   
+            get { return dateTime; }
+            set { dateTime = value; OnPropertyChanged(nameof(SelectedDate)); }
+        }
+
     }
 }

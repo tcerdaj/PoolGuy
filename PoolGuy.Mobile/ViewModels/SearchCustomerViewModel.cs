@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using PoolGuy.Mobile.Data.Controllers;
 using PoolGuy.Mobile.Data.Models;
-using PoolGuy.Mobile.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

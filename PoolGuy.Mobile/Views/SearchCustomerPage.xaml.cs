@@ -40,7 +40,7 @@ namespace PoolGuy.Mobile.Views
         {
             return new MobileNavigationModel
             {
-                CurrentPage = Locator.Customer,
+                CurrentPage = Locator.SearchCustomer,
                 PageViewModel = _viewModel,
                 IsModal = true
             };

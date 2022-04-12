@@ -13,7 +13,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 using PoolGuy.Mobile.Views;
 using System.Reflection;
-using Xamarin.Essentials;
 using Xamarin.Forms.Internals;
 using Omu.ValueInjecter;
 using Newtonsoft.Json;
@@ -22,6 +21,7 @@ using PoolGuy.Mobile.Services.Interface;
 using System.Collections.ObjectModel;
 using PoolGuy.Mobile.Data.Models.Query;
 using static PoolGuy.Mobile.Data.Models.Enums;
+using System.Xml.Serialization;
 
 namespace PoolGuy.Mobile.ViewModels
 {
@@ -75,7 +75,6 @@ namespace PoolGuy.Mobile.ViewModels
         IUserDialogs userDialogs;
 
         public string OriginalCustomer { get; set; }
-
         private CustomerModel _customer = new CustomerModel() { 
             Contact = new ContactModel(),
             Address = new AddressModel(),
@@ -83,7 +82,7 @@ namespace PoolGuy.Mobile.ViewModels
             Pool = new PoolModel() { Type = PoolType.None },
             SameHomeAddress = false
         };
-        
+
         public CustomerModel Customer
         {
             get { return _customer; }
@@ -91,29 +90,31 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private string errorMessage = string.Empty;
-
         public string ErrorMessage
         {
             get { return errorMessage; }
             set { errorMessage = value; OnPropertyChanged("ErrorMessage"); OnPropertyChanged("ErrorTextColor"); }
         }
 
+        [XmlIgnore]
         public string ErrorTextColor
         {
             get { return ErrorMessage.Contains("Unable") || ErrorMessage.Contains("Error") ? "Red" : "#009d00"; }
         }
 
         private bool _isEditing;
-
         public bool IsEditing
         {
             get { return _isEditing; }
             set { _isEditing = value; OnPropertyChanged("IsEditing"); }
         }
 
+        [XmlIgnore]
         public List<PoolType> PoolTypes => new List<PoolType> { Enums.PoolType.None, Enums.PoolType.SweetPool, Enums.PoolType.SaltPool };
 
+        [XmlIgnore]
         public CustomerPage Page { get; set; }
+
 
         ObservableCollection<SchedulerModel> _scheduler = new ObservableCollection<SchedulerModel>();
         public ObservableCollection<SchedulerModel> Scheduler 
@@ -123,13 +124,11 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private bool _useDeviceLocation;
-
         public bool UseDeviceLocation
         {
             get { return _useDeviceLocation; }
             set { _useDeviceLocation = value;OnPropertyChanged(nameof(UseDeviceLocation)); }
         }
-
         #endregion
 
         #region Commands
@@ -330,8 +329,6 @@ namespace PoolGuy.Mobile.ViewModels
                     ImageUrl = photo.Path
                 };
 
-                await new ImageController().LocalData.Modify(image);
-
                 Customer.Pool.Images.Add(image);
                 OnPropertyChanged("Customer");
                 IsEditing = true;
@@ -524,10 +521,16 @@ namespace PoolGuy.Mobile.ViewModels
             get {
                 return new RelayCommand(async () =>
                 {
+                    if (IsBusy)
+                    {
+                        return;
+                    }
+
                     UseDeviceLocation = !UseDeviceLocation;
 
                     if (UseDeviceLocation)
                     {
+                        IsBusy = true;
                         try
                         {
                             var addressList = await Utils.GetDeviceAddressAsync();
@@ -550,6 +553,7 @@ namespace PoolGuy.Mobile.ViewModels
                         {
                             Message.Toast($"Unable to get device address: {ex.Message}");
                         }
+                        finally { IsBusy = false; }
                     }
                     else
                     {

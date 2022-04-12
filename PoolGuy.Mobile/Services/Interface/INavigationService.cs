@@ -30,6 +30,7 @@ namespace PoolGuy.Mobile.Services.Interface
         Task PushPopupAsync(string popUpPageKey, object parameter, bool animate = false, CancellationToken cancelToken = default(CancellationToken));
 
         Task PopPopupAsync(bool animate = false);
+
         CustomPage CurrentPage { get; }
     }
 }

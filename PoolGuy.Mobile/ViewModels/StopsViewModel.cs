@@ -46,6 +46,7 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private SchedulerModel _sch;
+        private List<SchedulerModel> _schs;
 
         public async Task RefreshStopsAsync(eDirection direction = eDirection.None)
         {
@@ -56,29 +57,30 @@ namespace PoolGuy.Mobile.ViewModels
                     return;
                 }
 
-                var schs = await new SchedulerController().ListWithChildrenAsync();
-                var sch = schs.Where(x => x.LongName == DayOfWeek);
-
+                if (_schs == null)
+                {
+                    _schs = await new SchedulerController().LocalData.List();
+                    if(_schs == null)
+                    {
+                        return;
+                    }
+                }
+                
+                var sch = _schs.Where(x => x.LongName == DayOfWeek);
                 if (sch != null && sch.Any())
                 {
                     _sch = sch.FirstOrDefault();
-                    Stops = sch.FirstOrDefault()
-                        .Customers
-                        .OrderBy(x => x.Index)
-                        .ToList();
+                    Stops = await new CustomerController().GetCustomersBySchedulerAsync(_sch.Id);
                 }
                 else if(_sch != null)
                 {
                     int goTo = direction == eDirection.Next? 1: direction == eDirection.Previus? -1: 0;
-                    var ind = schs.IndexOf(_sch) + goTo;
+                    var ind = _schs.IndexOf(_sch) + goTo;
+                    
                     if (ind > 0)
                     {
-                        _sch = schs[schs.IndexOf(_sch) + goTo];
-
-                        Stops = _sch
-                            .Customers
-                            .OrderBy(x => x.Index)
-                            .ToList();
+                        _sch = _schs[_schs.IndexOf(_sch) + goTo];
+                        Stops = await new CustomerController().GetCustomersBySchedulerAsync(_sch.Id);
                     }
                     else
                     {

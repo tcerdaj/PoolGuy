@@ -12,6 +12,7 @@ using Xamarin.Forms;
 using Newtonsoft.Json;
 using PoolGuy.Mobile.Extensions;
 using PoolGuy.Mobile.Helpers;
+using System.Xml.Serialization;
 
 namespace PoolGuy.Mobile.ViewModels
 {

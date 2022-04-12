@@ -65,7 +65,6 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private CustomerModel _customer;
-        [XmlIgnore]
         public CustomerModel Customer
         {
             get { return _customer; }
@@ -73,7 +72,6 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private List<StopModel> _stopHistory;
-        [XmlIgnore]
         public List<StopModel> StopHistory
         {
             get { return _stopHistory; }
@@ -81,7 +79,6 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private StopModel _stop;
-        [XmlIgnore]
         public StopModel Stop
         {
             get { return _stop; }
@@ -97,7 +94,22 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                if (Customer.StopId == Guid.Empty )
+                var stops = await new StopController().LocalData.List(new SQLControllerListCriteriaModel
+                {
+                    Filter = new List<SQLControllerListFilterField>
+                    {
+                        new SQLControllerListFilterField() {
+                            FieldName = "CustomerId",
+                            ValueLBound = Customer.Id.ToString()
+                        },
+                        new SQLControllerListFilterField() {
+                            FieldName = "SelectedDate",
+                            ValueLBound = SelectedDate.Date.ToString()
+                        }
+                    }
+                });
+                
+                if (!stops.Any())
                 {
                     var items = await new StopItemController().LocalData.List(new SQLControllerListCriteriaModel
                     {
@@ -132,6 +144,7 @@ namespace PoolGuy.Mobile.ViewModels
                         Created = DateTime.Now,
                         Items = new ObservableCollection<StopItemModel>(items),
                         Status = Enums.WorkStatus.Working,
+                        SelectedDate = SelectedDate.Date,
                         User = new UserModel
                         {
                             Id = Guid.Parse("a3dab4d2-81d6-40a9-a63e-a013f825ba71"),
@@ -151,7 +164,8 @@ namespace PoolGuy.Mobile.ViewModels
                 }
                 else
                 {
-                    Stop = await new StopController().LoadAsync(Customer.StopId);
+                    // TODO: apply logic to create or select the last stop
+                    Stop = stops.LastOrDefault();
                 }
 
                 int weeks = 4;

@@ -233,7 +233,7 @@ namespace PoolGuy.Mobile.ViewModels
                             return;
                         }
 
-                        CurrentPage.Page.ToolbarItems.Clear();
+                        CurrentPage.ToolbarItems.Clear();
                         flexlayout.Direction = FlexDirection.Row;
                         flexlayout.Wrap = FlexWrap.Wrap;
                         Globals.CurrentPage = Enums.ePage.SelectManufacture;
@@ -276,7 +276,7 @@ namespace PoolGuy.Mobile.ViewModels
                 }
 
                 SelectedEquipmentType = model;
-                CurrentPage.Page.Title = model.Name;
+                CurrentPage.Title = model.Name;
                 var flexlayout = CurrentPage.Page.FindByName<FlexLayout>("EquipmentType");
                 if (flexlayout == null)
                 {
@@ -334,7 +334,7 @@ namespace PoolGuy.Mobile.ViewModels
 
         private void OpenDate(string controlName)
         {
-            ToggleFocus(controlName, ControlTypeEnum.DatePicker, true);
+            //ToggleFocus(controlName, ControlTypeEnum.DatePicker, true);
         }
 
         public ICommand SaveEquipmentCommand
@@ -426,7 +426,7 @@ namespace PoolGuy.Mobile.ViewModels
         {
             try
             {
-                var flexlayout = CurrentPage.Page.FindByName<FlexLayout>("EquipmentType");
+                var flexlayout = CurrentPage?.Page.FindByName<FlexLayout>("EquipmentType");
                 if (flexlayout == null)
                 {
                     return;

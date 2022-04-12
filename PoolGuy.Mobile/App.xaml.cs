@@ -130,8 +130,6 @@ namespace PoolGuy.Mobile
                 await new WeatherController().LocalData.CreateTableAsync();
                 await new UserController().LocalData.CreateTableAsync();
                 await new RoleController().LocalData.CreateTableAsync();
-                await new WorkOrderController().LocalData.CreateTableAsync();
-                await new WorkOrderItemController().LocalData.CreateTableAsync();
                 await new ItemController().LocalData.CreateTableAsync();
                 await new ReportController().LocalData.CreateTableAsync();
                 await new EquipmentIssueController().LocalData.CreateTableAsync();
@@ -175,8 +173,6 @@ namespace PoolGuy.Mobile
                 await new WeatherController().LocalData.ClearTableAsync();
                 await new UserController().LocalData.ClearTableAsync();
                 await new RoleController().LocalData.ClearTableAsync();
-                await new WorkOrderController().LocalData.ClearTableAsync();
-                await new WorkOrderItemController().LocalData.ClearTableAsync();
                 await new StopController().LocalData.ClearTableAsync();
                 await new ItemController().LocalData.ClearTableAsync();
                 await new ReportController().LocalData.ClearTableAsync();

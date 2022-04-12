@@ -1,5 +1,4 @@
 ﻿using PoolGuy.Mobile.Data.Helpers;
-using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Helpers;
 using PoolGuy.Mobile.Models;
 using PoolGuy.Mobile.Services.Interface;
@@ -39,7 +38,7 @@ namespace PoolGuy.Mobile.Views
             return new MobileNavigationModel
             {
                 CurrentPage = Locator.StopDetails,
-                PageViewModel = _viewModel,
+               // PageViewModel = _viewModel,
                 IsModal = true
             };
         }

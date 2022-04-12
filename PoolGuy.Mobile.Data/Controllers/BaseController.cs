@@ -9,7 +9,7 @@ namespace PoolGuy.Mobile.Data.Controllers
 
         public ILocalDataStore<T> LocalData
         {
-            get { return _localDataStore; }
+            get { return _localDataStore;}
         }
     }
 }

@@ -12,15 +12,11 @@ namespace PoolGuy.Mobile
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
             Routing.RegisterRoute(nameof(HomePage), typeof(HomePage));
             Routing.RegisterRoute(nameof(CustomerPage), typeof(CustomerPage));
             Routing.RegisterRoute(nameof(ActionSheetPopupPage), typeof(ActionSheetPopupPage));
             Routing.RegisterRoute(nameof(EquipmentPage), typeof(EquipmentPage));
             Routing.RegisterRoute(nameof(SchedulerPage), typeof(SchedulerPage));
-            Routing.RegisterRoute(nameof(WorkOrderDetailsPage), typeof(WorkOrderDetailsPage));
-            Routing.RegisterRoute(nameof(WorkOrderListPage), typeof(WorkOrderListPage));
             Routing.RegisterRoute(nameof(CustomerSchedulerPage), typeof(CustomerSchedulerPage));
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
         }

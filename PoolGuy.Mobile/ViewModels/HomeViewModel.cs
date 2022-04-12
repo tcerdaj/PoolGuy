@@ -42,7 +42,6 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private Chart _temperature;
-        [XmlIgnore]
         public Chart Temperature
         {
             get { return _temperature; }
@@ -63,7 +62,6 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private Chart _rain;
-        [XmlIgnore]
         public Chart Rain
         {
             get { return _rain; }
@@ -199,7 +197,6 @@ namespace PoolGuy.Mobile.ViewModels
         }
 
         private WeatherModel _weatherRoot;
-        [XmlIgnore]
         public WeatherModel Weather
         {
             get { return _weatherRoot; }
