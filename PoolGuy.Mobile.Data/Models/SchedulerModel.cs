@@ -21,7 +21,7 @@ namespace PoolGuy.Mobile.Data.Models
         [OneToOne]
         public UserModel User { get; set; }
 
-        [ManyToMany(typeof(CustomerSchedulerModel), "CustomerId", "Scheduler")]
+        [ManyToMany(typeof(CustomerSchedulerModel))]
         public List<CustomerModel> Customers { get; set; }
 
         private int _index;

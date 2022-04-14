@@ -17,7 +17,7 @@ namespace PoolGuy.Mobile.Data.Models
 
         }
 
-        [ManyToMany(typeof(CustomerSchedulerModel), "SchedulerId", "Customers", CascadeOperations = CascadeOperation.All)]
+        [ManyToMany(typeof(CustomerSchedulerModel), CascadeOperations = CascadeOperation.All)]
         public List<SchedulerModel> Scheduler { get; set; }
 
         private List<StopModel> _stops;

@@ -197,11 +197,11 @@ namespace PoolGuy.Mobile.ViewModels
                             Customers.Add(c);
                     });
 
-                    foreach (var cust in sch.Customers)
-                    {
-                        await new CustomerController()
-                              .LocalData.Modify(cust);
-                    }
+                    //foreach (var cust in sch.Customers)
+                    //{
+                    //    await new CustomerController()
+                    //          .LocalData.Modify(cust);
+                    //}
 
                     Customers = new ObservableCollection<CustomerModel>(Customers.OrderBy(x => x.Index));
                 }

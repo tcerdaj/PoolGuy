@@ -413,6 +413,7 @@ namespace PoolGuy.Mobile.Extensions
                 .Select(x => x.Item1)
                 .Cast<CustomerModel>()
                 .ToList<CustomerModel>();
+
             return selectedCustomers;
         }
 

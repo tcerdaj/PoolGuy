@@ -5,6 +5,7 @@ using PoolGuy.Mobile.Services.Interface;
 using PoolGuy.Mobile.ViewModels;
 using System;
 using System.Diagnostics;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static PoolGuy.Mobile.Data.Models.Enums;
@@ -134,6 +135,29 @@ namespace PoolGuy.Mobile.Views
 
                     _viewModel.IsEditing = true;
                 }
+            }
+        }
+
+        private void Pool_Expander_OnSizeChanged(object sender, EventArgs e)
+        {
+            if (sender is FlexLayout flexLayout)
+            {
+                
+                Expander expander = null;
+                var parent = flexLayout.Parent;
+
+                while (expander == null)
+                {
+                    if (parent is Expander exp)
+                    { 
+                      expander = exp;
+                      break;
+                    }
+
+                    parent = parent.Parent;
+                }
+
+                expander.ForceUpdateSize();
             }
         }
 

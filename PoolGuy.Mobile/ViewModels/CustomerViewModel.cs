@@ -109,6 +109,14 @@ namespace PoolGuy.Mobile.ViewModels
             set { _isEditing = value; OnPropertyChanged("IsEditing"); }
         }
 
+
+        private bool _poolExpanded;
+        public bool PoolExpanded
+        {
+            get { return _poolExpanded; }
+            set { _poolExpanded = value; OnPropertyChanged("PoolExpanded"); }
+        }
+
         [XmlIgnore]
         public List<PoolType> PoolTypes => new List<PoolType> { Enums.PoolType.None, Enums.PoolType.SweetPool, Enums.PoolType.SaltPool };
 
@@ -153,6 +161,14 @@ namespace PoolGuy.Mobile.ViewModels
             get
             {
                 return new RelayCommand(async () => await SaveCustomerAsync());
+            }
+        }
+
+        public ICommand TogglePoolExpandedCommand
+        {
+            get
+            {
+                return new RelayCommand( () => PoolExpanded = !PoolExpanded);
             }
         }
 

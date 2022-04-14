@@ -28,10 +28,15 @@ namespace PoolGuy.Mobile.Data.Controllers
                                                 "c.* " +
                                                 "FROM CustomerModel c JOIN CustomerSchedulerModel csch " +
                                                   "on c.Id = csch.CustomerId " +
-                                                  "WHERE csch.SchedulerId = '" + schedulerId + "' " +
-                                                  "ORDER BY c.Index").ConfigureAwait(false);
+                                                  "WHERE csch.SchedulerId = '" + schedulerId + "' ").ConfigureAwait(false);
 
-                return customers;
+                var csm = await SQLiteControllerBase
+                   .DatabaseAsync
+                   .QueryAsync<CustomerSchedulerModel>("SELECT * " +
+                                                       "FROM CustomerSchedulerModel ").ConfigureAwait(false); 
+                                                         //"WHERE SchedulerId = '" + schedulerId + "' ").ConfigureAwait(false);
+
+                return customers?.OrderBy(x=>x.Index)?.ToList();
             }
             catch (Exception ex)
             {
@@ -202,6 +207,11 @@ namespace PoolGuy.Mobile.Data.Controllers
 
                         }).ToList());
                     }
+
+                    foreach (var scheduler in model.Scheduler)
+                    {
+                        scheduler.Customers.Add(model);
+                    }
                 }
                 else 
                 {
@@ -220,7 +230,12 @@ namespace PoolGuy.Mobile.Data.Controllers
                         }).ToList());
                     }
 
-                    model.Modified = DateTime.Now.ToUniversalTime(); ;
+                    foreach (var scheduler in model.Scheduler)
+                    {
+                        scheduler.Customers.Add(model);
+                    }
+
+                    model.Modified = DateTime.Now.ToUniversalTime();
                 }
 
                 SQLiteNetExtensions
