@@ -63,9 +63,7 @@
                 <Setter Property="PlaceholderColor"
                         Value="Red" />
             </Style>
-            <conv:StringEmptinessToBoolConverter x:Key="StringToBoolConverter" />
             <conv:InverseBooleanConverter x:Key="InverseBoolConverter" />
-            <conv:ImageUrlConverter x:Key="ImageUrlConverter" />
             <conv:CollectionEmptyToBool x:Key="ListToBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
