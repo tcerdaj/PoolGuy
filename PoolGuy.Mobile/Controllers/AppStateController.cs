@@ -135,16 +135,8 @@ namespace PoolGuy.Mobile.Controllers
             try
             {
 
-                //var json = JsonConvert.SerializeObject(navigationMetaStack, new JsonSerializerSettings
-                //{
-                //    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                //    NullValueHandling = NullValueHandling.Ignore,
-                //    CheckAdditionalContent = false
-                //});,,
-
                 if (_serializer == null)
                 {
-                     var types = typeof(BaseViewModel).GetAllSubTypes();
                     _serializer = new XmlSerializer(typeof(List<MobileNavigationModel>), Types );
                 }
 
@@ -172,7 +164,7 @@ namespace PoolGuy.Mobile.Controllers
 
                 if (_serializer == null)
                 {
-                    _serializer = new XmlSerializer(typeof(List<MobileNavigationModel>), new Type[] { typeof(BaseViewModel)});
+                    _serializer = new XmlSerializer(typeof(List<MobileNavigationModel>), Types);
                 }
 
                 using (var reader = new StringReader(serializedNavigationMetaStack))

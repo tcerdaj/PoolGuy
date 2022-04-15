@@ -463,10 +463,19 @@ namespace PoolGuy.Mobile.ViewModels
                        Filter = criteria
                    });
 
+                
+
                 if (equipments.Any() || searchingModel)
                 {
                     Globals.CurrentPage = Enums.ePage.EquipmentSelectModel;
                     Title = "Select Model";
+                    
+                    // Select Distints
+                    equipments = equipments
+                    .GroupBy(g => new { g.EquipmentTypeId, g.ManufactureId, g.Model })
+                    .Select(s => s.First())
+                    .ToList();
+
                     if (!CurrentPage.Page.ToolbarItems.Any())
                     {
                         CurrentPage.Page.ToolbarItems.Add(new ToolbarItem { Text = "Add", Command = AddEquipmentModelCommand });

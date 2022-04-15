@@ -1,4 +1,5 @@
-﻿using Omu.ValueInjecter;
+﻿using Newtonsoft.Json;
+using Omu.ValueInjecter;
 using PoolGuy.Mobile.Data.Models;
 using PoolGuy.Mobile.Data.Models.Query;
 using PoolGuy.Mobile.Data.SQLite;
@@ -164,6 +165,8 @@ namespace PoolGuy.Mobile.Data.Controllers
 
         public async Task ModifyWithChildrenAsync(CustomerModel model)
         {
+            var originalModel = JsonConvert.SerializeObject(model, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+
             try
             {
                 if (model == null)
@@ -208,9 +211,12 @@ namespace PoolGuy.Mobile.Data.Controllers
                         }).ToList());
                     }
 
-                    foreach (var scheduler in model.Scheduler)
+                    if (model?.Scheduler != null)
                     {
-                        scheduler.Customers.Add(model);
+                        foreach (var scheduler in model.Scheduler)
+                        {
+                            scheduler.Customers.Add(model);
+                        }
                     }
                 }
                 else 
@@ -230,9 +236,12 @@ namespace PoolGuy.Mobile.Data.Controllers
                         }).ToList());
                     }
 
-                    foreach (var scheduler in model.Scheduler)
+                    if (model?.Scheduler != null)
                     {
-                        scheduler.Customers.Add(model);
+                        foreach (var scheduler in model.Scheduler)
+                        {
+                            scheduler.Customers.Add(model);
+                        }
                     }
 
                     model.Modified = DateTime.Now.ToUniversalTime();
@@ -243,8 +252,17 @@ namespace PoolGuy.Mobile.Data.Controllers
                     .WriteOperations
                     .InsertOrReplaceWithChildren(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                try
+                {
+                    model = JsonConvert.DeserializeObject<CustomerModel>(originalModel);
+                }
+                catch (Exception eex)
+                {
+                    Console.WriteLine(eex);
+                }
+                
                 throw;
             }
         }

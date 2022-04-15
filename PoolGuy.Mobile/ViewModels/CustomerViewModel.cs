@@ -83,6 +83,7 @@ namespace PoolGuy.Mobile.ViewModels
             SameHomeAddress = false
         };
 
+        [XmlIgnore]
         public CustomerModel Customer
         {
             get { return _customer; }
@@ -206,16 +207,16 @@ namespace PoolGuy.Mobile.ViewModels
 
                 var customerController = new CustomerController();
                 await customerController.ModifyWithChildrenAsync(Customer);
-               
+
                 OnPropertyChanged("Progress");
                 OnPropertyChanged("Percent");
                 OnPropertyChanged("ShowAddEquipment");
-                
+
                 ErrorMessage = "Save Customer Success";
                 OriginalCustomer = JsonConvert.SerializeObject(Customer,
                             Formatting.Indented,
                             new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects });
-                
+
                 IsEditing = false;
 
                 GoBackCommand.Execute(null);
@@ -223,7 +224,7 @@ namespace PoolGuy.Mobile.ViewModels
             catch (Exception e)
             {
                 Debug.WriteLine(e);
-                ErrorMessage = $"Error: {e.Message}";
+                Message.Toast($"Unable to save customer. Error details: {e.Message}", TimeSpan.FromSeconds(5));
             }
             finally
             {
