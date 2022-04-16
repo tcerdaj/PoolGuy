@@ -56,18 +56,10 @@ namespace PoolGuy.Mobile.Extensions
             try
             {
                 var stopItemController = new StopItemController().LocalData;
-                var stopItems = await stopItemController.List(new Data.Models.Query.SQLControllerListCriteriaModel
-                {
-                    Filter = new System.Collections.Generic.List<Data.Models.Query.SQLControllerListFilterField> {
-                       new Data.Models.Query.SQLControllerListFilterField {
-                            FieldName = "ItemType",
-                            ValueLBound = ((int)Enums.eItemType.Stop).ToString()
-                       }}
-                });
 
-                if (!stopItems.Any())
-                {
-                    var items = new List<StopItemModel> {
+                await stopItemController.ClearTableAsync();
+
+                var items = new List<StopItemModel> {
                  new StopItemModel {
                    Index = 0,
                    Name = "CHL",
@@ -78,6 +70,7 @@ namespace PoolGuy.Mobile.Extensions
                    Frequency = 1,
                    FrequencyType = Enums.eFrequencyType.Weekly,
                    Price = 69.99m,
+                   IsRequired = true
                  },
                  new StopItemModel {
                    Index = 1,
@@ -88,6 +81,7 @@ namespace PoolGuy.Mobile.Extensions
                    Frequency = 1,
                    FrequencyType = Enums.eFrequencyType.Weekly,
                    Price = 0m,
+                   IsRequired = true
                  },
                  new StopItemModel {
                    Index = 2,
@@ -98,6 +92,7 @@ namespace PoolGuy.Mobile.Extensions
                    Frequency = 1,
                    FrequencyType = Enums.eFrequencyType.Weekly,
                    Price = 0m,
+                   IsRequired = true
                  },
                   new StopItemModel {
                    Index = 3,
@@ -118,6 +113,7 @@ namespace PoolGuy.Mobile.Extensions
                    Frequency = 1,
                    FrequencyType = Enums.eFrequencyType.Monthly,
                    Price = 0m,
+                   IsRequired = true
                  },
                  new StopItemModel {
                    Index = 5,
@@ -167,6 +163,7 @@ namespace PoolGuy.Mobile.Extensions
                    IsCheckField = true,
                    Frequency = 1,
                    FrequencyType = Enums.eFrequencyType.Weekly,
+                   IsRequired = true
                  },
                  new StopItemModel {
                    Index = 10,
@@ -207,12 +204,13 @@ namespace PoolGuy.Mobile.Extensions
                    IsCheckField = true,
                    Frequency = 1,
                    FrequencyType = Enums.eFrequencyType.Weekly,
+                   IsRequired = true
                  }
                 };
 
-                    await stopItemController.InsertAll(items);
-                    SimpleIoc.Default.GetInstance<IUserDialogs>().Toast($"{items.Count} Items successfully generated", TimeSpan.FromSeconds(3));
-                }
+                await stopItemController.InsertAll(items);
+                SimpleIoc.Default.GetInstance<IUserDialogs>().Toast($"{items.Count} Items successfully generated", TimeSpan.FromSeconds(3));
+
             }
             catch (Exception e)
             {

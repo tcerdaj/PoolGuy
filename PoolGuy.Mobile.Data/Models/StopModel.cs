@@ -11,10 +11,10 @@ namespace PoolGuy.Mobile.Data.Models
     public class StopModel : EntityBase
     {
         [ForeignKey(typeof(CustomerModel))]
-        public Guid CustimerId { get; set; }
+        public Guid CustomerId { get; set; }
 
         private CustomerModel _customer;
-        [ManyToOne("CustimerId", CascadeOperations = CascadeOperation.CascadeRead)]
+        [ManyToOne("CustomerId", CascadeOperations = CascadeOperation.CascadeRead)]
         public CustomerModel Customer
         {
             get { return _customer; }

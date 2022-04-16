@@ -85,6 +85,13 @@ namespace PoolGuy.Mobile.ViewModels
             set { _stop = value; OnPropertyChanged("Stop"); }
         }
 
+        private bool _isEditing;
+        public bool IsEditing
+        {
+            get { return _isEditing; }
+            set { _isEditing = value; OnPropertyChanged(nameof(IsEditing)); }
+        }
+
         private void SubscribeMessage()
         {
          
@@ -122,10 +129,11 @@ namespace PoolGuy.Mobile.ViewModels
 
                     if (!items.Any())
                     {
-                        var result = await Message.DisplayConfirmationAsync("There is not items yet added to the stop, do you want to added now", "Yes", "Cancel");
+                        var result = await Message.DisplayConfirmationAsync("There is not items yet added to the stop, do you want to added now",Title, "Yes", "Cancel");
                         if (result)
                         {
                             await Utils.AddStopDetaultItemsAsync();
+
                             items = await new StopItemController().LocalData.List(new SQLControllerListCriteriaModel
                             {
                                 Filter = new List<SQLControllerListFilterField> {
@@ -139,7 +147,7 @@ namespace PoolGuy.Mobile.ViewModels
 
                     Stop = new StopModel
                     {
-                        CustimerId = Customer.Id,
+                        CustomerId = Customer.Id,
                         Customer = Customer,
                         Created = DateTime.Now,
                         Items = new ObservableCollection<StopItemModel>(items),
@@ -214,26 +222,76 @@ namespace PoolGuy.Mobile.ViewModels
             }
         }
 
-        public ICommand CompleteStopCommand
+        public ICommand SaveCommand
         {
             get
             {
-                return new RelayCommand(async () => {
-                    // TODO:
-                    // Validate required fields
-
-                    if (Stop.Items == null)
+                return new RelayCommand<bool>(async (complete) =>
+                {
+                    if (!IsEditing)
                     {
                         return;
                     }
 
-                    Stop.Status = WorkStatus.Completed;
+                    if (Stop.Items == null || (Stop.Items != null && !Stop.Items.Any()))
+                    {
+                        Message.Toast("Items are required", TimeSpan.FromSeconds(5));
+                        return;
+                    }
+
+                    if (Stop.Items != null && Stop.Items.All(x=>!x.IsRequired && string.IsNullOrEmpty(x.Test) && string.IsNullOrEmpty(x.Appliyed)))
+                    {
+                        Message.Toast("You need to add a least an item value", TimeSpan.FromSeconds(5));
+                        return;
+                    }
+
+                    var errors = ItemsValidation();
+                    if (!string.IsNullOrEmpty(errors))
+                    {
+                        Message.Toast(errors, TimeSpan.FromSeconds(5));
+                        return;
+                    }
+
+                    if (complete && await Message.DisplayConfirmationAsync("Are you sure do you want to complete the stop?", "Confirmation", "Ok", "Cancel"))
+                    {
+                        Stop.Status = WorkStatus.Completed;
+                    }
+                    else if(complete)
+                    {
+                        return;
+                    }
 
                     await new StopController().ModifyWithChildrenAsync(Stop);
 
                     await NavigationService.CloseModal();
                 });
             }
+        }
+
+        /// <summary>
+        /// Validate required items
+        /// </summary>
+        /// <returns></returns>
+        private string ItemsValidation()
+        {
+            // TODO:
+            // Validate required fields
+            List<string> errors = new List<string>();
+            foreach (var item in Stop.Items)
+            {
+                if (item.IsRequired && (string.IsNullOrEmpty(item.Test) || string.IsNullOrEmpty(item.Appliyed)))
+                {
+                    errors.Add($"{item.Name} is required");
+                }
+            }
+
+            if (!errors.Any())
+            {
+            return null;    
+            }
+
+            return string.Join(", ", errors);
+            
         }
     }
 }

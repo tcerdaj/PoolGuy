@@ -31,11 +31,11 @@ namespace PoolGuy.Mobile.Data.Controllers
                                                   "on c.Id = csch.CustomerId " +
                                                   "WHERE csch.SchedulerId = '" + schedulerId + "' ").ConfigureAwait(false);
 
-                var csm = await SQLiteControllerBase
-                   .DatabaseAsync
-                   .QueryAsync<CustomerSchedulerModel>("SELECT * " +
-                                                       "FROM CustomerSchedulerModel ").ConfigureAwait(false); 
-                                                         //"WHERE SchedulerId = '" + schedulerId + "' ").ConfigureAwait(false);
+                foreach (var customer in customers)
+                {
+                    var address = await new AddressController().LocalData.Load(customer.AddressId);
+                    customer.Address = address;
+                }
 
                 return customers?.OrderBy(x=>x.Index)?.ToList();
             }

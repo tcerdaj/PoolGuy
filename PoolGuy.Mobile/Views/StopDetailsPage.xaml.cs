@@ -53,8 +53,15 @@ namespace PoolGuy.Mobile.Views
             }
 
             await _viewModel.InitializeAsync();
-            Stops.HeightRequest = _viewModel.Stop.Items.Count * 30 ;
             _viewModel.IsBusy = false;
+        }
+
+        private void Notes_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(e.NewTextValue != e.OldTextValue)
+            {
+                _viewModel.IsEditing = true;
+            }
         }
     }
 }

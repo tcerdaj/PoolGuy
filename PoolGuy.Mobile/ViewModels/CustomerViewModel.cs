@@ -42,15 +42,13 @@ namespace PoolGuy.Mobile.ViewModels
             Notify.SubscribePoolAction(async (sender) => {
                 try
                 {
-                    if (string.IsNullOrEmpty(sender.ID))
+                    if (sender.Object is PoolModel pool)
                     {
-                        return;
-                    }
 
-                    var pool  = await new PoolController().LoadAsync(Guid.Parse(sender.ID));
-                    Customer.Pool.Equipments = pool.Equipments;
-                    Scheduler = await GetScheduler(Customer);
-                    IsEditing = true;
+                        Customer.Pool.Equipments = pool.Equipments;
+                        Scheduler = await GetScheduler(Customer);
+                        IsEditing = true;
+                    }
                 }
                 catch (Exception e)
                 {
@@ -275,42 +273,6 @@ namespace PoolGuy.Mobile.ViewModels
         public ICommand TakePhotoCommand
         {
             get => new RelayCommand(async () => await TakePoolPhotoAsync());
-        }
-
-        private async Task TakeCustomerPhotoAsync()
-        {
-            if (IsBusy)
-            {
-                return;
-            }
-
-            IsBusy = true;
-
-            try
-            {
-                var action = await Message.DisplayActionSheetAsync("Select Image Source", "Cancel", 
-                    "Gallery", "Camera");
-                if (string.IsNullOrEmpty(action) || action == "Cancel")
-                {
-                    return;
-                }
-
-                var imageService = DependencyService.Get<IImageService>();
-                var photo = await imageService.TakePhoto(action);
-
-                if (photo == null)
-                {
-                    return;
-                }
-
-                Customer.ImageUrl = photo.Path;
-                Customer.NotififyImageUrl();
-            }
-            catch (Exception e)
-            {
-                await Message.DisplayAlertAsync(e.Message, Title, "Ok");
-            }
-            finally { IsBusy = false; }
         }
 
         private async Task TakePoolPhotoAsync()

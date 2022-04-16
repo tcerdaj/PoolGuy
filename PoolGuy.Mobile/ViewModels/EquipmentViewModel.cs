@@ -400,8 +400,8 @@ namespace PoolGuy.Mobile.ViewModels
                     Pool.Equipments[index] = Equipment;
                 }
 
-                await new PoolController().ModifyWithChildrenAsync(Pool);
-                Notify.RaisePoolAction(new Messages.RefreshMessage() { ID = Pool.Id.ToString() });
+                //await new PoolController().ModifyWithChildrenAsync(Pool);
+                Notify.RaisePoolAction(new Messages.RefreshMessage() { Object = Pool});
 
                 await NavigationService.CloseModal(false);
 

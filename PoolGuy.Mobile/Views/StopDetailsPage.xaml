@@ -97,13 +97,16 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Frame Margin="15,10"
+                    <!--Customer info-->
+                    <Frame Grid.Row="0"
+                           Margin="15,10"
                            Padding="5"
                            HasShadow="False"
-                           BorderColor="LightGray"
-                           Grid.Row="0">
+                           BorderColor="LightGray">
                         <StackLayout Padding="10">
                             <Label Text="{Binding Customer.Name}"
                                    FontSize="16"
@@ -130,129 +133,103 @@
                              Color="{StaticResource ExtraLightGray}"
                              HorizontalOptions="FillAndExpand"
                              Margin="10" />
-                    <!--<CollectionView x:Name="Stops"
-                                Grid.Row="2"
-                                Margin="0,0,0,65"
-                                EmptyView="Not items found"
-                                ItemsSource="{Binding StopHistory}">
-                    <CollectionView.Header>
-                        <Grid ColumnDefinitions="30,Auto"
+                    <!--Items Header-->
+                    <StackLayout Grid.Row="2"
+                                 Margin="0"
+                                 Spacing="0">
+                        <BoxView  HeightRequest="1"
+                                  Margin="15,0"
+                                  VerticalOptions="End"
+                                  HorizontalOptions="FillAndExpand"
+                                  Color="LightGray" />
+                        <Grid ColumnDefinitions="80,80, 80, *"
                               Padding="15,0">
-                            <Label Grid.Column="0" Text="W"
+                            <BoxView Grid.Column="0"
+                                     Grid.ColumnSpan="4"
+                                     HeightRequest="1"
+                                     VerticalOptions="End"
+                                     HorizontalOptions="FillAndExpand"
+                                     Color="LightGray" />
+                            <BoxView Grid.Column="0"
+                                     WidthRequest="1"
+                                     HeightRequest="1"
+                                     VerticalOptions="FillAndExpand"
+                                     HorizontalOptions="End"
+                                     Color="LightGray" />
+
+                            <BoxView Grid.Column="0"
+                                     WidthRequest="1"
+                                     HeightRequest="1"
+                                     VerticalOptions="FillAndExpand"
+                                     HorizontalOptions="Start"
+                                     Color="LightGray" />
+
+                            <BoxView Grid.Column="1"
+                                     WidthRequest="1"
+                                     HeightRequest="1"
+                                     VerticalOptions="FillAndExpand"
+                                     HorizontalOptions="End"
+                                     Color="LightGray" />
+                            <BoxView Grid.Column="2"
+                                     WidthRequest="1"
+                                     HeightRequest="1"
+                                     VerticalOptions="FillAndExpand"
+                                     HorizontalOptions="End"
+                                     Color="LightGray" />
+                            <BoxView Grid.Column="3"
+                                     WidthRequest="1"
+                                     HeightRequest="1"
+                                     VerticalOptions="FillAndExpand"
+                                     HorizontalOptions="End"
+                                     Color="LightGray" />
+
+                            <Label Grid.Column="0"
+                                   Text="COD"
                                    FontAttributes="Bold"
-                                   FontFamily="{StaticResource RobotoFontFamily}"/>
-                            <Label Grid.Column="1" Text="{Binding Year}"
+                                   Margin="5"
+                                   VerticalOptions="FillAndExpand"
+                                   TextColor="Black"
+                                   FontSize="12"
+                                   FontFamily="{StaticResource RobotoFontFamily}" />
+                            <Label Grid.Column="1"
+                                   Text="Test"
                                    FontAttributes="Bold"
-                                   FontFamily="{StaticResource RobotoFontFamily}"/>
+                                   Margin="5"
+                                   VerticalOptions="FillAndExpand"
+                                   FontSize="12"
+                                   TextColor="Black"
+                                   FontFamily="{StaticResource RobotoFontFamily}" />
+                            <Label Grid.Column="2"
+                                   Text="Appliyed"
+                                   FontAttributes="Bold"
+                                   Margin="5"
+                                   FontSize="12"
+                                   VerticalOptions="FillAndExpand"
+                                   TextColor="Black"
+                                   FontFamily="{StaticResource RobotoFontFamily}" />
+                            <Label Grid.Column="3"
+                                   Text="Suggested"
+                                   FontAttributes="Bold"
+                                   Margin="5"
+                                   FontSize="12"
+                                   VerticalOptions="FillAndExpand"
+                                   TextColor="Black"
+                                   FontFamily="{StaticResource RobotoFontFamily}" />
                         </Grid>
-                    </CollectionView.Header>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid ColumnDefinitions="30,Auto"
-                                         Padding="15,0">
-                                <Label Grid.Column="0" Text="{Binding WeekOfYear}"
-                                       HorizontalTextAlignment="Start"/>
-                                <Label Grid.Column="1" Text="{Binding Created, StringFormat='{0:MM/dd}'}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>-->
-                    <CollectionView x:Name="Stops"
-                                    Grid.Row="2"
-                                    VerticalOptions="Fill"
-                                    Margin="0,0,0,10"
-                                    EmptyView="Not items found"
-                                    ItemsSource="{Binding Stop.Items}">
-                        <CollectionView.Header>
-                            <StackLayout Margin="0"
-                                         Spacing="0">
-                                <BoxView  HeightRequest="1"
-                                          Margin="15,0"
-                                          VerticalOptions="End"
-                                          HorizontalOptions="FillAndExpand"
-                                          Color="LightGray" />
-                                <Grid ColumnDefinitions="80,80, 80, *"
-                                      Padding="15,0">
-                                    <BoxView Grid.Column="0"
-                                             Grid.ColumnSpan="4"
-                                             HeightRequest="1"
-                                             VerticalOptions="End"
-                                             HorizontalOptions="FillAndExpand"
-                                             Color="LightGray" />
-                                    <BoxView Grid.Column="0"
-                                             WidthRequest="1"
-                                             HeightRequest="1"
-                                             VerticalOptions="FillAndExpand"
-                                             HorizontalOptions="End"
-                                             Color="LightGray" />
-
-                                    <BoxView Grid.Column="0"
-                                             WidthRequest="1"
-                                             HeightRequest="1"
-                                             VerticalOptions="FillAndExpand"
-                                             HorizontalOptions="Start"
-                                             Color="LightGray" />
-
-                                    <BoxView Grid.Column="1"
-                                             WidthRequest="1"
-                                             HeightRequest="1"
-                                             VerticalOptions="FillAndExpand"
-                                             HorizontalOptions="End"
-                                             Color="LightGray" />
-                                    <BoxView Grid.Column="2"
-                                             WidthRequest="1"
-                                             HeightRequest="1"
-                                             VerticalOptions="FillAndExpand"
-                                             HorizontalOptions="End"
-                                             Color="LightGray" />
-                                    <BoxView Grid.Column="3"
-                                             WidthRequest="1"
-                                             HeightRequest="1"
-                                             VerticalOptions="FillAndExpand"
-                                             HorizontalOptions="End"
-                                             Color="LightGray" />
-
-                                    <Label Grid.Column="0"
-                                           Text="COD"
-                                           FontAttributes="Bold"
-                                           Margin="5"
-                                           VerticalOptions="FillAndExpand"
-                                           TextColor="Black"
-                                           FontSize="12"
-                                           FontFamily="{StaticResource RobotoFontFamily}" />
-                                    <Label Grid.Column="1"
-                                           Text="Test"
-                                           FontAttributes="Bold"
-                                           Margin="5"
-                                           VerticalOptions="FillAndExpand"
-                                           FontSize="12"
-                                           TextColor="Black"
-                                           FontFamily="{StaticResource RobotoFontFamily}" />
-                                    <Label Grid.Column="2"
-                                           Text="Appliyed"
-                                           FontAttributes="Bold"
-                                           Margin="5"
-                                           FontSize="12"
-                                           VerticalOptions="FillAndExpand"
-                                           TextColor="Black"
-                                           FontFamily="{StaticResource RobotoFontFamily}" />
-                                    <Label Grid.Column="3"
-                                           Text="Suggested"
-                                           FontAttributes="Bold"
-                                           Margin="5"
-                                           FontSize="12"
-                                           VerticalOptions="FillAndExpand"
-                                           TextColor="Black"
-                                           FontFamily="{StaticResource RobotoFontFamily}" />
-                                </Grid>
-                            </StackLayout>
-                        </CollectionView.Header>
-                        <CollectionView.ItemTemplate>
+                    </StackLayout>
+                    <!--Items body-->
+                    <StackLayout Grid.Row="3"
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="FillAndExpand"
+                                 BindableLayout.EmptyView="No items added yet"
+                                 BindableLayout.ItemsSource="{Binding Stop.Items}"
+                                 Spacing="0">
+                        <BindableLayout.ItemTemplate>
                             <DataTemplate>
-                                <StackLayout>
-
+                                <StackLayout Margin="0,-10,0,0">
                                     <Grid ColumnDefinitions="80,80, 80, *"
-                                          Padding="15,0">
+                                          Padding="15,0"
+                                          RowDefinitions="Auto">
                                         <BoxView Grid.Column="0"
                                                  Grid.ColumnSpan="4"
                                                  HeightRequest="1"
@@ -293,43 +270,101 @@
                                                  Color="LightGray" />
 
                                         <Label Grid.Column="0"
-                                               Margin="5"
+                                               Margin="10,20,10,10"
                                                Text="{Binding Name}"
                                                VerticalOptions="Center"
                                                HorizontalTextAlignment="Start" />
                                         <mycc:CustomEntry Grid.Column="1"
                                                           FontSize="12"
                                                           VerticalOptions="Center"
-                                                          Text="{Binding Test}"/>
+                                                          Margin="10,20,10,8"
+                                                          RemovePadding="True"
+                                                          Text="{Binding Test}"
+                                                          TextChanged="Notes_OnTextChanged"/>
                                         <mycc:CustomEntry Grid.Column="2"
                                                           Grid.Row="0"
                                                           FontSize="12"
+                                                          Margin="10,20,10,8"
+                                                          RemovePadding="True"
                                                           VerticalOptions="Center"
-                                                          Text="{Binding Appliyed}"/>
+                                                          Text="{Binding Appliyed}"
+                                                          TextChanged="Notes_OnTextChanged"/>
                                         <mycc:CustomEntry Grid.Column="3"
                                                           FontSize="12"
+                                                          Margin="10,20,10,8"
+                                                          RemovePadding="True"
                                                           VerticalOptions="Center"
-                                                          Text="{Binding Suggested}"/>
+                                                          Text="{Binding Suggested}"
+                                                          TextChanged="Notes_OnTextChanged"/>
                                     </Grid>
                                 </StackLayout>
                             </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                    <Frame Grid.Row="3"
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                    <!--Notes-->
+                    <Label Grid.Row="4"
+                           Margin="15,24,15,0"
+                           Text="Notes"/>
+                    <!--Note containder-->
+                    <Frame Grid.Row="5"
                            BorderColor="Gray"
                            Margin="15,0"
-                           HeightRequest="80"
                            Padding="5"
                            HasShadow="False">
-                        <Editor Placeholder="Notes" />
+                        <mycc:AdjustableEditor Text="{Binding AdditionalInformation}"
+                                               Placeholder="Type Here"
+                                               ScrollEnabled="False"
+                                               FontSize="14"
+                                               AutoSize="TextChanges"
+                                               TextChanged="Notes_OnTextChanged"/>
                     </Frame>
-                    <mycc:AnimatedButton Grid.Row="4"
-                                         Margin="15,10"
-                                         HorizontalOptions="End"
-                                         VerticalOptions="Fill"
-                                         TappedCommand="{Binding CompleteStopCommand}">
-                        <Label Text="Complete" />
-                    </mycc:AnimatedButton>
+                    <!--Save/Complete Buttons-->
+                    <StackLayout Grid.Row="6"
+                                 VerticalOptions="End"
+                                 Margin="60"
+                                 HorizontalOptions="CenterAndExpand"
+                                 Orientation="Horizontal"
+                                 Spacing="20">
+                        <!--Save for later Button-->
+                        <mycc:AnimatedButton TouchUpCommand="{Binding SaveForCommand}"
+                                             AutomationId="cancel_button"
+                                             VerticalOptions="Center"
+                                             IsEnabled="{Binding IsEditing}">
+                            <Label Text="Save for later"
+                                   TextColor="Gray"
+                                   FontSize="16"
+                                   Margin="12,0"
+                                   AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional" />
+                        </mycc:AnimatedButton>
+                        <!--Save Button-->
+                        <mycc:AnimatedButton TouchUpCommand="{Binding SaveCommand}"
+                                             AutomationId="save_button"
+                                             IsEnabled="{Binding IsEditing}">
+                            <mycc:AnimatedButton.TouchUpCommandParameter>
+                                <sys:Boolean>True</sys:Boolean>
+                            </mycc:AnimatedButton.TouchUpCommandParameter>
+                            <Frame AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                                   BackgroundColor="#98CB99"
+                                   HasShadow="False"
+                                   Padding="16,13,16,16">
+                                <Frame.Triggers>
+                                    <DataTrigger TargetType="Frame"
+                                                 Binding="{Binding IsEditing}"
+                                                 Value="True">
+                                        <Setter Property="BackgroundColor"
+                                                Value="#2C842E" />
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                                <Label Text="Save"
+                                       TextColor="#FFFFFF"
+                                       FontSize="16"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Center" />
+                            </Frame>
+                        </mycc:AnimatedButton>
+                    </StackLayout>
                 </Grid>
             </ScrollView>
             <!-- Busy Status -->
