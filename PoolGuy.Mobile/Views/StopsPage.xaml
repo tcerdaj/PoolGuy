@@ -116,19 +116,40 @@
                                     x:Name="Stops"
                                     Margin="0,0,0,65"
                                     ItemsSource="{Binding Stops}">
+                        <!--Empty view-->
                         <CollectionView.EmptyView>
-                            <ContentView VerticalOptions="CenterAndExpand"
-                                         HorizontalOptions="CenterAndExpand">
-                                <StackLayout>
+                            <ContentView >
+                                <StackLayout VerticalOptions="CenterAndExpand"
+                                             HorizontalOptions="CenterAndExpand">
+                                    <!--Not stops label-->
                                     <Label Text="Not stops for today" 
                                            VerticalOptions="Center"
                                            HorizontalOptions="Center"/>
+                                    <!--Add Stop button-->
                                     <mycc:AnimatedButton TouchUpCommand="{Binding AddStopCommand}"
                                                          VerticalOptions="Center"
+                                                         CornerRadius="6"
+                                                         ButtonColor="{StaticResource Title}"
                                                          HorizontalOptions="Center">
                                         <Label Text="Add Stop"
-                                               VerticalOptions="Center"
-                                               HorizontalOptions="Center" />
+                                               FontSize="16"
+                                               TextColor="{StaticResource Accent}"
+                                               Margin="10"
+                                               AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                                               AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                                    </mycc:AnimatedButton>
+                                    <!--Add Customers Button-->
+                                    <mycc:AnimatedButton TouchUpCommand="{Binding AddCustomersCommand}"
+                                                         VerticalOptions="Center"
+                                                         CornerRadius="6"
+                                                         ButtonColor="{StaticResource Title}"
+                                                         HorizontalOptions="Center">
+                                        <Label Text="Add Customers"
+                                               FontSize="16"
+                                               TextColor="{StaticResource Accent}"
+                                               Margin="10"
+                                               AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
+                                               AbsoluteLayout.LayoutFlags="PositionProportional" />
                                     </mycc:AnimatedButton>
                                 </StackLayout>
                             </ContentView>
