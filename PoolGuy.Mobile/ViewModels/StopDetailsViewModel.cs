@@ -11,7 +11,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Xml.Serialization;
 using static PoolGuy.Mobile.Data.Models.Enums;
 
 namespace PoolGuy.Mobile.ViewModels
@@ -89,7 +88,13 @@ namespace PoolGuy.Mobile.ViewModels
         public bool IsEditing
         {
             get { return _isEditing; }
-            set { _isEditing = value; OnPropertyChanged(nameof(IsEditing)); }
+            set {
+                if (Stop?.Status != WorkStatus.Completed)
+                {
+                    _isEditing = value;
+                    OnPropertyChanged(nameof(IsEditing));
+                }
+            }
         }
 
         private void SubscribeMessage()
@@ -97,25 +102,28 @@ namespace PoolGuy.Mobile.ViewModels
          
         }
 
+
+        public bool InitCompleted { get; set; }
+
         public async Task InitializeAsync()
         {
+            InitCompleted = false;
+
             try
             {
-                var stops = await new StopController().LocalData.List(new SQLControllerListCriteriaModel
+                var stops = await new StopController().ListWithChildrenAsync(new SQLControllerListCriteriaModel
                 {
                     Filter = new List<SQLControllerListFilterField>
                     {
                         new SQLControllerListFilterField() {
                             FieldName = "CustomerId",
                             ValueLBound = Customer.Id.ToString()
-                        },
-                        new SQLControllerListFilterField() {
-                            FieldName = "SelectedDate",
-                            ValueLBound = SelectedDate.Date.ToString()
                         }
                     }
                 });
-                
+
+                stops = stops.Where(x => x.SelectedDate.Date == SelectedDate.Date).ToList();
+
                 if (!stops.Any())
                 {
                     var items = await new StopItemController().LocalData.List(new SQLControllerListCriteriaModel
@@ -127,30 +135,26 @@ namespace PoolGuy.Mobile.ViewModels
                              }}
                     });
 
-                    if (!items.Any())
-                    {
-                        var result = await Message.DisplayConfirmationAsync("There is not items yet added to the stop, do you want to added now",Title, "Yes", "Cancel");
-                        if (result)
-                        {
-                            await Utils.AddStopDetaultItemsAsync();
+                    items = items.GroupBy(g => g.Name).Select(x => x.FirstOrDefault()).OrderBy(o => o.Index).ToList();
 
-                            items = await new StopItemController().LocalData.List(new SQLControllerListCriteriaModel
-                            {
-                                Filter = new List<SQLControllerListFilterField> {
-                                     new SQLControllerListFilterField {
-                                         FieldName = "ItemType",
-                                         ValueLBound = ((int)eItemType.Stop).ToString()
-                                     }}
-                            });
-                        }
+                    // reset item values
+                    foreach (var item in items)
+                    {
+                        item.Id = Guid.NewGuid();
+                        item.Test = null;
+                        item.Value = null;
+                        item.Appliyed = null;
+                        item.Suggested = null;
                     }
+
+                    var itemsResult = await AddItemsPrompt(items);
 
                     Stop = new StopModel
                     {
                         CustomerId = Customer.Id,
                         Customer = Customer,
                         Created = DateTime.Now,
-                        Items = new ObservableCollection<StopItemModel>(items),
+                        Items = itemsResult,
                         Status = Enums.WorkStatus.Working,
                         SelectedDate = SelectedDate.Date,
                         User = new UserModel
@@ -174,10 +178,11 @@ namespace PoolGuy.Mobile.ViewModels
                 {
                     // TODO: apply logic to create or select the last stop
                     Stop = stops.LastOrDefault();
+                    Stop.Items = await AddItemsPrompt(Stop.Items.ToList());
                 }
 
                 int weeks = 4;
-                var weeksToRetrieve = DateTime.Now.AddDays(-(int)SelectedDate.DayOfWeek -(6 * weeks));
+                var weeksToRetrieve = DateTime.Now.AddDays(-(int)SelectedDate.DayOfWeek - (6 * weeks));
                 List<StopModel> stopHistory = new List<StopModel>();
                 stopHistory = await new StopController().LocalData.List(new SQLControllerListCriteriaModel
                 {
@@ -204,8 +209,32 @@ namespace PoolGuy.Mobile.ViewModels
                 Debug.WriteLine(e);
                 await Message.DisplayAlertAsync(Title, e.Message, "Ok");
             }
+            finally { InitCompleted = true; }
         }
-        
+
+        private async Task<ObservableCollection<StopItemModel>> AddItemsPrompt(List<StopItemModel> items)
+        {
+            if (!items.Any())
+            {
+                var result = await Message.DisplayConfirmationAsync("There is not items yet added to the stop, do you want to added now", Title, "Yes", "Cancel");
+                if (result)
+                {
+                    await Utils.AddStopDetaultItemsAsync();
+
+                    items = await new StopItemController().LocalData.List(new SQLControllerListCriteriaModel
+                    {
+                        Filter = new List<SQLControllerListFilterField> {
+                                     new SQLControllerListFilterField {
+                                         FieldName = "ItemType",
+                                         ValueLBound = ((int)eItemType.Stop).ToString()
+                                     }}
+                    });
+                }
+            }
+
+            return new ObservableCollection<StopItemModel>(items);
+        }
+
         public ICommand GoBackCommand
         {
             get
@@ -228,7 +257,7 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 return new RelayCommand<bool>(async (complete) =>
                 {
-                    if (!IsEditing)
+                    if (!IsEditing && complete)
                     {
                         return;
                     }
@@ -252,7 +281,7 @@ namespace PoolGuy.Mobile.ViewModels
                         return;
                     }
 
-                    if (complete && await Message.DisplayConfirmationAsync("Are you sure do you want to complete the stop?", "Confirmation", "Ok", "Cancel"))
+                    if (Stop.Status != WorkStatus.Completed && complete && await Message.DisplayConfirmationAsync("Are you sure do you want to complete the stop?", "Confirmation", "Ok", "Cancel"))
                     {
                         Stop.Status = WorkStatus.Completed;
                     }

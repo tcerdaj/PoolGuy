@@ -22,17 +22,23 @@ namespace PoolGuy.Mobile.Data.Controllers
 
                 foreach (var model in list)
                 {
-                    SQLiteNetExtensions
-                   .Extensions
-                   .ReadOperations
-                   .GetWithChildren<List<StopModel>>(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
+                    model.Customer = await new CustomerController().LocalData.Load(model.CustomerId);
+                    model.Items = new System.Collections.ObjectModel.ObservableCollection<StopItemModel>(await new ItemController().LocalData.List(new SQLControllerListCriteriaModel
+                    {
+                        Filter = new List<SQLControllerListFilterField> { new SQLControllerListFilterField { FieldName = "StopId", ValueLBound = model.Id.ToString() } }
+                    }));
+                    model.Images = await new ImageController().LocalData.List(new SQLControllerListCriteriaModel
+                    {
+                        Filter = new List<SQLControllerListFilterField> { new SQLControllerListFilterField { FieldName = "EntityId", ValueLBound = model.Id.ToString() } }
+                    });
+                    model.User = await new UserController().LocalData.Load(model.UserId);
                 }
 
                 return list;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.WriteLine(ex);  
                 throw;
             }
         }
@@ -56,33 +62,62 @@ namespace PoolGuy.Mobile.Data.Controllers
                     throw new Exception("Items can't bee null");
                 }
 
+                bool newStop = false;
                 if (model.Id == Guid.Empty)
                 {
                     var created = DateTime.Now.ToUniversalTime();
                     model.Id = Guid.NewGuid();
-                    //model.Customer.DateLastVisit = created;
-                    //model.Customer.Modified = created;
+                    model.Created = created;
+                    model.Customer.DateLastVisit = created;
+                    newStop = true;
                 }
                 else
                 {
-                    var modified = DateTime.Now.ToUniversalTime();
-                    var tempModel = (StopModel)new StopModel().InjectFrom(model);
+                    model.Modified = DateTime.Now.ToUniversalTime();
+                }
 
-                    model = await LoadAsync(model.Id);
-                    model.InjectFrom(tempModel);
+                // Items
+                if (model.Items != null)
+                {
+                    foreach (var item in model.Items)
+                    {
+                        if (item.Id == Guid.Empty)
+                        {
+                            item.Id = Guid.NewGuid();
+                        }
 
-                    model.Modified = modified;
-                   // model.Customer.DateLastVisit = modified;
-                   // model.Customer.Modified = modified;
+                        item.StopId = model.Id;
+                    }
+                }
+
+                // Images
+                if (model.Images != null)
+                {
+                    foreach (var image in model.Images)
+                    {
+                        if (image.Id == Guid.Empty)
+                        {
+                            image.Id = Guid.NewGuid();
+                        }
+
+                        image.EntityId = model.Id;
+                    }
                 }
 
                 SQLiteNetExtensions
                     .Extensions
                     .WriteOperations
                     .InsertOrReplaceWithChildren(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
+
+                if (newStop && model.Customer != null)
+                {
+                    model.Modified = DateTime.Now.ToUniversalTime();
+                    await new CustomerController().LocalData.Modify(model.Customer);
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 throw;
             }
         }

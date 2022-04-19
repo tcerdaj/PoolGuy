@@ -7,7 +7,7 @@ namespace PoolGuy.Mobile.Data.Models
     public class ContactModel : EntityBase
     {
         private string _phone;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(10), Unique]
+        [DataAnnotation.MaxLength(10), Unique]
         public string Phone
         {
             get { return _phone; }
@@ -23,7 +23,7 @@ namespace PoolGuy.Mobile.Data.Models
         }
 
         private string _email;
-        [DataAnnotation.Required, DataAnnotation.MaxLength(200), Unique]
+        [DataAnnotation.MaxLength(200), Unique]
         public string Email
         {
             get { return _email; }

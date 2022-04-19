@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Omu.ValueInjecter;
 using SQLiteNetExtensionsAsync.Extensions;
+using System.Linq;
 
 namespace PoolGuy.Mobile.Data.Controllers
 {
@@ -27,10 +28,7 @@ namespace PoolGuy.Mobile.Data.Controllers
 
                 foreach (var model in list)
                 {
-                    await SQLiteControllerBase
-                      .DatabaseAsync
-                      .GetChildrenAsync(model, true)
-                      .ConfigureAwait(false);
+                    model.Customers = await new CustomerController().GetCustomersBySchedulerAsync(model.Id);
                 }
 
                 return list;
@@ -64,12 +62,24 @@ namespace PoolGuy.Mobile.Data.Controllers
                     model = await LoadAsync(model.Id);
                     model.InjectFrom(tempModel);
                     model.Modified = modified;
+
                 }
 
                 SQLiteNetExtensions.Extensions.WriteOperations.InsertOrReplaceWithChildren(SQLiteControllerBase.DatabaseAsync.GetConnection(), model, true);
+
+                
+                foreach (var customer in model.Customers)
+                {
+                    string udpateQuery = $"Update CustomerSchedulerModel SET CustomerIndex = '{model.Customers.IndexOf(customer)}' WHERE CustomerId = '{customer.Id}'";
+
+                    await SQLiteControllerBase
+                    .DatabaseAsync
+                    .ExecuteAsync(udpateQuery);
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 throw;
             }
         }

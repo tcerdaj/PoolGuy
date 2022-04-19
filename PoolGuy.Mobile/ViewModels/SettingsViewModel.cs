@@ -139,7 +139,7 @@ namespace PoolGuy.Mobile.ViewModels
                             LastName = c.LastName,
                             AdditionalInformation = c.AdditionalInformation,
                             ImageUrl = $"https://randomuser.me/api/portraits/men/{index}.jpg",
-                            Index = index
+                            CustomerIndex = index
                         };
 
                         await customerController.ModifyWithChildrenAsync(customer);

@@ -28,7 +28,7 @@ namespace PoolGuy.Mobile.Data.Models
         public int Index
         {
             get { return _index; }
-            set { _index = value; OnPropertyChanged("Index"); }
+            set { _index = value; OnPropertyChanged("CustomerIndex"); }
         }
 
         public void IncreaseIndex(int lastIndex)
@@ -47,5 +47,6 @@ namespace PoolGuy.Mobile.Data.Models
         public Guid SchedulerId { get; set; }
         [ForeignKey(typeof(CustomerModel))]
         public Guid CustomerId { get; set; }
+        public int CustomerIndex { get; set; }
     }
 }

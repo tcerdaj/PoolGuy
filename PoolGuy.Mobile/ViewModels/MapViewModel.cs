@@ -128,7 +128,7 @@ namespace PoolGuy.Mobile.ViewModels
                                 Pin customerPin = new Pin
                                 {
                                     Position = new Position(c.Latitude, c.Longitude),
-                                    Label = $"{c.Index + 1}-{c.Name}",
+                                    Label = $"{c.CustomerIndex + 1}-{c.Name}",
                                     Address = $"{c.Address.Address1} | {leg.distance.text}, {leg.duration.text}",
                                     Type = PinType.Place,
                                     Icon = index == 0

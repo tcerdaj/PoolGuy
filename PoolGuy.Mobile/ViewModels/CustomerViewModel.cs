@@ -667,7 +667,7 @@ namespace PoolGuy.Mobile.ViewModels
                     {
                         Sort = new List<Data.Models.Query.SQLControllerListSortField> {
                         new Data.Models.Query.SQLControllerListSortField {
-                          FieldName = "Index"
+                          FieldName = "CustomerIndex"
                         }
                      }
                     }));

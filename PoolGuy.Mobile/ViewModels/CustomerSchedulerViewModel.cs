@@ -85,13 +85,13 @@ namespace PoolGuy.Mobile.ViewModels
             {
                 sch.Selected = true;
                 sch.Customers.ForEach((c) => { c.Selected = true; });
-                if (sch.Customers.All(x => x.Index == 0))
+                if (sch.Customers.All(x => x.CustomerIndex == 0))
                 {
                     sch.Customers = sch.Customers.OrderBy(x => x.Name).ToList();
                 }
                 else
                 {
-                    sch.Customers = sch.Customers.OrderBy(x => x.Index).ToList();
+                    sch.Customers = sch.Customers.OrderBy(x => x.CustomerIndex).ToList();
                 }
             }
 
@@ -197,13 +197,7 @@ namespace PoolGuy.Mobile.ViewModels
                             Customers.Add(c);
                     });
 
-                    //foreach (var cust in sch.Customers)
-                    //{
-                    //    await new CustomerController()
-                    //          .LocalData.Modify(cust);
-                    //}
-
-                    Customers = new ObservableCollection<CustomerModel>(Customers.OrderBy(x => x.Index));
+                    Customers = new ObservableCollection<CustomerModel>(Customers.OrderBy(x => x.CustomerIndex));
                 }
 
                 CustomerSearchResults = Customers;
@@ -362,7 +356,7 @@ namespace PoolGuy.Mobile.ViewModels
                         // Sorting remaing indexes
                         for (int i = destinyIndex + 1; i < sch.Customers.Count; i++)
                         {
-                            sch.Customers[i].Index = i;
+                            sch.Customers[i].CustomerIndex = i;
                         }
 
                         await new SchedulerController().ModifyWithChildrenAsync(sch);

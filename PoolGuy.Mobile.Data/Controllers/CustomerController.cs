@@ -23,13 +23,37 @@ namespace PoolGuy.Mobile.Data.Controllers
         {
             try
             {
+
                 var customers = await SQLiteControllerBase
                     .DatabaseAsync
                     .QueryAsync<CustomerModel>("SELECT " +
-                                                "c.* " +
+                                                "c.Id, " +
+                                                "c.Created, " +
+                                                "c.Modified, " +
+                                                "c.WasModified, " +
+                                                "c.HomeAddressId, " +
+                                                "c.AddressId, " +
+                                                "c.WasModified, " +
+                                                "c.ContactId, " +
+                                                "c.PoolId, " +
+                                                "c.FirstName, " +
+                                                "c.LastName, " +
+                                                "c.ImageUrl, " +
+                                                "c.Status, " +
+                                                "c.DateLastPaid, " +
+                                                "c.DateLastVisit, " +
+                                                "c.AdditionalInformation, " +
+                                                "c.Longitude, " +
+                                                "c.Latitude, " +
+                                                "c.Distance, " +
+                                                "c.Balance, " +
+                                                "c.SameHomeAddress, " +
+                                                "c.Balance, " +
+                                                "csch.CustomerIndex " +
                                                 "FROM CustomerModel c JOIN CustomerSchedulerModel csch " +
                                                   "on c.Id = csch.CustomerId " +
-                                                  "WHERE csch.SchedulerId = '" + schedulerId + "' ").ConfigureAwait(false);
+                                                  "WHERE csch.SchedulerId = '" + schedulerId + "' " +
+                                                  "Order By csch.CustomerIndex").ConfigureAwait(false);
 
                 foreach (var customer in customers)
                 {
@@ -37,7 +61,7 @@ namespace PoolGuy.Mobile.Data.Controllers
                     customer.Address = address;
                 }
 
-                return customers?.OrderBy(x=>x.Index)?.ToList();
+                return customers?.OrderBy(x=>x.CustomerIndex)?.ToList();
             }
             catch (Exception ex)
             {
@@ -215,7 +239,10 @@ namespace PoolGuy.Mobile.Data.Controllers
                     {
                         foreach (var scheduler in model.Scheduler)
                         {
-                            scheduler.Customers.Add(model);
+                            if (scheduler.Customers != null)
+                            {
+                                scheduler.Customers.Add(model);
+                            }
                         }
                     }
                 }
@@ -240,7 +267,10 @@ namespace PoolGuy.Mobile.Data.Controllers
                     {
                         foreach (var scheduler in model.Scheduler)
                         {
-                            scheduler.Customers.Add(model);
+                            if (scheduler.Customers != null)
+                            {
+                                scheduler.Customers.Add(model);
+                            }
                         }
                     }
 

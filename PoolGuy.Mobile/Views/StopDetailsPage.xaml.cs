@@ -58,7 +58,7 @@ namespace PoolGuy.Mobile.Views
 
         private void Notes_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            if(e.NewTextValue != e.OldTextValue)
+            if(e.NewTextValue != e.OldTextValue && _viewModel.InitCompleted)
             {
                 _viewModel.IsEditing = true;
             }

@@ -184,16 +184,16 @@ namespace PoolGuy.Mobile.Data.Models
             } 
         }
 
-        private int _index;
-        public int Index
+        private int _customerIndex;
+        public int CustomerIndex
         {
-            get { return _index; }
-            set { _index = value; OnPropertyChanged("Index"); }
+            get { return _customerIndex; }
+            set { _customerIndex = value; OnPropertyChanged("CustomerIndex"); }
         }
 
         public void IncreaseIndex(int lastIndex)
         {
-            Index = lastIndex + 1;
+            CustomerIndex = lastIndex + 1;
         }
 
         private double _distance;

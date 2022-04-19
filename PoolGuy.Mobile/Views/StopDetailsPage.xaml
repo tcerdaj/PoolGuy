@@ -138,7 +138,7 @@
                                  Margin="0"
                                  Spacing="0">
                         <BoxView  HeightRequest="1"
-                                  Margin="15,0"
+                                  Margin="15,0,16,0"
                                   VerticalOptions="End"
                                   HorizontalOptions="FillAndExpand"
                                   Color="LightGray" />
@@ -147,6 +147,7 @@
                             <BoxView Grid.Column="0"
                                      Grid.ColumnSpan="4"
                                      HeightRequest="1"
+                                     Margin="0,0,2,0"
                                      VerticalOptions="End"
                                      HorizontalOptions="FillAndExpand"
                                      Color="LightGray" />
@@ -223,7 +224,8 @@
                                  HorizontalOptions="FillAndExpand"
                                  BindableLayout.EmptyView="No items added yet"
                                  BindableLayout.ItemsSource="{Binding Stop.Items}"
-                                 Spacing="0">
+                                 Spacing="0"
+                                 Margin="0,-10,0,0">
                         <BindableLayout.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Margin="0,-10,0,0">
@@ -233,6 +235,7 @@
                                         <BoxView Grid.Column="0"
                                                  Grid.ColumnSpan="4"
                                                  HeightRequest="1"
+                                                 Margin="0,0,2,0"
                                                  VerticalOptions="End"
                                                  HorizontalOptions="FillAndExpand"
                                                  Color="LightGray" />
@@ -278,6 +281,7 @@
                                                           FontSize="12"
                                                           VerticalOptions="Center"
                                                           Margin="10,20,10,8"
+                                                          HeightRequest="25"
                                                           RemovePadding="True"
                                                           Text="{Binding Test}"
                                                           TextChanged="Notes_OnTextChanged"/>
@@ -285,6 +289,7 @@
                                                           Grid.Row="0"
                                                           FontSize="12"
                                                           Margin="10,20,10,8"
+                                                          HeightRequest="25"
                                                           RemovePadding="True"
                                                           VerticalOptions="Center"
                                                           Text="{Binding Appliyed}"
@@ -293,6 +298,7 @@
                                                           FontSize="12"
                                                           Margin="10,20,10,8"
                                                           RemovePadding="True"
+                                                          HeightRequest="25"
                                                           VerticalOptions="Center"
                                                           Text="{Binding Suggested}"
                                                           TextChanged="Notes_OnTextChanged"/>
@@ -311,7 +317,7 @@
                            Margin="15,0"
                            Padding="5"
                            HasShadow="False">
-                        <mycc:AdjustableEditor Text="{Binding AdditionalInformation}"
+                        <mycc:AdjustableEditor Text="{Binding Stop.AdditionalInformation}"
                                                Placeholder="Type Here"
                                                ScrollEnabled="False"
                                                FontSize="14"
@@ -326,10 +332,12 @@
                                  Orientation="Horizontal"
                                  Spacing="20">
                         <!--Save for later Button-->
-                        <mycc:AnimatedButton TouchUpCommand="{Binding SaveForCommand}"
+                        <mycc:AnimatedButton TouchUpCommand="{Binding SaveCommand}"
                                              AutomationId="cancel_button"
-                                             VerticalOptions="Center"
-                                             IsEnabled="{Binding IsEditing}">
+                                             VerticalOptions="Center">
+                            <mycc:AnimatedButton.TouchUpCommandParameter>
+                                <sys:Boolean>False</sys:Boolean>
+                            </mycc:AnimatedButton.TouchUpCommandParameter>
                             <Label Text="Save for later"
                                    TextColor="Gray"
                                    FontSize="16"
@@ -339,8 +347,7 @@
                         </mycc:AnimatedButton>
                         <!--Save Button-->
                         <mycc:AnimatedButton TouchUpCommand="{Binding SaveCommand}"
-                                             AutomationId="save_button"
-                                             IsEnabled="{Binding IsEditing}">
+                                             AutomationId="save_button">
                             <mycc:AnimatedButton.TouchUpCommandParameter>
                                 <sys:Boolean>True</sys:Boolean>
                             </mycc:AnimatedButton.TouchUpCommandParameter>
@@ -357,7 +364,7 @@
                                                 Value="#2C842E" />
                                     </DataTrigger>
                                 </Frame.Triggers>
-                                <Label Text="Save"
+                                <Label Text="Complete"
                                        TextColor="#FFFFFF"
                                        FontSize="16"
                                        VerticalTextAlignment="Center"

@@ -4,6 +4,7 @@ using System;
 using SQLiteNetExtensions.Attributes;
 using System.Collections.ObjectModel;
 using SQLite;
+using System.Linq.Expressions;
 
 namespace PoolGuy.Mobile.Data.Models
 {

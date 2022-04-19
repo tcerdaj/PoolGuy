@@ -404,13 +404,13 @@ namespace PoolGuy.Mobile.Extensions
             foreach (var ordered in orderedResult)
             {
                 ((CustomerModel)ordered.Item1).Distance = ordered.Item3;
-                ((CustomerModel)ordered.Item1).Index = _ind++;
+                ((CustomerModel)ordered.Item1).CustomerIndex = _ind++;
             }
 
             selectedCustomers = orderedResult
                 .Select(x => x.Item1)
                 .Cast<CustomerModel>()
-                .ToList<CustomerModel>();
+                .ToList();
 
             return selectedCustomers;
         }
