@@ -115,8 +115,24 @@
                     <CollectionView Grid.Row="1"
                                     x:Name="Stops"
                                     Margin="0,0,0,65"
-                                    EmptyView="Not stops for today"
                                     ItemsSource="{Binding Stops}">
+                        <CollectionView.EmptyView>
+                            <ContentView VerticalOptions="CenterAndExpand"
+                                         HorizontalOptions="CenterAndExpand">
+                                <StackLayout>
+                                    <Label Text="Not stops for today" 
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center"/>
+                                    <mycc:AnimatedButton TouchUpCommand="{Binding AddStopCommand}"
+                                                         VerticalOptions="Center"
+                                                         HorizontalOptions="Center">
+                                        <Label Text="Add Stop"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center" />
+                                    </mycc:AnimatedButton>
+                                </StackLayout>
+                            </ContentView>
+                        </CollectionView.EmptyView>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <mr:StackLayout x:Name="StopRow"

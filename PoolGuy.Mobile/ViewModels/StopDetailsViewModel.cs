@@ -203,6 +203,8 @@ namespace PoolGuy.Mobile.ViewModels
                 }
 
                 StopHistory = stopHistory;
+
+                OnPropertyChanged(nameof(DateLastVisit));
             }
             catch (System.Exception e)
             {
