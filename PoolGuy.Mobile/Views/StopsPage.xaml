@@ -138,19 +138,6 @@
                                                AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
                                                AbsoluteLayout.LayoutFlags="PositionProportional"/>
                                     </mycc:AnimatedButton>
-                                    <!--Add Customers Button-->
-                                    <mycc:AnimatedButton TouchUpCommand="{Binding AddCustomersCommand}"
-                                                         VerticalOptions="Center"
-                                                         CornerRadius="6"
-                                                         ButtonColor="{StaticResource Title}"
-                                                         HorizontalOptions="Center">
-                                        <Label Text="Add Customers"
-                                               FontSize="16"
-                                               TextColor="{StaticResource Accent}"
-                                               Margin="10"
-                                               AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1"
-                                               AbsoluteLayout.LayoutFlags="PositionProportional" />
-                                    </mycc:AnimatedButton>
                                 </StackLayout>
                             </ContentView>
                         </CollectionView.EmptyView>
